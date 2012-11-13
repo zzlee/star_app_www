@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+        <title>影片預覽</title>
+		<link rel="stylesheet" href="./lib/jquery.mobile-1.2.0.css"/>
+        <script src="./lib/jquery-1.8.2.min.js"></script>
+        <script src="./lib/kinetic-v4.0.5.min.js"></script>
+		<script src="./lib/lufylegend-1.5.0.js"></script>
+		<!-- CUSTOM INITIALIZATION CODE -->
+		<script src="photo_cropper.js"></script>
+		<script src="movie_preview_math.js"></script>
+        <script src="mobileinit_movie_gen.js"></script>
+		<script src="./lib/jquery.mobile-1.2.0.js"></script>
+	
+     </head>
+<body class="container">
+    <!-- Movie Preview Page-->
+    <div data-role="page" id="moviePreviewPg">
+        <div data-role="header">
+            <h1>影片預覽</h1>
+        </div>
+        <div data-role="content">
+			<div id="moviePreviewArea">
+                <div id="moviePreview"></div>
+            </div>
+            <div style="position:static">
+                <a data-role="button" onclick="FmMobile.moviePreviewPg.onDoAgainBtnClick()">再來一次</a>
+                <a data-role="button" onclick="FmMobile.moviePreviewPg.onSubmitBtnClick()">提交</a>
+                <div id="divStatus"></div>
+            </div>
+		</div>
+    </div>
+    
+</body>
+</html>
