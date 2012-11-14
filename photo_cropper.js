@@ -385,7 +385,7 @@ function PhotoCropper(divID, stageAllowableWidth, stageAllowableHeight, photoUrl
 	
 	var sources = {
 		photoToCrop: photoUrl,
-		cropper: "cropper.png"
+		cropper: "./img/cropper.png"
 	};
 	loadImages(sources, initStage);
 }

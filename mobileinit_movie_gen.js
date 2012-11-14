@@ -2,7 +2,7 @@ var FmMobile = window.FmMobile || {};
 
 var templateSelected;
 var fileSelectedURI, fileProcessedForCropperURI;
-var photoCroppedURI="face.jpg";
+var photoCroppedURI="./img/face.jpg";
 var fileObjectID;
 var projectID;
 var croppedArea;
@@ -11,20 +11,23 @@ var customizedContent = new Object();
 var fileSelected;
 
 
-/**/
-//for test
-$(document).bind("mobileinit", function(){
-
+var mobileinitForMovieGen = function() {
 	$.mobile.page.prototype.options.addBackBtn = true;
-	//$("#templateSelectPg").live("pagebeforecreate", FmMobile.templateSelectPg.load);
 	$("#templateSelectPg").live("pageinit", FmMobile.templateSelectPg.load);
     //$("#photoSelectPopupPg").live("pageinit", FmMobile.photoSelectPopupPg.load);
 	$("#movieCreatePg").live("pageinit", FmMobile.movieCreatePg.load);
 	$("#photoCropperPg").live("pageinit", FmMobile.photoCropperPg.load);
-	$("#moviePreviewPg").live("pageinit", FmMobile.moviePreviewPg.load);
-	
-	
+	$("#moviePreviewPg").live("pageinit", FmMobile.moviePreviewPg.load);    
+}
+
+/*
+//for test
+$(document).bind("mobileinit", function(){
+    mobileinitForMovieGen();
 });
+ 
+*/
+
 
 
 FmMobile.templateSelectPg = {
@@ -404,7 +407,7 @@ FmMobile.moviePreviewPg = {
 		
 		//for test
 		var cornerImg = new Image();
-		cornerImg.src = "_corner.png";
+		cornerImg.src = "./img/_corner.png";
 		
 		var renderPreviewKeyFrames = function() {
 			
@@ -457,7 +460,7 @@ FmMobile.moviePreviewPg = {
 			imgData.push( {name:"customizableObj",path:photoCroppedURI} );
 			
 			//for test
-			imgData.push( {name:"marker",path:"_corner.png"} );
+			imgData.push( {name:"marker",path:"./img/_corner.png"} );
 			
 			
 			var previewInit = function(result) {

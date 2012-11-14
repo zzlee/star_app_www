@@ -20,12 +20,20 @@
     <div data-role="page" id="photoCropperPg">
         <div data-role="header">
             <h1>裁切照片</h1>
+            <a href="#menuPopup" data-rel="popup" data-role="button" data-icon="grid" data-iconpos="notext" data-inline="true" data-theme="a"></a>
         </div>
         <div data-role="content">
 			<div id="container"></div>
 			<a data-role="button" onclick="FmMobile.photoCropperPg.onOkBtnClick()">進行預覽</a>
             <a data-role="button" onclick="history.back()">重選相片</a>
 		</div>
+        <div data-role="popup" id="menuPopup" data-position-to="window" style="width:30%; height:100%" data-overlay-theme="a">
+            <div data-role="controlgroup">
+                <a href="myVideo.html" data-role="button" data-icon="home" data-iconpos="notext" data-inline="true" data-theme="a"></a>
+                <a href="movie_create.html" data-role="button" data-icon="star" data-iconpos="notext" data-inline="true" data-theme="a"></a>
+                <a href="setting.html" data-role="button" data-icon="gear" data-iconpos="notext" data-inline="true" data-theme="a"></a>
+            </div>
+        </div>
     </div>
     
 </body>

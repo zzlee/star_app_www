@@ -1,4 +1,4 @@
-﻿var FmMobile = window.FmMobile || {};
+var FmMobile = window.FmMobile || {};
 
 var DEBUG = true,
     FM_LOG = (DEBUG) ? function(str){ console.log("\n[FM] "+str); } : function(str){} ;
@@ -6,7 +6,7 @@ var DEBUG = true,
 
 var local = false,
     localhost = "http://localhost:3000",
-    remotesite = "http://www.feltmeng.idv.tw",
+    remotesite = starServerURL,
     domain = (local) ?  localhost : remotesite;
     
 
@@ -19,26 +19,30 @@ $(document).ready(function(){
 });*/
 
 $(document).bind("mobileinit", function(){
-                // Initialization Code here.
-                // $.mobile.ns = "fm";
-                $.mobile.allowCrossDomainPages = true;
-                $.mobile.pushStateEnabled = true;
-                //$.mobile.page.prototype.options.addBackBtn = true;
-               
-                /* pageinit executed after pagebeforecreate */
-                $("#indexPg").live("pageinit", FmMobile.indexPg.init);
-                $("#orie_1").live("pagebeforeshow", FmMobile.orientationPg.init);
-				$('div[id^="orie"]').live("swipeleft ", FmMobile.orientationPg.swipeleft);
-				$('div[id^="orie"]').live("swiperight", FmMobile.orientationPg.swiperight);
-                $("#homePg").live("pageinit", FmMobile.homePg.init);
-                $("#myVideoPg").live("pagebeforecreate", FmMobile.myVideoPg.loadMyVideo);
-				$("#myVideoPg").live("pageinit", FmMobile.myVideoPg.init);
-                $("#videoPg").live("pagebeforecreate", FmMobile.videoPg.init);
-                $("#reservationPg").live("pagebeforeshow", FmMobile.reservationPg.loadMyVideo);
-                $("#"+FmMobile.censorshipPg.PAGE_ID).live("pagebeforeshow", FmMobile.censorshipPg.loadWaitingEvents);
-                //$("#popup").live(); Popup must use "live"
+    // Initialization Code here.
+    // $.mobile.ns = "fm";
+    $.mobile.allowCrossDomainPages = true;
+    $.mobile.pushStateEnabled = true;
+    //$.mobile.page.prototype.options.addBackBtn = true;
+
+    /* pageinit executed after pagebeforecreate */
+    $("#indexPg").live("pageinit", FmMobile.indexPg.init);
+    $("#orie_1").live("pagebeforeshow", FmMobile.orientationPg.init);
+    $('div[id^="orie"]').live("swipeleft ", FmMobile.orientationPg.swipeleft);
+    $('div[id^="orie"]').live("swiperight", FmMobile.orientationPg.swiperight);
+    $("#homePg").live("pageinit", FmMobile.homePg.init);
+    $("#myVideoPg").live("pagebeforecreate", FmMobile.myVideoPg.loadMyVideo);
+    $("#myVideoPg").live("pageinit", FmMobile.myVideoPg.init);
+    $("#videoPg").live("pagebeforecreate", FmMobile.videoPg.init);
+    $("#reservationPg").live("pagebeforeshow", FmMobile.reservationPg.loadMyVideo);
+    $("#"+FmMobile.censorshipPg.PAGE_ID).live("pagebeforeshow", FmMobile.censorshipPg.loadWaitingEvents);
+    //$("#popup").live(); Popup must use "live"
+                 
+    mobileinitForMovieGen();
+     
+                 
                 
-                FM_LOG("<----------------- LOAD JQM and INIT ----------------->");
+    FM_LOG("<----------------- LOAD JQM and INIT ----------------->");
 });
 
 
