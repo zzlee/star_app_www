@@ -17,28 +17,21 @@
      </head>
 <body class="container">
     <!-- Movie Preview Page-->
-    <div data-role="page" id="moviePreviewPg">
-        <div data-role="header">
-            <h1>影片預覽</h1>
+    <div data-role="page" id="moviePreviewPg" class="fm_page">
+        <div data-role="header" class="fm_header">
             <a href="#menuPopup" data-rel="popup" data-role="button" data-icon="grid" data-iconpos="notext" data-inline="true" data-theme="a"></a>
+            <h1>影片預覽</h1>
         </div>
-        <div data-role="content">
-			<div id="moviePreviewArea">
-                <div id="moviePreview"></div>
+        <div data-role="content" class="fm_content">
+			<div id="moviePreviewArea" style="position:relative; width:100%; height:240px; background:rgba(0, 0, 0, 0.3);">
+                <div id="moviePreview" style="position:absolute; width:100%; top:12.5%"></div>
             </div>
-            <div style="position:static">
-                <a data-role="button" onclick="FmMobile.moviePreviewPg.onDoAgainBtnClick()">再來一次</a>
-                <a data-role="button" onclick="FmMobile.moviePreviewPg.onSubmitBtnClick()">提交</a>
+            <div style="position:absolute; bottom:30px; width:100%;">
                 <div id="divStatus"></div>
+                <a data-role="button" class="fm_grayBtn_s" style="margin:0 auto;" onclick="FmMobile.moviePreviewPg.onDoAgainBtnClick()">再來一次</a>
+                <div style="width:100%; height: 10px;"></div>
+                <a data-role="button" class="fm_yellowBtn_s" style="margin:0 auto;" onclick="FmMobile.moviePreviewPg.onSubmitBtnClick()">提交</a>
             </div>
-            <div data-role="popup" id="menuPopup" data-position-to="window" style="width:30%; height:100%" data-overlay-theme="a">
-                <div data-role="controlgroup">
-                    <a href="myVideo.html" data-role="button" data-icon="home" data-iconpos="notext" data-inline="true" data-theme="a"></a>
-                    <a href="movie_create.html" data-role="button" data-icon="star" data-iconpos="notext" data-inline="true" data-theme="a"></a>
-                    <a href="setting.html" data-role="button" data-icon="gear" data-iconpos="notext" data-inline="true" data-theme="a"></a>
-                </div>
-            </div>
-
 		</div>
     </div>
     

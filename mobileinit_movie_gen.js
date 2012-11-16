@@ -17,6 +17,7 @@ var mobileinitForMovieGen = function() {
     //$("#photoSelectPopupPg").live("pageinit", FmMobile.photoSelectPopupPg.load);
 	$("#movieCreatePg").live("pageinit", FmMobile.movieCreatePg.load);
 	$("#photoCropperPg").live("pageinit", FmMobile.photoCropperPg.load);
+    $("#photoCropperPg").live("pageshow", FmMobile.photoCropperPg.show);
 	$("#moviePreviewPg").live("pageinit", FmMobile.moviePreviewPg.load);    
 }
 
@@ -114,7 +115,7 @@ FmMobile.movieCreatePg = {
 		customizedContent.projectID = projectID;
 		customizedContent.templateID = templateID;
 		customizedContent.userName = userName;
-        //customizedContent.userID = userID;
+        customizedContent.ownerID = {_id: localStorage._id, userID: localStorage.fb_userID};
 		var customizableObjects = new Array();
 		customizedContent.customizableObjects = customizableObjects;
 		var itemContentIsReady;
@@ -182,7 +183,7 @@ FmMobile.movieCreatePg = {
 			*/
             
 			var getPhotoFail = function (message) {
-				alert('没有選到相片，請再選一次！');
+				//alert('没有選到相片，請再選一次！');
 			}
 			
             
@@ -233,8 +234,9 @@ FmMobile.movieCreatePg = {
 	
 		var getCustomizableObject_cb = function(xmlDoc) {
 			var customizableObjectsXml = xmlDoc.getElementsByTagName("customizable_object");
-			//$('#customizable_object_list').html('');
+
 			itemContentIsReady = Array(customizableObjectsXml.length);
+            
 			for (var i=0; i<customizableObjectsXml.length; i++) {
 				var objID = customizableObjectsXml[i].getElementsByTagName("ID")[0].childNodes[0].nodeValue;
 				var objFormat = customizableObjectsXml[i].getElementsByTagName("format")[0].childNodes[0].nodeValue;
@@ -244,22 +246,31 @@ FmMobile.movieCreatePg = {
                 customizableObjectDimensions[objID] = {
                     width: customizableObjectsXml[i].getElementsByTagName("original_width")[0].childNodes[0].nodeValue,
                     height: customizableObjectsXml[i].getElementsByTagName("original_height")[0].childNodes[0].nodeValue };
-				
+				/*
 				var imgkeyFrame = $('<img>').attr('src', './template/'+templateID+'/'+objKeyFrame);
-				//var btnSelectFile = $('<button>').html("從相簿選取照片上傳").attr('id','btn'+objID);
-                //var btnTakePickture = $('<button>').html("使用相機拍照上傳").attr('id','btn2'+objID);
-				var btnSelectFile = $('<a>').html("從相簿選取照片上傳").attr('id','btn'+objID).attr('data-role','button');
-                var btnTakePickture = $('<a>').html("使用相機拍照上傳").attr('id','btn2'+objID).attr('data-role','button');
+				var btnSelectFile = $('<a>').html("選擇相簿").attr('id','btn'+objID).attr('data-role','button');
+                var btnTakePickture = $('<a>').html("使用相機").attr('id','btn2'+objID).attr('data-role','button');
+                var btnContainer = $('<div>').attr({"id":"divBtnContainer"});
 				$('#customizable_object_list').append( $('<p>').html(imgkeyFrame) );
-				$('#customizable_object_list').append( $('<p>').html(btnSelectFile) );
-                $('#customizable_object_list').append( $('<p>').html(btnTakePickture) );
+                $('#customizable_object_list').append( btnContainer );
+                $('#divBtnContainer').append( $('<p>').html(btnTakePickture) );
+				$('#divBtnContainer').append( $('<p>').html(btnSelectFile) );
 				$('#customizable_object_list').append( $('<div>').attr('id','div'+objID));
 				$('#customizable_object_list').append('<br>');
+				$('#btn'+objID).addClass("fm_grayBtn_s");
+                $('#btn2'+objID).addClass("fm_grayBtn_s");
 				$('#btn'+objID).button();
                 $('#btn2'+objID).button();
 				$('img').width('100%');
 				$('#btn'+objID).bind( "click", { objectID: objID, objectIndex: i, PhotoSource: "album" }, buttonClick_cb);
-				$('#btn2'+objID).bind( "click", { objectID: objID, objectIndex: i, PhotoSource: "camera" }, buttonClick_cb);		
+				$('#btn2'+objID).bind( "click", { objectID: objID, objectIndex: i, PhotoSource: "camera" }, buttonClick_cb);
+                */
+                
+                $('#movieKeyFrame').attr('src', './template/'+templateID+'/'+objKeyFrame);
+                
+				$('#btnUseCamera').bind( "click", { objectID: objID, objectIndex: i, PhotoSource: "camera" }, buttonClick_cb);
+				$('#btnUseAlbum').bind( "click", { objectID: objID, objectIndex: i, PhotoSource: "album" }, buttonClick_cb);
+                
 				
 				customizableObjects[i] = new Object();
 				customizableObjects[i].ID = objID;
@@ -349,14 +360,31 @@ FmMobile.photoCropperPg = {
 	//  Page constants.
     PAGE_ID: "photoCropperPg",
 	
-	myPhotoCropper: null, 
+	myPhotoCropper: null,
+    stageAllowableWidth: 0,
+    stageAllowableHeight: 0,
     
     //  Page methods.
     load: function(event, data){
+        stageAllowableWidth = window.innerWidth;
+        stageAllowableHeight = window.innerHeight*0.9;
         var cropperWidthToHeightRatio = customizableObjectDimensions[fileObjectID].width / customizableObjectDimensions[fileObjectID].height;
-		myPhotoCropper = new PhotoCropper("container", window.innerWidth*0.9, window.innerHeight*0.75,  fileProcessedForCropperURI, cropperWidthToHeightRatio);  
+		myPhotoCropper = new PhotoCropper("photo_cropper_container", stageAllowableWidth, stageAllowableHeight,  fileProcessedForCropperURI, cropperWidthToHeightRatio);
+        
 	},
+
+    show: function(event, data){
+        var stageWidth = $("#photo_cropper_container > div").width();
+        var stageX = (stageAllowableWidth-stageWidth)/2;
+
+        var stageHeight = $("#photo_cropper_container > div").height();
+        var stageY = (stageAllowableHeight-stageHeight)/2;
+        
+        $("#photo_cropper_container > div").css("left", stageX.toString()+"px");
+        $("#photo_cropper_container").css({"position":"absolute", "bottom":stageY.toString()+"px"})
+    },
 	
+    
 	onOkBtnClick: function() {
 		croppedArea = myPhotoCropper.getCroppedArea()
 		var rawPhotoImg = new Image();
@@ -438,12 +466,12 @@ FmMobile.moviePreviewPg = {
 			window.setInterval(timer_cb, 1000/5);
 			*/
 			
-			var previewWidth = window.innerWidth*0.9;
+			var previewWidth = window.innerWidth;
 			var previewHeight = previewWidth * actualHeight/actualWidth;
 			var imglist;
 			var previewBg;
 
-			$("#moviePreviewArea").css({"position":"static", "height":(previewHeight+20).toString()+"px"});
+			//$("#moviePreviewArea").css({"position":"static", "height":(previewHeight+20).toString()+"px"});
 
 			
 			//for test
@@ -812,6 +840,7 @@ FmMobile.moviePreviewPg = {
             */
             
             customizedContent.timeStamp = (new Date()).toISOString();
+            
             
             $.post(starServerURL+'/upload_user_data_info', customizedContent, function(result){
                 console.dir("upload user data info result: "+result);

@@ -269,20 +269,25 @@ function PhotoCropper(divID, stageAllowableWidth, stageAllowableHeight, photoUrl
 
 	var initStage = function(images) {
         
-        var stageWidth, stageHeight;
+        var stageWidth, stageHeight, stageX, stageY;
         if ( stageAllowableWidth/stageAllowableHeight < photoWidthToHeightRatio ) {  
             stageWidth = stageAllowableWidth;
             stageHeight = stageAllowableWidth/photoWidthToHeightRatio;
+            stageX = 0;
+            stageY = (stageAllowableHeight-stageHeight)/2;
         }
         else {
             stageHeight = stageAllowableHeight;
             stageWidth = stageHeight*photoWidthToHeightRatio;
+            stageX = (stageAllowableWidth-stageWidth)/2;
+            stageY = 0;
         }
         
 		stage = new Kinetic.Stage({
 			container: divID,
 			width: stageWidth,
 			height: stageHeight
+            //offset: {x: stageX, y: stageY }
 		});
 		photoToCropGroup = new Kinetic.Group({
 			x: 0,
