@@ -4,19 +4,23 @@
 // http://www.pushittolive.com/post/1239874936/facebook-login-on-iphone-phonegap
 
 var DEBUG = true,
-    FM_LOG = (DEBUG) ? function(str){ console.log("[FM] "+ str); } : function(str){} ;
+    FM_LOG = (DEBUG) ? function(str){ console.log("\n[FM] "+ str); } : function(str){} ;
 
 function FBConnect()
 {
-    /*
+    
+    //  Dedicated to iOS.
 	if(window.plugins.childBrowser == null)
 	{
 		ChildBrowser.install();
-	}*/
+	}
 }
+
+FBConnect.prototype.onConnect;
 
 FBConnect.prototype.connect = function(client_id, redirect_uri, display)
 {
+    
 	this.client_id = client_id;
 	this.redirect_uri = redirect_uri;
 	
@@ -26,30 +30,41 @@ FBConnect.prototype.connect = function(client_id, redirect_uri, display)
 		authorize_url += "&display="+ ( display ? display : "touch" );
 		authorize_url += "&type=user_agent";
         authorize_url += "&scope=read_stream,publish_stream";
-
+    
 	window.plugins.childBrowser.showWebPage(authorize_url);
 	var self = this;
+    
 	window.plugins.childBrowser.onLocationChange = function(loc){
         //The scope of 'this' here is the event.
         self.onLocationChange(loc);
-    }; 
+    };
+    window.plugins.childBrowser.onClose = function(){
+        self.onClose();
+    };
+};
+
+FBConnect.prototype.onClose = function(){
+    FM_LOG("[onClose] ");
 };
 
 FBConnect.prototype.onLocationChange = function(newLoc)
 {
+    FM_LOG("[onLocationChange] ");
 	if(newLoc.indexOf(this.redirect_uri) == 0)
 	{
-		var result = decodeURI(newLoc).split("#")[1];
-		result = decodeURI(result);
-		
-		// TODO: Error Check
-		this.accessToken = result.split("&")[0].split("=")[1];		
-		this.expiresIn = Date.now() + parseInt( result.split("&")[1].split("=")[1] )*1000;
+        FM_LOG("[onLocationChange] Redirect");
+		var result = unescape(newLoc).split("#")[1];
+        
+		// Token Parsing.
+		this.accessToken = result.split("&")[0].split("=")[1];
+        FM_LOG("accessToken: " + this.accessToken);
+		this.expiresIn = Date.now() + parseInt( result.split("&")[1].split("=")[1] );
+        FM_LOG("expiresIn: " + this.expiresIn);
         this.code = result.split("&")[2].split("=")[1];
-        FM_LOG("[onLocationChange] " + JSON.stringify(localStorage));
+        FM_LOG("code: " + this.code);
+        
         localStorage.fb_accessToken = this.accessToken;
         this.getUserID();
-		
 	}
 };
 
@@ -57,6 +72,22 @@ FBConnect.prototype.getUserID = function(){
     FM_LOG("[getUserID] ");
     var url = "https://graph.facebook.com/me?access_token=" + this.accessToken;
     var self = this;
+    /*
+    $.get(url, {"timestamp": Date.now()}, function(response){
+        
+        FM_LOG("[FBConnect.getUserID]: " + JSON.stringify(response) );
+        if(response.id){
+            localStorage.fb_userID = response.id;
+            FM_LOG("localStorage.fb_accessToken = " + localStorage.fb_accessToken);
+            FM_LOG("localStorage.expiresIn = " + localStorage.expiresIn);
+            
+            this.onConnect();   // Callback when FB connected.
+            
+            
+        }else{
+            FM_LOG("[FBConnect.getUserID]: Failed to get FB ID. " + response.error.message);
+        }
+    });*/
     
     var req = new XMLHttpRequest();
     //req.setRequestHeader("Cache-Control", "no-cache");
@@ -67,28 +98,12 @@ FBConnect.prototype.getUserID = function(){
             var res = JSON.parse(e.target.responseText);
             FM_LOG("userID: " + res.id );
             localStorage.fb_userID = res.id;
-			lcalStorage.fb_name = res.name;
             
             self.onConnect();
         }
     };
     req.open("GET", url);
     req.send({"timestamp": Date.now()});
-    /*
-    $.get(url, Date.now(), function(response){
-        if(response.id){
-            localStorage.fb_userID = this.userID = response.id;
-            FM_LOG("[FBConnect.getUserID]: ");
-            FM_LOG("localStorage.fb_accessToken = " + localStorage.fb_accessToken);
-            FM_LOG("localStorage.expiresIn = " + localStorage.expiresIn);
-            
-            self.onConnect();   // Callback when FB connected.
-            
-        }else{
-            FM_LOG("[FBConnect.getUserID]: " + "Failed to get FB ID.");
-        }
-    });*/
-    
     
 };
 
@@ -109,11 +124,13 @@ FBConnect.prototype.getFriends = function()
 // Static method.
 FBConnect.install = function()
 {
+    
 	if(!window.plugins)
 	{
 		window.plugins = {};	
 	}
 	window.plugins.fbConnect = new FBConnect();
+                                                
 	return window.plugins.fbConnect;
 };
 

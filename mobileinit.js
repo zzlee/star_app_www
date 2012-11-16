@@ -26,7 +26,7 @@ $(document).bind("mobileinit", function(){
                 //$.mobile.page.prototype.options.addBackBtn = true;
                
                 /* pageinit executed after pagebeforecreate */
-                $("#indexPg").live("pageinit", FmMobile.indexPg.init);
+                $("#index").live("pageinit", FmMobile.indexPg.init);
                 $("#orie_1").live("pagebeforeshow", FmMobile.orientationPg.init);
 				$('div[id^="orie"]').live("swipeleft ", FmMobile.orientationPg.swipeleft);
 				$('div[id^="orie"]').live("swiperight", FmMobile.orientationPg.swiperight);
@@ -147,7 +147,7 @@ FmMobile.authPopup = {
                 localStorage._id = response.data._id
                 localStorage.fb_accessToken = response.data.accessToken;
                 FM_LOG("localStorage" + JSON.stringify(localStorage));
-                $.mobile.changePage("orientation.html");
+                $.mobile.changePage("orientation.html",{reloadPage:true});
                 window.plugins.childBrowser.close();
             }
         });
@@ -186,7 +186,8 @@ FmMobile.indexPg = {
         FM_LOG("[indexPg.init] ");
         
         if(localStorage.fb_userID){
-            $.mobile.changePage("home.html");
+            //$.mobile.changePage("orientation.html", {reloadPage:true});
+            window.location.href = "orientation.html";
         }
     },
 };
