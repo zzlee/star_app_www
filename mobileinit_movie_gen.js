@@ -386,7 +386,7 @@ FmMobile.photoCropperPg = {
 	
     
 	onOkBtnClick: function() {
-		croppedArea = myPhotoCropper.getCroppedArea()
+		croppedArea = myPhotoCropper.getCroppedArea();
 		var rawPhotoImg = new Image();
 		rawPhotoImg.src = fileProcessedForCropperURI;
 		rawPhotoImg.onload = function(){ 
@@ -806,7 +806,8 @@ FmMobile.moviePreviewPg = {
         });
         history.back();
         */
-        $.mobile.changePage("movie_create.html",{reloadPage:true});
+        //$.mobile.changePage("movie_create.html",{reloadPage:true});
+        $.mobile.changePage("movie_create.html");
     },
     
     onSubmitBtnClick: function() {
