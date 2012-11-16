@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
-        <title>會員登入</title>
+        <title>選單</title>
         <link rel="stylesheet" href="./css/jquery.mobile-1.2.0.css" />
         <script src="./js/jquery-1.8.2.min.js"></script>
         <!-- CUSTOM INITIALIZATION CODE -->
@@ -19,18 +19,14 @@
         <link rel="stylesheet" href="./css/fm.css">
     </head>
 <body class="container">
-    <div data-role="page" id="myVideoPg" class="fm_page">
-        <div data-role="header">
-            <a href="menuPopup.html" data-rel="dialog" data-role="button" data-icon="grid" data-iconpos="notext" data-inline="true" data-theme="a"></a>
-            <h1>我的影片</h1>
+   
+        <div data-role="content" id="contentArea" style="width:320px; height:480px; margin:0px; padding:0px; position:absolute; top:0px; left:0px" class="fm_setting_popup">
+            <a href="myVideo.html" class="fm_setting_icon_mine"></a>
+            <a href="#makingPg" class="fm_setting_icon_make"></a>
+            <a href="setting.html" class="fm_setting_icon_setting"></a>
         </div>
-        <div data-role="content" id="contentArea" class="fm_content">
-            <ul data-role="listview" id="videoList" class="fm_videoList">
-            </ul>
-        </div>
-        <div data-role="footer">
-            Copyright
-        </div>
-    </div>
+
 </body>
 </html>
+
+<!-- style="width:640px; height:960px; margin:0px; padding:0px; position:absolute; top:0px; left:0px" -->

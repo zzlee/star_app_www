@@ -1,4 +1,4 @@
-var FmMobile = window.FmMobile || {};
+﻿var FmMobile = window.FmMobile || {};
 
 var DEBUG = true,
     FM_LOG = (DEBUG) ? function(str){ console.log("\n[FM] "+str); } : function(str){} ;
@@ -6,7 +6,7 @@ var DEBUG = true,
 
 var local = false,
     localhost = "http://localhost:3000",
-    remotesite = starServerURL,
+    remotesite = "http://192.168.5.188", //"http://www.feltmeng.idv.tw",
     domain = (local) ?  localhost : remotesite;
     
 
@@ -19,30 +19,26 @@ $(document).ready(function(){
 });*/
 
 $(document).bind("mobileinit", function(){
-    // Initialization Code here.
-    // $.mobile.ns = "fm";
-    $.mobile.allowCrossDomainPages = true;
-    $.mobile.pushStateEnabled = true;
-    //$.mobile.page.prototype.options.addBackBtn = true;
-
-    /* pageinit executed after pagebeforecreate */
-    $("#indexPg").live("pageinit", FmMobile.indexPg.init);
-    $("#orie_1").live("pagebeforeshow", FmMobile.orientationPg.init);
-    $('div[id^="orie"]').live("swipeleft ", FmMobile.orientationPg.swipeleft);
-    $('div[id^="orie"]').live("swiperight", FmMobile.orientationPg.swiperight);
-    $("#homePg").live("pageinit", FmMobile.homePg.init);
-    $("#myVideoPg").live("pagebeforecreate", FmMobile.myVideoPg.loadMyVideo);
-    $("#myVideoPg").live("pageinit", FmMobile.myVideoPg.init);
-    $("#videoPg").live("pagebeforecreate", FmMobile.videoPg.init);
-    $("#reservationPg").live("pagebeforeshow", FmMobile.reservationPg.loadMyVideo);
-    $("#"+FmMobile.censorshipPg.PAGE_ID).live("pagebeforeshow", FmMobile.censorshipPg.loadWaitingEvents);
-    //$("#popup").live(); Popup must use "live"
-                 
-    mobileinitForMovieGen();
-     
-                 
+                // Initialization Code here.
+                // $.mobile.ns = "fm";
+                $.mobile.allowCrossDomainPages = true;
+                $.mobile.pushStateEnabled = true;
+                //$.mobile.page.prototype.options.addBackBtn = true;
+               
+                /* pageinit executed after pagebeforecreate */
+                $("#indexPg").live("pageinit", FmMobile.indexPg.init);
+                $("#orie_1").live("pagebeforeshow", FmMobile.orientationPg.init);
+				$('div[id^="orie"]').live("swipeleft ", FmMobile.orientationPg.swipeleft);
+				$('div[id^="orie"]').live("swiperight", FmMobile.orientationPg.swiperight);
+                $("#homePg").live("pageinit", FmMobile.homePg.init);
+                $("#myVideoPg").live("pagebeforecreate", FmMobile.myVideoPg.loadMyVideo);
+				$("#myVideoPg").live("pageinit", FmMobile.myVideoPg.init);
+                $("#videoPg").live("pagebeforecreate", FmMobile.videoPg.init);
+                $("#reservationPg").live("pagebeforeshow", FmMobile.reservationPg.loadMyVideo);
+                $("#"+FmMobile.censorshipPg.PAGE_ID).live("pagebeforeshow", FmMobile.censorshipPg.loadWaitingEvents);
+                //$("#popup").live(); Popup must use "live"
                 
-    FM_LOG("<----------------- LOAD JQM and INIT ----------------->");
+                FM_LOG("<----------------- LOAD JQM and INIT ----------------->");
 });
 
 
@@ -52,10 +48,14 @@ FmMobile.videoWorks = null;
 FmMobile.profile = null;
 
 
+FmMobile.backward = function(){
+    
+};
+
 FmMobile.orientationPg = {
 	PAGE_ID: "orie_1",
 	idx: 1,
-	max: 5,
+	max: 4,
 	
 	swipeleft: function(){
 		if( ++FmMobile.orientationPg.idx > FmMobile.orientationPg.max){
@@ -77,11 +77,6 @@ FmMobile.orientationPg = {
     
     init: function(){
         FmMobile.orientationPg.idx = 1;
-        localStorage.fb_userID = "100004053532907";
-        localStorage._id = "509ba9395a5ce36006000001";
-        localStorage.fb_accessToken = "AAABqPdYntP0BAOFEGvPN9P5pMqWTdBfmUXByy8r9faPw1sG1quRN1wgogVwjioFaIm5gFg4MyaAaje6WtZAX9quFiYnT0t1ONqabfmQZDZD";
-        
-        //FmMobile.orientationPg.init();
     },
 };
 
@@ -140,6 +135,7 @@ FmMobile.authPopup = {
         var url = remotesite + "/api/signupwithFB";
             data = {"authResponse": {
                 "userID": localStorage.fb_userID,
+				"userName": localStorage.fb_name,
                 "accessToken": localStorage.fb_accessToken,
                 "expiresIn":  localStorage.expiresIn
             }};
@@ -151,18 +147,10 @@ FmMobile.authPopup = {
                 localStorage._id = response.data._id
                 localStorage.fb_accessToken = response.data.accessToken;
                 FM_LOG("localStorage" + JSON.stringify(localStorage));
-                $.mobile.changePage("home.html");
-                //window.plugins.childBrowser.close();
+                $.mobile.changePage("orientation.html");
+                window.plugins.childBrowser.close();
             }
         });
-
-        
-        /*
-        var popup = $("<div>").attr("id", "authPopup");      
-        popup.jqmData("data-role", "popup");
-        popup.jqmData("data-overlay-theme", "a");
-        popup.html('<iframe src="http://www.feltmeng.idv.tw/signin_fb" width="480" height="320" seamless></iframe>').appendTo("#contentArea").popup();
-        popup.popup("open");*/
         
     },
     
@@ -211,7 +199,7 @@ FmMobile.homePg = {
     //  Page methods.
     
     //  Initialization method.
-    init: function(){
+    init: function(e){
         FM_LOG("\n[Home init]: " + JSON.stringify(location) );
         var url = domain + "/api/profile",
             query = {"user":{
@@ -367,48 +355,51 @@ FmMobile.myVideoPg = {
 		//videoListAdapter($("#contentArea", $(this) ), videoWorks);
 		
 		
-        var url = domain + "/api/profile",
-            query = {"user":{
+        var url = domain + "/api/profile";
+        /*    query = {"user":{
                 "_id": localStorage._id,
                 "accessToken": localStorage.fb_accessToken,
                 "userID": localStorage.fb_userID,
                 "timestamp": Date.now()
             }};
         
-        $.ajax({
-               type: "GET",
-               url: url
-                + "?_id=" + localStorage._id
-                + "&accessToken=" + localStorage.fb_accessToken
-                + "&userID=" + localStorage.fb_userID
-                + "&timestamp" + Date.now(),
-               success: function(res){
-                   if(res.videoWorks){
-                       videoWorks = res.videoWorks;
-                       FM_LOG("Gain videoWorks: " + JSON.stringify(videoWorks) );
-                       $.jStorage.set("videos", videoWorks);
-                       videoListAdapter($("#contentArea", "#myVideoPg" ), videoWorks);
-                   }
-               },
-               async: false
-        });
-        
-        /*
+            
         $.get(url, query, function(res){
         
             if(res.videoWorks){
                 videoWorks = res.videoWorks;
                 FM_LOG("Gain videoWorks: " + JSON.stringify(videoWorks) );
                 $.jStorage.set("videos", videoWorks);
-                videoListAdapter($("#contentArea", "#myVideoPg" ), videoWorks);
-              $.mobile.loadPage($("#myVideoPg"), {reloadPage: true});
+                videoListAdapter($("#contentArea", $(this) ), videoWorks);
             }
         });*/
+        
+        $.ajax({
+            type: "GET",
+            url: url 
+                + "?_id=" + localStorage._id
+                + "&accessToken=" + localStorage.fb_accessToken
+                + "&userID=" + localStorage.fb_userID
+                + "&timestamp=" + Date.now(),
+            success: function(res){
+                if(res.videoWorks){
+                    videoWorks = res.videoWorks;
+                    FM_LOG("Gain videoWorks: " + JSON.stringify(videoWorks) );
+                    $.jStorage.set("videos", videoWorks);
+                    videoListAdapter($("#contentArea", $(this) ), videoWorks);
+                }
+            },
+            async: false
+        });
     },
     //  Initialization method. 
     init: function(){
         //$("#myVideoPg").live( "pagebeforecreate", FmMobile.myVideoPg.loadMyVideoPg);
 		FM_LOG("[myVideoPg] pageinit");
+        //$("#videoList").listview("refresh");
+        //$('div[data-role^="collapsible"]', '#myVideoPg').collapsible("refresh");
+        //$('ul[data-role^="listview"]', "#myVideoPg").listview("refresh");
+        
     },
 };
 
