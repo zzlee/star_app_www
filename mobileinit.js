@@ -6,7 +6,7 @@ var DEBUG = true,
 
 var local = false,
     localhost = "http://localhost:3000",
-    remotesite = "http://192.168.5.188", //"http://www.feltmeng.idv.tw",
+    remotesite = starServerURL, //"http://192.168.5.188", //"http://www.feltmeng.idv.tw",
     domain = (local) ?  localhost : remotesite;
     
 
@@ -26,7 +26,7 @@ $(document).bind("mobileinit", function(){
                 //$.mobile.page.prototype.options.addBackBtn = true;
                
                 /* pageinit executed after pagebeforecreate */
-                $("#index").live("pageinit", FmMobile.indexPg.init);
+                $("#indexPg").live("pageinit", FmMobile.indexPg.init);
                 $("#orie_1").live("pagebeforeshow", FmMobile.orientationPg.init);
 				$('div[id^="orie"]').live("swipeleft ", FmMobile.orientationPg.swipeleft);
 				$('div[id^="orie"]').live("swiperight", FmMobile.orientationPg.swiperight);
@@ -149,11 +149,22 @@ FmMobile.authPopup = {
                 localStorage._id = response.data._id
                 localStorage.fb_accessToken = response.data.accessToken;
                 FM_LOG("localStorage" + JSON.stringify(localStorage));
-                $.mobile.changePage("orientation.html",{reloadPage:true});
+                //$.mobile.changePage("orientation.html",{reloadPage:true});
+                window.location.href = "orientation.html";
                 window.plugins.childBrowser.close();
             }
         });
         
+    },
+    
+    FBLogout: function() {
+        var fb = FBConnect.install();
+        delete localStorage._id;
+        delete localStorage.fb_userID;
+        delete localStorage.fb_name;
+        delete localStorage.fb_accessToken;
+        fb.Logout();
+        $.mobile.changePage("index.html");
     },
     
     getProfile: function(){

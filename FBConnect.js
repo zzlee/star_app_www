@@ -43,6 +43,12 @@ FBConnect.prototype.connect = function(client_id, redirect_uri, display)
     };
 };
 
+
+FBConnect.prototype.Logout = function() {
+    window.plugins.childBrowser.LogOut();
+};
+
+
 FBConnect.prototype.onClose = function(){
     FM_LOG("[onClose] ");
 };
@@ -96,8 +102,9 @@ FBConnect.prototype.getUserID = function(){
         if(req.readyState == 4 && req.status == 200){
             
             var res = JSON.parse(e.target.responseText);
-            FM_LOG("userID: " + res.id );
+            FM_LOG("userID: " + res.id + " userName: " + res.name);
             localStorage.fb_userID = res.id;
+            localStorage.fb_name = res.name;
             
             self.onConnect();
         }
