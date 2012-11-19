@@ -1,4 +1,4 @@
-﻿var FmMobile = window.FmMobile || {};
+var FmMobile = window.FmMobile || {};
 
 var DEBUG = true,
     FM_LOG = (DEBUG) ? function(str){ console.log("\n[FM] "+str); } : function(str){} ;
@@ -37,6 +37,8 @@ $(document).bind("mobileinit", function(){
                 $("#reservationPg").live("pagebeforeshow", FmMobile.reservationPg.loadMyVideo);
                 $("#"+FmMobile.censorshipPg.PAGE_ID).live("pagebeforeshow", FmMobile.censorshipPg.loadWaitingEvents);
                 //$("#popup").live(); Popup must use "live"
+                 
+                mobileinitForMovieGen(); //GZ
                 
                 FM_LOG("<----------------- LOAD JQM and INIT ----------------->");
 });
