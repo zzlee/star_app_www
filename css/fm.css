@@ -17,6 +17,24 @@ div.fm_header {
     font-size: 18px;
 }
 
+#menuBtn span {
+    border-style: none;
+    border-radius: 0px;
+}
+
+a.fm_header_btn {
+    background-image: url("../images/icon/menu.png");
+    background-size: cover;
+    width: 15px;
+    height: 15px;
+    padding: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    margin-top: auto;
+    margin-left: 30px;
+}
+
+
 div.fm_content{
 	padding: 0px;
 	overflow-x: visible;

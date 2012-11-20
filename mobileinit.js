@@ -10,14 +10,6 @@ var local = false,
     domain = (local) ?  localhost : remotesite;
     
 
-/*
-$(document).ready(function(){
-    $('a[href^="#"]').bind('click vclick', function(){
-        location.hash = $(this).attr('href');
-        return false;
-    });
-});*/
-
 $(document).bind("mobileinit", function(){
                 // Initialization Code here.
                 // $.mobile.ns = "fm";
@@ -30,12 +22,12 @@ $(document).bind("mobileinit", function(){
                 $("#orie_1").live("pagebeforeshow", FmMobile.orientationPg.init);
 				$('div[id^="orie"]').live("swipeleft ", FmMobile.orientationPg.swipeleft);
 				$('div[id^="orie"]').live("swiperight", FmMobile.orientationPg.swiperight);
-                $("#homePg").live("pageinit", FmMobile.homePg.init);
+                //$("#homePg").live("pageinit", FmMobile.homePg.init);
                 $("#myVideoPg").live("pagebeforecreate", FmMobile.myVideoPg.loadMyVideo);
 				$("#myVideoPg").live("pageinit", FmMobile.myVideoPg.init);
-                $("#videoPg").live("pagebeforecreate", FmMobile.videoPg.init);
-                $("#reservationPg").live("pagebeforeshow", FmMobile.reservationPg.loadMyVideo);
-                $("#"+FmMobile.censorshipPg.PAGE_ID).live("pagebeforeshow", FmMobile.censorshipPg.loadWaitingEvents);
+                //$("#videoPg").live("pagebeforecreate", FmMobile.videoPg.init);
+                //$("#reservationPg").live("pagebeforeshow", FmMobile.reservationPg.loadMyVideo);
+                //$("#"+FmMobile.censorshipPg.PAGE_ID).live("pagebeforeshow", FmMobile.censorshipPg.loadWaitingEvents);
                 //$("#popup").live(); Popup must use "live"
                  
                 mobileinitForMovieGen(); //GZ
@@ -48,11 +40,58 @@ $(document).bind("mobileinit", function(){
 
 FmMobile.videoWorks = null;
 FmMobile.profile = null;
+FmMobile.ga = null;
 
 
-FmMobile.backward = function(){
+FmMobile.analysis = {
     
+    nativePluginResultHandler: function(result){
+        FM_LOG("[ga.resultHandler] " + result);
+    },
+    
+    nativePluginErrorHandler: function(error){
+        FM_LOG("[ga.errorHandler] " + error);
+    },
+    
+    init: function(){
+        FM_LOG("[analysis.init]");
+        document.addEventListener("deviceready", FmMobile.analysis.onDeviceReady, true);
+    },
+    
+    onDeviceReady: function(){
+        FM_LOG("[onDeviceReady]");
+        FmMobile.ga = window.plugins.gaPlugin;
+        FmMobile.ga.init(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler                , "UA-36431108-1", 10);
+    },
+    
+    goingAway: function(){
+        FmMobile.ga.exit(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler);
+    },
+    
+    trackEvent: function(category, action, lable, value){
+        FmMobile.ga.trackEvent(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, category, action, label, 1);
+    },
+    
+    setVariable: function(key, value, index){
+        FmMobile.ga.setVariable(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, key, value, index);
+    },
+    
+    trackPage: function(url){
+        FmMobile.ga.trackPage(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler
+                              , url);
+    },
 };
+
+
+FmMobile.tocPg = {
+    PAGE_ID: "tocPg",
+        
+    buttonClicked: function(){
+        FmMobile.analysis.trackEvent("Button", "Click", "ToC", 11);
+        $.mobile.changePage("toc.html");
+    },
+};
+
 
 FmMobile.orientationPg = {
 	PAGE_ID: "orie_1",
@@ -61,7 +100,8 @@ FmMobile.orientationPg = {
 	
 	swipeleft: function(){
 		if( ++FmMobile.orientationPg.idx > FmMobile.orientationPg.max){
-			FmMobile.orientationPg.idx = FmMobile.orientationPg.max;
+			//FmMobile.orientationPg.idx = FmMobile.orientationPg.max;
+            $.mobile.changePage("movie_create.html", {transition: "slide"});
 		}else{
 			$.mobile.changePage($("#orie_" + FmMobile.orientationPg.idx), {transition: "slide"});
 		}
@@ -152,6 +192,8 @@ FmMobile.authPopup = {
                 //$.mobile.changePage("orientation.html",{reloadPage:true});
                 window.location.href = "orientation.html";
                 window.plugins.childBrowser.close();
+               
+                FmMobile.analysis.setVariable("Facebook_ID", localStorage.fb_userID, 1);
             }
         });
         
