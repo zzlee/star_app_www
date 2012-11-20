@@ -106,6 +106,7 @@ FmMobile.movieCreatePg = {
 		
 		//temp
 		userName = "anonymous";
+        
        
 		
 		var url = $(this).data('url');
@@ -115,7 +116,7 @@ FmMobile.movieCreatePg = {
 		customizedContent.projectID = projectID;
 		customizedContent.templateID = templateID;
 		customizedContent.userName = userName;
-        customizedContent.ownerID = {_id: localStorage._id, userID: localStorage.fb_userID};
+        customizedContent.ownerID = {_id: localStorage._id, fb_userID: localStorage.fb_userID, fb_name: localStorage.fb_name};
 		var customizableObjects = new Array();
 		customizedContent.customizableObjects = customizableObjects;
 		var itemContentIsReady;
