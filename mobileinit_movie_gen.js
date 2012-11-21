@@ -847,10 +847,20 @@ FmMobile.moviePreviewPg = {
             $.post(starServerURL+'/upload_user_data_info', customizedContent, function(result){
                 console.dir("upload user data info result: "+result);
                 if ( !result.err ) {
-                   $('#divStatus').html("伺服器開始合成影片，請稍後回到此APP檢視影片");
-                   setTimeout(function(){
-                              $('#divStatus').html("");
-                              }, 5000);
+                    /*
+                    $('#divStatus').html("伺服器開始合成影片，請稍後回到此APP檢視影片");
+                    setTimeout(function(){
+                        $('#divStatus').html("");
+                    }, 5000);*/
+                   
+                   
+
+                    navigator.notification.alert(
+                                    '伺服器開始合成影片，請稍後回到此APP檢視影片',  // message
+                                    function(){$.mobile.changePage("myVideo.html");},         // callback
+                                    'MiixCard',            // title
+                                    '確認'                  // buttonName
+                                    );
 
                 }
             });

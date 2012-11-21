@@ -164,7 +164,8 @@ FmMobile.authPopup = {
         FM_LOG("[authPop Init]");
         
         var client_id = "116813818475773";
-        var redir_url = "http://www.facebook.com/connect/login_success.html";
+        var redir_url = ["http://www.facebook.com/connect/login_success.html", "https://www.facebook.com/connect/login_success.html"];
+        
         
         var fb = FBConnect.install();
             fb.connect(client_id, redir_url, "touch");
@@ -241,9 +242,14 @@ FmMobile.indexPg = {
         FM_LOG("[indexPg.init] ");
         
         if(localStorage.fb_userID){
-            //$.mobile.changePage("orientation.html", {reloadPage:true});
+            $.mobile.changePage("myVideo.html");
+            
+        }
+        /*
+        else {
             window.location.href = "orientation.html";
         }
+         */
     },
 };
 
