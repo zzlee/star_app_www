@@ -18,9 +18,9 @@ var mobileinitForMovieGen = function() {
 	$("#movieCreatePg").live("pageinit", FmMobile.movieCreatePg.load);
 	$("#photoCropperPg").live("pageinit", FmMobile.photoCropperPg.load);
     $("#photoCropperPg").live("pageshow", FmMobile.photoCropperPg.show);
-	$("#moviePreviewPg").live("pageinit", FmMobile.moviePreviewPg.load);
-    //$("#moviePreviewPg").live("pageshow", FmMobile.moviePreviewPg.onShow);
-    //$("#moviePreviewPg").live("pagehide", FmMobile.moviePreviewPg.onHide);
+	$("#moviePreviewPg").live("pageinit", FmMobile.moviePreviewPg.load);    
+    $("#moviePreviewPg").live("pageshow", FmMobile.moviePreviewPg.onShow);
+    $("#moviePreviewPg").live("pagehide", FmMobile.moviePreviewPg.onHide);
 }
 
 /*
@@ -108,6 +108,7 @@ FmMobile.movieCreatePg = {
 		
 		//temp
 		userName = "anonymous";
+        
        
 		
 		var url = $(this).data('url');
@@ -117,7 +118,7 @@ FmMobile.movieCreatePg = {
 		customizedContent.projectID = projectID;
 		customizedContent.templateID = templateID;
 		customizedContent.userName = userName;
-        customizedContent.ownerID = {_id: localStorage._id, userID: localStorage.fb_userID};
+        customizedContent.ownerID = {_id: localStorage._id, fb_userID: localStorage.fb_userID, fb_name: localStorage.fb_name};
 		var customizableObjects = new Array();
 		customizedContent.customizableObjects = customizableObjects;
 		var itemContentIsReady;
@@ -421,17 +422,104 @@ FmMobile.photoCropperPg = {
 FmMobile.moviePreviewPg = {
 	//  Page constants.
     PAGE_ID: "moviePreviewPg",
-    previewBg: null,
     
+    previewBg: null,
+    templatePreviewKeyFrames: new Array(),
+    actualWidth: 0,
+    actualHeight:0,
+
+    /*
+    //for test
+    markerUL: null, markerUR: null, markerLL: null, markerLR: null, markerC: null, markerUp: null, markerLow: null, markerL: null, markerR: null,
+    */
+        
+    P_UL: null, P_UR: null, P_LL: null, P_LR: null, P_C: null, P_Up: null, P_Low: null, P_L: null, P_R: null,
+    P_UL_r: null, P_UR_r: null, P_LL_r: null, P_LR_r: null, P_C_r: null, P_Up_r: null, P_Low_r: null, P_L_r: null, P_R_r: null, //points with coordinates relative to Upper Left corner
+        
+    customizableObjBitmapData: null,
+    customizableObjImage: null,
+        
+    vertices: null,
+    indices: null,
+    uvtData: null,
     
     //  Page methods.
-    onFrameRefresh: null,
+    onFrameRefresh: function(){
+        previewBg.graphics.clear();
+        previewBg.graphics.beginBitmapFill(templatePreviewKeyFrames[k].bitmapData);
+        previewBg.graphics.drawRect(1,"#000",[0,0,actualWidth,actualHeight]);
+        
+        l = (k-1)%templatePreviewKeyFrames.length; //5 frames lag??
+        if (l < 0 ) {
+            l += templatePreviewKeyFrames.length;
+        }
+        
+        P_UL = new Point( templatePreviewKeyFrames[l].Obj_UL_x*r, templatePreviewKeyFrames[l].Obj_UL_y*r );
+        P_UR = new Point( templatePreviewKeyFrames[l].Obj_UR_x*r, templatePreviewKeyFrames[l].Obj_UR_y*r );
+        P_LL = new Point( templatePreviewKeyFrames[l].Obj_LL_x*r, templatePreviewKeyFrames[l].Obj_LL_y*r );
+        P_LR = new Point( templatePreviewKeyFrames[l].Obj_LR_x*r, templatePreviewKeyFrames[l].Obj_LR_y*r );
+        P_Up = getMidPoint(P_UL, P_UR);
+        P_Low = getMidPoint(P_LL, P_LR);
+        P_L = getMidPoint(P_UL, P_LL);
+        P_R = getMidPoint(P_UR, P_LR);
+        P_C = getMidPoint(P_Up, P_Low);
+        
+        P_UL_r = new Point(0, 0);
+        P_UR_r = P_UR.relativeTo( P_UL );
+        P_LL_r = P_LL.relativeTo( P_UL );
+        P_LR_r = P_LR.relativeTo( P_UL );
+        P_C_r = P_C.relativeTo( P_UL );
+        P_Up_r = P_Up.relativeTo( P_UL );
+        P_Low_r = P_Low.relativeTo( P_UL );
+        P_L_r = P_L.relativeTo( P_UL );
+        P_R_r = P_R.relativeTo( P_UL );
+        
+        customizableObjImage.x = P_UL.x;
+        customizableObjImage.y = P_UL.y;
+        
+        vertices = [P_UL_r.x, P_UL_r.y, P_L_r.x, P_L_r.y, P_LL_r.x, P_LL_r.y,
+                    P_Up_r.x, P_Up_r.y, P_C_r.x, P_C_r.y, P_Low_r.x, P_Low_r.y,
+                    P_UR_r.x, P_UR_r.y, P_R_r.x, P_R_r.y, P_LR_r.x, P_LR_r.y];
+        customizableObjImage.graphics.clear();
+        customizableObjImage.graphics.beginBitmapFill(customizableObjBitmapData);
+        customizableObjImage.graphics.drawTriangles(vertices, indices, uvtData);
+
+        
+        /*
+        //for test
+        markerUL.x = P_UL.x-10;
+        markerUL.y = P_UL.y-10;
+        markerUR.x = P_UR.x-10;
+        markerUR.y = P_UR.y-10;
+        markerLL.x = P_LL.x-10;
+        markerLL.y = P_LL.y-10;
+        markerLR.x = P_LR.x-10;
+        markerLR.y = P_LR.y-10;
+        markerC.x = P_C.x-10;
+        markerC.y = P_C.y-10;
+        markerUp.x = P_Up.x-10;
+        markerUp.y = P_Up.y-10;
+        markerLow.x = P_Low.x-10;
+        markerLow.y = P_Low.y-10;
+        markerL.x = P_L.x-10;
+        markerL.y = P_L.y-10;
+        markerR.x = P_R.x-10;
+        markerR.y = P_R.y-10;
+        */
+        
+            
+        k++;
+        if ( k >= templatePreviewKeyFrames.length ) {
+            k = 0;
+        }
+    },
+    
     load: function(event, data){
 		
 		var templateID = "rotate"; //TODO: pass a parameter to set
 		var customizableObjectToPreview = "map" //TODO: pass a parameter to set
-		var templatePreviewKeyFrames = new Array();
-		var actualWidth, actualHeight;
+		//var templatePreviewKeyFrames = new Array();
+		//var actualWidth, actualHeight;
 		/*
 		var canvas = document.getElementById("myCanvas");
 		canvas.width = window.innerWidth*0.9;  //TODO: get canvas width and height from composition info
@@ -474,15 +562,15 @@ FmMobile.moviePreviewPg = {
 			var previewWidth = window.innerWidth;
 			var previewHeight = previewWidth * actualHeight/actualWidth;
 			var imglist;
-			
+			//var previewBg;
 
 			//$("#moviePreviewArea").css({"position":"static", "height":(previewHeight+20).toString()+"px"});
 
 			
 			//for test
-			var vertices;
-			var indices;
-			var uvtData;
+			//var vertices;
+			//var indices;
+			//var uvtData;
 				
 			var imgData = new Array();
 			for (var i=0; i<templatePreviewKeyFrames.length; i++) {
@@ -509,18 +597,20 @@ FmMobile.moviePreviewPg = {
 				var customizableObjWidth = imglist["customizableObj"].width;
 				var customizableObjHeight = imglist["customizableObj"].height;
 				
-				var markerUL, markerUR, markerLL, markerLR, markerC, markerUp, markerLow, markerL, markerR;
-				var P_UL, P_UR, P_LL, P_LR, P_C, P_Up, P_Low, P_L, P_R;
-				var P_UL_r, P_UR_r, P_LL_r, P_LR_r, P_C_r, P_Up_r, P_Low_r, P_L_r, P_R_r; //points with coordinates relative to Upper Left corner
+				//var markerUL, markerUR, markerLL, markerLR, markerC, markerUp, markerLow, markerL, markerR;
+				//var P_UL, P_UR, P_LL, P_LR, P_C, P_Up, P_Low, P_L, P_R;
+				//var P_UL_r, P_UR_r, P_LL_r, P_LR_r, P_C_r, P_Up_r, P_Low_r, P_L_r, P_R_r; //points with coordinates relative to Upper Left corner
 				
 				//bitmapData = new LBitmapData(imglist["frame_0"]);
 				for (var i=0; i<templatePreviewKeyFrames.length; i++) {
 					templatePreviewKeyFrames[i].bitmapData = new LBitmapData(imglist["frame_"+String(i)]);
 				}
+                
 				//for test
 				var markerBitmapData = new LBitmapData(imglist["marker"]);
-				var customizableObjBitmapData = new LBitmapData(imglist["customizableObj"]);
-				var customizableObjImage;
+                
+				//var customizableObjBitmapData = new LBitmapData(imglist["customizableObj"]);
+				//var customizableObjImage;
 				
 				/*
 				previewBg = new LBitmap(bitmapData);
@@ -548,10 +638,6 @@ FmMobile.moviePreviewPg = {
 					P_UR = new Point( templatePreviewKeyFrames[l].Obj_UR_x*r, templatePreviewKeyFrames[l].Obj_UR_y*r );
 					P_LL = new Point( templatePreviewKeyFrames[l].Obj_LL_x*r, templatePreviewKeyFrames[l].Obj_LL_y*r );
 					P_LR = new Point( templatePreviewKeyFrames[l].Obj_LR_x*r, templatePreviewKeyFrames[l].Obj_LR_y*r );
-					/*
-					P_C = getDiagonalIntersection( new Point(markerUL.x,markerUL.y), new Point(markerUR.x, markerUR.y),
-														new Point(markerLL.x, markerLL.y), new Point(markerLR.x, markerLR.y) );
-														*/
 					P_Up = getMidPoint(P_UL, P_UR);
 					P_Low = getMidPoint(P_LL, P_LR);
 					P_L = getMidPoint(P_UL, P_LL);
@@ -567,17 +653,6 @@ FmMobile.moviePreviewPg = {
 					P_Low_r = P_Low.relativeTo( P_UL );
 					P_L_r = P_L.relativeTo( P_UL );
 					P_R_r = P_R.relativeTo( P_UL );
-					/*
-					P_UL_r = new Point(0, 0);
-					P_UR_r = P_UR.relativeTo( new Point(customizableObjWidth, 0) );
-					P_LL_r = P_LL.relativeTo( new Point(0, customizableObjHeight) );
-					P_LR_r = P_LR.relativeTo( new Point(customizableObjWidth, customizableObjHeight) );
-					P_C_r = P_C.relativeTo( new Point(customizableObjWidth/2, customizableObjHeight/2) );
-					P_Up_r = P_Up.relativeTo( new Point(customizableObjWidth/2, 0) );
-					P_Low_r = P_Low.relativeTo( new Point(customizableObjWidth/2, customizableObjHeight) );
-					P_L_r = P_L.relativeTo( new Point(0, customizableObjHeight/2) );
-					P_R_r = P_R.relativeTo( new Point(customizableObjWidth, customizableObjHeight/2) );
-					*/
 					
 					customizableObjImage.x = P_UL.x;
 					customizableObjImage.y = P_UL.y;
@@ -588,9 +663,8 @@ FmMobile.moviePreviewPg = {
 					customizableObjImage.graphics.clear();
 					customizableObjImage.graphics.beginBitmapFill(customizableObjBitmapData);
 					customizableObjImage.graphics.drawTriangles(vertices, indices, uvtData);
-					/**/
 					
-					
+					/*
 					//for test
 					markerUL.x = P_UL.x-10;
 					markerUL.y = P_UL.y-10; 
@@ -610,28 +684,22 @@ FmMobile.moviePreviewPg = {
 					markerL.y = P_L.y-10;
 					markerR.x = P_R.x-10;
 					markerR.y = P_R.y-10;
+                    */
 					
-					/*
-					customizableObjImage.graphics.clear();
-					customizableObjImage.graphics.beginBitmapFill(customizableObjBitmapData
-					*/
-					
-
-					
+										
 					k++;
 					if ( k >= templatePreviewKeyFrames.length ) {
 						k = 0;
 					}
-				};
-                
-                onFrameRefresh = onFrame;
+				}
 				
 				
 				previewBg = new LSprite();
 				addChild(previewBg);
 				previewBg.scaleX = r_previewImg;
 				previewBg.scaleY = r_previewImg;
-
+                
+				/*
 				//for test
 				markerUL = new LBitmap(markerBitmapData);
 				markerUR = new LBitmap(markerBitmapData);
@@ -642,7 +710,7 @@ FmMobile.moviePreviewPg = {
 				markerLow = new LBitmap(markerBitmapData);
 				markerL = new LBitmap(markerBitmapData);
 				markerR = new LBitmap(markerBitmapData);
-				/*
+
 				addChild(markerUL);
 				addChild(markerUR);
 				addChild(markerLL);
@@ -676,23 +744,12 @@ FmMobile.moviePreviewPg = {
 				uvtData.push(1, 0.5);
 				uvtData.push(1, 1);
 				
-				var customizableObjImage = new LSprite();
+				//var customizableObjImage = new LSprite();
+                customizableObjImage = new LSprite();
 				addChild(customizableObjImage);
-				//previewBg.addChild(customizableObjImage);
-				/*
-				customizableObjImage.x=200;
-				customizableObjImage.y=100;
-				//vertices = [-49, -58, 7, 136, -16, 315, 115, -24, 120, 120, 124, 272, 240, 0, 237, 123, 240, 240];
-				vertices = [0, 0, 0, 120, 0, 240, 115, -24, 120, 120, 124, 272, 240, 0, 237, 123, 240, 240];
-				customizableObjImage.graphics.clear();
-				customizableObjImage.graphics.beginBitmapFill(customizableObjBitmapData);
-				customizableObjImage.graphics.drawTriangles(vertices, indices, uvtData);
-				*/
 
 				
 				//previewBg.addEventListener(LEvent.ENTER_FRAME,onFrame);
-                
-                //$("#moviePreview").empty();
 				
 				
 			
@@ -724,24 +781,6 @@ FmMobile.moviePreviewPg = {
 				templatePreviewKeyFrames.push(aTemplatePreviewKeyFrame);
 			}
 			
-			/*
-			//iteratively load images
-			var index = 0;
-			var loadImage = function ( index ) {
-				templatePreviewKeyFrames[index].img = new Image();
-				templatePreviewKeyFrames[index].img.src = './template/'+templateID+'/'+templatePreviewKeyFrames[index].BgSource;
-				templatePreviewKeyFrames[index].img.onload = function(){ 
-					index++;
-					if ( index < numberOftemplatePreviewKeyFrames ) {
-						loadImage( index );
-					}
-					else {
-						renderPreviewKeyFrames();
-					}
-				}
- 			}
-			loadImage( index );
-			*/
 			renderPreviewKeyFrames();
 		}
 	
@@ -763,64 +802,19 @@ FmMobile.moviePreviewPg = {
 			success: getTemplateDescription_cb		
 		});
 
-		
-	
-		/*
-		window.requestAnimFrame = function(callback) {
-			return window.requestAnimationFrame || 
-					window.webkitRequestAnimationFrame || 
-					window.mozRequestAnimationFrame || 
-					window.oRequestAnimationFrame || 
-					window.msRequestAnimationFrame ||
-					function(callback) {
-						window.setTimeout(callback, 1000 / 60);
-					};
-		}();
-
-		function animate() {
-			var canvas = document.getElementById("myCanvas");
-			var context = canvas.getContext("2d");
-
-			// update stage
-
-			// clear stage
-			//context.clearRect(0, 0, canvas.width, canvas.height);
-
-			// render stage
-			var img = new Image(); 
-			img.src = "./template/photo/preview_keyframe_map_00005.png"; 
-			img.onload = function(){ 
-				context.drawImage(img, 0, 0, 1920, 1080, 0, 0, canvas.width, canvas.height); 
-			} 
-
-			// request new frame
-			requestAnimFrame( function() {
-				animate();
-			});
-		}
-		
-		animate();
-		*/
-	
-
+		    
 	},
     
     onShow: function(event, data){
         previewBg.addEventListener(LEvent.ENTER_FRAME,onFrameRefresh);  //TODO: onFrameRefresh should be a valid function
     },
-    
+        
     onHide: function(event, data){
         previewBg.removeEventListener(LEvent.ENTER_FRAME,onFrameRefresh); //TODO: onFrameRefresh should be a valid function
     },
-    
+        
     onDoAgainBtnClick: function() {
         
-        /*
-        $('#moviePreviewPg').live('pagehide',function(event, ui){
-            history.back();
-        });
-        history.back();
-        */
         //$.mobile.changePage("movie_create.html",{reloadPage:true});
         $.mobile.changePage("movie_create.html");
     },
@@ -861,10 +855,20 @@ FmMobile.moviePreviewPg = {
             $.post(starServerURL+'/upload_user_data_info', customizedContent, function(result){
                 console.dir("upload user data info result: "+result);
                 if ( !result.err ) {
-                   $('#divStatus').html("伺服器開始合成影片，請稍後回到此APP檢視影片");
-                   setTimeout(function(){
-                              $('#divStatus').html("");
-                              }, 5000);
+                    /*
+                    $('#divStatus').html("伺服器開始合成影片，請稍後回到此APP檢視影片");
+                    setTimeout(function(){
+                        $('#divStatus').html("");
+                    }, 5000);*/
+                   
+                   
+
+                    navigator.notification.alert(
+                                    '伺服器開始合成影片，請稍後回到此APP檢視影片',  // message
+                                    function(){$.mobile.changePage("myVideo.html");},         // callback
+                                    'MiixCard',            // title
+                                    '確認'                  // buttonName
+                                    );
 
                 }
             });

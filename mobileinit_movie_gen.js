@@ -9,6 +9,7 @@ var croppedArea;
 var customizableObjectDimensions = new Object();
 var customizedContent = new Object();
 var fileSelected;
+var myPhotoCropper;
 
 
 var mobileinitForMovieGen = function() {
@@ -18,7 +19,8 @@ var mobileinitForMovieGen = function() {
 	$("#movieCreatePg").live("pageinit", FmMobile.movieCreatePg.load);
 	$("#photoCropperPg").live("pageinit", FmMobile.photoCropperPg.load);
     $("#photoCropperPg").live("pageshow", FmMobile.photoCropperPg.show);
-	$("#moviePreviewPg").live("pageinit", FmMobile.moviePreviewPg.load);    
+	$("#moviePreviewPg").live("pageinit", FmMobile.moviePreviewPg.load);
+    //$("#moviePreviewPg").live("pageshow", FmMobile.moviePreviewPg.load); 
 }
 
 /*
@@ -361,7 +363,7 @@ FmMobile.photoCropperPg = {
 	//  Page constants.
     PAGE_ID: "photoCropperPg",
 	
-	myPhotoCropper: null,
+	//myPhotoCropper: null,
     stageAllowableWidth: 0,
     stageAllowableHeight: 0,
     
@@ -428,11 +430,6 @@ FmMobile.moviePreviewPg = {
 		var customizableObjectToPreview = "map" //TODO: pass a parameter to set
 		var templatePreviewKeyFrames = new Array();
 		var actualWidth, actualHeight;
-		/*
-		var canvas = document.getElementById("myCanvas");
-		canvas.width = window.innerWidth*0.9;  //TODO: get canvas width and height from composition info
-		canvas.height = canvas.width * 9/16;
-		*/
 		
 		//for test
 		var cornerImg = new Image();
@@ -440,32 +437,6 @@ FmMobile.moviePreviewPg = {
 		
 		var renderPreviewKeyFrames = function() {
 			
-			/*
-			var k = 0;
-			var timer_cb = function() {
-				
-				var context = canvas.getContext("2d");
-				//context.clearRect(0, 0, canvas.width, canvas.height);
-				
-				var imgToRender = templatePreviewKeyFrames[k].img;
-				context.drawImage(imgToRender, 0, 0, imgToRender.width, imgToRender.height, 0, 0, canvas.width, canvas.height);
-				
-				//for test
-				var r = canvas.width / imgToRender.width; //the zooming facotr
-				context.drawImage(cornerImg, templatePreviewKeyFrames[k].Obj_UL_x*r-10, templatePreviewKeyFrames[k].Obj_UL_y*r-10); 
-				context.drawImage(cornerImg, templatePreviewKeyFrames[k].Obj_UR_x*r-10, templatePreviewKeyFrames[k].Obj_UR_y*r-10); 
-				context.drawImage(cornerImg, templatePreviewKeyFrames[k].Obj_LL_x*r-10, templatePreviewKeyFrames[k].Obj_LL_y*r-10); 
-				context.drawImage(cornerImg, templatePreviewKeyFrames[k].Obj_LR_x*r-10, templatePreviewKeyFrames[k].Obj_LR_y*r-10); 
-				
-
-				k++;
-				if ( k >= templatePreviewKeyFrames.length ) {
-					k = 0;
-				}
-			}
-		
-			window.setInterval(timer_cb, 1000/5);
-			*/
 			
 			var previewWidth = window.innerWidth;
 			var previewHeight = previewWidth * actualHeight/actualWidth;
@@ -530,6 +501,7 @@ FmMobile.moviePreviewPg = {
 				
 				var k = 0;
 				var l;
+                
 				var onFrame = function(){
 					previewBg.graphics.clear();
 					previewBg.graphics.beginBitmapFill(templatePreviewKeyFrames[k].bitmapData);
@@ -563,17 +535,6 @@ FmMobile.moviePreviewPg = {
 					P_Low_r = P_Low.relativeTo( P_UL );
 					P_L_r = P_L.relativeTo( P_UL );
 					P_R_r = P_R.relativeTo( P_UL );
-					/*
-					P_UL_r = new Point(0, 0);
-					P_UR_r = P_UR.relativeTo( new Point(customizableObjWidth, 0) );
-					P_LL_r = P_LL.relativeTo( new Point(0, customizableObjHeight) );
-					P_LR_r = P_LR.relativeTo( new Point(customizableObjWidth, customizableObjHeight) );
-					P_C_r = P_C.relativeTo( new Point(customizableObjWidth/2, customizableObjHeight/2) );
-					P_Up_r = P_Up.relativeTo( new Point(customizableObjWidth/2, 0) );
-					P_Low_r = P_Low.relativeTo( new Point(customizableObjWidth/2, customizableObjHeight) );
-					P_L_r = P_L.relativeTo( new Point(0, customizableObjHeight/2) );
-					P_R_r = P_R.relativeTo( new Point(customizableObjWidth, customizableObjHeight/2) );
-					*/
 					
 					customizableObjImage.x = P_UL.x;
 					customizableObjImage.y = P_UL.y;
@@ -584,9 +545,8 @@ FmMobile.moviePreviewPg = {
 					customizableObjImage.graphics.clear();
 					customizableObjImage.graphics.beginBitmapFill(customizableObjBitmapData);
 					customizableObjImage.graphics.drawTriangles(vertices, indices, uvtData);
-					/**/
 					
-					
+					/*
 					//for test
 					markerUL.x = P_UL.x-10;
 					markerUL.y = P_UL.y-10; 
@@ -606,10 +566,6 @@ FmMobile.moviePreviewPg = {
 					markerL.y = P_L.y-10;
 					markerR.x = P_R.x-10;
 					markerR.y = P_R.y-10;
-					
-					/*
-					customizableObjImage.graphics.clear();
-					customizableObjImage.graphics.beginBitmapFill(customizableObjBitmapData
 					*/
 					
 
@@ -619,13 +575,13 @@ FmMobile.moviePreviewPg = {
 						k = 0;
 					}
 				}
-				
-				
+                				
 				previewBg = new LSprite();
 				addChild(previewBg);
 				previewBg.scaleX = r_previewImg;
 				previewBg.scaleY = r_previewImg;
 
+				/*
 				//for test
 				markerUL = new LBitmap(markerBitmapData);
 				markerUR = new LBitmap(markerBitmapData);
@@ -636,7 +592,6 @@ FmMobile.moviePreviewPg = {
 				markerLow = new LBitmap(markerBitmapData);
 				markerL = new LBitmap(markerBitmapData);
 				markerR = new LBitmap(markerBitmapData);
-				/*
 				addChild(markerUL);
 				addChild(markerUR);
 				addChild(markerLL);
@@ -673,21 +628,9 @@ FmMobile.moviePreviewPg = {
 				var customizableObjImage = new LSprite();
 				addChild(customizableObjImage);
 				//previewBg.addChild(customizableObjImage);
-				/*
-				customizableObjImage.x=200;
-				customizableObjImage.y=100;
-				//vertices = [-49, -58, 7, 136, -16, 315, 115, -24, 120, 120, 124, 272, 240, 0, 237, 123, 240, 240];
-				vertices = [0, 0, 0, 120, 0, 240, 115, -24, 120, 120, 124, 272, 240, 0, 237, 123, 240, 240];
-				customizableObjImage.graphics.clear();
-				customizableObjImage.graphics.beginBitmapFill(customizableObjBitmapData);
-				customizableObjImage.graphics.drawTriangles(vertices, indices, uvtData);
-				*/
 
 				
 				previewBg.addEventListener(LEvent.ENTER_FRAME,onFrame);
-                
-                //$("#moviePreview").empty();
-				
 				
 			
 			}
@@ -718,24 +661,6 @@ FmMobile.moviePreviewPg = {
 				templatePreviewKeyFrames.push(aTemplatePreviewKeyFrame);
 			}
 			
-			/*
-			//iteratively load images
-			var index = 0;
-			var loadImage = function ( index ) {
-				templatePreviewKeyFrames[index].img = new Image();
-				templatePreviewKeyFrames[index].img.src = './template/'+templateID+'/'+templatePreviewKeyFrames[index].BgSource;
-				templatePreviewKeyFrames[index].img.onload = function(){ 
-					index++;
-					if ( index < numberOftemplatePreviewKeyFrames ) {
-						loadImage( index );
-					}
-					else {
-						renderPreviewKeyFrames();
-					}
-				}
- 			}
-			loadImage( index );
-			*/
 			renderPreviewKeyFrames();
 		}
 	
@@ -751,6 +676,34 @@ FmMobile.moviePreviewPg = {
 			});
 		}
 
+        //get cropped image
+        croppedArea = myPhotoCropper.getCroppedArea();
+		var rawPhotoImg = new Image();
+		rawPhotoImg.src = fileProcessedForCropperURI;
+		rawPhotoImg.onload = function(){
+			var sourceCanvas = document.createElement("canvas");
+			var sourceCanvasContext = sourceCanvas.getContext("2d");
+			sourceCanvas.width = rawPhotoImg.width;
+			sourceCanvas.height = rawPhotoImg.height;
+			sourceCanvasContext.drawImage(rawPhotoImg, 0, 0);
+			//console.dir(tempCanvas);
+			var destinationCanvas = document.createElement("canvas");
+			var destinationCanvasContext = destinationCanvas.getContext("2d");
+			destinationCanvas.width = rawPhotoImg.width*croppedArea.width;
+			destinationCanvas.height = rawPhotoImg.height*croppedArea.height;
+			destinationCanvasContext.drawImage(sourceCanvas,
+                                               rawPhotoImg.width*croppedArea.x,
+                                               rawPhotoImg.height*croppedArea.y,
+                                               rawPhotoImg.width*croppedArea.width,
+                                               rawPhotoImg.height*croppedArea.height,
+                                               0, 0,
+                                               destinationCanvas.width,
+                                               destinationCanvas.height);
+			photoCroppedURI = destinationCanvas.toDataURL();
+			$.mobile.changePage("movie_preview.html");
+		}
+
+        
 		$.ajax({
 			url: './template/'+templateID+'/template_description.xml',
 			dataType: 'xml',
@@ -758,44 +711,7 @@ FmMobile.moviePreviewPg = {
 		});
 
 		
-	
-		/*
-		window.requestAnimFrame = function(callback) {
-			return window.requestAnimationFrame || 
-					window.webkitRequestAnimationFrame || 
-					window.mozRequestAnimationFrame || 
-					window.oRequestAnimationFrame || 
-					window.msRequestAnimationFrame ||
-					function(callback) {
-						window.setTimeout(callback, 1000 / 60);
-					};
-		}();
-
-		function animate() {
-			var canvas = document.getElementById("myCanvas");
-			var context = canvas.getContext("2d");
-
-			// update stage
-
-			// clear stage
-			//context.clearRect(0, 0, canvas.width, canvas.height);
-
-			// render stage
-			var img = new Image(); 
-			img.src = "./template/photo/preview_keyframe_map_00005.png"; 
-			img.onload = function(){ 
-				context.drawImage(img, 0, 0, 1920, 1080, 0, 0, canvas.width, canvas.height); 
-			} 
-
-			// request new frame
-			requestAnimFrame( function() {
-				animate();
-			});
-		}
-		
-		animate();
-		*/
-	
+    
 
 	},
     
