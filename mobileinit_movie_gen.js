@@ -113,7 +113,8 @@ FmMobile.movieCreatePg = {
 		
 		var url = $(this).data('url');
 		//var templateID = url.split("=")[1];
-		var templateID = "rotate";
+		var templateID = "miixcard";
+        //var templateID = "rotate";
 		projectID = templateID +'-'+ userName +'-'+ (new Date()).toISOString().replace(/[-:.]/g, "");
 		customizedContent.projectID = projectID;
 		customizedContent.templateID = templateID;
@@ -426,8 +427,10 @@ FmMobile.moviePreviewPg = {
     //  Page methods.
     load: function(event, data){
 		
-		var templateID = "rotate"; //TODO: pass a parameter to set
-		var customizableObjectToPreview = "map" //TODO: pass a parameter to set
+		//var templateID = "rotate"; //TODO: pass a parameter to set
+		//var customizableObjectToPreview = "map" //TODO: pass a parameter to set
+		var templateID = "miixcard"; //TODO: pass a parameter to set
+		var customizableObjectToPreview = "girl" //TODO: pass a parameter to set
 		var templatePreviewKeyFrames = new Array();
 		var actualWidth, actualHeight;
 		
@@ -648,16 +651,34 @@ FmMobile.moviePreviewPg = {
 			var templatePreviewKeyFramesXml = xmlDoc.getElementsByTagName("preview_key_frame");
 			var numberOftemplatePreviewKeyFrames = templatePreviewKeyFramesXml.length;
 			for (var i=0; i<numberOftemplatePreviewKeyFrames; i++) {
-				var aTemplatePreviewKeyFrame = new Object();
-				aTemplatePreviewKeyFrame.BgSource = templatePreviewKeyFramesXml[i].getElementsByTagName("source")[0].childNodes[0].nodeValue;
-				aTemplatePreviewKeyFrame.Obj_UL_x = templatePreviewKeyFramesXml[i].getElementsByTagName("upper_left_corner_x")[0].childNodes[0].nodeValue;
-				aTemplatePreviewKeyFrame.Obj_UL_y = templatePreviewKeyFramesXml[i].getElementsByTagName("upper_left_corner_y")[0].childNodes[0].nodeValue;
-				aTemplatePreviewKeyFrame.Obj_UR_x = templatePreviewKeyFramesXml[i].getElementsByTagName("upper_right_corner_x")[0].childNodes[0].nodeValue;
-				aTemplatePreviewKeyFrame.Obj_UR_y = templatePreviewKeyFramesXml[i].getElementsByTagName("upper_right_corner_y")[0].childNodes[0].nodeValue;
-				aTemplatePreviewKeyFrame.Obj_LL_x = templatePreviewKeyFramesXml[i].getElementsByTagName("lower_left_corner_x")[0].childNodes[0].nodeValue;
-				aTemplatePreviewKeyFrame.Obj_LL_y = templatePreviewKeyFramesXml[i].getElementsByTagName("lower_left_corner_y")[0].childNodes[0].nodeValue;
-				aTemplatePreviewKeyFrame.Obj_LR_x = templatePreviewKeyFramesXml[i].getElementsByTagName("lower_right_corner_x")[0].childNodes[0].nodeValue;
-				aTemplatePreviewKeyFrame.Obj_LR_y = templatePreviewKeyFramesXml[i].getElementsByTagName("lower_right_corner_y")[0].childNodes[0].nodeValue;
+				var aTemplatePreviewKeyFrame;
+                if ( templatePreviewKeyFramesXml[i].getElementsByTagName("overlaid_customizable_object")[0] ) {
+                    aTemplatePreviewKeyFrame={
+                        BgSource: templatePreviewKeyFramesXml[i].getElementsByTagName("source")[0].childNodes[0].nodeValue,
+                        Obj_UL_x: templatePreviewKeyFramesXml[i].getElementsByTagName("upper_left_corner_x")[0].childNodes[0].nodeValue,
+                        Obj_UL_y: templatePreviewKeyFramesXml[i].getElementsByTagName("upper_left_corner_y")[0].childNodes[0].nodeValue,
+                        Obj_UR_x: templatePreviewKeyFramesXml[i].getElementsByTagName("upper_right_corner_x")[0].childNodes[0].nodeValue,
+                        Obj_UR_y: templatePreviewKeyFramesXml[i].getElementsByTagName("upper_right_corner_y")[0].childNodes[0].nodeValue,
+                        Obj_LL_x: templatePreviewKeyFramesXml[i].getElementsByTagName("lower_left_corner_x")[0].childNodes[0].nodeValue,
+                        Obj_LL_y: templatePreviewKeyFramesXml[i].getElementsByTagName("lower_left_corner_y")[0].childNodes[0].nodeValue,
+                        Obj_LR_x: templatePreviewKeyFramesXml[i].getElementsByTagName("lower_right_corner_x")[0].childNodes[0].nodeValue,
+                        Obj_LR_y: templatePreviewKeyFramesXml[i].getElementsByTagName("lower_right_corner_y")[0].childNodes[0].nodeValue
+                    };
+                }
+                else {
+                    aTemplatePreviewKeyFrame={
+                        BgSource: templatePreviewKeyFramesXml[i].getElementsByTagName("source")[0].childNodes[0].nodeValue,
+                        Obj_UL_x: 0,
+                        Obj_UL_y: 0,
+                        Obj_UR_x: 0,
+                        Obj_UR_y: 0,
+                        Obj_LL_x: 0,
+                        Obj_LL_y: 0,
+                        Obj_LR_x: 0,
+                        Obj_LR_y: 0
+                    };
+                    
+                }
 				templatePreviewKeyFrames.push(aTemplatePreviewKeyFrame);
 			}
 			
@@ -670,7 +691,7 @@ FmMobile.moviePreviewPg = {
 
 	
 			$.ajax({
-				url: './template/'+templateID+'/'+customizableObjectToPreview+'.xml',
+				url: './template/'+templateID+'/preview_keyframe_des_'+customizableObjectToPreview+'.xml',
 				dataType: 'xml',
 				success: getTemplatePreviewKeyFrames_cb		
 			});
