@@ -19,8 +19,8 @@ var mobileinitForMovieGen = function() {
 	$("#movieCreatePg").live("pageinit", FmMobile.movieCreatePg.load);
 	$("#photoCropperPg").live("pageinit", FmMobile.photoCropperPg.load);
     $("#photoCropperPg").live("pageshow", FmMobile.photoCropperPg.show);
-	$("#moviePreviewPg").live("pageinit", FmMobile.moviePreviewPg.load);
-    //$("#moviePreviewPg").live("pageshow", FmMobile.moviePreviewPg.load); 
+	//$("#moviePreviewPg").live("pageinit", FmMobile.moviePreviewPg.load);
+    $("#moviePreviewPg").live("pageshow", FmMobile.moviePreviewPg.load);
 }
 
 /*
@@ -107,8 +107,15 @@ FmMobile.movieCreatePg = {
 		*/
 		
 		//temp
-		userName = "anonymous";
-        
+		//userName = "anonymous";
+
+		if ( localStorage._id ) {
+			userName = localStorage._id;
+		}
+		else {
+			userName = "anonymous";
+		}
+
        
 		
 		var url = $(this).data('url');
@@ -578,6 +585,7 @@ FmMobile.moviePreviewPg = {
 						k = 0;
 					}
 				}
+                
                 				
 				previewBg = new LSprite();
 				addChild(previewBg);
@@ -634,6 +642,18 @@ FmMobile.moviePreviewPg = {
 
 				
 				previewBg.addEventListener(LEvent.ENTER_FRAME,onFrame);
+
+                
+                var onHide = function(){
+                    previewBg.removeEventListener(LEvent.ENTER_FRAME, onFrame);
+                    removeChild(previewBg);
+                    removeChild(customizableObjImage);
+                    $("#moviePreview").empty();
+                    
+                };
+                
+                $("#moviePreviewPg").live("pagehide", onHide);
+                
 				
 			
 			}
