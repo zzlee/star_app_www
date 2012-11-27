@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+                <link rel="stylesheet" href="./css/jquery.mobile-1.2.0.css"/>
+                <!-- CUSTOM INITIALIZATION CODE -->
+                <script src="./lib/cordova-2.2.0.js" type="text/javascript" charset="utf-8"></script>
+                <script src="./lib/jquery-1.8.2.min.js"></script>
+                
+                <script src="./lib/PushNotification.js"></script>
+                <!-- CUSTOM INITIALIZATION CODE -->
+                
+                <script src="./lib/jquery.mobile-1.2.0.js"></script>
+                <link rel="stylesheet" href="./css/fm.css"/>
+                <script type="text/javascript">
+                    
+                    
+                    // If you want to prevent dragging, uncomment this section
+                    
+                     function preventBehavior(e)
+                     {
+                     e.preventDefault();
+                     };
+                     document.addEventListener("touchmove", preventBehavior, false);
+                     
+                    
+                    /* If you are supporting your own protocol, the var invokeString will contain any arguments to the app launch.
+                     see http://iphonedevelopertips.com/cocoa/launching-your-own-application-via-a-custom-url-scheme.html
+                     for more details -jm */
+                    /*
+                     function handleOpenURL(url)
+                     {
+                     // TODO: do something with the url passed in.
+                     }
+                     */
+                    
+                    function onBodyLoad()
+                    {
+                        document.addEventListener("deviceready", onDeviceReady, false);
+                    }
+                    
+                    /* When this function is called, PhoneGap has been initialized and is ready to roll */
+                    function onDeviceReady() {
+                        
+                        var pushNotification = window.plugins.pushNotification;
+                        
+                        pushNotification.registerDevice({alert:true, badge:true, sound:true}, function(status) {
+                            /* if successful status is an object that looks like this:
+                             {"type":"7","pushBadge":"1","pushSound":"1","enabled":"1","deviceToken":"blablahblah","pushAlert":"1"}*/
+                            
+                            console.log('registerDevice:' + JSON.stringify(status));
+                            //navigator.notification.alert(JSON.stringify(['registerDevice', status]));
+                        });
+                    }
+                </script>
+                </head>
+    <body onload="onBodyLoad();" class="container">
+        <div data-role="page" id="indexPg" class="fm_page">
+            <div data-role="content" id="index_contentArea">
+                <a href="javascript:" data-role="button" class="fm_fbBtn" onclick="FmMobile.authPopup.init();">使用FaceBook帳號登入</a>
+                <a href="javascript:" onclick="FmMobile.tocPg.buttonClicked();" class="fm_toc">活動辦法</a>
+            </div>
+        </div>
+    </body>
+</html>
