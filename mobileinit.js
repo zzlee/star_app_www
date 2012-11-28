@@ -15,24 +15,30 @@ $(document).bind("mobileinit", function(){
                 // $.mobile.ns = "fm";
                 $.mobile.allowCrossDomainPages = true;
                 $.mobile.pushStateEnabled = true;
+                
                 //$.mobile.page.prototype.options.addBackBtn = true;
                
                 /* pageinit executed after pagebeforecreate */
-                $("#indexPg").live("pageinit", FmMobile.indexPg.init);
+                //$("#indexPg").live("pageinit", FmMobile.indexPg.init);
+                $("#indexPg").live("pageshow", FmMobile.indexPg.show);
                 $("#orie_1").live("pagebeforeshow", FmMobile.orientationPg.init);
+                $("#orie_1").live("pageshow", FmMobile.orientationPg.show);
 				$('div[id^="orie"]').live("swipeleft ", FmMobile.orientationPg.swipeleft);
 				$('div[id^="orie"]').live("swiperight", FmMobile.orientationPg.swiperight);
-                //$("#homePg").live("pageinit", FmMobile.homePg.init);
                 $("#myVideoPg").live("pagebeforecreate", FmMobile.myVideoPg.loadMyVideo);
 				$("#myVideoPg").live("pageinit", FmMobile.myVideoPg.init);
+                $("#settingPg").live("pageshow", FmMobile.settingPg.show);
+                 
+                //$("#homePg").live("pageinit", FmMobile.homePg.init);
                 //$("#videoPg").live("pagebeforecreate", FmMobile.videoPg.init);
                 //$("#reservationPg").live("pagebeforeshow", FmMobile.reservationPg.loadMyVideo);
                 //$("#"+FmMobile.censorshipPg.PAGE_ID).live("pagebeforeshow", FmMobile.censorshipPg.loadWaitingEvents);
                 //$("#popup").live(); Popup must use "live"
                  
-                mobileinitForMovieGen(); //GZ
+                mobileinitForMovieGen(); //GZ 
                 
                 FM_LOG("<----------------- LOAD JQM and INIT ----------------->");
+                 
 });
 
 
@@ -41,6 +47,120 @@ $(document).bind("mobileinit", function(){
 FmMobile.videoWorks = null;
 FmMobile.profile = null;
 FmMobile.ga = null;
+FmMobile.pushNotification = null;
+
+
+
+
+FmMobile.init = {
+    
+    onBodyLoad: function(){
+        
+        FM_LOG("[Init.onDeviceReady]");
+        
+        document.addEventListener("deviceready", FmMobile.analysis.init, true);
+        document.addEventListener("deviceready", FmMobile.apn.init, true);
+        document.addEventListener("push-notification", function(event){
+          FM_LOG("push-notification");
+          navigator.notification.alert(JSON.stringify(['push-notification!', event]));
+        });
+        
+        document.addEventListener("touchmove", function(e){ e.preventDefault(); }, false);
+        
+        /*
+        localStorage.fb_accessToken = "AAABqPdYntP0BAFi1xrndqwD1v8AZAvYEZBNAxk31y0TDmIXWqKC8ZA5zQwN5NGPZBUsqe8DKvMYG4xWtsrbpVZAZCsPrXbPJO4MPwoRlCUAsULv5zZADH4e";
+        
+        localStorage.fb_userID = "100004053532907"; */
+        
+    },
+};
+
+
+FmMobile.apn = {
+    
+    init: function(){
+        FM_LOG("[APN.init]");
+        FmMobile.pushNotification = window.plugins.pushNotification;
+        FmMobile.apn.registerDevice();
+        //FmMobile.apn.getPendingNotification();
+        //FmMobile.apn.getRemoteNotificationStatus();
+        //FmMobile.apn.getDeviceUniqueIdentifier();
+    },
+    
+    
+    getPushNotification: function(event){
+        FM_LOG("[APN.getPushNotification]" + event );
+        
+        navigator.notification.alert(JSON.stringify(['push-notification!', event]));
+    },
+    
+    /* registration on Apple Push Notification servers (via user interaction) & retrieve the token that will be used to push remote notifications to this device. */
+    registerDevice: function(){
+        
+        FM_LOG("[APN.registerDevice]");
+        FmMobile.pushNotification.registerDevice({alert:true, badge:true, sound:true}, function(status) {
+                                                 
+         /*  if successful status is an object that looks like this:
+          *  {"type":"7","pushBadge":"1","pushSound":"1","enabled":"1","deviceToken":"blablahblah","pushAlert":"1"}
+          */
+            FM_LOG('registerDevice status: ' + JSON.stringify(status) );
+            if(status && !localStorage.deviceToken){
+                localStorage.deviceToken = status.deviceToken;
+            }
+         });
+    },
+    
+    
+    /* it can only retrieve the notification that the user has interacted with while entering the app. Returned params applicationStateActive & applicationLaunchNotification enables you to filter notifications by type. */
+    getPendingNotification: function(){
+        FM_LOG("[APN.getPendingNotification]");
+        FmMobile.pushNotification.getPendingNotifications(function(notifications) {
+            FM_LOG('getPendingNotifications: ' + JSON.stringify(['getPendingNotifications', notifications]) );
+            navigator.notification.alert(JSON.stringify(['getPendingNotifications', notifications]));
+        });
+    },
+    
+    
+    /* registration check for this device. 
+     * {"type":"6","pushBadge":"0","pushSound":"1","enabled":"1","pushAlert":"1"}
+     */
+    getRemoteNotificationStatus: function(){
+        FM_LOG("[APN.getRemoteNotificationStatus]");
+        FmMobile.pushNotification.getRemoteNotificationStatus(function(status) {
+            FM_LOG('getRemoteNotificationStatus ' + JSON.stringify(status) );
+            navigator.notification.alert(JSON.stringify(['getRemoteNotificationStatus', status]));
+        });
+    },
+    
+    
+    /* set the application badge number (that can be updated by a remote push, for instance, resetting it to 0 after notifications have been processed). */
+    setApplicationIconBadgeNumber: function(badgeNum){
+        FM_LOG("[APN.setApplicationIconBadgeNumber]");
+        FmMobile.pushNotification.setApplicationIconBadgeNumber(badgeNum, function(status) {
+            FM_LOG('setApplicationIconBadgeNumber: ' + JSON.stringify(status) );
+            navigator.notification.alert(JSON.stringify(['setBadge', status]));
+        });
+    },
+    
+    
+    /* clear all notifications from the notification center. */
+    cancelAllLocalNotifications: function(){
+        FM_LOG("[APN.cancelAllLocalNotifications]");
+        FmMobile.pushNotification.cancelAllLocalNotifications(function() {
+            navigator.notification.alert(JSON.stringify(['cancelAllLocalNotifications']));
+        });
+    },
+    
+    
+    /* retrieve the original device unique id. (@warning As of today, usage is deprecated and requires explicit consent from the user) */
+    getDeviceUniqueIdentifier: function(){
+        FM_LOG("[APN.getDeviceUniqueIdentifier]");
+        pushNotification.getDeviceUniqueIdentifier(function(uuid) {
+            FM_LOG('getDeviceUniqueIdentifier: ' + uuid);
+            navigator.notification.alert(JSON.stringify(['getDeviceUniqueIdentifier', uuid]));
+        });
+    },
+};
 
 
 FmMobile.analysis = {
@@ -55,20 +175,18 @@ FmMobile.analysis = {
     
     init: function(){
         FM_LOG("[analysis.init]");
-        document.addEventListener("deviceready", FmMobile.analysis.onDeviceReady, true);
-    },
-    
-    onDeviceReady: function(){
-        FM_LOG("[onDeviceReady]");
+        
         FmMobile.ga = window.plugins.gaPlugin;
         FmMobile.ga.init(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler                , "UA-36431108-1", 10);
+        
     },
+    
     
     goingAway: function(){
         FmMobile.ga.exit(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler);
     },
     
-    trackEvent: function(category, action, lable, value){
+    trackEvent: function(category, action, label, value){
         FmMobile.ga.trackEvent(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, category, action, label, 1);
     },
     
@@ -82,12 +200,20 @@ FmMobile.analysis = {
     },
 };
 
+FmMobile.settingPg = {
+    PAGE_ID: "settingPg",
+    
+    show: function(){
+        FmMobile.analysis.trackPage("/settingPg");
+    },
+};
+
 
 FmMobile.tocPg = {
     PAGE_ID: "tocPg",
         
     buttonClicked: function(){
-        FmMobile.analysis.trackEvent("Button", "Click", "ToC", 11);
+        //FmMobile.analysis.trackEvent("Button", "Click", "ToC", 11);
         $.mobile.changePage("toc.html");
     },
 };
@@ -119,6 +245,12 @@ FmMobile.orientationPg = {
     
     init: function(){
         FmMobile.orientationPg.idx = 1;
+        
+    },
+    
+    show: function(){
+        //FmMobile.analysis.trackPage("/orientationPg");
+        //FmMobile.push.registerDevice();
     },
 };
 
@@ -161,16 +293,15 @@ FmMobile.authPopup = {
     },
     
     init: function(){
-        FM_LOG("[authPop Init]");
+        FM_LOG("[authPopup Init]");
         
-        var client_id = "116813818475773";
+        var client_id = "116813818475773"; //Facebook APP_ID
         var redir_url = ["http://www.facebook.com/connect/login_success.html", "https://www.facebook.com/connect/login_success.html"];
         
-        
         var fb = FBConnect.install();
-            fb.connect(client_id, redir_url, "touch");
-            fb.onConnect = FmMobile.authPopup.onFBConnected;
-    },    
+        fb.connect(client_id, redir_url, "touch");
+        fb.onConnect = FmMobile.authPopup.onFBConnected;
+    },
         
     onFBConnected: function(){
         FM_LOG("[onFBConnected]: ");
@@ -180,14 +311,18 @@ FmMobile.authPopup = {
                 "userID": localStorage.fb_userID,
 				"userName": localStorage.fb_name,
                 "accessToken": localStorage.fb_accessToken,
-                "expiresIn":  localStorage.expiresIn
-            }};
+                "expiresIn":  localStorage.expiresIn,
+                "deviceToken": localStorage.deviceToken,
+                "device": "iPhone",
+                "timestamp": Date.now()
+                }
+            };
         FM_LOG(JSON.stringify(data));
             
         $.post(url, data, function(response){
             FM_LOG("[SignUp with FB]: ");
             if(response.data){
-                localStorage._id = response.data._id
+                localStorage._id = response.data._id;
                 localStorage.fb_accessToken = response.data.accessToken;
                 FM_LOG("localStorage" + JSON.stringify(localStorage));
                 //$.mobile.changePage("orientation.html",{reloadPage:true});
@@ -208,29 +343,27 @@ FmMobile.authPopup = {
         delete localStorage.fb_accessToken;
         fb.Logout();
         $.mobile.changePage("index.html");
+        //FmMobile.analysis.trackEvent("Button", "Click", "Logout", 54);
     },
     
-    getProfile: function(){
-        FM_LOG("[getProfile]");
-        var url = domain + "/api/profile",
-            query = {"user":{
+    sendDeviceToken: function(){
+        FM_LOG("[sendDeviceToken] ");
+        var url = domain + "/api/deviceToken";
+        var query = {"user":{
                 "_id": localStorage._id,
                 "accessToken": localStorage.fb_accessToken,
                 "userID": localStorage.fb_userID,
+                "deviceToken": localStorage.deviceToken,
+                "device": "iPhone",
                 "timestamp": Date.now()
             }};
             
         $.post(url, query, function(response){
-        
-            if(response.videoWorks){
-                
-            }else{
-            
-            }
+            FM_LOG("[From Server]: " + response.message);
         });
-        
     },
 };
+
 
 // index.html
 FmMobile.indexPg = {
@@ -241,15 +374,15 @@ FmMobile.indexPg = {
     init: function(){
         FM_LOG("[indexPg.init] ");
         
+    },
+    
+    show: function(){
+        FM_LOG("[indexPg.show]");
+        
         if(localStorage.fb_userID){
-            $.mobile.changePage("myVideo.html");
-            
+            //$.mobile.changePage("movie_create.html", {reloadPage:true});
+            //window.location.href = "orientation.html";
         }
-        /*
-        else {
-            window.location.href = "orientation.html";
-        }
-         */
     },
 };
 
@@ -456,11 +589,8 @@ FmMobile.myVideoPg = {
     },
     //  Initialization method. 
     init: function(){
-        //$("#myVideoPg").live( "pagebeforecreate", FmMobile.myVideoPg.loadMyVideoPg);
 		FM_LOG("[myVideoPg] pageinit");
-        //$("#videoList").listview("refresh");
-        //$('div[data-role^="collapsible"]', '#myVideoPg').collapsible("refresh");
-        //$('ul[data-role^="listview"]', "#myVideoPg").listview("refresh");
+        //FmMobile.analysis.trackPage("/myVideo");
         
     },
 };

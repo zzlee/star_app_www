@@ -17,10 +17,11 @@ var mobileinitForMovieGen = function() {
 	$("#templateSelectPg").live("pageinit", FmMobile.templateSelectPg.load);
     //$("#photoSelectPopupPg").live("pageinit", FmMobile.photoSelectPopupPg.load);
 	$("#movieCreatePg").live("pageinit", FmMobile.movieCreatePg.load);
+    $("#movieCreatePg").live("pageshow", FmMobile.movieCreatePg.show);
 	$("#photoCropperPg").live("pageinit", FmMobile.photoCropperPg.load);
     $("#photoCropperPg").live("pageshow", FmMobile.photoCropperPg.show);
-	//$("#moviePreviewPg").live("pageinit", FmMobile.moviePreviewPg.load);
-    $("#moviePreviewPg").live("pageshow", FmMobile.moviePreviewPg.load);
+	$("#moviePreviewPg").live("pageinit", FmMobile.moviePreviewPg.load);
+    $("#moviePreviewPg").live("pageshow", FmMobile.moviePreviewPg.show);
 }
 
 /*
@@ -87,7 +88,12 @@ FmMobile.movieCreatePg = {
     PAGE_ID: "movieCreatePg",
     
     //  Page methods.
+    show: function(){
+        FmMobile.analysis.trackPage("/movieCreatePg");
+    },
+    
     load: function(event, data){
+        
 		/*
 		var userName;
 		if ( profile._userName ) {
@@ -229,6 +235,7 @@ FmMobile.movieCreatePg = {
                     destinationType: navigator.camera.DestinationType.FILE_URI,
                     sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
                 });
+                FmMobile.analysis.trackEvent("Button", "Click", "Album", 21);
             }
             else {
                 navigator.camera.getPicture(gotoPhotoCropper, getPhotoFail,{
@@ -236,6 +243,7 @@ FmMobile.movieCreatePg = {
                     destinationType: navigator.camera.DestinationType.FILE_URI,
                     sourceType: navigator.camera.PictureSourceType.CAMERA
                 });
+                FmMobile.analysis.trackEvent("Button", "Click", "Album", 22);
             }
 			
 			
@@ -392,7 +400,9 @@ FmMobile.photoCropperPg = {
         var stageY = (stageAllowableHeight-stageHeight)/2;
         
         $("#photo_cropper_container > div").css("left", stageX.toString()+"px");
-        $("#photo_cropper_container").css({"position":"absolute", "bottom":stageY.toString()+"px"})
+        $("#photo_cropper_container").css({"position":"absolute", "bottom":stageY.toString()+"px"});
+        
+        FmMobile.analysis.trackPage("/photoCropperPg");
     },
 	
     
@@ -422,7 +432,7 @@ FmMobile.photoCropperPg = {
 			photoCroppedURI = destinationCanvas.toDataURL();
 			$.mobile.changePage("movie_preview.html");
 		}
-	
+        FmMobile.analysis.trackEvent("Button", "Click", "Crop", 23);
 	}
 }
 
@@ -432,6 +442,10 @@ FmMobile.moviePreviewPg = {
     PAGE_ID: "moviePreviewPg",
     
     //  Page methods.
+    show: function(){
+        FmMobile.analysis.trackPage("/moviePreviewPg");
+    },
+    
     load: function(event, data){
 		
 		//var templateID = "rotate"; //TODO: pass a parameter to set
@@ -766,6 +780,7 @@ FmMobile.moviePreviewPg = {
         */
         //$.mobile.changePage("movie_create.html",{reloadPage:true});
         $.mobile.changePage("movie_create.html");
+        FmMobile.analysis.trackEvent("Button", "Click", "DoAgain", 24);
     },
     
     onSubmitBtnClick: function() {
@@ -859,6 +874,7 @@ FmMobile.moviePreviewPg = {
         }
         
         uploadPhoto(fileSelectedURI);
+        FmMobile.analysis.trackEvent("Button", "Click", "Submit", 24);
 
     }
 }
