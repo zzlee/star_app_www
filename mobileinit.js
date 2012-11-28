@@ -60,6 +60,8 @@ FmMobile.init = {
         
         document.addEventListener("deviceready", FmMobile.analysis.init, true);
         document.addEventListener("deviceready", FmMobile.apn.init, true);
+        
+        document.addEventListener("resume", FmMobile.init.onResume, false);
         document.addEventListener("push-notification", function(event){
           FM_LOG("push-notification");
           navigator.notification.alert(JSON.stringify(['push-notification!', event]));
@@ -73,6 +75,10 @@ FmMobile.init = {
         localStorage.fb_userID = "100004053532907"; */
         
     },
+    onResume: function(){
+        FM_LOG("[Init.onResume]");
+        FmMobile.apn.getPendingNotification();
+    },
 };
 
 
@@ -82,7 +88,7 @@ FmMobile.apn = {
         FM_LOG("[APN.init]");
         FmMobile.pushNotification = window.plugins.pushNotification;
         FmMobile.apn.registerDevice();
-        //FmMobile.apn.getPendingNotification();
+        FmMobile.apn.getPendingNotification();
         //FmMobile.apn.getRemoteNotificationStatus();
         //FmMobile.apn.getDeviceUniqueIdentifier();
     },
@@ -114,9 +120,12 @@ FmMobile.apn = {
     /* it can only retrieve the notification that the user has interacted with while entering the app. Returned params applicationStateActive & applicationLaunchNotification enables you to filter notifications by type. */
     getPendingNotification: function(){
         FM_LOG("[APN.getPendingNotification]");
-        FmMobile.pushNotification.getPendingNotifications(function(notifications) {
-            FM_LOG('getPendingNotifications: ' + JSON.stringify(['getPendingNotifications', notifications]) );
-            navigator.notification.alert(JSON.stringify(['getPendingNotifications', notifications]));
+        FmMobile.pushNotification.getPendingNotifications(function(result) {
+            FM_LOG('getPendingNotifications: ' + JSON.stringify(['getPendingNotifications', result]) );
+            //navigator.notification.alert(JSON.stringify(['getPendingNotifications', notifications]));
+            //if(result.notifications.length > 0){
+                FmMobile.apn.setApplicationIconBadgeNumber(0);
+            //}
         });
     },
     
@@ -138,7 +147,7 @@ FmMobile.apn = {
         FM_LOG("[APN.setApplicationIconBadgeNumber]");
         FmMobile.pushNotification.setApplicationIconBadgeNumber(badgeNum, function(status) {
             FM_LOG('setApplicationIconBadgeNumber: ' + JSON.stringify(status) );
-            navigator.notification.alert(JSON.stringify(['setBadge', status]));
+            //navigator.notification.alert(JSON.stringify(['setBadge', status]));
         });
     },
     
@@ -336,6 +345,7 @@ FmMobile.authPopup = {
     },
     
     FBLogout: function() {
+        FmMobile.analysis.trackEvent("Button", "Click", "Logout", 54);
         var fb = FBConnect.install();
         delete localStorage._id;
         delete localStorage.fb_userID;
@@ -343,7 +353,7 @@ FmMobile.authPopup = {
         delete localStorage.fb_accessToken;
         fb.Logout();
         $.mobile.changePage("index.html");
-        //FmMobile.analysis.trackEvent("Button", "Click", "Logout", 54);
+        
     },
     
     sendDeviceToken: function(){
