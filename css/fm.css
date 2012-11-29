@@ -1,6 +1,6 @@
 div.fm_page {
     background-image: url("../images/bg/bokeh_iphone_home_s.png");
-    background-repeat: round;
+    background-repeat: repeat-y;
 	/*background-size: contain;*/
     
 	/*width:320px;*/
@@ -179,6 +179,7 @@ iframe.fm_video {
 
 ul.fm_videoList{
     padding:0px;
+    margin:0px !important;
 }
 
 div.fm_videoItem {
@@ -194,6 +195,7 @@ li.fm_videoItem {
     min-height: 207.5px;
 	border-style: none;
 	padding-right: 0px !important;
+    padding-left: 0px !important;
 }
 
 
