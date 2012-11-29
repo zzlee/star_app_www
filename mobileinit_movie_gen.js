@@ -211,10 +211,19 @@ FmMobile.movieCreatePg = {
                 if ( (device.version == "6.0") || (device.version == "6.0.1") ) {
                     
                     //Here is the workaround for iOS 6.0 and 6.0.1 subsampling issue (when drawing from a more-than-2M jpg to canvas)
-                    subsamplingResize(imageURI, { maxWidth: 960, maxHeight: 960 }, function(resultURI){
-                        fileProcessedForCropperURI = resultURI;
-                        $.mobile.changePage("photo_cropper.html");
-                    });
+                    var tempImg = new Image();
+                    tempImg.src = imageURI;
+                    tempImg.onload = function() {
+                        EXIF.getData( tempImg, function(){
+                            var orientation = EXIF.getTag(tempImg, "Orientation");
+                            subsamplingResize(imageURI, { maxWidth: 960, maxHeight: 960, orientation: orientation }, function(resultURI){
+                                fileProcessedForCropperURI = resultURI;
+                                $.mobile.changePage("photo_cropper.html");
+                            });
+                       });
+                        
+                    };
+
                     
                 }
                 else {
@@ -224,8 +233,6 @@ FmMobile.movieCreatePg = {
                 }
                 
                 console.log("version="+device.version);
-                
-                
                 
             }
 

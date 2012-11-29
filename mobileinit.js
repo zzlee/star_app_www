@@ -67,7 +67,8 @@ FmMobile.init = {
           navigator.notification.alert(JSON.stringify(['push-notification!', event]));
         });
         
-        document.addEventListener("touchmove", function(e){ e.preventDefault(); }, false);
+        //TODO: 
+        //document.addEventListener("touchmove", function(e){ e.preventDefault(); }, true);
         
         /*
         localStorage.fb_accessToken = "AAABqPdYntP0BAFi1xrndqwD1v8AZAvYEZBNAxk31y0TDmIXWqKC8ZA5zQwN5NGPZBUsqe8DKvMYG4xWtsrbpVZAZCsPrXbPJO4MPwoRlCUAsULv5zZADH4e";
