@@ -878,6 +878,20 @@ FmMobile.moviePreviewPg = {
             var ft = new FileTransfer();
             ft.upload(imageURI, starServerURL+"/upload", uploadSuccess_cb, uploadFail_cb, options);
             $('#divStatus').html("檔案上傳中....");
+            $("div").bind(ProjectID+"__uploadFile", function(e, _uploadPercentage){
+                var uploadPercentageString = ( Math.floor(_uploadPercentage*100) ).toString();
+                $('#divStatus').html("檔案上傳%"+uploadPercentageString+"...");
+                console.log("_uploadPercentage= "+_uploadPercentage);          
+            });
+            ft.onprogress = function(progressEvent) {
+                if (progressEvent.lengthComputable) {
+                    var uploadPercentage = progressEvent.loaded / progressEvent.total;
+                    console.log("uploadPercentage=" + uploadPercentage.toString());
+                    $("div").trigger(ProjectID+"__uploadFile", [ uploadPercentage ]);
+                } else {
+                    console.log("upload some chunk....");
+                }
+            };
         }
         
         uploadPhoto(fileSelectedURI);

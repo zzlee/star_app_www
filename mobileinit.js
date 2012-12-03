@@ -28,6 +28,7 @@ $(document).bind("mobileinit", function(){
                 $("#myVideoPg").live("pagebeforecreate", FmMobile.myVideoPg.loadMyVideo);
 				$("#myVideoPg").live("pageinit", FmMobile.myVideoPg.init);
                 $("#settingPg").live("pageshow", FmMobile.settingPg.show);
+                $("#tocPg").live("pageshow", FmMobile.tocPg.show);
                  
                 //$("#homePg").live("pageinit", FmMobile.homePg.init);
                 //$("#videoPg").live("pagebeforecreate", FmMobile.videoPg.init);
@@ -221,7 +222,17 @@ FmMobile.settingPg = {
 
 FmMobile.tocPg = {
     PAGE_ID: "tocPg",
+    
+    show: function() {
+        if (localStorage._id) {
+            $("#toc_menuBtn").show();
+        }
+        else {
+            $("#toc_menuBtn").hide();
+        }
         
+    },
+    
     buttonClicked: function(){
         //FmMobile.analysis.trackEvent("Button", "Click", "ToC", 11);
         $.mobile.changePage("toc.html");
