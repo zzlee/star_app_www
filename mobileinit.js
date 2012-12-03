@@ -248,7 +248,12 @@ FmMobile.orientationPg = {
 	swipeleft: function(){
 		if( ++FmMobile.orientationPg.idx > FmMobile.orientationPg.max){
 			//FmMobile.orientationPg.idx = FmMobile.orientationPg.max;
-            $.mobile.changePage("movie_create.html", {transition: "slide"});
+            if (!localStorage._id) {
+                $.mobile.changePage("fb_login.html", {transition: "slide"});
+            }
+            else {
+                $.mobile.changePage("setting.html");
+            }
 		}else{
 			$.mobile.changePage($("#orie_" + FmMobile.orientationPg.idx), {transition: "slide"});
 		}
@@ -347,7 +352,8 @@ FmMobile.authPopup = {
                 localStorage.fb_accessToken = response.data.accessToken;
                 FM_LOG("localStorage" + JSON.stringify(localStorage));
                 //$.mobile.changePage("orientation.html",{reloadPage:true});
-                window.location.href = "orientation.html";
+                //window.location.href = "orientation.html";
+                $.mobile.changePage("movie_create.html");
                 window.plugins.childBrowser.close();
                
                 FmMobile.analysis.setVariable("Facebook_ID", localStorage.fb_userID, 1);
@@ -402,8 +408,10 @@ FmMobile.indexPg = {
         FM_LOG("[indexPg.show]");
         
         if(localStorage.fb_userID){
-            //$.mobile.changePage("movie_create.html", {reloadPage:true});
-            //window.location.href = "orientation.html";
+            $.mobile.changePage("myVideo.html");
+        }
+        else {
+            window.location.href = "orientation.html";
         }
     },
 };
