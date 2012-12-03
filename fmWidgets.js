@@ -58,11 +58,12 @@ function videoWgt(parent, data, idx){
         videoWgt = $("<div>").attr({id: "video_"+idx, class: "fm_videoItem"});
     }
     var video = $("<iframe>").attr({
-        src: data.url.youtube,
+        src: data.url.youtube + "?rel=0&showinfo=0&modestbranding=1&controls=0",
         //width: (screen.width > 1280)? 1280: screen.width,
         //height: (screen.width > 1280)? 720: screen.width/4*3,
         class: "fm_video",
         frameborder: "0"
+        
                             
     }).appendTo(videoWgt);
     
@@ -83,7 +84,7 @@ videoWgt.prototype.setComments = function(data){
     //this.like.html(like_count);
     //this.comment.html(comment_count);
     
-    if(data.comments && data.comments.data)
+    if(data.comments)
 		this.commentWgt.setData(data);
 };
 
@@ -106,46 +107,49 @@ function commentListWgt(parent, fb_id){
 commentListWgt.prototype.setData = function(result){
     
     var like_count = (result.likes) ? result.likes.count : 0,
-        comment_count = (result.comments.count) ? result.comments.count : 0;
-    var data = result.comments.data;
-    var count = data.length;
+        commentcount = (result.comments.count) ? result.comments.count : 0;
+    
+    
     var commentIcon = '<img src="./images/icon/comment.png" class="fm_icon"></img>';//$("<img>").attr( {src: "./images/icon/comment.png", class: "fm_icon"});
     var likeIcon = '<img src="./images/icon/like.png" class="fm_icon"></img>';//$("<img>").attr({src: "./images/icon/like.png", class: "fm_icon"});
-	var comment_count = $('span.ui-btn-text', this.header).html(count + commentIcon +" "+like_count + likeIcon);
+	var comment_count = $('span.ui-btn-text', this.header).html(commentcount + commentIcon +" "+like_count + likeIcon);
     var style_class = $('a.ui-collapsible-heading-toggle', this.header).attr("class") + " fm_collapsible_heading_toggle";
     $('a.ui-collapsible-heading-toggle', this.header).attr("class", style_class);
     
-    var thumbnails = [];
     
-    for(var i=0; i < data.length; i++){
-        var itemWgt = $("<li>").attr("class", "fm_listItem").appendTo(this.listWgt);
-		//var commentWgt = $("<div>").appendTo(itemWgt);
-		var thumbnail = $("<img>").attr("class", "fm_thumbnail").appendTo(itemWgt);
-		thumbnails[data[i].id] = thumbnail;
-		if( (i+1)%2 )
-			var commentContent = $("<div>").attr("class", "fm_comment1").appendTo(itemWgt);
-		else
-			var commentContent = $("<div>").attr("class", "fm_comment2").appendTo(itemWgt);
-        var name = data[i].from.name;
-        var who = $("<span>").attr("class", "fm_txt").html(name).appendTo(commentContent);
-		var arr = data[i].created_time.split(/[- T:]/);
-        var date = new Date(arr[0], arr[1]-1, arr[2], arr[3], arr[4]);
-        var hour = date.getHours();
-        var min = (date.getMinutes()>9) ? date.getMinutes() : "0"+date.getMinutes();
-        var timeWgt = $("<span>").attr("class", "fm_txt_time").html(hour + ":" + min).appendTo(commentContent);
-        var comment = data[i].message;        
-        var commentTxt = $("<p>").attr("class", "fm_txt").html(comment).appendTo(commentContent);
-		
-		var url = domain + "/api/fbGetThumbnail";
-		var query = {
-			"accessToken": localStorage.fb_accessToken,
-			"fb_id": data[i].id,
-			"commenter": data[i].from.id
-		};
-		
-		$.get(url, query, function(result){
-			FM_LOG("[Thumbnail] " + result.id +"\n"+JSON.stringify(result));
-			thumbnails[result.id].attr("src", result.picture.data.url);
-		});
+    if(result.comments.data){
+        var data = result.comments.data;
+        var thumbnails = [];
+        for(var i=0; i < data.length; i++){
+            var itemWgt = $("<li>").attr("class", "fm_listItem").appendTo(this.listWgt);
+            //var commentWgt = $("<div>").appendTo(itemWgt);
+            var thumbnail = $("<img>").attr("class", "fm_thumbnail").appendTo(itemWgt);
+            thumbnails[data[i].id] = thumbnail;
+            if( (i+1)%2 )
+                var commentContent = $("<div>").attr("class", "fm_comment1").appendTo(itemWgt);
+            else
+                var commentContent = $("<div>").attr("class", "fm_comment2").appendTo(itemWgt);
+            var name = data[i].from.name;
+            var who = $("<span>").attr("class", "fm_txt").html(name).appendTo(commentContent);
+            var arr = data[i].created_time.split(/[- T:]/);
+            var date = new Date(arr[0], arr[1]-1, arr[2], arr[3], arr[4]);
+            var hour = date.getHours();
+            var min = (date.getMinutes()>9) ? date.getMinutes() : "0"+date.getMinutes();
+            var timeWgt = $("<span>").attr("class", "fm_txt_time").html(hour + ":" + min).appendTo(commentContent);
+            var comment = data[i].message;        
+            var commentTxt = $("<p>").attr("class", "fm_txt").html(comment).appendTo(commentContent);
+            
+            var url = domain + "/api/fbGetThumbnail";
+            var query = {
+                "accessToken": localStorage.fb_accessToken,
+                "fb_id": data[i].id,
+                "commenter": data[i].from.id
+            };
+            
+            $.get(url, query, function(result){
+                FM_LOG("[Thumbnail] " + result.id +"\n"+JSON.stringify(result));
+                thumbnails[result.id].attr("src", result.picture.data.url);
+            });
+        }
     }
 };
