@@ -9,6 +9,7 @@ var croppedArea;
 var customizableObjectDimensions = new Object();
 var customizedContent = new Object();
 var fileSelected;
+var myPhotoCropper;
 
 
 var mobileinitForMovieGen = function() {
@@ -88,7 +89,7 @@ FmMobile.movieCreatePg = {
     
     //  Page methods.
     show: function(){
-        FmMobile.analysis.trackPage("movieCreatePg");
+        FmMobile.analysis.trackPage("/movieCreatePg");
     },
     
     load: function(event, data){
@@ -112,13 +113,21 @@ FmMobile.movieCreatePg = {
 		*/
 		
 		//temp
-		userName = "anonymous";
-        
+		//userName = "anonymous";
+
+		if ( localStorage._id ) {
+			userName = localStorage._id;
+		}
+		else {
+			userName = "anonymous";
+		}
+
        
 		
 		var url = $(this).data('url');
 		//var templateID = url.split("=")[1];
-		var templateID = "rotate";
+		var templateID = "miixcard";
+        //var templateID = "rotate";
 		projectID = templateID +'-'+ userName +'-'+ (new Date()).toISOString().replace(/[-:.]/g, "");
 		customizedContent.projectID = projectID;
 		customizedContent.templateID = templateID;
@@ -202,10 +211,19 @@ FmMobile.movieCreatePg = {
                 if ( (device.version == "6.0") || (device.version == "6.0.1") ) {
                     
                     //Here is the workaround for iOS 6.0 and 6.0.1 subsampling issue (when drawing from a more-than-2M jpg to canvas)
-                    subsamplingResize(imageURI, { maxWidth: 960, maxHeight: 960 }, function(resultURI){
-                        fileProcessedForCropperURI = resultURI;
-                        $.mobile.changePage("photo_cropper.html");
-                    });
+                    var tempImg = new Image();
+                    tempImg.src = imageURI;
+                    tempImg.onload = function() {
+                        EXIF.getData( tempImg, function(){
+                            var orientation = EXIF.getTag(tempImg, "Orientation");
+                            subsamplingResize(imageURI, { maxWidth: 960, maxHeight: 960, orientation: orientation }, function(resultURI){
+                                fileProcessedForCropperURI = resultURI;
+                                $.mobile.changePage("photo_cropper.html");
+                            });
+                       });
+                        
+                    };
+
                     
                 }
                 else {
@@ -215,8 +233,6 @@ FmMobile.movieCreatePg = {
                 }
                 
                 console.log("version="+device.version);
-                
-                
                 
             }
 
@@ -370,7 +386,7 @@ FmMobile.photoCropperPg = {
 	//  Page constants.
     PAGE_ID: "photoCropperPg",
 	
-	myPhotoCropper: null,
+	//myPhotoCropper: null,
     stageAllowableWidth: 0,
     stageAllowableHeight: 0,
     
@@ -393,7 +409,7 @@ FmMobile.photoCropperPg = {
         $("#photo_cropper_container > div").css("left", stageX.toString()+"px");
         $("#photo_cropper_container").css({"position":"absolute", "bottom":stageY.toString()+"px"});
         
-        FmMobile.analysis.trackPage("photoCropperPg");
+        FmMobile.analysis.trackPage("/photoCropperPg");
     },
 	
     
@@ -434,20 +450,17 @@ FmMobile.moviePreviewPg = {
     
     //  Page methods.
     show: function(){
-        FmMobile.analysis.trackPage("moviePreviewPg");
+        FmMobile.analysis.trackPage("/moviePreviewPg");
     },
     
     load: function(event, data){
 		
-		var templateID = "rotate"; //TODO: pass a parameter to set
-		var customizableObjectToPreview = "map" //TODO: pass a parameter to set
+		//var templateID = "rotate"; //TODO: pass a parameter to set
+		//var customizableObjectToPreview = "map" //TODO: pass a parameter to set
+		var templateID = "miixcard"; //TODO: pass a parameter to set
+		var customizableObjectToPreview = "girl" //TODO: pass a parameter to set
 		var templatePreviewKeyFrames = new Array();
 		var actualWidth, actualHeight;
-		/*
-		var canvas = document.getElementById("myCanvas");
-		canvas.width = window.innerWidth*0.9;  //TODO: get canvas width and height from composition info
-		canvas.height = canvas.width * 9/16;
-		*/
 		
 		//for test
 		var cornerImg = new Image();
@@ -455,32 +468,6 @@ FmMobile.moviePreviewPg = {
 		
 		var renderPreviewKeyFrames = function() {
 			
-			/*
-			var k = 0;
-			var timer_cb = function() {
-				
-				var context = canvas.getContext("2d");
-				//context.clearRect(0, 0, canvas.width, canvas.height);
-				
-				var imgToRender = templatePreviewKeyFrames[k].img;
-				context.drawImage(imgToRender, 0, 0, imgToRender.width, imgToRender.height, 0, 0, canvas.width, canvas.height);
-				
-				//for test
-				var r = canvas.width / imgToRender.width; //the zooming facotr
-				context.drawImage(cornerImg, templatePreviewKeyFrames[k].Obj_UL_x*r-10, templatePreviewKeyFrames[k].Obj_UL_y*r-10); 
-				context.drawImage(cornerImg, templatePreviewKeyFrames[k].Obj_UR_x*r-10, templatePreviewKeyFrames[k].Obj_UR_y*r-10); 
-				context.drawImage(cornerImg, templatePreviewKeyFrames[k].Obj_LL_x*r-10, templatePreviewKeyFrames[k].Obj_LL_y*r-10); 
-				context.drawImage(cornerImg, templatePreviewKeyFrames[k].Obj_LR_x*r-10, templatePreviewKeyFrames[k].Obj_LR_y*r-10); 
-				
-
-				k++;
-				if ( k >= templatePreviewKeyFrames.length ) {
-					k = 0;
-				}
-			}
-		
-			window.setInterval(timer_cb, 1000/5);
-			*/
 			
 			var previewWidth = window.innerWidth;
 			var previewHeight = previewWidth * actualHeight/actualWidth;
@@ -545,6 +532,7 @@ FmMobile.moviePreviewPg = {
 				
 				var k = 0;
 				var l;
+                
 				var onFrame = function(){
 					previewBg.graphics.clear();
 					previewBg.graphics.beginBitmapFill(templatePreviewKeyFrames[k].bitmapData);
@@ -578,17 +566,6 @@ FmMobile.moviePreviewPg = {
 					P_Low_r = P_Low.relativeTo( P_UL );
 					P_L_r = P_L.relativeTo( P_UL );
 					P_R_r = P_R.relativeTo( P_UL );
-					/*
-					P_UL_r = new Point(0, 0);
-					P_UR_r = P_UR.relativeTo( new Point(customizableObjWidth, 0) );
-					P_LL_r = P_LL.relativeTo( new Point(0, customizableObjHeight) );
-					P_LR_r = P_LR.relativeTo( new Point(customizableObjWidth, customizableObjHeight) );
-					P_C_r = P_C.relativeTo( new Point(customizableObjWidth/2, customizableObjHeight/2) );
-					P_Up_r = P_Up.relativeTo( new Point(customizableObjWidth/2, 0) );
-					P_Low_r = P_Low.relativeTo( new Point(customizableObjWidth/2, customizableObjHeight) );
-					P_L_r = P_L.relativeTo( new Point(0, customizableObjHeight/2) );
-					P_R_r = P_R.relativeTo( new Point(customizableObjWidth, customizableObjHeight/2) );
-					*/
 					
 					customizableObjImage.x = P_UL.x;
 					customizableObjImage.y = P_UL.y;
@@ -599,9 +576,8 @@ FmMobile.moviePreviewPg = {
 					customizableObjImage.graphics.clear();
 					customizableObjImage.graphics.beginBitmapFill(customizableObjBitmapData);
 					customizableObjImage.graphics.drawTriangles(vertices, indices, uvtData);
-					/**/
 					
-					
+					/*
 					//for test
 					markerUL.x = P_UL.x-10;
 					markerUL.y = P_UL.y-10; 
@@ -621,10 +597,6 @@ FmMobile.moviePreviewPg = {
 					markerL.y = P_L.y-10;
 					markerR.x = P_R.x-10;
 					markerR.y = P_R.y-10;
-					
-					/*
-					customizableObjImage.graphics.clear();
-					customizableObjImage.graphics.beginBitmapFill(customizableObjBitmapData
 					*/
 					
 
@@ -634,13 +606,14 @@ FmMobile.moviePreviewPg = {
 						k = 0;
 					}
 				}
-				
-				
+                
+                				
 				previewBg = new LSprite();
 				addChild(previewBg);
 				previewBg.scaleX = r_previewImg;
 				previewBg.scaleY = r_previewImg;
 
+				/*
 				//for test
 				markerUL = new LBitmap(markerBitmapData);
 				markerUR = new LBitmap(markerBitmapData);
@@ -651,7 +624,6 @@ FmMobile.moviePreviewPg = {
 				markerLow = new LBitmap(markerBitmapData);
 				markerL = new LBitmap(markerBitmapData);
 				markerR = new LBitmap(markerBitmapData);
-				/*
 				addChild(markerUL);
 				addChild(markerUR);
 				addChild(markerLL);
@@ -688,21 +660,21 @@ FmMobile.moviePreviewPg = {
 				var customizableObjImage = new LSprite();
 				addChild(customizableObjImage);
 				//previewBg.addChild(customizableObjImage);
-				/*
-				customizableObjImage.x=200;
-				customizableObjImage.y=100;
-				//vertices = [-49, -58, 7, 136, -16, 315, 115, -24, 120, 120, 124, 272, 240, 0, 237, 123, 240, 240];
-				vertices = [0, 0, 0, 120, 0, 240, 115, -24, 120, 120, 124, 272, 240, 0, 237, 123, 240, 240];
-				customizableObjImage.graphics.clear();
-				customizableObjImage.graphics.beginBitmapFill(customizableObjBitmapData);
-				customizableObjImage.graphics.drawTriangles(vertices, indices, uvtData);
-				*/
 
 				
 				previewBg.addEventListener(LEvent.ENTER_FRAME,onFrame);
+
                 
-                //$("#moviePreview").empty();
-				
+                var onHide = function(){
+                    previewBg.removeEventListener(LEvent.ENTER_FRAME, onFrame);
+                    removeChild(previewBg);
+                    removeChild(customizableObjImage);
+                    $("#moviePreview").empty();
+                    
+                };
+                
+                $("#moviePreviewPg").live("pagehide", onHide);
+                
 				
 			
 			}
@@ -720,37 +692,37 @@ FmMobile.moviePreviewPg = {
 			var templatePreviewKeyFramesXml = xmlDoc.getElementsByTagName("preview_key_frame");
 			var numberOftemplatePreviewKeyFrames = templatePreviewKeyFramesXml.length;
 			for (var i=0; i<numberOftemplatePreviewKeyFrames; i++) {
-				var aTemplatePreviewKeyFrame = new Object();
-				aTemplatePreviewKeyFrame.BgSource = templatePreviewKeyFramesXml[i].getElementsByTagName("source")[0].childNodes[0].nodeValue;
-				aTemplatePreviewKeyFrame.Obj_UL_x = templatePreviewKeyFramesXml[i].getElementsByTagName("upper_left_corner_x")[0].childNodes[0].nodeValue;
-				aTemplatePreviewKeyFrame.Obj_UL_y = templatePreviewKeyFramesXml[i].getElementsByTagName("upper_left_corner_y")[0].childNodes[0].nodeValue;
-				aTemplatePreviewKeyFrame.Obj_UR_x = templatePreviewKeyFramesXml[i].getElementsByTagName("upper_right_corner_x")[0].childNodes[0].nodeValue;
-				aTemplatePreviewKeyFrame.Obj_UR_y = templatePreviewKeyFramesXml[i].getElementsByTagName("upper_right_corner_y")[0].childNodes[0].nodeValue;
-				aTemplatePreviewKeyFrame.Obj_LL_x = templatePreviewKeyFramesXml[i].getElementsByTagName("lower_left_corner_x")[0].childNodes[0].nodeValue;
-				aTemplatePreviewKeyFrame.Obj_LL_y = templatePreviewKeyFramesXml[i].getElementsByTagName("lower_left_corner_y")[0].childNodes[0].nodeValue;
-				aTemplatePreviewKeyFrame.Obj_LR_x = templatePreviewKeyFramesXml[i].getElementsByTagName("lower_right_corner_x")[0].childNodes[0].nodeValue;
-				aTemplatePreviewKeyFrame.Obj_LR_y = templatePreviewKeyFramesXml[i].getElementsByTagName("lower_right_corner_y")[0].childNodes[0].nodeValue;
+				var aTemplatePreviewKeyFrame;
+                if ( templatePreviewKeyFramesXml[i].getElementsByTagName("overlaid_customizable_object")[0] ) {
+                    aTemplatePreviewKeyFrame={
+                        BgSource: templatePreviewKeyFramesXml[i].getElementsByTagName("source")[0].childNodes[0].nodeValue,
+                        Obj_UL_x: templatePreviewKeyFramesXml[i].getElementsByTagName("upper_left_corner_x")[0].childNodes[0].nodeValue,
+                        Obj_UL_y: templatePreviewKeyFramesXml[i].getElementsByTagName("upper_left_corner_y")[0].childNodes[0].nodeValue,
+                        Obj_UR_x: templatePreviewKeyFramesXml[i].getElementsByTagName("upper_right_corner_x")[0].childNodes[0].nodeValue,
+                        Obj_UR_y: templatePreviewKeyFramesXml[i].getElementsByTagName("upper_right_corner_y")[0].childNodes[0].nodeValue,
+                        Obj_LL_x: templatePreviewKeyFramesXml[i].getElementsByTagName("lower_left_corner_x")[0].childNodes[0].nodeValue,
+                        Obj_LL_y: templatePreviewKeyFramesXml[i].getElementsByTagName("lower_left_corner_y")[0].childNodes[0].nodeValue,
+                        Obj_LR_x: templatePreviewKeyFramesXml[i].getElementsByTagName("lower_right_corner_x")[0].childNodes[0].nodeValue,
+                        Obj_LR_y: templatePreviewKeyFramesXml[i].getElementsByTagName("lower_right_corner_y")[0].childNodes[0].nodeValue
+                    };
+                }
+                else {
+                    aTemplatePreviewKeyFrame={
+                        BgSource: templatePreviewKeyFramesXml[i].getElementsByTagName("source")[0].childNodes[0].nodeValue,
+                        Obj_UL_x: 0,
+                        Obj_UL_y: 0,
+                        Obj_UR_x: 0,
+                        Obj_UR_y: 0,
+                        Obj_LL_x: 0,
+                        Obj_LL_y: 0,
+                        Obj_LR_x: 0,
+                        Obj_LR_y: 0
+                    };
+                    
+                }
 				templatePreviewKeyFrames.push(aTemplatePreviewKeyFrame);
 			}
 			
-			/*
-			//iteratively load images
-			var index = 0;
-			var loadImage = function ( index ) {
-				templatePreviewKeyFrames[index].img = new Image();
-				templatePreviewKeyFrames[index].img.src = './template/'+templateID+'/'+templatePreviewKeyFrames[index].BgSource;
-				templatePreviewKeyFrames[index].img.onload = function(){ 
-					index++;
-					if ( index < numberOftemplatePreviewKeyFrames ) {
-						loadImage( index );
-					}
-					else {
-						renderPreviewKeyFrames();
-					}
-				}
- 			}
-			loadImage( index );
-			*/
 			renderPreviewKeyFrames();
 		}
 	
@@ -760,12 +732,40 @@ FmMobile.moviePreviewPg = {
 
 	
 			$.ajax({
-				url: './template/'+templateID+'/'+customizableObjectToPreview+'.xml',
+				url: './template/'+templateID+'/preview_keyframe_des_'+customizableObjectToPreview+'.xml',
 				dataType: 'xml',
 				success: getTemplatePreviewKeyFrames_cb		
 			});
 		}
 
+        //get cropped image
+        croppedArea = myPhotoCropper.getCroppedArea();
+		var rawPhotoImg = new Image();
+		rawPhotoImg.src = fileProcessedForCropperURI;
+		rawPhotoImg.onload = function(){
+			var sourceCanvas = document.createElement("canvas");
+			var sourceCanvasContext = sourceCanvas.getContext("2d");
+			sourceCanvas.width = rawPhotoImg.width;
+			sourceCanvas.height = rawPhotoImg.height;
+			sourceCanvasContext.drawImage(rawPhotoImg, 0, 0);
+			//console.dir(tempCanvas);
+			var destinationCanvas = document.createElement("canvas");
+			var destinationCanvasContext = destinationCanvas.getContext("2d");
+			destinationCanvas.width = rawPhotoImg.width*croppedArea.width;
+			destinationCanvas.height = rawPhotoImg.height*croppedArea.height;
+			destinationCanvasContext.drawImage(sourceCanvas,
+                                               rawPhotoImg.width*croppedArea.x,
+                                               rawPhotoImg.height*croppedArea.y,
+                                               rawPhotoImg.width*croppedArea.width,
+                                               rawPhotoImg.height*croppedArea.height,
+                                               0, 0,
+                                               destinationCanvas.width,
+                                               destinationCanvas.height);
+			photoCroppedURI = destinationCanvas.toDataURL();
+			$.mobile.changePage("movie_preview.html");
+		}
+
+        
 		$.ajax({
 			url: './template/'+templateID+'/template_description.xml',
 			dataType: 'xml',
@@ -773,44 +773,7 @@ FmMobile.moviePreviewPg = {
 		});
 
 		
-	
-		/*
-		window.requestAnimFrame = function(callback) {
-			return window.requestAnimationFrame || 
-					window.webkitRequestAnimationFrame || 
-					window.mozRequestAnimationFrame || 
-					window.oRequestAnimationFrame || 
-					window.msRequestAnimationFrame ||
-					function(callback) {
-						window.setTimeout(callback, 1000 / 60);
-					};
-		}();
-
-		function animate() {
-			var canvas = document.getElementById("myCanvas");
-			var context = canvas.getContext("2d");
-
-			// update stage
-
-			// clear stage
-			//context.clearRect(0, 0, canvas.width, canvas.height);
-
-			// render stage
-			var img = new Image(); 
-			img.src = "./template/photo/preview_keyframe_map_00005.png"; 
-			img.onload = function(){ 
-				context.drawImage(img, 0, 0, 1920, 1080, 0, 0, canvas.width, canvas.height); 
-			} 
-
-			// request new frame
-			requestAnimFrame( function() {
-				animate();
-			});
-		}
-		
-		animate();
-		*/
-	
+    
 
 	},
     
@@ -863,10 +826,20 @@ FmMobile.moviePreviewPg = {
             $.post(starServerURL+'/upload_user_data_info', customizedContent, function(result){
                 console.dir("upload user data info result: "+result);
                 if ( !result.err ) {
-                   $('#divStatus').html("伺服器開始合成影片，請稍後回到此APP檢視影片");
-                   setTimeout(function(){
-                              $('#divStatus').html("");
-                              }, 5000);
+                    /*
+                    $('#divStatus').html("伺服器開始合成影片，請稍後回到此APP檢視影片");
+                    setTimeout(function(){
+                        $('#divStatus').html("");
+                    }, 5000);*/
+                   
+                   
+
+                    navigator.notification.alert(
+                                    '伺服器開始合成影片，請稍後回到此APP檢視影片',  // message
+                                    function(){$.mobile.changePage("myVideo.html");},         // callback
+                                    'MiixCard',            // title
+                                    '確認'                  // buttonName
+                                    );
 
                 }
             });
@@ -905,6 +878,20 @@ FmMobile.moviePreviewPg = {
             var ft = new FileTransfer();
             ft.upload(imageURI, starServerURL+"/upload", uploadSuccess_cb, uploadFail_cb, options);
             $('#divStatus').html("檔案上傳中....");
+            $("div").bind(ProjectID+"__uploadFile", function(e, _uploadPercentage){
+                var uploadPercentageString = ( Math.floor(_uploadPercentage*100) ).toString();
+                $('#divStatus').html("檔案上傳%"+uploadPercentageString+"...");
+                console.log("_uploadPercentage= "+_uploadPercentage);          
+            });
+            ft.onprogress = function(progressEvent) {
+                if (progressEvent.lengthComputable) {
+                    var uploadPercentage = progressEvent.loaded / progressEvent.total;
+                    console.log("uploadPercentage=" + uploadPercentage.toString());
+                    $("div").trigger(ProjectID+"__uploadFile", [ uploadPercentage ]);
+                } else {
+                    console.log("upload some chunk....");
+                }
+            };
         }
         
         uploadPhoto(fileSelectedURI);
