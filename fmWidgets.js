@@ -57,7 +57,8 @@ var uploadingMgr = (function(){
 function fm_progressBar(pid){
     
     this.id = pid;
-    this.bar = $("<div>").attr("id", pid).progressbar({ value: 0, max: 50 });
+    //this.bar = $("#uploading").progressbar({ value: 0, max: 100 });
+    this.bar = $("<div>").attr("id", pid).progressbar({ value: 0, max: 100 });
     //$("#contentArea", $("#myVideoPg")).prepend(this.bar);
 
 }

@@ -468,6 +468,8 @@ FmMobile.moviePreviewPg = {
 		//for test
 		var cornerImg = new Image();
 		cornerImg.src = "./img/_corner.png";
+        
+        
 		
 		var renderPreviewKeyFrames = function() {
 			
@@ -836,7 +838,7 @@ FmMobile.moviePreviewPg = {
                     }, 5000);*/
                    
                    
-
+                    FmMobile.addProccessingWork(projectID);
                     navigator.notification.alert(
                                     '伺服器開始合成影片，請稍後回到此APP檢視影片',  // message
                                     function(){$.mobile.changePage("myVideo.html");},         // callback
@@ -881,25 +883,31 @@ FmMobile.moviePreviewPg = {
             var ft = new FileTransfer();
             ft.upload(imageURI, starServerURL+"/upload", uploadSuccess_cb, uploadFail_cb, options);
             $('#divStatus').html("檔案上傳中....");
+            /*
             $("div").bind(ProjectID+"__uploadFile", function(e, _uploadPercentage){
                 var uploadPercentageString = ( Math.floor(_uploadPercentage*100) ).toString();
                 $('#divStatus').html("檔案上傳%"+uploadPercentageString+"...");
                 console.log("_uploadPercentage= "+_uploadPercentage);          
             });
+            */
+            
+            //var upladBar = uploadingMgr.addUpload(projectID);
             ft.onprogress = function(progressEvent) {
                 if (progressEvent.lengthComputable) {
-                    var uploadPercentage = progressEvent.loaded / progressEvent.total;
+                    var uploadPercentage = progressEvent.loaded / progressEvent.total * 100;
                     console.log("uploadPercentage=" + uploadPercentage.toString());
-                    $("div").trigger(ProjectID+"__uploadFile", [ uploadPercentage ]);
+                    //$("div").trigger(ProjectID+"__uploadFile", [ uploadPercentage ]);
+                    //upladBar.setValue(uploadPercentage);
                 } else {
                     console.log("upload some chunk....");
                 }
             };
+            //uploadingMgr.showAll($("#moviePreviewPg_contentArea"));
         }
         
         uploadPhoto(fileSelectedURI);
         FmMobile.analysis.trackEvent("Button", "Click", "Submit", 24);
-        recordUserAction("submits a Photo");
+        //recordUserAction("submits a Photo");
     }
 }
 		
