@@ -157,7 +157,7 @@ var videoListAdapter = (function(){
                           FM_LOG("[Comments]" + result.id + ":\n" + JSON.stringify(result));
                           if(result.id){
                               videoItems[result.id].setComments(result);
-                              $.jStorage.set(result.id, data);
+                              $.jStorage.set(result.id, result);
                           }
                     });
                 }
@@ -167,7 +167,6 @@ var videoListAdapter = (function(){
                 var d_item = new videoWgt(videoListWgt, dummy[i], i);
                 var pid = dummy[i].projectId;
                 dummyItems[pid] = d_item;
-                //d_item.setComments({"comments": {"count": "0"} });
             }
             
         },
@@ -176,6 +175,11 @@ var videoListAdapter = (function(){
             videoItems[videoWork.fb_id] = dummyItems[pid];
             videoItems[videoWork.fb_id].setSrc(videoWork.url.youtube);
             videoItems[videoWork.fb_id].setComments({"comments": {"count": "0"} });
+        },
+        
+        // Workaround for commentbar display correctly.
+        setDummyComment: function(pid){
+            dummyItems[pid].setComments({"comments": {"count": "0"} });
         },
           
     };
