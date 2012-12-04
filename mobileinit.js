@@ -29,6 +29,7 @@ $(document).bind("mobileinit", function(){
 				$("#myVideoPg").live("pageinit", FmMobile.myVideoPg.init);
                 $("#settingPg").live("pageshow", FmMobile.settingPg.show);
                 $("#tocPg").live("pageshow", FmMobile.tocPg.show);
+                $("#fbLoginPg").live("pageshow", FmMobile.fbLoginPg.show); 
                  
                 //$("#homePg").live("pageinit", FmMobile.homePg.init);
                 //$("#videoPg").live("pagebeforecreate", FmMobile.videoPg.init);
@@ -63,6 +64,7 @@ FmMobile.init = {
         document.addEventListener("deviceready", FmMobile.apn.init, true);
         
         document.addEventListener("resume", FmMobile.init.onResume, false);
+        document.addEventListener("pause", FmMobile.init.onPause, false);
         document.addEventListener("push-notification", function(event){
           FM_LOG("push-notification");
           navigator.notification.alert(JSON.stringify(['push-notification!', event]));
@@ -79,7 +81,11 @@ FmMobile.init = {
     },
     onResume: function(){
         FM_LOG("[Init.onResume]");
+        recordUserAction("resumes MiixCard app");
         FmMobile.apn.getPendingNotification();
+    },
+    onPause: function(){
+        recordUserAction("pauses MiixCard app");
     },
 };
 
@@ -216,9 +222,18 @@ FmMobile.settingPg = {
     
     show: function(){
         FmMobile.analysis.trackPage("/settingPg");
+        recordUserAction("enters settingPg");
     },
 };
 
+FmMobile.fbLoginPg = {
+    PAGE_ID: "fbLoginPg",
+        
+    show: function(){
+        FmMobile.analysis.trackPage("/fbLoginPg");
+        recordUserAction("enters fbLoginPg");
+    },
+};
 
 FmMobile.tocPg = {
     PAGE_ID: "tocPg",
@@ -357,6 +372,7 @@ FmMobile.authPopup = {
                 window.plugins.childBrowser.close();
                
                 FmMobile.analysis.setVariable("Facebook_ID", localStorage.fb_userID, 1);
+                recordUserAction("successfully logs in with FB");
             }
         });
         
@@ -364,6 +380,7 @@ FmMobile.authPopup = {
     
     FBLogout: function() {
         FmMobile.analysis.trackEvent("Button", "Click", "Logout", 54);
+        recordUserAction("logs out");
         var fb = FBConnect.install();
         delete localStorage._id;
         delete localStorage.fb_userID;
@@ -406,6 +423,7 @@ FmMobile.indexPg = {
     
     show: function(){
         FM_LOG("[indexPg.show]");
+        //recordUserAction("starts MiixCard app");
         
         if(localStorage.fb_userID){
             $.mobile.changePage("myVideo.html");
@@ -621,6 +639,7 @@ FmMobile.myVideoPg = {
     init: function(){
 		FM_LOG("[myVideoPg] pageinit");
         //FmMobile.analysis.trackPage("/myVideo");
+        //recordUserAction("enters myVideoPg");
         
     },
 };

@@ -90,6 +90,7 @@ FmMobile.movieCreatePg = {
     //  Page methods.
     show: function(){
         FmMobile.analysis.trackPage("/movieCreatePg");
+        recordUserAction("enters movieCreatePg");
     },
     
     load: function(event, data){
@@ -410,6 +411,7 @@ FmMobile.photoCropperPg = {
         $("#photo_cropper_container").css({"position":"absolute", "bottom":stageY.toString()+"px"});
         
         FmMobile.analysis.trackPage("/photoCropperPg");
+        recordUserAction("enters photoCropperPg");
     },
 	
     
@@ -451,6 +453,7 @@ FmMobile.moviePreviewPg = {
     //  Page methods.
     show: function(){
         FmMobile.analysis.trackPage("/moviePreviewPg");
+        recordUserAction("enters moviePreviewPg");
     },
     
     load: function(event, data){
@@ -896,7 +899,7 @@ FmMobile.moviePreviewPg = {
         
         uploadPhoto(fileSelectedURI);
         FmMobile.analysis.trackEvent("Button", "Click", "Submit", 24);
-
+        recordUserAction("submits a Photo");
     }
 }
 		
