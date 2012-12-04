@@ -1,6 +1,103 @@
 
 
 
+
+// Singleton.
+var uploadingMgr = (function(){
+                     
+    // Static Private members.
+     var uploadingArray = [];
+                    
+    // Static Private methods.
+   
+    
+    function _onComplete(event, ui){
+            
+        FmMobile.videoWorks[this.id] = null;
+        if(this.parentNode)
+            $(this).remove();
+        delete uploadingArray[this.id];
+    }
+                    
+    
+    return {    // Public members.
+                
+        addUpload: function(pid){
+            var upload = new fm_progressBar(pid);
+            
+            uploadingArray[pid] = upload;
+            upload.on("progressbarcomplete", _onComplete);
+            //upload.start(); for TESTing
+                
+            return upload;
+        },
+                    
+        removeUpload: function(pid, error){
+            var upload = uploadingArray[pid];
+            if(upload.parentNode)
+                $(upload).remove();
+            delete uploadingArray[pid];
+        },
+                
+        show: function(container, pid){
+            uploadingArray[pid].prependTo(container);
+        },
+        
+        showAll: function(container){
+            for(var pid in uploadingArray){
+                uploadingArray[pid].prependTo(container);
+            }
+        },
+    };
+                    
+})();
+
+
+
+function fm_progressBar(pid){
+    
+    this.id = pid;
+    this.bar = $("<div>").attr("id", pid).progressbar({ value: 0, max: 50 });
+    //$("#contentArea", $("#myVideoPg")).prepend(this.bar);
+
+}
+
+fm_progressBar.prototype.setValue = function(value){
+    this.bar.progressbar("option", "value", value);
+};
+
+fm_progressBar.prototype.on = function(event, cb){
+    this.bar.on(event, cb);
+};
+
+fm_progressBar.prototype.prependTo = function(container){
+    if(this.bar.parentNode)
+        $(this.bar).remove();
+    container.prepend(this.bar);
+}
+
+/*
+fm_progressBar.prototype.onComplete = function(event, object){
+    clearInterval(this.timer);
+    $(this).remove();
+};*/
+
+fm_progressBar.prototype.progress = function(){
+    var percentage = this.bar.progressbar("option", "value");
+    if(++percentage != 101)
+        this.bar.progressbar("option", "value", percentage);
+};
+
+// for TESTing
+fm_progressBar.prototype.start = function(){
+    var self = this;
+    this.timer = setInterval(function(){ self.progress(); }, 100);
+};
+
+fm_progressBar.prototype.getValue = function(){
+    return this.bar.progressbar("option", "value");
+};
+
 function videoGridAdapter(parent, data){
     var count = data.length;
     var videoGridWgt = $("<div>").attr("class", "ui-grid-a").appendTo(parent);
@@ -19,9 +116,73 @@ function videoGridAdapter(parent, data){
     }
 }
 
+var videoListAdapter = (function(){
+    
+    //var videoListWgt = $("<ul>").attr("data-role", "listview").attr({id: "videoList", class: "fm_videoList"});
+    var videoListWgt = null;
+    var count = 0;
+    var videoItems = null;
+    var dummyItems = null;
+    
+    
+    return {
+        
+        init: function(parent, data, dummy){
+            if(videoItems)
+                delete videoItems;
+            if(dummyItems)
+                delete dummyItems;
+                        
+            videoItems = [];
+            dummyItems = [];
+            
+            videoListWgt = $("#videoList");
+            //videoListWgt.appendTo(parent);
+            
+                        
+            for(var i=0; i < data.length; i++){
+                
+                var fb_id = data[i].fb_id;
+                var url = domain + "/api/fbGetComment";
+                var query = {
+                    "accessToken": localStorage.fb_accessToken,
+                    "fb_id": fb_id
+                };
+                var v_item = new videoWgt(videoListWgt, data[i], i);
+                        
+                if(fb_id){
+                    videoItems[fb_id] = v_item;
+                    $.get(url, query, function(result){
+                          
+                          FM_LOG("[Comments]" + result.id + ":\n" + JSON.stringify(result));
+                          if(result.id){
+                              videoItems[result.id].setComments(result);
+                              $.jStorage.set(result.id, data);
+                          }
+                    });
+                }
+            }
+            
+            for(var i=0; i < dummy.length; i++){
+                var d_item = new videoWgt(videoListWgt, dummy[i], i);
+                var pid = dummy[i].projectId;
+                dummyItems[pid] = d_item;
+                //d_item.setComments({"comments": {"count": "0"} });
+            }
+            
+        },
+        
+        updateDummy: function(pid, videoWork){
+            videoItems[videoWork.fb_id] = dummyItems[pid];
+            videoItems[videoWork.fb_id].setSrc(videoWork.url.youtube);
+            videoItems[videoWork.fb_id].setComments({"comments": {"count": "0"} });
+        },
+          
+    };
+})();
 
 
-function videoListAdapter(parent, data){
+function _videoListAdapter(parent, data){
     var count = data.length;
     var videoListWgt = $("#videoList");
     var videoItems = [];
@@ -50,30 +211,43 @@ function videoListAdapter(parent, data){
 
 
 function videoWgt(parent, data, idx){
-    var videoWgt;
+    var widget;
     
     if(parent.attr("data-role") === 'listview'){
-        videoWgt = $("<li>").attr({id: "video_"+idx, class: "fm_videoItem"});
+        widget = $("<li>").attr({id: data.projectId, class: "fm_videoItem"});
     }else{
-        videoWgt = $("<div>").attr({id: "video_"+idx, class: "fm_videoItem"});
+        widget = $("<div>").attr({id: data.projectId, class: "fm_videoItem"});
     }
-    var video = $("<iframe>").attr({
-        src: data.url.youtube + "?rel=0&showinfo=0&modestbranding=1&controls=0",
-        //width: (screen.width > 1280)? 1280: screen.width,
-        //height: (screen.width > 1280)? 720: screen.width/4*3,
-        class: "fm_video",
-        frameborder: "0"
-        
-                            
-    }).appendTo(videoWgt);
     
-    //var bar = $("<div>").attr("class", "fm_bar").appendTo(videoWgt);
+    this.videoFrame;
+    
+    if(data.url){
+        this.videoFrame = $("<iframe>").attr({
+            src: data.url.youtube + "?rel=0&showinfo=0&modestbranding=1&controls=0",
+            class: "fm_video",
+            frameborder: "0"
+        });
+        
+    }else{
+        this.videoFrame = $("<iframe>").attr({
+           class: "fm_video_making",
+            frameborder: "0"
+        });
+    }
+    this.videoFrame.appendTo(widget);
+    
+    //var bar = $("<div>").attr("class", "fm_bar").appendTo(widget);
     //this.like = $("<span>").attr("class", "fm_like_num").appendTo(bar);
     //this.comment = $("<span>").attr("class", "fm_comment_num").appendTo(bar);
     
     
-    this.commentWgt = new commentListWgt(videoWgt);
-    videoWgt.appendTo(parent);
+    this.commentWgt = new commentListWgt(widget);
+    parent.prepend(widget);
+    //widget.appendTo(parent); Old first.
+}
+
+videoWgt.prototype.setSrc = function(src){
+    this.videoFrame.attr("src", src+"?rel=0&showinfo=0&modestbranding=1&controls=0").attr("class", "fm_video");
 }
 
 videoWgt.prototype.setComments = function(data){
@@ -133,7 +307,7 @@ commentListWgt.prototype.setData = function(result){
             var who = $("<span>").attr("class", "fm_txt").html(name).appendTo(commentContent);
             var arr = data[i].created_time.split(/[- T:]/);
             var date = new Date(arr[0], arr[1]-1, arr[2], arr[3], arr[4]);
-            var hour = date.getHours();
+            var hour = (date.getHours()+8 < 24) ? date.getHours()+8 : date.getHours()+8-24;
             var min = (date.getMinutes()>9) ? date.getMinutes() : "0"+date.getMinutes();
             var timeWgt = $("<span>").attr("class", "fm_txt_time").html(hour + ":" + min).appendTo(commentContent);
             var comment = data[i].message;        

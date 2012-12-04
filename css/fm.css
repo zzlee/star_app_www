@@ -177,6 +177,17 @@ iframe.fm_video {
 	box-sizing: margin-box;
 }
 
+.fm_video_making {
+    width: 320px;
+    height: 180px;
+	margin: 0px;
+	padding: 0px;
+	box-sizing: margin-box;
+    background-image: url("../images/icon/waiting.png");
+    background-size: cover;
+}
+
+
 ul.fm_videoList{
     padding:0px;
     margin:0px !important;

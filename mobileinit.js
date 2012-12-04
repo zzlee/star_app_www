@@ -19,7 +19,8 @@ $(document).bind("mobileinit", function(){
                 //$.mobile.page.prototype.options.addBackBtn = true;
                
                 /* pageinit executed after pagebeforecreate */
-                //$("#indexPg").live("pageinit", FmMobile.indexPg.init);
+                $("#indexPg").live("pageinit", FmMobile.indexPg.init);
+                $("#indexPg").live("pagebeforeshow", FmMobile.indexPg.beforeshow);
                 $("#indexPg").live("pageshow", FmMobile.indexPg.show);
                 $("#orie_1").live("pagebeforeshow", FmMobile.orientationPg.init);
                 $("#orie_1").live("pageshow", FmMobile.orientationPg.show);
@@ -30,6 +31,7 @@ $(document).bind("mobileinit", function(){
                 $("#settingPg").live("pageshow", FmMobile.settingPg.show);
                 $("#tocPg").live("pageshow", FmMobile.tocPg.show);
                 $("#fbLoginPg").live("pageshow", FmMobile.fbLoginPg.show); 
+                $("#tocPg").live("pageinit", FmMobile.tocPg.init);
                  
                 //$("#homePg").live("pageinit", FmMobile.homePg.init);
                 //$("#videoPg").live("pagebeforecreate", FmMobile.videoPg.init);
@@ -37,7 +39,7 @@ $(document).bind("mobileinit", function(){
                 //$("#"+FmMobile.censorshipPg.PAGE_ID).live("pagebeforeshow", FmMobile.censorshipPg.loadWaitingEvents);
                 //$("#popup").live(); Popup must use "live"
                  
-                mobileinitForMovieGen(); //GZ 
+                mobileinitForMovieGen(); //GZ
                 
                 FM_LOG("<----------------- LOAD JQM and INIT ----------------->");
                  
@@ -46,7 +48,7 @@ $(document).bind("mobileinit", function(){
 
 
 
-FmMobile.videoWorks = null;
+FmMobile.videoWorks = [];
 FmMobile.profile = null;
 FmMobile.ga = null;
 FmMobile.pushNotification = null;
@@ -89,6 +91,15 @@ FmMobile.init = {
     },
 };
 
+
+FmMobile.addProccessingWork = function(pid){
+    var processStorage = $.jStorage.get("processingWorks");
+    if(!processingStorage)
+        processingStorage = [];
+    var length = processingStorage.length;
+    processingStorage[length] = {"projectId": pid};
+    $.jStorage.set("processingWorks", processingStorage);
+};
 
 FmMobile.apn = {
     
@@ -238,20 +249,36 @@ FmMobile.fbLoginPg = {
 FmMobile.tocPg = {
     PAGE_ID: "tocPg",
     
-    show: function() {
+    show: function(){
         if (localStorage._id) {
             $("#toc_menuBtn").show();
         }
         else {
             $("#toc_menuBtn").hide();
         }
-        
+    },
+    
+    init: function(){
+        //uploadingMgr.showAll($("#toc_contentArea"));
     },
     
     buttonClicked: function(){
-        //FmMobile.analysis.trackEvent("Button", "Click", "ToC", 11);
+        FmMobile.analysis.trackEvent("Button", "Click", "ToC", 11);
+        
         $.mobile.changePage("toc.html");
     },
+	
+    /* for TESTing
+	_buttonClicked: function(){
+		var videoWorks = [{"title":"MiixCard movie","projectId":"miixcard-50b82149157d80e80d000002-20121130T030443775Z","fb_id":"100004053532907_515809601771886","_id":"50b82288157d80e80d000003","__v":0,"ownerId":{"_id":"50b82149157d80e80d000002","userID":"100004053532907"},"url":{"youtube":"http://www.youtube.com/embed/VXH9PJWV5tg"}}
+						  ,{"title":"MiixCard movie","projectId":"miixcard-50b82149157d80e80d000002-20121130T111930901Z","fb_id":"100004053532907_506201579401847","_id":"50b896861f5a59ec0c000009","__v":0,"ownerId":{"_id":"50b82149157d80e80d000002","userID":"100004053532907"},"url":{"youtube":"http://www.youtube.com/embed/iIV167g3AYo"}}];
+		
+		var count = videoWorks.length;
+		videoWorks[count] = {"projectId": "miixcard-50b82149157d80e80d000002-20121203T131446527Z"};
+		
+		$.jStorage.set("videoWorks", videoWorks);
+		$.mobile.changePage("myVideo.html");
+	},*/
 };
 
 
@@ -418,7 +445,7 @@ FmMobile.indexPg = {
     //  Page methods.
     init: function(){
         FM_LOG("[indexPg.init] ");
-        
+        //$.mobile.changePage("movie_preview.html");
     },
     
     show: function(){
@@ -430,8 +457,18 @@ FmMobile.indexPg = {
         }
         else {
             window.location.href = "orientation.html";
+            //$.mobile.changePage("myVideo.html");
+            //window.location.href = "orientation.html";
         }
     },
+    
+    beforeshow: function(){
+        FM_LOG("[indexPg.beforeshow]");
+        //uploadingMgr.showAll($("#index_contentArea"));
+        
+    },
+    
+
 };
 
 
@@ -512,7 +549,7 @@ FmMobile.signinPg = {
                 $("#failPopup").popup("open");
             }
         });
-    },
+	},
     
     testBtn: function(){
         $.mobile.changePage("home.html");
@@ -593,30 +630,63 @@ FmMobile.myVideoPg = {
     //  Page methods.
     loadMyVideo: function(event, data){
         FM_LOG("[myVideoPg] pagebeforecreate: loadMyVideoPg");
+        uploadingMgr.showAll($("#myVideo_contentArea"));
+        /* TEST Data */
+		var vWorks = [{"title":"MiixCard movie","projectId":"miixcard-50b82149157d80e80d000002-20121130T030443775Z","fb_id":"100004053532907_515809601771886","_id":"50b82288157d80e80d000003","__v":0,"ownerId":{"_id":"50b82149157d80e80d000002","userID":"100004053532907"},"url":{"youtube":"http://www.youtube.com/embed/VXH9PJWV5tg"}}
+						  ,{"title":"MiixCard movie","projectId":"miixcard-50b82149157d80e80d000002-20121130T111930901Z","fb_id":"100004053532907_506201579401847","_id":"50b896861f5a59ec0c000009","__v":0,"ownerId":{"_id":"50b82149157d80e80d000002","userID":"100004053532907"},"url":{"youtube":"http://www.youtube.com/embed/iIV167g3AYo"}}];
 		
-        //var videoWorks = $.jStorage.get("videos");
-		//videoListAdapter($("#contentArea", $(this) ), videoWorks);
+		
+		var pWorks = [{"projectId": "miixcard-50b82149157d80e80d000002-20121203T131446527Z"}];
+		$.jStorage.set("videoWorks", vWorks);
+        $.jStorage.set("processingWorks", pWorks);
+		/* End of TEST Data */
 		
 		
-        var url = domain + "/api/profile";
-        /*    query = {"user":{
-                "_id": localStorage._id,
-                "accessToken": localStorage.fb_accessToken,
-                "userID": localStorage.fb_userID,
-                "timestamp": Date.now()
-            }};
+		var videoWorks = $.jStorage.get("videoWorks");
+        var processingWorks = $.jStorage.get("processingWorks");
+        var url = domain + "/api/newVideoList";
+		var after = -1;
+		
+		for(var i = videoWorks.length-1; i > -1; i--){
+			if(videoWorks[i]._id && i != videoWorks.length-1){
+				after = (new Date(videoWorks[i].createdOn).getTime())/1000;
+			}
+		}
+		//after = 1354492800;
+		
+		if(after > 0){
+			 
+			query = {
+					"_id": localStorage._id,    // "50b34c4a8198caec0e000001"
+					"accessToken": localStorage.fb_accessToken, //"AAABqPdYntP0BAJZAe1QGpNmVMsgrdBY0ZAsPU1uw8IKnp9KH4QFRUPVYAojQuJlwnx10PhV62WRJnXBK11NQHRwAjhTsQPHcafMQ1ziu1bZBAUaiCW7"
+					"userID": localStorage.fb_userID,   //"100004053532907"
+					"timestamp": Date.now(),
+					"after": after
+				};
+			
+				
+			$.get(url, query, function(res){
+			
+				if(res.videoWorks){
+					newVideos = res.videoWorks;
+					FM_LOG("[New videoWorks Available]: " + JSON.stringify(newVideos) );
+                    if(newVideos.length > 0){
+                        var videoStorage = $.jStorage.get("videoWorks");
+                        var length = videoStorage.length;
+                        for(var i=0; i < newVideos.length; i++){
+                            videoStorage[length+i] = newVideos[i];
+                            videoListAdapter.updateDummy(newVideos[i].projectId, newVideos[i]);
+                        }
+                        $.jStorage.set("videoWorks", videoStorage);
+                  
+                    }else{
+                        FM_LOG("[No New Video Availabe!]");
+                    }
+                }
+			});
+		}
         
-            
-        $.get(url, query, function(res){
-        
-            if(res.videoWorks){
-                videoWorks = res.videoWorks;
-                FM_LOG("Gain videoWorks: " + JSON.stringify(videoWorks) );
-                $.jStorage.set("videos", videoWorks);
-                videoListAdapter($("#contentArea", $(this) ), videoWorks);
-            }
-        });*/
-        
+        /* Keep Sync jax for record.
         $.ajax({
             type: "GET",
             url: url 
@@ -629,11 +699,12 @@ FmMobile.myVideoPg = {
                     videoWorks = res.videoWorks;
                     FM_LOG("Gain videoWorks: " + JSON.stringify(videoWorks) );
                     $.jStorage.set("videos", videoWorks);
-                    videoListAdapter($("#contentArea", $(this) ), videoWorks);
+                    videoListAdapter.init($("#myVideo_contentArea", $(this) ), videoWorks);
                 }
             },
             async: false
-        });
+        });*/
+        videoListAdapter.init($("#myVideo_contentArea", $(this) ), videoWorks, processingWorks);
     },
     //  Initialization method. 
     init: function(){
@@ -642,6 +713,7 @@ FmMobile.myVideoPg = {
         //recordUserAction("enters myVideoPg");
         
     },
+    
 };
 
 
