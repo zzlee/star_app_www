@@ -37,7 +37,12 @@ $(document).bind("mobileinit", function(){
                 //$("#"+FmMobile.censorshipPg.PAGE_ID).live("pagebeforeshow", FmMobile.censorshipPg.loadWaitingEvents);
                 //$("#popup").live(); Popup must use "live"
                  
-                mobileinitForMovieGen(); //GZ 
+                mobileinitForMovieGen(); //GZ
+                 
+                setInterval(function(){
+                    navigator.splashscreen.hide();
+                },3000);
+
                 
                 FM_LOG("<----------------- LOAD JQM and INIT ----------------->");
                  
@@ -431,6 +436,7 @@ FmMobile.indexPg = {
         else {
             window.location.href = "orientation.html";
         }
+                  
     },
 };
 
