@@ -423,7 +423,7 @@ FmMobile.indexPg = {
     
     show: function(){
         FM_LOG("[indexPg.show]");
-        //recordUserAction("starts MiixCard app");
+        //recordUserAction("starts MiixCard app", true);
         
         if(localStorage.fb_userID){
             $.mobile.changePage("myVideo.html");
@@ -639,7 +639,7 @@ FmMobile.myVideoPg = {
     init: function(){
 		FM_LOG("[myVideoPg] pageinit");
         //FmMobile.analysis.trackPage("/myVideo");
-        //recordUserAction("enters myVideoPg");
+        //recordUserAction("enters myVideoPg", true);
         
     },
 };

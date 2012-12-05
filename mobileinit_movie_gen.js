@@ -912,7 +912,7 @@ FmMobile.moviePreviewPg = {
         
         uploadPhoto(fileSelectedURI);
         FmMobile.analysis.trackEvent("Button", "Click", "Submit", 24);
-        recordUserAction("submits a Photo");
+        recordUserAction("submits a Photo", true);
     }
 }
 		
