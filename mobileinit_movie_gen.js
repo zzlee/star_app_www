@@ -468,6 +468,12 @@ FmMobile.moviePreviewPg = {
 		//for test
 		var cornerImg = new Image();
 		cornerImg.src = "./img/_corner.png";
+        
+        //$('#divStatus').html("照片上傳中，成功後即開始影像合成，合成完成後會通知您去分享給朋友！"); //for test
+        
+        $('#divStatus').hide();
+        $('#photoSubmitButtons').show();
+
 		
 		var renderPreviewKeyFrames = function() {
 			
@@ -795,8 +801,14 @@ FmMobile.moviePreviewPg = {
     
     onSubmitBtnClick: function() {
         var uploadFail_cb = function(error) {
-            //alert("檔案上傳失敗(代碼:"+error.code+")，請重試!");
-            $('#divStatus').html('檔案無法上傳伺服器，請待網路狀況好時再重試！');
+            //$('#divStatus').html('檔案無法上傳伺服器，請待網路狀況好時再重試！');
+            navigator.notification.alert(
+                                         '喔喔！上傳失敗了。您的網路OK嗎？',  // message
+                                         function(){$('#submitPhotoBtn').click();},         // callback
+                                         ' ',            // title
+                                         '重新上傳'                  // buttonName
+                                         );
+
         }
         
         
@@ -805,7 +817,7 @@ FmMobile.moviePreviewPg = {
             console.log("Response = " + r.response);
             console.log("Sent = " + r.bytesSent);
             
-            $('#divStatus').html("檔案上傳成功！");
+            //$('#divStatus').html("檔案上傳成功！");
             
             customizedContent.customizableObjects[0].content = fileSelected;
             
@@ -830,19 +842,13 @@ FmMobile.moviePreviewPg = {
                 console.dir("upload user data info result: "+result);
                 if ( !result.err ) {
                     /*
-                    $('#divStatus').html("伺服器開始合成影片，請稍後回到此APP檢視影片");
-                    setTimeout(function(){
-                        $('#divStatus').html("");
-                    }, 5000);*/
-                   
-                   
-
                     navigator.notification.alert(
                                     '伺服器開始合成影片，請稍後回到此APP檢視影片',  // message
                                     function(){$.mobile.changePage("myVideo.html");},         // callback
                                     'MiixCard',            // title
                                     '確認'                  // buttonName
-                                    );
+                                    );*/
+                    $.mobile.changePage("myVideo.html");
 
                 }
             });
@@ -880,17 +886,24 @@ FmMobile.moviePreviewPg = {
             
             var ft = new FileTransfer();
             ft.upload(imageURI, starServerURL+"/upload", uploadSuccess_cb, uploadFail_cb, options);
-            $('#divStatus').html("檔案上傳中....");
+            
+            $('#divStatus').html("照片上傳中，成功後即開始影像合成，合成完成後會通知您去分享給朋友！");
+            $('#divStatus').show();
+            $('#photoSubmitButtons').hide();
+            
+            /*
             $("div").bind(ProjectID+"__uploadFile", function(e, _uploadPercentage){
                 var uploadPercentageString = ( Math.floor(_uploadPercentage*100) ).toString();
                 $('#divStatus').html("檔案上傳%"+uploadPercentageString+"...");
                 console.log("_uploadPercentage= "+_uploadPercentage);          
             });
+            */
+            
             ft.onprogress = function(progressEvent) {
                 if (progressEvent.lengthComputable) {
                     var uploadPercentage = progressEvent.loaded / progressEvent.total;
                     console.log("uploadPercentage=" + uploadPercentage.toString());
-                    $("div").trigger(ProjectID+"__uploadFile", [ uploadPercentage ]);
+                    //$("div").trigger(ProjectID+"__uploadFile", [ uploadPercentage ]);
                 } else {
                     console.log("upload some chunk....");
                 }
