@@ -71,8 +71,11 @@ FmMobile.init = {
         document.addEventListener("resume", FmMobile.init.onResume, false);
         document.addEventListener("pause", FmMobile.init.onPause, false);
         document.addEventListener("push-notification", function(event){
-          FM_LOG("push-notification");
-          navigator.notification.alert(JSON.stringify(['push-notification!', event]));
+            FM_LOG("push-notification:");
+            console.dir(event);
+            //navigator.notification.alert(JSON.stringify(['push-notification!', event]));
+            navigator.notification.alert('You have a new video!');
+            //alert(event);
         });
         
         //TODO: 
@@ -110,7 +113,8 @@ FmMobile.apn = {
     getPushNotification: function(event){
         FM_LOG("[APN.getPushNotification]" + event );
         
-        navigator.notification.alert(JSON.stringify(['push-notification!', event]));
+        //navigator.notification.alert(JSON.stringify(['push-notification!', event]));
+        navigator.notification.alert('You have a new video!');
     },
     
     /* registration on Apple Push Notification servers (via user interaction) & retrieve the token that will be used to push remote notifications to this device. */
@@ -139,6 +143,8 @@ FmMobile.apn = {
             //if(result.notifications.length > 0){
                 FmMobile.apn.setApplicationIconBadgeNumber(0);
             //}
+            //navigator.notification.alert('You have a new video!');
+                                
         });
     },
     
@@ -150,7 +156,7 @@ FmMobile.apn = {
         FM_LOG("[APN.getRemoteNotificationStatus]");
         FmMobile.pushNotification.getRemoteNotificationStatus(function(status) {
             FM_LOG('getRemoteNotificationStatus ' + JSON.stringify(status) );
-            navigator.notification.alert(JSON.stringify(['getRemoteNotificationStatus', status]));
+            //navigator.notification.alert(JSON.stringify(['getRemoteNotificationStatus', status]));
         });
     },
     
@@ -169,7 +175,7 @@ FmMobile.apn = {
     cancelAllLocalNotifications: function(){
         FM_LOG("[APN.cancelAllLocalNotifications]");
         FmMobile.pushNotification.cancelAllLocalNotifications(function() {
-            navigator.notification.alert(JSON.stringify(['cancelAllLocalNotifications']));
+            //navigator.notification.alert(JSON.stringify(['cancelAllLocalNotifications']));
         });
     },
     
@@ -179,7 +185,7 @@ FmMobile.apn = {
         FM_LOG("[APN.getDeviceUniqueIdentifier]");
         pushNotification.getDeviceUniqueIdentifier(function(uuid) {
             FM_LOG('getDeviceUniqueIdentifier: ' + uuid);
-            navigator.notification.alert(JSON.stringify(['getDeviceUniqueIdentifier', uuid]));
+            //navigator.notification.alert(JSON.stringify(['getDeviceUniqueIdentifier', uuid]));
         });
     },
 };

@@ -26,16 +26,31 @@ function videoListAdapter(parent, data){
     var videoListWgt = $("#videoList");
     var videoItems = [];
     
-    for(var i=0; i < count; i++){
+    //GZ
+    var maxAllowableVideoNumber = 10;
+    var actualNumberOfVideosToShow;
+    var ii;
+    
+    if ( count>maxAllowableVideoNumber) {
+        actualNumberOfVideosToShow = maxAllowableVideoNumber;
+    }
+    else {
+        actualNumberOfVideosToShow = count;
+    }
+    
+    //for(var i=0; i < count; i++){
+    for(var i=0; i < actualNumberOfVideosToShow; i++){
         
-        var fb_id = data[i].fb_id;
+        ii = count - i -1;
+        
+        var fb_id = data[ii].fb_id;
         var url = domain + "/api/fbGetComment";
         var query = {
             "accessToken": localStorage.fb_accessToken,
             "fb_id": fb_id
         };
         
-        videoItems[fb_id] = new videoWgt(videoListWgt, data[i], i);
+        videoItems[fb_id] = new videoWgt(videoListWgt, data[ii], i);
         
         $.get(url, query, function(result){
             
