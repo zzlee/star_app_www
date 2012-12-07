@@ -2,6 +2,7 @@
 
 
 
+
 // Singleton.
 var uploadingMgr = (function(){
                      
@@ -99,6 +100,29 @@ fm_progressBar.prototype.getValue = function(){
     return this.bar.progressbar("option", "value");
 };
 
+
+
+function trashtalk(){
+    var videoListWgt = $("#videoList");
+    var trash = {"trash": "talk", "projectId": "trashtalk"};
+    //var widget = new videoWgt(videoListWgt, trash);
+    //widget.setComments({"comments": {"count": "0"} });
+    var widget = $("<div>").attr("id", "trashtalk").appendTo(videoListWgt);
+    var noise = $("<div>").attr("class", "fm_trashtalk").appendTo(widget);
+    var span = $("<span>").attr("class", "fm_txt_noise").html("休士頓...信號斷了嗎？<br>您什麼影片都沒做啊！").appendTo(widget);
+    var makeBtn = $("<a>").attr({
+            href: "#",
+            class: "fm_yellowBtn_make_s",
+            onclick: "$.mobile.changePage('movie_create.html');"
+        }).attr("data-role", "button").html("立即製作影片").appendTo(widget);
+}
+
+trashtalk.prototype.remove = function(){
+    $("#trashtalk").remove()
+    //delete this.widget;
+};
+
+
 function videoGridAdapter(parent, data){
     var count = data.length;
     var videoGridWgt = $("<div>").attr("class", "ui-grid-a").appendTo(parent);
@@ -129,16 +153,22 @@ var videoListAdapter = (function(){
     return {
         
         init: function(parent, data, dummy){
+            videoListWgt = $("#videoList");
+            //videoListWgt.appendTo(parent);
+                        
             if(videoItems)
                 delete videoItems;
             if(dummyItems)
                 delete dummyItems;
                         
-            videoItems = [];
-            dummyItems = [];
-            
-            videoListWgt = $("#videoList");
-            //videoListWgt.appendTo(parent);
+            videoItems = {};
+            dummyItems = {};
+                        
+            if($("#trashtalk")){
+                $("#trashtalk").remove();
+                delete FmMobile.trashItem;
+                FmMobile.trashItem = null;
+            }
             
                         
             for(var i=0; i < data.length; i++){
@@ -149,7 +179,8 @@ var videoListAdapter = (function(){
                     "accessToken": localStorage.fb_accessToken,
                     "fb_id": fb_id
                 };
-                var v_item = new videoWgt(videoListWgt, data[i], i);
+                var v_item = new videoWgt(videoListWgt, data[i]);
+                v_item.setComments({"comments": {"count": "0"} });
                         
                 if(fb_id){
                     videoItems[fb_id] = v_item;
@@ -164,18 +195,56 @@ var videoListAdapter = (function(){
                 }
             }
             
-            for(var i=0; i < dummy.length; i++){
-                var d_item = new videoWgt(videoListWgt, dummy[i], i);
-                var pid = dummy[i].projectId;
+            
+            for(var pid in dummy){
+                var d_item = new videoWgt(videoListWgt, {"projectId":pid});
                 dummyItems[pid] = d_item;
+                d_item.setComments({"comments": {"count": "0"} });
+            }
+        },
+                        
+        freshCommentbar: function(){
+            if(!$.isEmptyObject(videoItems)){
+                for(var fb_id in videoItems){
+                    videoItems[fb_id].setComments({"comments": {"count": "0"} });
+                }
             }
             
+            if(!$.isEmptyObject(dummyItems)){
+                for(var pid in dummyItems){
+                    dummyItems[pid].setComments({"comments": {"count": "0"} });
+                }
+            }
         },
         
         updateDummy: function(pid, videoWork){
-            videoItems[videoWork.fb_id] = dummyItems[pid];
-            videoItems[videoWork.fb_id].setSrc(videoWork.url.youtube);
-            videoItems[videoWork.fb_id].setComments({"comments": {"count": "0"} });
+            var fb_id = videoWork.fb_id;
+            var temp=null;
+            if(dummyItems[pid]){
+                temp = dummyItems[pid];
+                dummyItems[pid].setSrc(videoWork.url.youtube);
+                //videoItems[fb_id].setComments({"comments": {"count": "0"} });
+                
+                var url = domain + "/api/fbGetComment";
+                var query = {
+                    "accessToken": localStorage.fb_accessToken,
+                    "fb_id": fb_id,
+                    "projectId": pid
+                };
+                
+                
+                if(fb_id){
+                    
+                    $.get(url, query, function(result){
+                          
+                          FM_LOG("[Comments]" + result.id + ":\n" + JSON.stringify(result));
+                          if(result.id){
+                              temp.setComments(result);
+                              $.jStorage.set(result.id, result);
+                          }
+                    });
+                }
+            }
         },
         
         // Workaround for commentbar display correctly.
@@ -215,7 +284,7 @@ function _videoListAdapter(parent, data){
 }
 
 
-function videoWgt(parent, data, idx){
+function videoWgt(parent, data){
     var widget;
     
     if(parent.attr("data-role") === 'listview'){
@@ -231,6 +300,11 @@ function videoWgt(parent, data, idx){
             src: data.url.youtube + "?rel=0&showinfo=0&modestbranding=1&controls=0",
             class: "fm_video",
             frameborder: "0"
+        });
+        
+    }else if(data.trash){
+        this.videoFrame = $("<div>").attr({
+            class: "fm_trashtalk"
         });
         
     }else{

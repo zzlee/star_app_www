@@ -209,7 +209,7 @@ FmMobile.movieCreatePg = {
                 
                 fileSelectedURI = imageURI;
                 
-                if ( (device.version == "6.0") || (device.version == "6.0.1") ) {
+                if ( (device.version == "6.0") || (device.version == "6.0.1") || (device.version == "6.1") ) {
                     
                     //Here is the workaround for iOS 6.0 and 6.0.1 subsampling issue (when drawing from a more-than-2M jpg to canvas)
                     var tempImg = new Image();
@@ -838,7 +838,7 @@ FmMobile.moviePreviewPg = {
                     }, 5000);*/
                    
                    
-                    FmMobile.addProccessingWork(projectID);
+                    FmMobile.addProcessingWork(projectID);
                     navigator.notification.alert(
                                     '伺服器開始合成影片，請稍後回到此APP檢視影片',  // message
                                     function(){$.mobile.changePage("myVideo.html");},         // callback

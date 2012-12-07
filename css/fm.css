@@ -79,6 +79,28 @@ a.fm_yellowBtn_s{
 	border-radius: 5px;
 }
 
+a.fm_yellowBtn_make_s{
+	
+	color: rgb(0, 0, 0);
+    font-size: 15px;
+    background: #ffe615;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#ffe615), to(#ED9900));
+	background: -webkit-linear-gradient(#ffe615, #ED9900);
+	background: -moz-linear-gradient(#ffe615, #ED9900);
+	background: -ms-linear-gradient(#ffe615, #ED9900);
+	background: -o-linear-gradient(#ffe615, #ED9900);
+	background: linear-gradient(#ffe615, #ED9900);
+	width: 235px;
+	height: 35px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+    horizontal-align: middle;
+    position: absolute;
+    top: 320px;
+    left: 42.5px
+}
+
 
 div.fm_overlay {
     font-size: 12px;
@@ -187,6 +209,16 @@ iframe.fm_video {
     background-size: cover;
 }
 
+.fm_trashtalk {
+    width: 320px;
+    height: 180px;
+	margin: 0px;
+	padding: 0px;
+	box-sizing: margin-box;
+    background-image: url("../images/icon/empty.png");
+    background-size: cover;
+
+}
 
 ul.fm_videoList{
     padding:0px;
@@ -278,6 +310,14 @@ span.fm_comment_num {
 span.fm_txt{
     font-size: 12px;
 	color: rgb(0,0,0);
+}
+
+span.fm_txt_noise{
+    font-size: 18px;
+    color: rgb(255, 255, 255);
+    position: absolute;
+    top: 250px;
+    left: 70px
 }
 
 span.fm_txt_time{

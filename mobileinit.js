@@ -28,6 +28,7 @@ $(document).bind("mobileinit", function(){
 				$('div[id^="orie"]').live("swiperight", FmMobile.orientationPg.swiperight);
                 $("#myVideoPg").live("pagebeforecreate", FmMobile.myVideoPg.loadMyVideo);
 				$("#myVideoPg").live("pageinit", FmMobile.myVideoPg.init);
+                $("#myVideoPg").live("pagebeforeshow", FmMobile.myVideoPg.beforeshow);
                 $("#settingPg").live("pageshow", FmMobile.settingPg.show);
                 $("#tocPg").live("pageshow", FmMobile.tocPg.show);
                 $("#fbLoginPg").live("pageshow", FmMobile.fbLoginPg.show); 
@@ -70,19 +71,23 @@ FmMobile.init = {
         document.addEventListener("push-notification", function(event){
           FM_LOG("push-notification");
           navigator.notification.alert(JSON.stringify(['push-notification!', event]));
+          FmMobile.ajaxNewVideos();
         });
         
         //TODO: 
         //document.addEventListener("touchmove", function(e){ e.preventDefault(); }, true);
         
         /*
-        localStorage.fb_accessToken = "AAABqPdYntP0BAFi1xrndqwD1v8AZAvYEZBNAxk31y0TDmIXWqKC8ZA5zQwN5NGPZBUsqe8DKvMYG4xWtsrbpVZAZCsPrXbPJO4MPwoRlCUAsULv5zZADH4e";
-        
-        localStorage.fb_userID = "100004053532907"; */
+         localStorage._id = "50b34c4a8198caec0e000001";
+         localStorage.fb_accessToken = "AAABqPdYntP0BAOj2VmPf8AVllT1TArJKN3eD9UbzJtzig6oap4aPA5Sx5Ahbl5ypzycr9O09Mbad3NEcPlqZAi8ZBl0Es7A8VXrdavSoLdIVZBMRNVh";
+         localStorage.fb_name="Gabriel Feltmeng"
+         localStorage.fb_userID = "100004053532907";
+         */
         
     },
     onResume: function(){
         FM_LOG("[Init.onResume]");
+        FmMobile.ajaxNewVideos();
         recordUserAction("resumes MiixCard app");
         FmMobile.apn.getPendingNotification();
     },
@@ -92,14 +97,89 @@ FmMobile.init = {
 };
 
 
-FmMobile.addProccessingWork = function(pid){
-    var processingStorage = $.jStorage.get("processingWorks");
-    if(!processingStorage)
-        processingStorage = [];
-    var length = processingStorage.length;
-    processingStorage[length] = {"projectId": pid};
-    $.jStorage.set("processingWorks", processingStorage);
+FmMobile.addProcessingWork = function(pid){
+    
+    var url = remotesite + "/api/submitAVideo";
+    data = {
+        "_id": localStorage._id,
+        "userID": localStorage.fb_userID,
+        "pid": pid,
+        "timestamp": Date.now()
+    };
+    
+    var processingWorks = ($.jStorage.get("processingWorks")) ? $.jStorage.get("processingWorks") : {};
+    processingWorks[pid] = "NoN";
+    $.jStorage.set("processingWorks", processingWorks);
+    
+    $.post(url, data, function(response){
+        //var processingWorks = ($.jStorage.get("processingWorks")) ? $.jStorage.get("processingWorks") : {};
+        createdOn = new Date(response.createdOn).getTime();
+        processingWorks[response.projectId] = createdOn;
+        $.jStorage.set("processingWorks", processingWorks);
+    });
 };
+
+
+FmMobile.ajaxNewVideos = function(){
+    FM_LOG("[ajaxNewVideos]");
+    var videoWorks = ($.jStorage.get("videoWorks")) ? $.jStorage.get("videoWorks") : [];
+    var processingWorks = ($.jStorage.get("processingWorks")) ? $.jStorage.get("processingWorks") : {};
+    var url = domain + "/api/newVideoList";
+    var after = -1;
+    
+    if(!$.isEmptyObject(processingWorks) || $.isEmptyObject(videoWorks)){
+        for(var pid in processingWorks){
+            if( processingWorks[pid] > after)
+                after = processingWorks[pid];
+        }
+        if(after == -1)
+            after = 0;
+        
+        query = {
+            "_id": localStorage._id,
+            "accessToken": localStorage.fb_accessToken,
+            "userID": localStorage.fb_userID,
+            "timestamp": Date.now(),
+            "after": after
+        };
+        
+        // Query if Processing Videos exists .
+        $.get(url, query, function(res){
+              
+          if(res.videoWorks){
+                  newVideos = res.videoWorks;
+              
+              if(newVideos.length > 0){
+                  FM_LOG("[New videoWorks Available]: " + JSON.stringify(newVideos) );
+                  
+                  var length = videoWorks.length;
+              
+                  for(var i=0; i < newVideos.length; i++){
+                      //Add new video to videoWorks storage, remove it in processingWorks storage if complete video.
+                      if(newVideos[i].fb_id){
+                          videoWorks[length+i] = newVideos[i];
+                          if(processingWorks[newVideos[i].projectId])
+                              delete processingWorks[newVideos[i].projectId];
+                      }
+                  }
+                  
+                  $.jStorage.set("videoWorks", videoWorks);
+                  $.jStorage.set("processingWorks", processingWorks);
+              
+              }else{
+                  FM_LOG("[New Videos are not ready yet!]");
+              }
+              
+          }else{
+              FM_LOG("Server Response Error!");
+          }
+      });
+        
+    }else{
+        FM_LOG("[No More Processing Video!]");
+    }
+};
+
 
 FmMobile.apn = {
     
@@ -143,6 +223,7 @@ FmMobile.apn = {
             FM_LOG('getPendingNotifications: ' + JSON.stringify(['getPendingNotifications', result]) );
             //navigator.notification.alert(JSON.stringify(['getPendingNotifications', notifications]));
             //if(result.notifications.length > 0){
+                FM_LOG("["+result.notifications.length + " Pending Push Notifications.]");
                 FmMobile.apn.setApplicationIconBadgeNumber(0);
             //}
         });
@@ -250,6 +331,10 @@ FmMobile.tocPg = {
     PAGE_ID: "tocPg",
     
     show: function(){
+        
+    },
+    
+    init: function(){
         if (localStorage._id) {
             $("#toc_menuBtn").show();
         }
@@ -258,27 +343,10 @@ FmMobile.tocPg = {
         }
     },
     
-    init: function(){
-        //uploadingMgr.showAll($("#toc_contentArea"));
-    },
-    
     buttonClicked: function(){
         FmMobile.analysis.trackEvent("Button", "Click", "ToC", 11);
-        
         $.mobile.changePage("toc.html");
     },
-	
-    /* for TESTing
-	_buttonClicked: function(){
-		var videoWorks = [{"title":"MiixCard movie","projectId":"miixcard-50b82149157d80e80d000002-20121130T030443775Z","fb_id":"100004053532907_515809601771886","_id":"50b82288157d80e80d000003","__v":0,"ownerId":{"_id":"50b82149157d80e80d000002","userID":"100004053532907"},"url":{"youtube":"http://www.youtube.com/embed/VXH9PJWV5tg"}}
-						  ,{"title":"MiixCard movie","projectId":"miixcard-50b82149157d80e80d000002-20121130T111930901Z","fb_id":"100004053532907_506201579401847","_id":"50b896861f5a59ec0c000009","__v":0,"ownerId":{"_id":"50b82149157d80e80d000002","userID":"100004053532907"},"url":{"youtube":"http://www.youtube.com/embed/iIV167g3AYo"}}];
-		
-		var count = videoWorks.length;
-		videoWorks[count] = {"projectId": "miixcard-50b82149157d80e80d000002-20121203T131446527Z"};
-		
-		$.jStorage.set("videoWorks", videoWorks);
-		$.mobile.changePage("myVideo.html");
-	},*/
 };
 
 
@@ -414,6 +482,8 @@ FmMobile.authPopup = {
         delete localStorage.fb_userID;
         delete localStorage.fb_name;
         delete localStorage.fb_accessToken;
+        $.jStorage.set("videoWorks", []);
+        $.jStorage.set("processingWorks", {});
         fb.Logout();
         $.mobile.changePage("index.html");
         
@@ -447,7 +517,10 @@ FmMobile.indexPg = {
     //  Page methods.
     init: function(){
         FM_LOG("[indexPg.init] ");
-        //$.mobile.changePage("movie_preview.html");
+        // Query Availabe New Video in Background.
+        if(localStorage.fb_userID){
+            FmMobile.ajaxNewVideos();
+        }
     },
     
     show: function(){
@@ -455,13 +528,13 @@ FmMobile.indexPg = {
         //recordUserAction("starts MiixCard app");
         
         if(localStorage.fb_userID){
-            //$.mobile.changePage("myVideo.html");
-            $.mobile.changePage("movie_create.html"); //for temp test
+            $.mobile.changePage("myVideo.html");
+            //$.mobile.changePage("movie_create.html"); //for temp test
         }
         else {
             window.location.href = "orientation.html";
             //$.mobile.changePage("myVideo.html");
-            //window.location.href = "orientation.html";
+            
         }
     },
     
@@ -630,6 +703,8 @@ FmMobile.myVideoPg = {
    //  Page constants.
     PAGE_ID: "myVideoPg",
     
+    trashItem: null,
+    
     //  Page methods.
     loadMyVideo: function(event, data){
         FM_LOG("[myVideoPg] pagebeforecreate: loadMyVideoPg");
@@ -639,104 +714,45 @@ FmMobile.myVideoPg = {
 						  ,{"title":"MiixCard movie","projectId":"miixcard-50b82149157d80e80d000002-20121130T111930901Z","fb_id":"100004053532907_506201579401847","_id":"50b896861f5a59ec0c000009","__v":0,"ownerId":{"_id":"50b82149157d80e80d000002","userID":"100004053532907"},"url":{"youtube":"http://www.youtube.com/embed/iIV167g3AYo"}, "createdOn":"1354492800000"}];
 		
 		
-		var pWorks = [{"projectId": "miixcard-50b82149157d80e80d000002-20121203T131446527Z"}];
+		var pWork = "miixcard-50b82149157d80e80d000002-20121203T131446527Z";
+        FmMobile.addProcessingWork(pWork);
 		$.jStorage.set("videoWorks", vWorks);
-        $.jStorage.set("processingWorks", pWorks);*/
+        
+        localStorage._id = "50b34c4a8198caec0e000001";
+        localStorage.fb_accessToken = "AAABqPdYntP0BAOj2VmPf8AVllT1TArJKN3eD9UbzJtzig6oap4aPA5Sx5Ahbl5ypzycr9O09Mbad3NEcPlqZAi8ZBl0Es7A8VXrdavSoLdIVZBMRNVh";
+         localStorage.fb_name="Gabriel Feltmeng"
+        localStorage.fb_userID = "100004053532907"; */
+        
+        //$.jStorage.set("videoWorks", []);
+        //$.jStorage.set("processingWorks", {});
 		/* End of TEST Data */
 		
 		
 		var videoWorks = ($.jStorage.get("videoWorks")) ? $.jStorage.get("videoWorks") : [];
-        var processingWorks = ($.jStorage.get("processingWorks")) ? $.jStorage.get("processingWorks") : [];
+        var processingWorks = ($.jStorage.get("processingWorks")) ? $.jStorage.get("processingWorks") : {};
         var url = domain + "/api/newVideoList";
 		var after = -1;
 		
-		
-        //after = 1354492800;
-		
-		if(processingWorks.length > 0){
-            if(videoWorks.length != 0)
-                after = (new Date(videoWorks[videoWorks.length-1].createdOn).getTime())/1000;
-            else
-                after = 0;
+        if(videoWorks.length == 0 && $.isEmptyObject(processingWorks)){
+            //Neither processed videos nor processing videos.
+            FmMobile.myVideoPg.trashItem = new trashtalk();
             
-            /*
-			query = {
-					"_id": "50b34c4a8198caec0e000001",
-					"accessToken": "AAABqPdYntP0BAJZAe1QGpNmVMsgrdBY0ZAsPU1uw8IKnp9KH4QFRUPVYAojQuJlwnx10PhV62WRJnXBK11NQHRwAjhTsQPHcafMQ1ziu1bZBAUaiCW7",
-					"userID": "100004053532907",
-					"timestamp": Date.now(),
-					"after": after
-            };*/
-			
-			
-            query = {
-                "_id": localStorage._id,
-                "accessToken": localStorage.fb_accessToken,
-                "userID": localStorage.fb_userID,
-                "timestamp": Date.now(),
-                "after": after
-            }; 
-            
-			$.get(url, query, function(res){
-			
-				if(res.videoWorks){
-					newVideos = res.videoWorks;
-					FM_LOG("[New videoWorks Available]: " + JSON.stringify(newVideos) );
-                  
-                    if(newVideos.length > 0){
-                        //var videoStorage = $.jStorage.get("videoWorks");
-                        var length = videoWorks.length;
-                  
-                        for(var i=0; i < newVideos.length; i++){
-                            videoWorks[length+i] = newVideos[i];
-                            videoListAdapter.updateDummy(newVideos[i].projectId, newVideos[i]);
-                        }
-                        $.jStorage.set("videoWorks", videoWorks);
-                  
-                    }else{
-                        FM_LOG("[No New Video Availabe!]");
-                        //var processingStorage = $.jStorage.get("processingWorks");
-                        var length = processingWorks.length;
-                        for(var i=0; i < length; i++){
-                            videoListAdapter.setDummyComment(processingWorks[i].projectId);
-                        }
-                    }
-                  
-                }else{
-                    FM_LOG("Server Response Error!");
-                }
-			});
-            
-		}else{
-            FM_LOG("[No More Processing Video!]");
-        }
-        
-        /* Keep Sync jax for record.
-        $.ajax({
-            type: "GET",
-            url: url 
-                + "?_id=" + localStorage._id
-                + "&accessToken=" + localStorage.fb_accessToken
-                + "&userID=" + localStorage.fb_userID
-                + "&timestamp=" + Date.now(),
-            success: function(res){
-                if(res.videoWorks){
-                    videoWorks = res.videoWorks;
-                    FM_LOG("Gain videoWorks: " + JSON.stringify(videoWorks) );
-                    $.jStorage.set("videos", videoWorks);
-                    videoListAdapter.init($("#myVideo_contentArea", $(this) ), videoWorks);
-                }
-            },
-            async: false
-        });*/
-        videoListAdapter.init($("#myVideo_contentArea", $(this) ), videoWorks, processingWorks);
+        }else{
+            // Initialize VideoList with videos in storage.
+            videoListAdapter.init($("#myVideo_contentArea", $(this) ), videoWorks, processingWorks);
+		}
     },
     //  Initialization method. 
     init: function(){
 		FM_LOG("[myVideoPg] pageinit");
+        videoListAdapter.freshCommentbar();
+        
+    },
+    
+    beforeshow: function(){
+        FM_LOG("[myVideoPg] pagebeforeshow");
         //FmMobile.analysis.trackPage("/myVideo");
         //recordUserAction("enters myVideoPg");
-        
     },
     
 };
