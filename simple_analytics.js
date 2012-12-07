@@ -1,5 +1,5 @@
 
-var recordUserAction = function( userAction ){
+var recordUserAction = function( userAction, forceStoreRecordsLocally ){
     
     var aAnalyticsRecord = {
         action: userAction,
@@ -25,18 +25,24 @@ var recordUserAction = function( userAction ){
     analyticsObj.records = analyticsRecordsToSend;
     analyticsObj.sendTime = (new Date()).getTime();
 
-    $.post(starServerURL+'/record_user_action', analyticsObj, function(result){
-        if ( !result.err ) {
-           delete localStorage.unsentAnalyticsRecords;
-           delete analyticsObj.records;
-           delete analyticsRecordsToSend;
-           delete analyticsObj;
-           console.log("Successfully reported the action "+userAction);
-        }
-    })
-    .error(function() {
-       localStorage.unsentAnalyticsRecords = JSON.stringify(analyticsRecordsToSend);
-       console.log("Locally saved the action "+userAction);
-    });
+    if (!forceStoreRecordsLocally){
+        $.post(starServerURL+'/record_user_action', analyticsObj, function(result){
+            if ( !result.err ) {
+               delete localStorage.unsentAnalyticsRecords;
+               delete analyticsObj.records;
+               delete analyticsRecordsToSend;
+               delete analyticsObj;
+               console.log("Successfully reported the action "+userAction);
+            }
+        })
+        .error(function() {
+           localStorage.unsentAnalyticsRecords = JSON.stringify(analyticsRecordsToSend);
+           console.log("Locally saved the action "+userAction);
+        });
+    }
+    else {
+        localStorage.unsentAnalyticsRecords = JSON.stringify(analyticsRecordsToSend);
+        console.log("Forced locally saved the action "+userAction);        
+    }
     
 };

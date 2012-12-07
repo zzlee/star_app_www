@@ -41,6 +41,11 @@ $(document).bind("mobileinit", function(){
                 //$("#popup").live(); Popup must use "live"
                  
                 mobileinitForMovieGen(); //GZ
+                 
+                setInterval(function(){
+                    navigator.splashscreen.hide();
+                },3000);
+
                 
                 FM_LOG("<----------------- LOAD JQM and INIT ----------------->");
                  
@@ -72,6 +77,11 @@ FmMobile.init = {
           FM_LOG("push-notification");
           navigator.notification.alert(JSON.stringify(['push-notification!', event]));
           FmMobile.ajaxNewVideos();
+            FM_LOG("push-notification:");
+            console.dir(event);
+            //navigator.notification.alert(JSON.stringify(['push-notification!', event]));
+            navigator.notification.alert('You have a new video!');
+            //alert(event);
         });
         
         //TODO: 
@@ -196,7 +206,8 @@ FmMobile.apn = {
     getPushNotification: function(event){
         FM_LOG("[APN.getPushNotification]" + event );
         
-        navigator.notification.alert(JSON.stringify(['push-notification!', event]));
+        //navigator.notification.alert(JSON.stringify(['push-notification!', event]));
+        navigator.notification.alert('You have a new video!');
     },
     
     /* registration on Apple Push Notification servers (via user interaction) & retrieve the token that will be used to push remote notifications to this device. */
@@ -226,6 +237,8 @@ FmMobile.apn = {
                 FM_LOG("["+result.notifications.length + " Pending Push Notifications.]");
                 FmMobile.apn.setApplicationIconBadgeNumber(0);
             //}
+            //navigator.notification.alert('You have a new video!');
+                                
         });
     },
     
@@ -237,7 +250,7 @@ FmMobile.apn = {
         FM_LOG("[APN.getRemoteNotificationStatus]");
         FmMobile.pushNotification.getRemoteNotificationStatus(function(status) {
             FM_LOG('getRemoteNotificationStatus ' + JSON.stringify(status) );
-            navigator.notification.alert(JSON.stringify(['getRemoteNotificationStatus', status]));
+            //navigator.notification.alert(JSON.stringify(['getRemoteNotificationStatus', status]));
         });
     },
     
@@ -256,7 +269,7 @@ FmMobile.apn = {
     cancelAllLocalNotifications: function(){
         FM_LOG("[APN.cancelAllLocalNotifications]");
         FmMobile.pushNotification.cancelAllLocalNotifications(function() {
-            navigator.notification.alert(JSON.stringify(['cancelAllLocalNotifications']));
+            //navigator.notification.alert(JSON.stringify(['cancelAllLocalNotifications']));
         });
     },
     
@@ -266,7 +279,7 @@ FmMobile.apn = {
         FM_LOG("[APN.getDeviceUniqueIdentifier]");
         pushNotification.getDeviceUniqueIdentifier(function(uuid) {
             FM_LOG('getDeviceUniqueIdentifier: ' + uuid);
-            navigator.notification.alert(JSON.stringify(['getDeviceUniqueIdentifier', uuid]));
+            //navigator.notification.alert(JSON.stringify(['getDeviceUniqueIdentifier', uuid]));
         });
     },
 };
@@ -525,7 +538,7 @@ FmMobile.indexPg = {
     
     show: function(){
         FM_LOG("[indexPg.show]");
-        //recordUserAction("starts MiixCard app");
+        //recordUserAction("starts MiixCard app", true);
         
         if(localStorage.fb_userID){
             $.mobile.changePage("myVideo.html");
@@ -536,6 +549,7 @@ FmMobile.indexPg = {
             //$.mobile.changePage("myVideo.html");
             
         }
+                  
     },
     
     beforeshow: function(){
@@ -753,6 +767,7 @@ FmMobile.myVideoPg = {
         FM_LOG("[myVideoPg] pagebeforeshow");
         //FmMobile.analysis.trackPage("/myVideo");
         //recordUserAction("enters myVideoPg");
+        
     },
     
 };
