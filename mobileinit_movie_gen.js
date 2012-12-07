@@ -672,6 +672,9 @@ FmMobile.moviePreviewPg = {
 
 				
 				previewBg.addEventListener(LEvent.ENTER_FRAME,onFrame);
+                $("#moviePreview").bind("stopPreviewAnimation", function(e){
+                    previewBg.removeEventListener(LEvent.ENTER_FRAME,onFrame);
+                });
 
                 
                 var onHide = function(){
@@ -787,27 +790,42 @@ FmMobile.moviePreviewPg = {
 	},
     
     onDoAgainBtnClick: function() {
-        
-        /*
-        $('#moviePreviewPg').live('pagehide',function(event, ui){
-            history.back();
-        });
-        history.back();
-        */
-        //$.mobile.changePage("movie_create.html",{reloadPage:true});
+
         $.mobile.changePage("movie_create.html");
         FmMobile.analysis.trackEvent("Button", "Click", "DoAgain", 24);
+        
     },
     
     onSubmitBtnClick: function() {
         var uploadFail_cb = function(error) {
             //$('#divStatus').html('檔案無法上傳伺服器，請待網路狀況好時再重試！');
+            /*
             navigator.notification.alert(
                                          '喔喔！上傳失敗了。您的網路OK嗎？',  // message
                                          function(){$('#submitPhotoBtn').click();},         // callback
                                          ' ',            // title
                                          '重新上傳'                  // buttonName
-                                         );
+                                         ); */
+
+            var onConfirm = function(buttonIndex) {
+                switch(buttonIndex) {
+                    case 1:
+                        $('#submitPhotoBtn').click();
+                        break;
+                    case 2:
+                        $.mobile.changePage("myVideo.html");
+                        break;
+                }
+            }
+            
+            // Show a custom confirmation dialog
+            //
+            navigator.notification.confirm(
+                                           '喔喔！上傳失敗了。您的網路OK嗎？',  // message
+                                           onConfirm,              // callback to invoke with index of button pressed
+                                           ' ',            // title
+                                           '重新上傳,以後再玩'          // buttonLabels
+                                           );
 
         }
         
@@ -841,19 +859,41 @@ FmMobile.moviePreviewPg = {
             $.post(starServerURL+'/upload_user_data_info', customizedContent, function(result){
                 console.dir("upload user data info result: "+result);
                 if ( !result.err ) {
-                    /*
-                    navigator.notification.alert(
-                                    '伺服器開始合成影片，請稍後回到此APP檢視影片',  // message
-                                    function(){$.mobile.changePage("myVideo.html");},         // callback
-                                    'MiixCard',            // title
-                                    '確認'                  // buttonName
-                                    );*/
+                    $.mobile.hidePageLoadingMsg();
                     $.mobile.changePage("myVideo.html");
-
                 }
+            })
+            .error(function() {
+                   /*
+                   navigator.notification.alert(
+                                                '喔喔！上傳失敗了。您的網路OK嗎？',  // message
+                                                function(){$('#submitPhotoBtn').click();},         // callback
+                                                ' ',            // title
+                                                '重新上傳'                  // buttonName
+                                                );*/
+                   var onConfirm = function(buttonIndex) {
+                       switch(buttonIndex) {
+                           case 1:
+                               $('#submitPhotoBtn').click();
+                               break;
+                           case 2:
+                               $.mobile.changePage("myVideo.html");
+                               break;
+                       }
+                   }
+                   
+                   // Show a custom confirmation dialog
+                   //
+                   navigator.notification.confirm(
+                                                  '喔喔！上傳失敗了。您的網路OK嗎？',  // message
+                                                  onConfirm,              // callback to invoke with index of button pressed
+                                                  ' ',            // title
+                                                  '重新上傳,以後再玩'          // buttonLabels
+                                                  );
+                   
+                
             });
-            
-       }
+        }
         
 
         var uploadPhoto = function (imageURI) {
@@ -885,20 +925,6 @@ FmMobile.moviePreviewPg = {
             options.chunkedMode = true;
             
             var ft = new FileTransfer();
-            ft.upload(imageURI, starServerURL+"/upload", uploadSuccess_cb, uploadFail_cb, options);
-            
-            $('#divStatus').html("照片上傳中，成功後即開始影像合成，合成完成後會通知您去分享給朋友！");
-            $('#divStatus').show();
-            $('#photoSubmitButtons').hide();
-            
-            /*
-            $("div").bind(ProjectID+"__uploadFile", function(e, _uploadPercentage){
-                var uploadPercentageString = ( Math.floor(_uploadPercentage*100) ).toString();
-                $('#divStatus').html("檔案上傳%"+uploadPercentageString+"...");
-                console.log("_uploadPercentage= "+_uploadPercentage);          
-            });
-            */
-            
             ft.onprogress = function(progressEvent) {
                 if (progressEvent.lengthComputable) {
                     var uploadPercentage = progressEvent.loaded / progressEvent.total;
@@ -908,6 +934,22 @@ FmMobile.moviePreviewPg = {
                     console.log("upload some chunk....");
                 }
             };
+            ft.upload(imageURI, starServerURL+"/upload", uploadSuccess_cb, uploadFail_cb, options);
+            
+            $("#moviePreview").trigger("stopPreviewAnimation");
+            $('#divStatus').html("照片上傳成功後即開始影像合成，合成完成後會通知您去分享給朋友！");
+            $('#divStatus').show();
+            $('#photoSubmitButtons').hide();
+            $.mobile.showPageLoadingMsg();
+            
+            /*
+            $("div").bind(ProjectID+"__uploadFile", function(e, _uploadPercentage){
+                var uploadPercentageString = ( Math.floor(_uploadPercentage*100) ).toString();
+                $('#divStatus').html("檔案上傳%"+uploadPercentageString+"...");
+                console.log("_uploadPercentage= "+_uploadPercentage);          
+            });
+            */
+            
         }
         
         uploadPhoto(fileSelectedURI);
