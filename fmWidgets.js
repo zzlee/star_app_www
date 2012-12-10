@@ -220,10 +220,9 @@ var videoListAdapter = (function(){
         updateDummy: function(pid, videoWork){
             var fb_id = videoWork.fb_id;
             var temp=null;
-            if(dummyItems[pid]){
+            if(dummyItems && dummyItems[pid]){
                 temp = dummyItems[pid];
                 dummyItems[pid].setSrc(videoWork.url.youtube);
-                //videoItems[fb_id].setComments({"comments": {"count": "0"} });
                 
                 var url = domain + "/api/fbGetComment";
                 var query = {
@@ -321,8 +320,8 @@ function videoWgt(parent, data){
     
     
     this.commentWgt = new commentListWgt(widget);
-    parent.prepend(widget);
-    //widget.appendTo(parent); Old first.
+    //parent.prepend(widget);
+    widget.appendTo(parent); //Top first.
 }
 
 videoWgt.prototype.setSrc = function(src){
@@ -359,6 +358,7 @@ function commentListWgt(parent, fb_id){
 
 commentListWgt.prototype.setData = function(result){
     
+    $('li', this.listWgt).remove();
     var like_count = (result.likes) ? result.likes.count : 0,
         commentcount = (result.comments.count) ? result.comments.count : 0;
     
@@ -368,7 +368,6 @@ commentListWgt.prototype.setData = function(result){
 	var comment_count = $('span.ui-btn-text', this.header).html(commentcount + commentIcon +" "+like_count + likeIcon);
     var style_class = $('a.ui-collapsible-heading-toggle', this.header).attr("class") + " fm_collapsible_heading_toggle";
     $('a.ui-collapsible-heading-toggle', this.header).attr("class", style_class);
-    
     
     if(result.comments.data){
         var data = result.comments.data;
