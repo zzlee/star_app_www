@@ -321,7 +321,7 @@ function videoWgt(parent, data){
     
     this.commentWgt = new commentListWgt(widget);
     //parent.prepend(widget);
-    widget.appendTo(parent); //Top first.
+    widget.appendTo(parent); //Top First.
 }
 
 videoWgt.prototype.setSrc = function(src){

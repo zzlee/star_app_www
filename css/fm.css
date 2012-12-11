@@ -34,6 +34,20 @@ a.fm_header_btn {
     margin-left: 30px;
 }
 
+a.fm_back_btn {
+    background-image: url("../images/icon/back.png");
+    background-size: cover;
+    width: 10px;
+    height: 15px;
+    padding: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    position: absolute;
+	top: 5%;
+	left: 8%;
+}
+
+
 
 div.fm_content{
 	padding: 0px;
@@ -241,11 +255,14 @@ li.fm_videoItem {
     padding-left: 0px !important;
 }
 
+.ui-dialog{
+    padding: 0px;
+}
 
 div.fm_setting_popup {
-    width: 320px;
-    height: 480px;
     background-image: url("../images/bg/bokeh_iphone_home_s.png");
+    background-size: cover;
+    background-repeat: no-repeat;
     border-style: none;
     border-radius: 0px;
 	background-repeat: no-repeat;
@@ -270,31 +287,37 @@ img.fm_icon{
 
 a.fm_setting_icon_mine{
 	background-image: url("../images/icon/m1.png");
+    background-size: cover;
+    background-repeat: no-repeat;
     width: 27.5%;
     height: 18.3334%;
 	background-size: contain;
 	position: absolute;
-	top: 6.25%;
+	top: 16.25%;
     left: 36.25%;
 }
 
 a.fm_setting_icon_make{
 	background-image: url("../images/icon/m2.png");
+    background-size: cover;
+    background-repeat: no-repeat;
     width: 27.5%;
     height: 18.3334%;
     position: absolute;
 	background-size: contain;
-	top: 33.958833%;
+	top: 43.958833%;
     left: 36.25%;
 }
 
 a.fm_setting_icon_setting{
 	background-image: url("../images/icon/m3.png");
+    background-size: cover;
+    background-repeat: no-repeat;
     width: 27.5%;
     height: 18.3334%;
     position: absolute;
 	background-size: contain;
-	top: 60.625%;
+	top: 70.625%;
     left: 36.25%;
 }
 
