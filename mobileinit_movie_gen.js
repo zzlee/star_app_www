@@ -127,7 +127,8 @@ FmMobile.movieCreatePg = {
 		
 		var url = $(this).data('url');
 		//var templateID = url.split("=")[1];
-		var templateID = "miixcard";
+		var templateID = "greeting";
+        //var templateID = "miixcard";
         //var templateID = "rotate";
 		projectID = templateID +'-'+ userName +'-'+ (new Date()).toISOString().replace(/[-:.]/g, "");
 		customizedContent.projectID = projectID;
@@ -461,7 +462,8 @@ FmMobile.moviePreviewPg = {
 		//var templateID = "rotate"; //TODO: pass a parameter to set
 		//var customizableObjectToPreview = "map" //TODO: pass a parameter to set
 		var templateID = "miixcard"; //TODO: pass a parameter to set
-		var customizableObjectToPreview = "girl" //TODO: pass a parameter to set
+        var templateID = "greeting"; //TODO: pass a parameter to set
+		var customizableObjectToPreview = "greeting_photo" //TODO: pass a parameter to set
 		var templatePreviewKeyFrames = new Array();
 		var actualWidth, actualHeight;
 		
