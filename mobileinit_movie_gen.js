@@ -821,9 +821,6 @@ FmMobile.moviePreviewPg = {
                         break;
                 }
             }
-            
-            // Show a custom confirmation dialog
-            //
             navigator.notification.confirm(
                                            '喔喔！上傳失敗了。您的網路OK嗎？',  // message
                                            onConfirm,              // callback to invoke with index of button pressed
@@ -887,9 +884,6 @@ FmMobile.moviePreviewPg = {
                            break;
                    }
                 }
-
-                // Show a custom confirmation dialog
-                //
                 navigator.notification.confirm(
                                               '喔喔！上傳失敗了。您的網路OK嗎？',  // message
                                               onConfirm,              // callback to invoke with index of button pressed
@@ -930,8 +924,6 @@ FmMobile.moviePreviewPg = {
             
             var ft = new FileTransfer();
 
-            ft.upload(imageURI, starServerURL+"/upload", uploadSuccess_cb, uploadFail_cb, options);
-            $('#divStatus').html("檔案上傳中....");
             /*
             $("div").bind(ProjectID+"__uploadFile", function(e, _uploadPercentage){
                 var uploadPercentageString = ( Math.floor(_uploadPercentage*100) ).toString();

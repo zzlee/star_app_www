@@ -171,6 +171,13 @@ var videoListAdapter = (function(){
             }
             
                         
+            for(var pid in dummy){
+                var d_item = new videoWgt(videoListWgt, {"projectId":pid}, false);
+                //videoListWgt.prepend(d_item);
+                dummyItems[pid] = d_item;
+                d_item.setComments({"comments": {"count": "0"} });
+            }
+                        
             for(var i=0; i < data.length; i++){
                 
                 var fb_id = data[i].fb_id;
@@ -179,7 +186,8 @@ var videoListAdapter = (function(){
                     "accessToken": localStorage.fb_accessToken,
                     "fb_id": fb_id
                 };
-                var v_item = new videoWgt(videoListWgt, data[i]);
+                var v_item = new videoWgt(videoListWgt, data[i], true);
+                //videoListWgt.append(v_item);
                 v_item.setComments({"comments": {"count": "0"} });
                         
                 if(fb_id){
@@ -193,13 +201,6 @@ var videoListAdapter = (function(){
                           }
                     });
                 }
-            }
-            
-            
-            for(var pid in dummy){
-                var d_item = new videoWgt(videoListWgt, {"projectId":pid});
-                dummyItems[pid] = d_item;
-                d_item.setComments({"comments": {"count": "0"} });
             }
         },
                         
@@ -283,7 +284,7 @@ function _videoListAdapter(parent, data){
 }
 
 
-function videoWgt(parent, data){
+function videoWgt(parent, data, append){
     var widget;
     
     if(parent.attr("data-role") === 'listview'){
@@ -320,8 +321,11 @@ function videoWgt(parent, data){
     
     
     this.commentWgt = new commentListWgt(widget);
-    //parent.prepend(widget);
-    widget.appendTo(parent); //Top First.
+    
+    if(append)
+        widget.appendTo(parent); // Top First.
+    else
+        parent.prepend(widget);  // Top Last.
 }
 
 videoWgt.prototype.setSrc = function(src){

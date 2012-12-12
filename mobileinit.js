@@ -97,12 +97,16 @@ FmMobile.init = {
     },
     onResume: function(){
         FM_LOG("[Init.onResume]");
-        FmMobile.ajaxNewVideos();
-        recordUserAction("resumes MiixCard app");
-        FmMobile.apn.getPendingNotification();
+        if(localStorage.fb_userID){
+            FmMobile.ajaxNewVideos();
+            FmMobile.apn.getPendingNotification();
+            recordUserAction("resumes MiixCard app");
+        }
     },
     onPause: function(){
-        recordUserAction("pauses MiixCard app");
+        if(localStorage.fb_userID){
+            recordUserAction("pauses MiixCard app");
+        }
     },
 };
 
