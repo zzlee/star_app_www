@@ -74,9 +74,7 @@ FmMobile.init = {
         document.addEventListener("resume", FmMobile.init.onResume, false);
         document.addEventListener("pause", FmMobile.init.onPause, false);
         document.addEventListener("push-notification", function(event){
-          FM_LOG("push-notification");
-          navigator.notification.alert(JSON.stringify(['push-notification!', event]));
-          FmMobile.ajaxNewVideos();
+            FmMobile.ajaxNewVideos();
             FM_LOG("push-notification:");
             console.dir(event);
             //navigator.notification.alert(JSON.stringify(['push-notification!', event]));
@@ -168,10 +166,10 @@ FmMobile.ajaxNewVideos = function(){
                   
                   var length = videoWorks.length;
               
-                  for(var i=0; i < newVideos.length; i++){
+                  for(var i=newVideos.length-1; i > -1; i--){
                       //Add new video into videoWorks storage, remove it in processingWorks storage if completed video.
                       if(newVideos[i].fb_id){
-                          videoWorks[length+i] = newVideos[i];
+                          videoWorks.unshift(newVideos[i]);
                           if(processingWorks[newVideos[i].projectId])
                               delete processingWorks[newVideos[i].projectId];
               
