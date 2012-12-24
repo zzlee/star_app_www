@@ -764,6 +764,7 @@ FmMobile.myVideoPg = {
     init: function(){
 		FM_LOG("[myVideoPg] pageinit");
         videoListAdapter.freshCommentbar();
+        $("#myVideo_contentArea").height( window.innerHeight - $("div[data-role=header]").height() );
         
     },
     

@@ -287,18 +287,21 @@ function _videoListAdapter(parent, data){
 function videoWgt(parent, data, append){
     var widget;
     
+    /*
     if(parent.attr("data-role") === 'listview'){
         widget = $("<li>").attr({id: data.projectId, class: "fm_videoItem"});
     }else{
         widget = $("<div>").attr({id: data.projectId, class: "fm_videoItem"});
     }
+    */
+    widget = $("<div>").attr({id: data.projectId, class: "fm_movie"});
     
     this.videoFrame;
     
     if(data.url){
         this.videoFrame = $("<iframe>").attr({
             src: data.url.youtube + "?rel=0&showinfo=0&modestbranding=1&controls=0",
-            class: "fm_video",
+            class: "fm_movievideo",
             frameborder: "0"
         });
         
@@ -309,7 +312,7 @@ function videoWgt(parent, data, append){
         
     }else{
         this.videoFrame = $("<iframe>").attr({
-           class: "fm_video_making",
+           class: "fm_video_making fm_movievideo",
             frameborder: "0"
         });
     }

@@ -1,0 +1,308 @@
+/* MY VIDEO ------------------------------------------------------------*/
+
+@charset "utf-8";
+.fm_myvideo {
+	height: 1230px;
+	width: 100%;
+	background-repeat: no-repeat;
+	background-image: url("./images/bg/bg.png");
+    background-size: 100%;
+	background-attachment: scroll;
+	padding: 0;
+}
+.fm_page {
+	overflow: hidden;
+}
+.fm_header {
+	float: none;
+	width: 91.8%;
+	padding-right: 4.3%;
+	padding-left: 4.3%;
+	padding-top: 2.8%;
+	padding-bottom: 2.8%;
+	min-height: 50%;
+}
+.fm_menu {
+	float: left;
+	width: 11%;
+	background-repeat: no-repeat;
+}
+
+.fm_headername {
+	float: left;
+	width: 78%;
+	text-align: center;
+    color: .FFF;
+	color: #FFF;
+}
+.fm_back {
+	float: left;
+	width: 11%;
+}
+.fm_movie {
+	width: 100%;
+	height: 37%;
+}
+
+.fm_moviedb {
+	height: 10%;
+	width: 100%;
+}
+.fm_likenb {
+	width: 5%;
+	float: left;
+	font-size: 200%;
+
+	color: .FFF;
+	text-align: center;
+	padding-top: 1.5%;
+	padding-left: 4.3%;
+	font-family: Arial, Helvetica, sans-serif;
+	color: rgba(255,255,255,1);
+}
+.fm_like {
+	width: 5%;
+	float: left;
+	text-align: center;
+	vertical-align: middle;
+	padding-top: 2.4%;
+}
+.fm_commentnb {
+	float: left;
+	width: 5%;
+	font-size: 200%;
+
+	color: .FFF;
+	text-align: center;
+	vertical-align: middle;
+	padding-top: 1.5%;
+	font-family: Arial, Helvetica, sans-serif;
+	color: rgba(255,255,255,1);
+}
+.fm_comment {
+	width: 5%;
+	float: left;
+	text-align: center;
+	vertical-align: middle;
+	padding-top: 2.4%;
+}
+.fm_bar {
+	width: 5%;
+	text-align: center;
+	vertical-align: middle;
+	padding-top: 2.4%;
+	padding-right: 4.3%;
+	float: right;
+}
+#fm_shareword {
+	float: left;
+	width: 11%;
+	padding-top: 1.5%;
+	font-size: 200%;
+	color: rgba(255,255,255,1);
+}
+#fm_share {
+	width: 5%;
+	padding-top: 2.4%;
+	float: left;
+}
+
+
+.fm_movievideo {
+	width: 100%;
+	height: 32.px;
+	height: 88.3%;
+}
+#fm_fbcomment {
+	width: 91.68%;
+	padding-top: 2.8%;
+	padding-right: 4.16%;
+	padding-bottom: 2.8%;
+	padding-left: 4.16%;
+	height: auto;
+	overflow: hidden;
+}
+#fm_fbprofile {
+	float: left;
+}
+#fm_arrow {
+	float: left;
+	margin-top: 3%;
+	margin-left: 1%;
+	content:"";
+    right: 100%;
+    top: 26px;
+    width: 0;
+    height: 0;
+    border-top: 13px solid transparent;
+    border-right: 20px solid #bcbec0;
+    border-bottom: 13px solid transparent;
+}
+
+#fm_fbwords {
+	width: 79%;
+	background: #bcbec0;
+	position: relative;
+	border-radius: 10px;
+	float: left;
+}
+#fm_fbname {
+	margin-top: 2%;
+	margin-right: 1%;
+	margin-bottom: 1%;
+	margin-left: 3%;
+	float: left;
+	font-size: 150%;
+}
+#fm_fbtime {
+	margin-top: 2%;
+	margin-right: 3%;
+	margin-bottom: 1%;
+	margin-left: 1%;
+	float: right;
+	font-size: 150%;
+	text-align: right;
+}
+#fm_fbw2 {
+	margin-right: 3%;
+	margin-bottom: 2%;
+	margin-left: 3%;
+	float: left;
+	width: 94%;
+	font-size: 150%;
+	white-space: normal;
+	word-break: break-all;
+	overflow: hidden;
+}
+
+
+/* MENU ------------------------------------------------------------*/
+#fm_icon {
+	width: 24.444%;
+	margin-top: 20%;
+	margin-right: 0%;
+	margin-bottom: 0%;
+	margin-left: 37.5%;
+
+}
+
+/* MOVIE_CREATE ------------------------------------------------------------*/#fm_uploadpic {
+	background-color: rgba(0,0,0,0.3);
+	height: 43.902%;
+	width: 100%;
+}
+#fm_template {
+	height: 75.3%;
+	width: 100%;
+	margin-top: 9.5%;
+}
+#fm_empty346 {
+	height: 28.13%;
+	width: 100%;
+	font-size: 250%;
+	text-align: center;
+}
+#fm_button {
+	height: 5.691%;
+	width: 65.277%;
+	margin-top: 0%;
+	margin-right: 17.361%;
+	margin-bottom: 3.4%;
+	margin-left: 17.361%;
+	background: #e2e2e2; /* Old browsers */
+	background: -moz-linear-gradient(top,  #e2e2e2 0%, #dbdbdb 50%, #d1d1d1 51%, #fefefe 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e2e2e2), color-stop(50%,#dbdbdb), color-stop(51%,#d1d1d1), color-stop(100%,#fefefe)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#fefefe 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#fefefe 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#fefefe 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#fefefe 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#fefefe',GradientType=0 ); /* IE6-9 */
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+}
+#fm_cameraicon {
+	margin-top: 4%;
+	margin-left: 6%;
+	width: 9.5%;
+	float: left;
+	margin-right: 6%;
+}
+#fm_cameratext {
+	margin-top: 2.5%;
+	font-size: 250%;
+	text-align: center;
+	width: 70%;
+	float: left;
+}
+
+/* TOC ------------------------------------------------------------*/
+#fm_toc {
+	height: 85%;
+	background-color: rgba(0,0,0,0.3);
+	border-radius: 10px;
+	color: rgba(255,255,255,1);
+	font-size: 250%;
+	margin: 2.777%;
+}
+#fm_cameratext2 {
+	margin-top: 2.5%;
+	font-size: 250%;
+	text-align: center;
+	float: left;
+	width: 100%;
+}
+#fm_button2 {
+	height: 5.691%;
+	width: 65.277%;
+	margin-top: 0%;
+	margin-right: 17.361%;
+	margin-bottom: 3.4%;
+	margin-left: 17.361%;
+	background: #ffe615; /* Old browsers */
+background: -moz-linear-gradient(top, #ffe615 0%, #ed9900 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffe615), color-stop(100%,#ed9900)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #ffe615 0%,#ed9900 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #ffe615 0%,#ed9900 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #ffe615 0%,#ed9900 100%); /* IE10+ */
+background: linear-gradient(to bottom, #ffe615 0%,#ed9900 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffe615', endColorstr='#ed9900',GradientType=0 ); /* IE6-9 */
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+}
+
+/* PHOTO_CROP ------------------------------------------------------------*/
+#fm_cropbtn {
+	height: 10%;
+	width: 100%;
+	clip: rect(auto,auto,auto,auto);
+	float: left;
+	background-color: rgba(0,0,0,0.6);
+	position: absolute;
+	bottom: 0px;
+}
+#fm_cropicon {
+	margin-top: 5%;
+	margin-left: 22%;
+	width: 25%;
+	float: left;
+}
+/* MOVIE_EMPTY ------------------------------------------------------------*/
+#fm_emptywords {
+	text-align: center;
+	width: 100%;
+	margin-top: 25%;
+}
+
+/* MOVIE_WAITING ------------------------------------------------------------*/
+#fm_fileupload {
+	height: 11.38%;
+	width: 100%;
+}
+#fm_waitingbar {
+	width: 100%;
+}
+#fm_waitingwords {
+	width: 100%;
+}
