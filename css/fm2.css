@@ -33,7 +33,7 @@
 	width: 78%;
 	text-align: center;
     color: .FFF;
-	color: #FFF;
+	color: .FFF;
 }
 .fm_back {
 	float: left;
@@ -45,7 +45,7 @@
 }
 
 .fm_moviedb {
-	height: 10%;
+	/*height: 10%;*/
 	width: 100%;
 }
 .fm_likenb {
@@ -94,14 +94,14 @@
 	padding-right: 4.3%;
 	float: right;
 }
-#fm_shareword {
+.fm_shareword {
 	float: left;
 	width: 11%;
 	padding-top: 1.5%;
 	font-size: 200%;
 	color: rgba(255,255,255,1);
 }
-#fm_share {
+.fm_share {
 	width: 5%;
 	padding-top: 2.4%;
 	float: left;
@@ -113,7 +113,7 @@
 	height: 32.px;
 	height: 88.3%;
 }
-#fm_fbcomment {
+.fm_fbcomment {
 	width: 91.68%;
 	padding-top: 2.8%;
 	padding-right: 4.16%;
@@ -122,10 +122,11 @@
 	height: auto;
 	overflow: hidden;
 }
-#fm_fbprofile {
+.fm_fbprofile {
 	float: left;
+	width: 15.55%;
 }
-#fm_arrow {
+.fm_arrow {
 	float: left;
 	margin-top: 3%;
 	margin-left: 1%;
@@ -139,37 +140,37 @@
     border-bottom: 13px solid transparent;
 }
 
-#fm_fbwords {
-	width: 79%;
+.fm_fbwords {
+	width: 75%;
 	background: #bcbec0;
 	position: relative;
 	border-radius: 10px;
 	float: left;
 }
-#fm_fbname {
+.fm_fbname {
 	margin-top: 2%;
 	margin-right: 1%;
 	margin-bottom: 1%;
 	margin-left: 3%;
 	float: left;
-	font-size: 150%;
+	font-size: 120%;
 }
-#fm_fbtime {
+.fm_fbtime {
 	margin-top: 2%;
 	margin-right: 3%;
 	margin-bottom: 1%;
 	margin-left: 1%;
 	float: right;
-	font-size: 150%;
+	font-size: 120%;
 	text-align: right;
 }
-#fm_fbw2 {
+.fm_fbw2 {
 	margin-right: 3%;
 	margin-bottom: 2%;
 	margin-left: 3%;
 	float: left;
 	width: 94%;
-	font-size: 150%;
+	font-size: 120%;
 	white-space: normal;
 	word-break: break-all;
 	overflow: hidden;
@@ -177,7 +178,7 @@
 
 
 /* MENU ------------------------------------------------------------*/
-#fm_icon {
+.fm_icon {
 	width: 24.444%;
 	margin-top: 20%;
 	margin-right: 0%;
@@ -186,23 +187,23 @@
 
 }
 
-/* MOVIE_CREATE ------------------------------------------------------------*/#fm_uploadpic {
+/* MOVIE_CREATE ------------------------------------------------------------*/.fm_uploadpic {
 	background-color: rgba(0,0,0,0.3);
 	height: 43.902%;
 	width: 100%;
 }
-#fm_template {
+.fm_template {
 	height: 75.3%;
 	width: 100%;
 	margin-top: 9.5%;
 }
-#fm_empty346 {
+.fm_empty346 {
 	height: 28.13%;
 	width: 100%;
 	font-size: 250%;
 	text-align: center;
 }
-#fm_button {
+.fm_button {
 	height: 5.691%;
 	width: 65.277%;
 	margin-top: 0%;
@@ -221,14 +222,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
 }
-#fm_cameraicon {
+.fm_cameraicon {
 	margin-top: 4%;
 	margin-left: 6%;
 	width: 9.5%;
 	float: left;
 	margin-right: 6%;
 }
-#fm_cameratext {
+.fm_cameratext {
 	margin-top: 2.5%;
 	font-size: 250%;
 	text-align: center;
@@ -237,7 +238,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
 }
 
 /* TOC ------------------------------------------------------------*/
-#fm_toc {
+.fm_toc {
 	height: 85%;
 	background-color: rgba(0,0,0,0.3);
 	border-radius: 10px;
@@ -245,14 +246,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
 	font-size: 250%;
 	margin: 2.777%;
 }
-#fm_cameratext2 {
+.fm_cameratext2 {
 	margin-top: 2.5%;
 	font-size: 250%;
 	text-align: center;
 	float: left;
 	width: 100%;
 }
-#fm_button2 {
+.fm_button2 {
 	height: 5.691%;
 	width: 65.277%;
 	margin-top: 0%;
@@ -273,7 +274,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffe615', end
 }
 
 /* PHOTO_CROP ------------------------------------------------------------*/
-#fm_cropbtn {
+.fm_cropbtn {
 	height: 10%;
 	width: 100%;
 	clip: rect(auto,auto,auto,auto);
@@ -282,27 +283,27 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffe615', end
 	position: absolute;
 	bottom: 0px;
 }
-#fm_cropicon {
+.fm_cropicon {
 	margin-top: 5%;
 	margin-left: 22%;
 	width: 25%;
 	float: left;
 }
 /* MOVIE_EMPTY ------------------------------------------------------------*/
-#fm_emptywords {
+.fm_emptywords {
 	text-align: center;
 	width: 100%;
 	margin-top: 25%;
 }
 
 /* MOVIE_WAITING ------------------------------------------------------------*/
-#fm_fileupload {
+.fm_fileupload {
 	height: 11.38%;
 	width: 100%;
 }
-#fm_waitingbar {
+.fm_waitingbar {
 	width: 100%;
 }
-#fm_waitingwords {
+.fm_waitingwords {
 	width: 100%;
 }
