@@ -236,6 +236,9 @@ iframe.fm_video {
 ul.fm_videoList{
     padding:0px;
     margin:0px !important;
+    width:100%;
+    height:100%;
+    overflow-y: auto;
 }
 
 div.fm_videoItem {
@@ -358,8 +361,8 @@ div.fm_collapsible{
     background: rgba(0, 0, 0, 0);
     border-style: none;
     border-top-style: none;
-	width: 320px;
-	min-height: 55px;
+	width: 100%;
+	/*min-height: 55px; */
 }
 
 
