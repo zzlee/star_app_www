@@ -448,8 +448,9 @@ FmMobile.authPopup = {
     init: function(){
         FM_LOG("[authPopup Init]");
         
-        var client_id = "116813818475773"; //Facebook APP_ID
+        var client_id = "116813818475773"; //Facebook APP_ID miixcard: 116813818475773; watasistar: 243619402408275
         //var redir_url = ["http://www.facebook.com/connect/login_success.html", "https://www.facebook.com/connect/login_success.html"];
+        //var redir_url = ["http://www.feltmeng.idv.tw/welcome.html", "https://www.feltmeng.idv.tw/welcome.html"];
         var redir_url = ["http://www.miix.tv/welcome.html", "https://www.miix.tv/welcome.html"];
         
         var fb = FBConnect.install();
