@@ -402,6 +402,10 @@ commentListWgt.prototype.setData = function(result){
     div_commentnb.html( commentcount.toString() );
     div_comment.html('<img src="./images/icon/comment.png" style="width:100%"></img>');
     div_bar.html('<img src="./images/icon/expand_arrow.png" style="width:100%"></img>');
+    this.listWgt.hide();
+    div_bar.click(function(){
+                  $(this.parentElement.parentElement.children[1]).toggle();
+    });
     
     
     
