@@ -7,9 +7,8 @@ div.fm_page {
 }
 
 div.fm_orientation{
+    background: rgb(0, 0, 0);
 	background-repeat: round;
-	/*background-size: contain;*/
-	/*width:320px; */
 }
 
 div.fm_header {
@@ -260,9 +259,11 @@ li.fm_videoItem {
 
 .ui-dialog{
     padding: 0px;
+    background: rgb(0, 0, 0) !important;
 }
 
 div.fm_setting_popup {
+    background: rgb(0 ,0, 0);
     background-image: url("../images/bg/bokeh_iphone_home_s.png");
     background-size: cover;
     background-repeat: no-repeat;

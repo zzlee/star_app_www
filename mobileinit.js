@@ -303,7 +303,7 @@ FmMobile.analysis = {
         FM_LOG("[analysis.init]");
         
         FmMobile.ga = window.plugins.gaPlugin;
-        FmMobile.ga.init(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler                , "UA-36431108-1", 10);
+        FmMobile.ga.init(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler                , "UA-37288251-1", 10); // UA-37288251-1 for Web.
         
     },
     
@@ -449,10 +449,11 @@ FmMobile.authPopup = {
         FM_LOG("[authPopup Init]");
         
         var client_id = "116813818475773"; //Facebook APP_ID
-        var redir_url = ["http://www.facebook.com/connect/login_success.html", "https://www.facebook.com/connect/login_success.html"];
+        //var redir_url = ["http://www.facebook.com/connect/login_success.html", "https://www.facebook.com/connect/login_success.html"];
+        var redir_url = ["http://www.miix.tv/welcome.html", "https://www.miix.tv/welcome.html"];
         
         var fb = FBConnect.install();
-        fb.connect(client_id, redir_url, "touch");
+        fb.connect(client_id, redir_url[0], "touch");
         fb.onConnect = FmMobile.authPopup.onFBConnected;
     },
         
