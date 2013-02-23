@@ -1,0 +1,54 @@
+<!DOCTYPE html> 
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./css/jquery-ui.css"/>
+    <link rel="stylesheet" href="./css/jquery.mobile-1.2.0.css"/>
+    <!-- CUSTOM INITIALIZATION CODE -->
+    <script src="./lib/cordova-2.2.0.js" type="text/javascript" charset="utf-8"></script>
+    <script src="./lib/jquery-1.8.2.min.js"></script>
+    <script src="./lib/jquery-ui.js"></script>
+    <script src="./lib/ChildBrowser.js"></script>
+    <script src="./lib/json2.js"></script>
+    <script src="./lib/jstorage.min.js"></script>
+    <script src="./lib/kinetic-v4.0.5.min.js"></script>
+    <script src="./lib/lufylegend-1.5.0.js"></script>
+    <script src="./lib/GAPlugin.js"></script>
+    <script src="./lib/PushNotification.js"></script>
+    <script src="./lib/exif.js"></script>
+    <script src="./lib/binaryajax.js"></script>
+    <!-- CUSTOM INITIALIZATION CODE -->
+    <script src="common.js"></script>
+    <script src="megapix-image-gz.js"></script>
+    <script src="photo_cropper.js"></script>
+    <script src="movie_preview_math.js"></script>
+    <script src="simple_analytics.js"></script>
+    <script src="fmWidgets.js"></script>
+    <script src="FBConnect.js"></script>
+    <script src="authentication.js"></script>
+    <script src="mobileinit.js"></script>
+    <script src="mobileinit_movie_gen.js"></script>
+    <script src="./lib/jquery.mobile-1.2.0.js"></script>
+    <link rel="stylesheet" href="./css/fm.css"/>
+    <link rel="stylesheet" href="./css/fm2.css"/>
+</head>
+<body> 
+
+<div data-role="page" class="fm_page">
+<div data-role="header">
+    <a href="menuPopup.html" style="margin-top:10px; margin-left:5px;" data-rel="dialog" class="fm_header_btn"></a>
+    <h1>登上大螢幕</h1>
+</div>
+<div data-role="content" class="fm_mycontent">
+  <div class="fm_bookingbg" id="fm_bookingbg">您所合成的影片現在不只可以透過facebook分享給朋友，還可以登上戶外螢幕喔 ! 現在只要進入我的影片，影片下方按下”預約戶外看板         ”，即可預約戶外螢幕時間，撥出日期還會自動更新到你的facebook，讓您的好友也快速地知道這項訊息，一起到戶外螢幕看您所製作的影片。快來體驗吧 !預約前請先取得驗證碼。</div>
+  <div class="fm_button" id="fm_button" onclick="$.mobile.changePage('phoneNumInput.html');">
+      <div class="fm_cameratext2">取得驗證碼</div>
+  </div>
+    <div class="fm_button2" id="fm_button2" onclick="$.mobile.changePage('codeInput.html');">
+          <div class="fm_cameratext2">輸入驗證碼</div>
+    </div>
+</div>
+</div>
+</body>
+</html>

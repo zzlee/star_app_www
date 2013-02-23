@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
@@ -18,14 +18,22 @@
         <script src="mobileinit.js"></script>
         <script src="./js/jquery.mobile-1.2.0.js"></script>
         <link rel="stylesheet" href="./css/fm.css">
+        <link rel="stylesheet" href="./css/fm2.css">
     </head>
 <body class="container">
-        <div data-role="content" id="contentArea" style="width:320px; height:460px; margin:0px; padding:0px; position:absolute; top:0px; left:0px;" class="fm_setting_popup">
+        <!-- <div data-role="content" id="contentArea" style="width:320px; height:460px; margin:0px; padding:0px; position:absolute; top:0px; left:0px;" class="fm_setting_popup">
             <a href="#" onclick="$('.ui-dialog').dialog('close');" class="fm_back_btn"></a>
             <a href="myVideo.html" class="fm_setting_icon_mine"></a>
             <a href="movie_create.html" class="fm_setting_icon_make"></a>
             <a href="setting.html" class="fm_setting_icon_setting"></a>
-        </div>
+        </div> -->
+    <div data-role="content" class="fm_mycontent" id="contentArea">
+        <a href="#" onclick="$('.ui-dialog').dialog('close');" class="fm_back_btn"></a>
+        <a href="myVideo.html" class="fm_icon"><img src="./images/m1.png" width="88"></a>
+        <a href="movie_create.html" class="fm_icon"><img src="./images/m2.png" width="88"></a>
+        <a href="#" onclick="FmMobile.authentication.init();" class="fm_icon"><img src="./images/m4.png" width="88"></a>
+        <a href="setting.html" class="fm_icon"><img src="./images/m3.png" width="88"></a>
+    </div>
 </body>
 </html>
 

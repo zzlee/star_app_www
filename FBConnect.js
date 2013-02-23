@@ -29,7 +29,7 @@ FBConnect.prototype.connect = function(client_id, redirect_uri, display)
 		authorize_url += "&redirect_uri=" + redirect_uri;
 		authorize_url += "&display="+ ( display ? display : "touch" );
 		authorize_url += "&type=user_agent";
-        authorize_url += "&scope=read_stream,publish_stream";
+        authorize_url += "&scope=read_stream,publish_stream,user_location,email,user_likes,publish_checkins";
     
 	window.plugins.childBrowser.showWebPage(authorize_url);
 	var self = this;
@@ -102,15 +102,33 @@ FBConnect.prototype.getUserID = function(){
         if(req.readyState == 4 && req.status == 200){
             
             var res = JSON.parse(e.target.responseText);
-            FM_LOG("userID: " + res.id + " userName: " + res.name);
+            FM_LOG("[fb_profile]: " + JSON.stringify(res));
             localStorage.fb_userID = res.id;
             localStorage.fb_name = res.name;
+            $.jStorage.set("fb_profile", res);
             
             self.onConnect();
         }
     };
+    
+    
+    var url_pic = "https://graph.facebook.com/me/picture?redirect=false&access_token=" + this.accessToken;
+    var req_pic = new XMLHttpRequest();
+    
+    req_pic.onreadystatechange = function(e){
+        //FM_LOG("req_pic: " + JSON.stringify(req_pic));
+        if(req_pic.readyState == 4 && req_pic.status == 200){
+            FM_LOG("req_pic response: " + e.target.responseText);
+            var res = JSON.parse(e.target.responseText);
+            FM_LOG("user_pic: " + res.data.url);
+            localStorage.fb_user_pic = res.data.url;
+        }
+    };
+    
     req.open("GET", url);
+    req_pic.open("GET", url_pic);
     req.send({"timestamp": Date.now()});
+    req_pic.send({"timestamp": Date.now()});
     
 };
 

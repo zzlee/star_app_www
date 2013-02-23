@@ -75,6 +75,7 @@ FmMobile.init = {
         document.addEventListener("pause", FmMobile.init.onPause, false);
         document.addEventListener("push-notification", function(event){
             FmMobile.ajaxNewVideos();
+            FmMobile.ajaxNewStoryVideos();
             FM_LOG("push-notification:");
             console.dir(event);
             //navigator.notification.alert(JSON.stringify(['push-notification!', event]));
@@ -85,12 +86,34 @@ FmMobile.init = {
         //TODO: 
         //document.addEventListener("touchmove", function(e){ e.preventDefault(); }, true);
         
+        // Metadata for TEST.
         /*
-         localStorage._id = "50b34c4a8198caec0e000001";
+         localStorage._id = "50c9afd0064d2b8412000013"; // feltmeng.idv: "50b34c4a8198caec0e000001";
          localStorage.fb_accessToken = "AAABqPdYntP0BAOj2VmPf8AVllT1TArJKN3eD9UbzJtzig6oap4aPA5Sx5Ahbl5ypzycr9O09Mbad3NEcPlqZAi8ZBl0Es7A8VXrdavSoLdIVZBMRNVh";
-         localStorage.fb_name="Gabriel Feltmeng"
+         localStorage.fb_name="Gabriel Feltmeng";
          localStorage.fb_userID = "100004053532907";
-         */
+         localStorage.verified = false;
+         localStorage.fb_name = "Gabriel Feltmeng";
+         localStorage.fb_user_pic = "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash4/371504_100004053532907_620345447_q.jpg";
+        
+        metadata = {
+            "id": "100004053532907",
+            "name": "Gabriel Feltmeng",
+            "first_name": "Gabriel",
+            "last_name": "Feltmeng",
+            "link": "http://www.facebook.com/gabriel.feltmeng",
+            "username": "gabriel.feltmeng",
+            "location": {
+                "id": "110765362279102",
+                "name": "Taipei, Taiwan"
+            },
+            "gender": "male",
+            "timezone": 8, 
+            "locale": "en_US", 
+            "verified": true, 
+            "updated_time": "2013-02-19T07:38:19+0000"
+        };
+        $.jStorage.set("fb_profile", metadata);*/
         
     },
     onResume: function(){
@@ -147,19 +170,20 @@ FmMobile.ajaxNewVideos = function(){
         if(after == -1)
             after = 0;
         
-        query = {
+        var query = {
             "_id": localStorage._id,
             "accessToken": localStorage.fb_accessToken,
             "userID": localStorage.fb_userID,
             "timestamp": Date.now(),
-            "after": after
+            "after": after,
+            "genre": 'miix'
         };
         
         // Query if Processing Videos exists .
         $.get(url, query, function(res){
               
           if(res.videoWorks){
-                  newVideos = res.videoWorks;
+              var newVideos = res.videoWorks;
               
               if(newVideos.length > 0){
                   FM_LOG("[New videoWorks Available]: " + JSON.stringify(newVideos) );
@@ -193,6 +217,91 @@ FmMobile.ajaxNewVideos = function(){
         FM_LOG("[No More Processing Video!]");
     }
 };
+
+FmMobile.ajaxNewStoryVideos = function(){
+    
+    FM_LOG("[ajaxNewStoryVideos]");
+    var streetVideos = ($.jStorage.get("streetVideos")) ? $.jStorage.get("streetVideos") : [];
+    var after = -1;
+    var url = remotesite + "/api/newVideoList";
+    
+    if(!$.isEmptyObject(streetVideos)){
+        after = new Date(streetVideos[0].createdOn).getTime(); // First - Newest
+        
+    }else{
+        after = 0;
+    } 
+    
+    var query = {
+        "_id": localStorage._id,
+        "accessToken": localStorage.fb_accessToken,
+        "userID": localStorage.fb_userID,
+        "timestamp": Date.now(),
+        "after": after,
+        "genre": 'miix_story'
+    };
+    
+    $.get(url, query, function(res){
+          
+        if(res.streetVideos && res.streetVideos.length > 0){
+          
+          var newStreeVideos = res.streetVideos;
+          
+          streetVideos = newStreeVideos.concat(streetVideos);
+          $.jStorage.set("streetVideos", streetVideos);
+          
+        }else{
+          if(res.error)
+            FM_LOG("[ajaxNewStoryVideos] error: " + res.error);
+          else
+            FM_LOG("[No New StreetVideo]");
+        }
+    });
+    
+};
+
+
+FmMobile.dooh = function(evt){
+    
+    var pid = evt.target.parentElement.parentElement.parentElement.parentElement.id;
+    FM_LOG("[submitDooh] pid: " + pid);
+    if(pid){
+        $.jStorage.set("dooh_pid", pid);
+        
+        if(localStorage.verified == 'true'){
+            FmMobile.submitDooh();
+            
+        }else{
+            FmMobile.authentication.verification();
+        }
+    }else{
+        console.log("Wrong pid of Dooh Video.");
+    }
+    
+};
+
+FmMobile.submitDooh = function(){
+    var pid = $.jStorage.get("dooh_pid");
+    var url = remotesite + "/api/submitDooh";
+    
+    var query = {
+        "_id": localStorage._id,
+        "accessToken": localStorage.fb_accessToken,
+        "userID": localStorage.fb_userID,
+        "timestamp": Date.now(),
+        "pid": pid
+    };
+    
+    $.post(url, query, function(res){
+       if(res.message){
+           navigator.notification.alert(res.message);
+           $.jStorage.set("dooh_pid", null);
+       }else{
+           console.log("[submitDooh]"+JSON.stringify(res));
+       }
+    });
+};
+
 
 
 FmMobile.apn = {
@@ -344,11 +453,13 @@ FmMobile.fbLoginPg = {
     },
 };
 
+
 FmMobile.tocPg = {
     PAGE_ID: "tocPg",
     
     show: function(){
         FmMobile.ajaxNewVideos();
+        FmMobile.ajaxNewStoryVideos();
     },
     
     init: function(){
@@ -365,6 +476,7 @@ FmMobile.tocPg = {
         $.mobile.changePage("toc.html");
     },
 };
+
 
 
 FmMobile.orientationPg = {
@@ -503,6 +615,8 @@ FmMobile.authPopup = {
         delete localStorage.fb_accessToken;
         $.jStorage.set("videoWorks", []);
         $.jStorage.set("processingWorks", {});
+        $.jStorage.set("streetVideos", []);
+        $.jStorage.set("fb_profile", null);
         fb.Logout();
         $.mobile.changePage("index.html");
         
@@ -539,6 +653,7 @@ FmMobile.indexPg = {
         // Query Availabe New Video in Background.
         if(localStorage.fb_userID){
             FmMobile.ajaxNewVideos();
+            FmMobile.ajaxNewStoryVideos();
         }
     },
     
@@ -747,21 +862,36 @@ FmMobile.myVideoPg = {
         //$.jStorage.set("processingWorks", {});
 		/* End of TEST Data */
 		
-		
+		        
 		var videoWorks = ($.jStorage.get("videoWorks")) ? $.jStorage.get("videoWorks") : [];
         var processingWorks = ($.jStorage.get("processingWorks")) ? $.jStorage.get("processingWorks") : {};
-        var url = domain + "/api/newVideoList";
-		var after = -1;
+        
 		
         if(videoWorks.length == 0 && $.isEmptyObject(processingWorks)){
             //Neither processed videos nor processing videos.
+            //$("#fm_profile").hide();
+            $("#fm_myvideobtn").hide();
             FmMobile.myVideoPg.trashItem = new trashtalk();
             
         }else{
             // Initialize VideoList with videos in storage.
+            //$("#fm_profile").show();
+            $("#fm_myvideobtn").show();
             videoListAdapter.init($("#myVideo_contentArea", $(this) ), videoWorks, processingWorks);
 		}
     },
+    
+    
+    loadMyStreetVideo : function(){
+        
+        
+        var streetVideos = ($.jStorage.get("streetVideos")) ? $.jStorage.get("streetVideos") : [];
+        
+        videoListAdapter.init($("#myVideo_contentArea", $(this) ), streetVideos, {});
+        
+    },
+    
+    
     //  Initialization method. 
     init: function(){
 		FM_LOG("[myVideoPg] pageinit");
@@ -774,6 +904,13 @@ FmMobile.myVideoPg = {
         FM_LOG("[myVideoPg] pagebeforeshow");
         //FmMobile.analysis.trackPage("/myVideo");
         //recordUserAction("enters myVideoPg");
+        var profile = $.jStorage.get("fb_profile");
+        $("#fb_user_pic > img").attr("src", localStorage.fb_user_pic);
+        $("#fb_name").html(localStorage.fb_name);
+        if(profile.location)
+            $("#fb_user_location").html(profile.location.name);
+        else
+            $("#fb_user_location").html("Earth");
         
     },
     

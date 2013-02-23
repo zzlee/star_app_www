@@ -1,14 +1,15 @@
 /* MY VIDEO ------------------------------------------------------------*/
 
 @charset "utf-8";
-.fm_myvideo {
-	height: 1230px;
-	width: 100%;
-	background-repeat: no-repeat;
-	background-image: url("./images/bg/bg.png");
-    background-size: 100%;
+.fm_mycontent {
+	height: 460px;
+	width: 320px !important;
+	background-image: url("../images/back480.png");
+    /* background-size: 100%; */
 	background-attachment: scroll;
-	padding: 0;
+    background-repeat: repeat-y;
+	padding: 0 !important;
+    
 }
 .fm_page {
 	overflow: hidden;
@@ -51,7 +52,7 @@
 .fm_likenb {
 	width: 5%;
 	float: left;
-	font-size: 200%;
+	font-size: 100%;
 
 	color: .FFF;
 	text-align: center;
@@ -70,7 +71,7 @@
 .fm_commentnb {
 	float: left;
 	width: 5%;
-	font-size: 200%;
+	font-size: 100%;
 
 	color: .FFF;
 	text-align: center;
@@ -90,7 +91,7 @@
 	width: 5%;
 	text-align: center;
 	vertical-align: middle;
-	padding-top: 2.4%;
+	padding-top: 1.4%;
 	padding-right: 4.3%;
 	float: right;
 }
@@ -161,9 +162,10 @@
 	margin-bottom: 1%;
 	margin-left: 1%;
 	float: right;
-	font-size: 120%;
+	font-size: 100%;
 	text-align: right;
 }
+
 .fm_fbw2 {
 	margin-right: 3%;
 	margin-bottom: 2%;
@@ -177,17 +179,82 @@
 }
 
 
+.fm_profile {
+	height: 20.6521%;
+	background-color: rgba(0,0,0,0.3);
+	color: rgba(0,0,0,1);
+	font-size: 100%;
+	margin: 2.777%;
+	float: left;
+	width: 94%;
+	position: relative;
+	border-radius: 10px;
+}
+.fm_pic {
+	width: 29%;
+	float: left;
+	margin: 1.5%;
+}
+.fm_name {
+	width: 60%;
+	float: left;
+	color: rgba(255,255,255,1);
+	margin-top: 6%;
+	margin-right: 1.5%;
+	margin-bottom: 1.5%;
+	margin-left: 1.5%;
+}
+.fm_myvideobtn {
+	float: left;
+	height: 7.608%;
+	width: 100%;
+	
+}
+.fm_videobtnname {
+	width: 50%;
+	text-align: center;
+	vertical-align: middle;
+	padding-top: 2.5%;
+	float: left;
+	
+}
+
+.fm_booking {
+	color: rgba(255,255,255,1);
+	font-size: 100%;
+	margin-top: 1%;
+	margin-left: 1%;
+	float: left;
+}
+.fm_screenbtn {
+	width: 7%;
+	float: right;
+    margin-top: 2%;
+    margin-left: 1.5%;
+}
+.fm_videonumber {
+	float: right;
+	font-size: 100%;
+	padding-top: 1.5%;
+	color: rgba(255,255,255,1);
+	padding-left: 2%;
+    padding-right: 1%;
+}
+
 /* MENU ------------------------------------------------------------*/
 .fm_icon {
 	width: 24.444%;
-	margin-top: 20%;
+	margin-top: 28%;
 	margin-right: 0%;
 	margin-bottom: 0%;
-	margin-left: 37.5%;
+	margin-left: 16%;
+	float: left;
 
 }
 
-/* MOVIE_CREATE ------------------------------------------------------------*/.fm_uploadpic {
+/* MOVIE_CREATE ------------------------------------------------------------*/
+
+.fm_uploadpic {
 	background-color: rgba(0,0,0,0.3);
 	height: 43.902%;
 	width: 100%;
@@ -198,7 +265,7 @@
 	margin-top: 9.5%;
 }
 .fm_empty346 {
-	height: 28.13%;
+	height: 10%;
 	width: 100%;
 	font-size: 250%;
 	text-align: center;
@@ -230,14 +297,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
 	margin-right: 6%;
 }
 .fm_cameratext {
-	margin-top: 2.5%;
-	font-size: 250%;
+	margin-top: 2%;
+	font-size: 125%;
 	text-align: center;
-	width: 70%;
+	width: 60%;
 	float: left;
 }
 
 /* TOC ------------------------------------------------------------*/
+
 .fm_toc {
 	height: 85%;
 	background-color: rgba(0,0,0,0.3);
@@ -246,13 +314,21 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
 	font-size: 250%;
 	margin: 2.777%;
 }
+
+.fm_cellphonenumber {
+	background-color: rgba(255,255,255,1);
+	height: 50%;
+	width: 100%;
+}
+
 .fm_cameratext2 {
-	margin-top: 2.5%;
-	font-size: 250%;
+	/* margin-top: 1.5%; */
+	font-size: 100%;
 	text-align: center;
 	float: left;
 	width: 100%;
 }
+
 .fm_button2 {
 	height: 5.691%;
 	width: 65.277%;
@@ -274,6 +350,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffe615', end
 }
 
 /* PHOTO_CROP ------------------------------------------------------------*/
+
 .fm_cropbtn {
 	height: 10%;
 	width: 100%;
@@ -283,13 +360,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffe615', end
 	position: absolute;
 	bottom: 0px;
 }
+
 .fm_cropicon {
 	margin-top: 5%;
 	margin-left: 22%;
 	width: 25%;
 	float: left;
 }
+
 /* MOVIE_EMPTY ------------------------------------------------------------*/
+
 .fm_emptywords {
 	text-align: center;
 	width: 100%;
@@ -297,6 +377,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffe615', end
 }
 
 /* MOVIE_WAITING ------------------------------------------------------------*/
+
 .fm_fileupload {
 	height: 11.38%;
 	width: 100%;
@@ -306,4 +387,98 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffe615', end
 }
 .fm_waitingwords {
 	width: 100%;
+}
+
+/* SIGN IN ------------------------------------------------------------*/
+
+.fm_signin {
+	height: 20%;
+	width: 100%;
+	background-image: url(../images/signin.png);
+	background-repeat: no-repeat;
+	margin-top: 100%;
+	background-position: center center;
+}
+
+.fm_signinbg {
+	height: 460px;
+	width: 320px;
+	background-repeat: no-repeat;
+	background-image: url(../images/splash.png);
+	padding: 0;
+}
+
+/* BOOKING ------------------------------------------------------------*/
+
+.fm_bookingbg {
+	height: 70%;
+	font-size: 100%;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	margin-top: 2.777%;
+	margin-right: 2.777%;
+	margin-bottom: 3.777%;
+	margin-left: 2.777%;
+	color: rgba(255,255,255,1);
+}
+
+/* BOOKING_CELLPHONE ------------------------------------------------------------*/
+
+.fm_fullname {
+	width: 88%;
+	font-size: 125%;
+	color: rgba(0,0,0,1);
+	padding-top: 5%;
+	padding-bottom: 0%;
+	padding-left: 5%;
+}
+
+.fm_buttonlong {
+	height: 16%;
+	width: 90%;
+	margin-top: 0%;
+	margin-right: 5%;
+	margin-bottom: 3.4%;
+	margin-left: 5%;
+	background: #e2e2e2; /* Old browsers */
+	background: -moz-linear-gradient(top,  #e2e2e2 0%, #dbdbdb 50%, #d1d1d1 51%, #fefefe 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e2e2e2), color-stop(50%,#dbdbdb), color-stop(51%,#d1d1d1), color-stop(100%,#fefefe)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#fefefe 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#fefefe 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#fefefe 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#fefefe 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#fefefe',GradientType=0 ); /* IE6-9 */
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+}
+
+.fm_buttonlong2 {
+	height: 16%;
+	width: 90%;
+	margin-top: 0%;
+	margin-right: 5%;
+	margin-bottom: 3.4%;
+	margin-left: 5%;
+	background: #ffe615; /* Old browsers */
+	background: -moz-linear-gradient(top, #ffe615 0%, #ed9900 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffe615), color-stop(100%,#ed9900)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #ffe615 0%,#ed9900 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #ffe615 0%,#ed9900 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #ffe615 0%,#ed9900 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #ffe615 0%,#ed9900 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffe615', endColorstr='#ed9900',GradientType=0 ); /* IE6-9 */
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+}
+
+/* MY VIDEO EMPTY ------------------------------------------------------------*/
+
+.fm_empty2 {
+	height: 20%;
+	width: 100%;
+	font-size: 250%;
+	text-align: center;
 }

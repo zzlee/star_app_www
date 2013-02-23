@@ -154,6 +154,7 @@ var videoListAdapter = (function(){
         
         init: function(parent, data, dummy){
             videoListWgt = $("#videoList");
+            videoListWgt.html("");
             //videoListWgt.appendTo(parent);
                         
             if(videoItems)
@@ -188,7 +189,7 @@ var videoListAdapter = (function(){
                 };
                 var v_item = new videoWgt(videoListWgt, data[i], true);
                 //videoListWgt.append(v_item);
-                v_item.setComments({"comments": {"count": "0"} });
+                v_item.setComments({"comments": {"count": "0"} }, data[i].no);
                         
                 if(fb_id){
                     videoItems[fb_id] = v_item;
@@ -335,7 +336,7 @@ videoWgt.prototype.setSrc = function(src){
     this.videoFrame.attr("src", src+"?rel=0&showinfo=0&modestbranding=1&controls=0").attr("class", "fm_video");
 }
 
-videoWgt.prototype.setComments = function(data){
+videoWgt.prototype.setComments = function(data, sequence_num){
 
     /*var like_count = (data.likes) ? data.likes.count : 0,
         comment_count = (data.comments.count) ? data.comments.count : 0;*/
@@ -344,7 +345,7 @@ videoWgt.prototype.setComments = function(data){
     //this.comment.html(comment_count);
     
     if(data.comments)
-		this.commentWgt.setData(data);
+		this.commentWgt.setData(data, sequence_num);
 };
 
 
@@ -368,16 +369,35 @@ function commentListWgt(parent, fb_id){
     this.listWgt = $("<div>").attr("id", "div_comment_list").appendTo(this.collapseWgt); //GZ
     this.collapseWgt.appendTo(parent);
     
+    
+    //GZ
+    this.header.html("");
+    this.div_likenb = $("<div>").attr("class", "fm_likenb").appendTo(this.header);
+    this.div_like = $("<div>").attr("class", "fm_like").appendTo(this.header);
+    this.div_commentnb = $("<div>").attr("class", "fm_commentnb").appendTo(this.header);
+    this.div_comment = $("<div>").attr("class", "fm_comment").appendTo(this.header);
+    //var div_booking = $("<div>").attr("class", "fm_booking").html("預約戶外螢幕").appendTo(this.header);
+    this.div_bar = $("<div>").attr("class", "fm_bar").html("").appendTo(this.header);
+    this.div_video_id = $("<div>").attr("class", "fm_videonumber").appendTo(this.header);
+    this.div_booking_btn = $("<div>").attr("class", "fm_screenbtn").appendTo(this.header);
+    if($(".ui-btn-active", $("div:jqmData(role='navbar')")).attr("id") == "miix-link"){
+        this.div_booking_btn.html('<img src="./images/screen.png" style="width:100%"></img>');
+        this.div_booking_btn.click(FmMobile.dooh);
+    }
+    
+    this.header.append('<br>');
+    
 }
 
 
-commentListWgt.prototype.setData = function(result){
+commentListWgt.prototype.setData = function(result, sequence_num){
     
     //$('li', this.listWgt).remove();
     this.listWgt.html("");
     
     var like_count = (result.likes) ? result.likes.count : 0,
         commentcount = (result.comments.count) ? result.comments.count : 0;
+    
     
     /*
     var commentIcon = '<img src="./images/icon/comment.png" class="fm_icon"></img>';//$("<img>").attr( {src: "./images/icon/comment.png", class: "fm_icon"});
@@ -389,22 +409,29 @@ commentListWgt.prototype.setData = function(result){
     */
     
     //GZ
-    this.header.html("");    
+    /*this.header.html("");
     var div_likenb = $("<div>").attr("class", "fm_likenb").appendTo(this.header);
     var div_like = $("<div>").attr("class", "fm_like").appendTo(this.header);
     var div_commentnb = $("<div>").attr("class", "fm_commentnb").appendTo(this.header);
-    var div_comment = $("<div>").attr("class", "fm_comment").html("").appendTo(this.header);
+    var div_comment = $("<div>").attr("class", "fm_comment").appendTo(this.header);
+    //var div_booking = $("<div>").attr("class", "fm_booking").html("預約戶外螢幕").appendTo(this.header);
     var div_bar = $("<div>").attr("class", "fm_bar").html("").appendTo(this.header);
+    var div_video_id = $("<div>").attr("class", "fm_videonumber").appendTo(this.header);
+    var div_booking_btn = $("<div>").attr("class", "fm_screenbtn").appendTo(this.header);
+    */
+    if(sequence_num)
+        this.div_video_id.html("No."+sequence_num);
+    
     this.header.append('<br>');
     
-    div_likenb.html( like_count.toString() );
-    div_like.html('<img src="./images/icon/like.png" style="width:100%"></img>');
-    div_commentnb.html( commentcount.toString() );
-    div_comment.html('<img src="./images/icon/comment.png" style="width:100%"></img>');
-    div_bar.html('<img src="./images/icon/expand_arrow.png" style="width:100%"></img>');
+    this.div_likenb.html( like_count.toString() );
+    this.div_like.html('<img src="./images/icon/like.png" style="width:100%"></img>');
+    this.div_commentnb.html( commentcount.toString() );
+    this.div_comment.html('<img src="./images/icon/comment.png" style="width:100%"></img>');
+    this.div_bar.html('<img src="./images/icon/expand_arrow.png" style="width:100%"></img>');
     this.listWgt.hide();
-    div_bar.click(function(){
-                  $(this.parentElement.parentElement.children[1]).toggle();
+    this.div_bar.click(function(){
+        $(this.parentElement.parentElement.children[1]).toggle();
     });
     
     
