@@ -220,7 +220,7 @@ var videoListAdapter = (function(){
         },
         
         updateDummy: function(pid, videoWork){
-            var fb_id = videoWork.fb_id;
+            
             var temp=null;
             if(dummyItems && dummyItems[pid]){
                 temp = dummyItems[pid];
@@ -233,6 +233,10 @@ var videoListAdapter = (function(){
                     "projectId": pid
                 };
                 
+                if(!videoWork.fb_id)
+                    return;
+                else
+                    var fb_id = videoWork.fb_id;
                 
                 if(fb_id){
                     
@@ -240,7 +244,7 @@ var videoListAdapter = (function(){
                           
                           FM_LOG("[Comments]" + result.id + ":\n" + JSON.stringify(result));
                           if(result.id){
-                              temp.setComments(result);
+                              temp.setComments(result, videoWork.no);
                               $.jStorage.set(result.id, result);
                           }
                     });
@@ -263,8 +267,11 @@ function _videoListAdapter(parent, data){
     var videoItems = [];
     
     for(var i=0; i < count; i++){
+        if(!data[i].fb_id)
+            return;
+        else
+            var fb_id = data[i].fb_id;
         
-        var fb_id = data[i].fb_id;
         var url = domain + "/api/fbGetComment";
         var query = {
             "accessToken": localStorage.fb_accessToken,

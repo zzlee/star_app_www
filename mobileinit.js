@@ -6,7 +6,7 @@ var DEBUG = true,
 
 var local = false,
     localhost = "http://localhost:3000",
-    remotesite = starServerURL, //"http://192.168.5.188", //"http://www.feltmeng.idv.tw",
+    remotesite = starServerURL,
     domain = (local) ?  localhost : remotesite;
     
 
@@ -120,6 +120,7 @@ FmMobile.init = {
         FM_LOG("[Init.onResume]");
         if(localStorage.fb_userID){
             FmMobile.ajaxNewVideos();
+            FmMobile.ajaxNewStoryVideos();
             FmMobile.apn.getPendingNotification();
             recordUserAction("resumes MiixCard app");
         }
@@ -227,7 +228,7 @@ FmMobile.ajaxNewStoryVideos = function(){
     
     if(!$.isEmptyObject(streetVideos)){
         after = new Date(streetVideos[0].createdOn).getTime(); // First - Newest
-        
+        after += 1;
     }else{
         after = 0;
     } 
@@ -243,11 +244,12 @@ FmMobile.ajaxNewStoryVideos = function(){
     
     $.get(url, query, function(res){
           
-        if(res.streetVideos && res.streetVideos.length > 0){
+        if(res.videoWorks && res.videoWorks.length > 0){
           
-          var newStreeVideos = res.streetVideos;
+          var newStreeVideos = res.videoWorks;
           
           streetVideos = newStreeVideos.concat(streetVideos);
+          FM_LOG("[StoryVideos] " + JSON.stringify(streetVideos));
           $.jStorage.set("streetVideos", streetVideos);
           
         }else{
@@ -592,6 +594,7 @@ FmMobile.authPopup = {
             if(response.data){
                 localStorage._id = response.data._id;
                 localStorage.fb_accessToken = response.data.accessToken;
+                localStorage.verified = (response.data.verified) ? response.data.verified : 'false';
                 FM_LOG("localStorage" + JSON.stringify(localStorage));
                 //$.mobile.changePage("orientation.html",{reloadPage:true});
                 //window.location.href = "orientation.html";
@@ -613,6 +616,7 @@ FmMobile.authPopup = {
         delete localStorage.fb_userID;
         delete localStorage.fb_name;
         delete localStorage.fb_accessToken;
+        delete localStorage.verified;
         $.jStorage.set("videoWorks", []);
         $.jStorage.set("processingWorks", {});
         $.jStorage.set("streetVideos", []);
