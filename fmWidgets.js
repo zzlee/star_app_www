@@ -181,7 +181,7 @@ var videoListAdapter = (function(){
                         
             for(var i=0; i < data.length; i++){
                 
-                var fb_id = data[i].fb_id;
+                
                 var url = domain + "/api/fbGetComment";
                 var query = {
                     "accessToken": localStorage.fb_accessToken,
@@ -190,6 +190,11 @@ var videoListAdapter = (function(){
                 var v_item = new videoWgt(videoListWgt, data[i], true);
                 //videoListWgt.append(v_item);
                 v_item.setComments({"comments": {"count": "0"} }, data[i].no);
+                
+                if(!data[i].fb_id)
+                    return;
+                else
+                    var fb_id = data[i].fb_id;
                         
                 if(fb_id){
                     videoItems[fb_id] = v_item;

@@ -189,17 +189,17 @@ FmMobile.ajaxNewVideos = function(){
               if(newVideos.length > 0){
                   FM_LOG("[New videoWorks Available]: " + JSON.stringify(newVideos) );
                   
-                  var length = videoWorks.length;
+                  //var length = videoWorks.length;
               
                   for(var i=newVideos.length-1; i > -1; i--){
                       //Add new video into videoWorks storage, remove it in processingWorks storage if completed video.
-                      if(newVideos[i].fb_id){
+                      //if(newVideos[i].fb_id){
                           videoWorks.unshift(newVideos[i]);
                           if(processingWorks[newVideos[i].projectId])
                               delete processingWorks[newVideos[i].projectId];
               
                           videoListAdapter.updateDummy(newVideos[i].projectId, newVideos[i]);
-                      }
+                      //}
                   }
                   
                   $.jStorage.set("videoWorks", videoWorks);
