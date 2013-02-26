@@ -192,7 +192,7 @@ var videoListAdapter = (function(){
                 v_item.setComments({"comments": {"count": "0"} }, data[i].no);
                 
                 if(!data[i].fb_id)
-                    return;
+                    continue;
                 else
                     var fb_id = data[i].fb_id;
                         
@@ -238,10 +238,12 @@ var videoListAdapter = (function(){
                     "projectId": pid
                 };
                 
-                if(!videoWork.fb_id)
+                if(!videoWork.fb_id){
+                    temp.setComments({"comments": {"count": "0"} }, videoWork.no);
                     return;
-                else
-                    var fb_id = videoWork.fb_id;
+                }
+                
+                var fb_id = videoWork.fb_id;
                 
                 if(fb_id){
                     
@@ -273,7 +275,7 @@ function _videoListAdapter(parent, data){
     
     for(var i=0; i < count; i++){
         if(!data[i].fb_id)
-            return;
+            continue;
         else
             var fb_id = data[i].fb_id;
         
