@@ -598,6 +598,11 @@ FmMobile.authPopup = {
                 FM_LOG("localStorage" + JSON.stringify(localStorage));
                 //$.mobile.changePage("orientation.html",{reloadPage:true});
                 //window.location.href = "orientation.html";
+               
+                // Each time of Login, pull all videos.
+                FmMobile.ajaxNewVideos();
+                FmMobile.ajaxNewStoryVideos();
+               
                 $.mobile.changePage("movie_create.html");
                 window.plugins.childBrowser.close();
                
