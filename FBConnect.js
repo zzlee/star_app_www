@@ -76,6 +76,9 @@ FBConnect.prototype.onLocationChange = function(newLoc)
 
 FBConnect.prototype.getUserID = function(){
     FM_LOG("[getUserID] ");
+    
+    /* --------- Profile of FB --------- */
+    
     var url = "https://graph.facebook.com/me?access_token=" + this.accessToken;
     var self = this;
     /*
@@ -96,7 +99,6 @@ FBConnect.prototype.getUserID = function(){
     });*/
     
     var req = new XMLHttpRequest();
-    //req.setRequestHeader("Cache-Control", "no-cache");
     req.onreadystatechange = function(e){
         
         if(req.readyState == 4 && req.status == 200){
@@ -105,12 +107,16 @@ FBConnect.prototype.getUserID = function(){
             FM_LOG("[fb_profile]: " + JSON.stringify(res));
             localStorage.fb_userID = res.id;
             localStorage.fb_name = res.name;
+            if(res.email)
+                localStorage.email = res.email;
+            
             $.jStorage.set("fb_profile", res);
             
             self.onConnect();
         }
     };
     
+    /* --------- Profile Picture of FB --------- */
     
     var url_pic = "https://graph.facebook.com/me/picture?redirect=false&access_token=" + this.accessToken;
     var req_pic = new XMLHttpRequest();

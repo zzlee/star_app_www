@@ -70,6 +70,7 @@ FmMobile.init = {
         
         document.addEventListener("deviceready", FmMobile.analysis.init, true);
         document.addEventListener("deviceready", FmMobile.apn.init, true);
+        document.addEventListener("deviceready", FmMobile.init.isFBTokenValid, true);
         
         document.addEventListener("resume", FmMobile.init.onResume, false);
         document.addEventListener("pause", FmMobile.init.onPause, false);
@@ -116,6 +117,7 @@ FmMobile.init = {
         $.jStorage.set("fb_profile", metadata);*/
         
     },
+    
     onResume: function(){
         FM_LOG("[Init.onResume]");
         if(localStorage.fb_userID){
@@ -123,12 +125,42 @@ FmMobile.init = {
             FmMobile.ajaxNewStoryVideos();
             FmMobile.apn.getPendingNotification();
             recordUserAction("resumes MiixCard app");
+            FmMobile.init.isFBTokenValid();
         }
     },
+    
     onPause: function(){
         if(localStorage.fb_userID){
             recordUserAction("pauses MiixCard app");
         }
+    },
+    
+    isFBTokenValid: function(){
+        if(!localStorage.fb_userID)
+            return;
+        
+        var url = remotesite + "/api/member.isFBTokenValid";
+        var data = {
+            "_id": localStorage._id,
+            "fb_id": localStorage.fb_userID,
+            "timestamp": Date.now(),
+        };
+        
+        
+        $.get(url, data, function(response){
+            if(response.error){
+                console.log("[isFBTokenValid] error: " + JSON.stringify(response.error) );
+              
+            }else{
+                console.log("[isFBTokenValid] " + response.message);
+              
+                // Force logout to gain valid user access_token if invalid.
+                if(response.message !== true){
+                    FmMobile.authPopup.FBLogout();
+                }
+            }
+        });
+        
     },
 };
 
@@ -136,7 +168,7 @@ FmMobile.init = {
 FmMobile.addProcessingWork = function(pid){
     
     var url = remotesite + "/api/submitAVideo";
-    data = {
+    var data = {
         "_id": localStorage._id,
         "userID": localStorage.fb_userID,
         "pid": pid,
@@ -562,11 +594,15 @@ FmMobile.authPopup = {
     init: function(){
         FM_LOG("[authPopup Init]");
         
-        var client_id = "116813818475773"; //Facebook APP_ID miixcard: 116813818475773; watasistar: 243619402408275
-        //var redir_url = ["http://www.facebook.com/connect/login_success.html", "https://www.facebook.com/connect/login_success.html"];
-        //var redir_url = ["http://www.feltmeng.idv.tw/welcome.html", "https://www.feltmeng.idv.tw/welcome.html"];
+        //miixcard metadata
+        var client_id = "116813818475773"; 
         var redir_url = ["http://www.miix.tv/welcome.html", "https://www.miix.tv/welcome.html"];
         
+        // watasistar metadata
+        /*
+        var client_id = "243619402408275";
+        var redir_url = ["http://www.feltmeng.idv.tw/welcome.html", "https://www.feltmeng.idv.tw/welcome.html"];
+        */
         var fb = FBConnect.install();
         fb.connect(client_id, redir_url[0], "touch");
         fb.onConnect = FmMobile.authPopup.onFBConnected;
@@ -579,6 +615,7 @@ FmMobile.authPopup = {
             data = {"authResponse": {
                 "userID": localStorage.fb_userID,
 				"userName": localStorage.fb_name,
+                "email": localStorage.email,
                 "accessToken": localStorage.fb_accessToken,
                 "expiresIn":  localStorage.expiresIn,
                 "deviceToken": localStorage.deviceToken,
@@ -615,13 +652,15 @@ FmMobile.authPopup = {
     
     FBLogout: function() {
         FmMobile.analysis.trackEvent("Button", "Click", "Logout", 54);
-        recordUserAction("logs out");
+        recordUserAction("log out");
         var fb = FBConnect.install();
         delete localStorage._id;
         delete localStorage.fb_userID;
         delete localStorage.fb_name;
         delete localStorage.fb_accessToken;
         delete localStorage.verified;
+        if(localStorage.email) delete localStorage.email;
+        
         $.jStorage.set("videoWorks", []);
         $.jStorage.set("processingWorks", {});
         $.jStorage.set("streetVideos", []);
