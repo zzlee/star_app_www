@@ -64,7 +64,7 @@ FmMobile.authentication = {
         var code = $("#code_input").attr("value");
         var code_int = parseInt(code);
         
-        if(isNaN(code_int) || code_int < 1000 || code_int > 9999){
+        if(isNaN(code_int) || code_int > 9999){
             $("#code_input").attr("value", "");
             return;
         }
