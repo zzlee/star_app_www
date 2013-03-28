@@ -42,7 +42,7 @@ $(document).bind("mobileinit", function(){
                  
                 mobileinitForMovieGen(); //GZ
                  
-                setInterval(function(){
+                setTimeout(function(){
                     navigator.splashscreen.hide();
                 },3000);
 

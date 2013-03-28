@@ -26,6 +26,7 @@ var recordUserAction = function( userAction, forceStoreRecordsLocally ){
     analyticsObj.sendTime = (new Date()).getTime();
 
     if (!forceStoreRecordsLocally){
+        /*
         $.post(starServerURL+'/record_user_action', analyticsObj, function(result){
             if ( !result.err ) {
                delete localStorage.unsentAnalyticsRecords;
@@ -39,6 +40,7 @@ var recordUserAction = function( userAction, forceStoreRecordsLocally ){
            localStorage.unsentAnalyticsRecords = JSON.stringify(analyticsRecordsToSend);
            console.log("Locally saved the action "+userAction);
         });
+         */
     }
     else {
         localStorage.unsentAnalyticsRecords = JSON.stringify(analyticsRecordsToSend);
