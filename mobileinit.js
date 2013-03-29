@@ -331,6 +331,7 @@ FmMobile.submitDooh = function(){
            navigator.notification.alert(res.message);
            $.jStorage.set("dooh_pid", null);
        }else{
+           navigator.notification.alert('申請登上大螢幕失敗');
            console.log("[submitDooh]"+JSON.stringify(res));
        }
     });
