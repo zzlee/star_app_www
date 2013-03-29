@@ -350,13 +350,6 @@ FmMobile.apn = {
     },
     
     
-    getPushNotification: function(event){
-        FM_LOG("[APN.getPushNotification]" + event );
-        
-        //navigator.notification.alert(JSON.stringify(['push-notification!', event]));
-        navigator.notification.alert('You have a new video!');
-    },
-    
     /* registration on Apple Push Notification servers (via user interaction) & retrieve the token that will be used to push remote notifications to this device. */
     registerDevice: function(){
         
@@ -421,6 +414,7 @@ FmMobile.apn = {
     },
     
     
+    //DEPRECATED
     /* retrieve the original device unique id. (@warning As of today, usage is deprecated and requires explicit consent from the user) */
     getDeviceUniqueIdentifier: function(){
         FM_LOG("[APN.getDeviceUniqueIdentifier]");
@@ -557,7 +551,7 @@ FmMobile.orientationPg = {
 FmMobile.authPopup = {
     PAGE_ID: "authPg",
     
-    fbStatusPolling: function(){
+    fbStatusPolling: function(){ //DEPRECATED - used in early implementation to handle FB auth page
     
         FM_LOG("[Long Polling FB Status:]");
         
@@ -730,7 +724,7 @@ FmMobile.indexPg = {
 
 };
 
-
+//DEPRECATED
 FmMobile.homePg = {
 
     PAGE_ID: "homePg",
@@ -759,7 +753,7 @@ FmMobile.homePg = {
     },
 };
 
-
+//DEPRECATED
 FmMobile.signinPg = {
     //  Page constants.
     PAGE_ID: "signinPg",
@@ -815,6 +809,7 @@ FmMobile.signinPg = {
     },
 };
 
+//DEPRECATED
 FmMobile.signupPg = {
 
     PAGE_ID: "signupPg",
@@ -868,7 +863,7 @@ FmMobile.signupPg = {
 
 };
 
-
+//DEPRECATED
 FmMobile.videoPg = {
     PAGE_ID: "videoPg",
     
@@ -964,7 +959,7 @@ FmMobile.myVideoPg = {
     
 };
 
-
+//DEPRECATED
 FmMobile.reservationPg = {
     PAGE_ID: "reservationPg",
     
@@ -1037,7 +1032,7 @@ FmMobile.reservationPg = {
     },
 };
 
-
+//DEPRECATED
 FmMobile.censorshipPg = {
 
     PAGE_ID: "censorshipPg",
