@@ -311,14 +311,23 @@ function videoWgt(parent, data, append){
     */
     widget = $("<div>").attr({id: data.projectId, class: "fm_movie"});
     
-    this.videoFrame;
-    
     if(data.url){
+        
         this.videoFrame = $("<iframe>").attr({
             src: data.url.youtube + "?rel=0&showinfo=0&modestbranding=1&controls=0",
             class: "fm_movievideo",
             frameborder: "0"
         });
+        
+        var ytVideoID = (data.url.youtube).split('/').pop();
+        
+        this.videoThumbnail = $("<img>").attr({
+                                              id: 'img_'+data.projectId,
+                                              src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
+                                              class: "fm_movievideo",
+                                              yt_video_id: ytVideoID
+                                             });
+                
         
     }else if(data.trash){
         this.videoFrame = $("<div>").attr({
@@ -331,8 +340,16 @@ function videoWgt(parent, data, append){
             frameborder: "0"
         });
     }
-    this.videoFrame.appendTo(widget);
-    this.videoFrame.height( window.innerWidth/1.77778 ); //GZ //TODO:: have a cleanner way to set height (such as manipulating CSS
+    
+    
+    //GZ //TODO:: have a cleanner way to set height (such as manipulating CSS
+    this.videoFrame.height( window.innerWidth/1.77778 );
+    this.videoThumbnail.height( window.innerWidth/1.77778 );
+    
+    
+    //this.videoFrame.appendTo(widget);
+    widget.html(this.videoThumbnail);
+    
     
     //var bar = $("<div>").attr("class", "fm_bar").appendTo(widget);
     //this.like = $("<span>").attr("class", "fm_like_num").appendTo(bar);
