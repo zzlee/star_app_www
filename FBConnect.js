@@ -55,7 +55,7 @@ FBConnect.prototype.onClose = function(){
 
 FBConnect.prototype.onLocationChange = function(newLoc)
 {
-    FM_LOG("[onLocationChange] ");
+    FM_LOG("[onLocationChange] newLoc="+newLoc);
 	if(newLoc.indexOf(this.redirect_uri[0]) == 0 || newLoc.indexOf(this.redirect_uri[1]) == 0 )
 	{
         FM_LOG("[onLocationChange] Redirect");
