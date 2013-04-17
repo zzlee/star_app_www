@@ -201,13 +201,34 @@ var videoListAdapter = (function(){
                     $.get(url, query, function(result){
                           
                           FM_LOG("[Comments]" + result.id + ":\n" + JSON.stringify(result));
-                          if(result.id){
+                          if(videoItems[result.id]){
                               videoItems[result.id].setComments(result);
                               $.jStorage.set(result.id, result);
                           }
                     });
                 }
             }
+                        
+            //listen to click event
+            $("div [class='fm_bar']").click(function(){
+                $(this.parentElement.parentElement.children[1]).toggle();
+            });
+            $('#videoList>div>img').click(function(){
+                console.log('[click on video list: ]'+this);
+                var divID = this.parentElement.id;
+                var tempUrlArray = this.src.split('/');
+                var ytVideoID = tempUrlArray[tempUrlArray.length-2];
+                var videoFrame = $("<iframe>").attr({
+                                                  src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
+                                                  class: "fm_movievideo",
+                                                  frameborder: "0"
+                });
+                                          
+                $('#'+divID).prepend(videoFrame);
+                $('#'+this.id).remove();
+                //$('#'+divID+'>iframe').click();
+            });
+
         },
                         
         freshCommentbar: function(){
@@ -463,9 +484,10 @@ commentListWgt.prototype.setData = function(result, sequence_num){
     this.div_comment.html('<img src="./images/icon/comment.png" style="width:100%"></img>');
     this.div_bar.html('<img src="./images/icon/expand_arrow.png" style="width:100%"></img>');
     this.listWgt.hide();
+    /*
     this.div_bar.click(function(){
         $(this.parentElement.parentElement.children[1]).toggle();
-    });
+    });*/
     
     
     

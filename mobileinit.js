@@ -941,8 +941,9 @@ FmMobile.myVideoPg = {
 		FM_LOG("[myVideoPg] pageinit");
         videoListAdapter.freshCommentbar();
         $("#myVideo_contentArea").height( window.innerHeight - $("div[data-role=header]").height() );
+        /*
         $('#videoList>div>img').click(function(){
-                                          console.log(this);
+                                          console.log('[click on video list: ]'+this);
                                           var divID = this.parentElement.id;
                                           var tempUrlArray = this.src.split('/');
                                           var ytVideoID = tempUrlArray[tempUrlArray.length-2];
@@ -952,10 +953,10 @@ FmMobile.myVideoPg = {
                                                                            frameborder: "0"
                                                                            });
 
-                                          $('#'+divID).prepend(videoFrame);
-                                          $('#'+this.id).remove();
+                                          //$('#'+divID).prepend(videoFrame);
+                                          //$('#'+this.id).remove();
                                           //$('#'+divID+'>iframe').click();
-                                      });
+                                      });*/
         
     },
     
