@@ -954,7 +954,7 @@ FmMobile.myVideoPg = {
 
                                           $('#'+divID).prepend(videoFrame);
                                           $('#'+this.id).remove();
-                                          $('#'+divID+'>iframe').click();
+                                          //$('#'+divID+'>iframe').click();
                                       });
         
     },

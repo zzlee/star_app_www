@@ -312,30 +312,30 @@ function videoWgt(parent, data, append){
     widget = $("<div>").attr({id: data.projectId, class: "fm_movie"});
     
     if(data.url){
-        
+        /*
         this.videoFrame = $("<iframe>").attr({
             src: data.url.youtube + "?rel=0&showinfo=0&modestbranding=1&controls=0",
             class: "fm_movievideo",
             frameborder: "0"
         });
+         */
         
         var ytVideoID = (data.url.youtube).split('/').pop();
         
         this.videoThumbnail = $("<img>").attr({
                                               id: 'img_'+data.projectId,
                                               src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
-                                              class: "fm_movievideo",
-                                              yt_video_id: ytVideoID
+                                              class: "fm_movievideo"
                                              });
                 
         
     }else if(data.trash){
-        this.videoFrame = $("<div>").attr({
+        this.videoThumbnail = $("<div>").attr({
             class: "fm_trashtalk"
         });
         
     }else{
-        this.videoFrame = $("<iframe>").attr({
+        this.videoThumbnail = $("<iframe>").attr({
            class: "fm_video_making fm_movievideo",
             frameborder: "0"
         });
@@ -343,7 +343,7 @@ function videoWgt(parent, data, append){
     
     
     //GZ //TODO:: have a cleanner way to set height (such as manipulating CSS
-    this.videoFrame.height( window.innerWidth/1.77778 );
+    //this.videoFrame.height( window.innerWidth/1.77778 );
     this.videoThumbnail.height( window.innerWidth/1.77778 );
     
     
@@ -364,7 +364,9 @@ function videoWgt(parent, data, append){
 }
 
 videoWgt.prototype.setSrc = function(src){
-    this.videoFrame.attr("src", src+"?rel=0&showinfo=0&modestbranding=1&controls=0").attr("class", "fm_video");
+    //this.videoFrame.attr("src", src+"?rel=0&showinfo=0&modestbranding=1&controls=0").attr("class", "fm_video");
+    var ytVideoID = (src).split('/').pop();
+    this.videoThumbnail.attr("src", "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg").attr("class", "fm_video");
 }
 
 videoWgt.prototype.setComments = function(data, sequence_num){

@@ -61,16 +61,18 @@ FBConnect.prototype.onLocationChange = function(newLoc)
         FM_LOG("[onLocationChange] Redirect");
 		var result = unescape(newLoc).split("#")[1];
         
-		// Token Parsing.
-		this.accessToken = result.split("&")[0].split("=")[1];
-        FM_LOG("accessToken: " + this.accessToken);
-		this.expiresIn = Date.now() + parseInt( result.split("&")[1].split("=")[1] );
-        FM_LOG("expiresIn: " + this.expiresIn);
-        this.code = result.split("&")[2].split("=")[1];
-        FM_LOG("code: " + this.code);
-        
-        localStorage.fb_accessToken = this.accessToken;
-        this.getUserID();
+        if (result){
+            // Token Parsing.
+            this.accessToken = result.split("&")[0].split("=")[1];
+            FM_LOG("accessToken: " + this.accessToken);
+            this.expiresIn = Date.now() + parseInt( result.split("&")[1].split("=")[1] );
+            FM_LOG("expiresIn: " + this.expiresIn);
+            this.code = result.split("&")[2].split("=")[1];
+            FM_LOG("code: " + this.code);
+            
+            localStorage.fb_accessToken = this.accessToken;
+            this.getUserID();
+        }
 	}
 };
 
