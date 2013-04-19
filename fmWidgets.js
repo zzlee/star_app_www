@@ -215,18 +215,42 @@ var videoListAdapter = (function(){
             });
             $('#videoList>div>img').click(function(){
                 console.log('[click on video list: ]'+this);
+                
+                var callPlayer = function (frame_id, func, args) {
+                    if (window.jQuery && frame_id instanceof jQuery){
+                        frame_id = frame_id.get(0).id;
+                    }
+                    var iframe = document.getElementById(frame_id);
+                    if (iframe && iframe.tagName.toUpperCase() != 'IFRAME') {
+                        iframe = iframe.getElementsByTagName('iframe')[0];
+                    }
+                    if (iframe) {
+                        // Frame exists, 
+                        iframe.contentWindow.postMessage(JSON.stringify({
+                        "event": "command",
+                        "func": func,
+                        "args": args || [],
+                        "id": frame_id
+                        }), "*");
+                    }
+                };
                 var divID = this.parentElement.id;
                 var tempUrlArray = this.src.split('/');
                 var ytVideoID = tempUrlArray[tempUrlArray.length-2];
                 var videoFrame = $("<iframe>").attr({
-                                                  src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
-                                                  class: "fm_movievideo",
-                                                  frameborder: "0"
+                    id: ytVideoID,
+                    src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
+                    class: "fm_movievideo",
+                    frameborder: "0"
+                }).load(function(){
+                    //TODO: find a better way to have callPlayer() called after videoFrame is prepended
+                    setTimeout(function(){
+                        callPlayer(ytVideoID,'playVideo');
+                    }, 1500);
                 });
                                           
                 $('#'+divID).prepend(videoFrame);
                 $('#'+this.id).remove();
-                //$('#'+divID+'>iframe').click();
             });
 
         },
@@ -483,12 +507,7 @@ commentListWgt.prototype.setData = function(result, sequence_num){
     this.div_commentnb.html( commentcount.toString() );
     this.div_comment.html('<img src="./images/icon/comment.png" style="width:100%"></img>');
     this.div_bar.html('<img src="./images/icon/expand_arrow.png" style="width:100%"></img>');
-    this.listWgt.hide();
-    /*
-    this.div_bar.click(function(){
-        $(this.parentElement.parentElement.children[1]).toggle();
-    });*/
-    
+    this.listWgt.hide();    
     
     
     if(result.comments.data){

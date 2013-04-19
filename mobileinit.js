@@ -940,24 +940,7 @@ FmMobile.myVideoPg = {
     init: function(){
 		FM_LOG("[myVideoPg] pageinit");
         videoListAdapter.freshCommentbar();
-        $("#myVideo_contentArea").height( window.innerHeight - $("div[data-role=header]").height() );
-        /*
-        $('#videoList>div>img').click(function(){
-                                          console.log('[click on video list: ]'+this);
-                                          var divID = this.parentElement.id;
-                                          var tempUrlArray = this.src.split('/');
-                                          var ytVideoID = tempUrlArray[tempUrlArray.length-2];
-                                          var videoFrame = $("<iframe>").attr({
-                                                                           src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
-                                                                           class: "fm_movievideo",
-                                                                           frameborder: "0"
-                                                                           });
-
-                                          //$('#'+divID).prepend(videoFrame);
-                                          //$('#'+this.id).remove();
-                                          //$('#'+divID+'>iframe').click();
-                                      });*/
-        
+        $("#myVideo_contentArea").height( window.innerHeight - $("div[data-role=header]").height() );        
     },
     
     beforeshow: function(){
