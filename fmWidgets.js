@@ -148,7 +148,47 @@ var videoListAdapter = (function(){
     var count = 0;
     var videoItems = null;
     var dummyItems = null;
-    
+                        
+    var bindClickEventToThumbnail = function(){
+        console.log('[click on video list: ]'+this);
+        
+        var callPlayer = function (frame_id, func, args) {
+            if (window.jQuery && frame_id instanceof jQuery){
+                frame_id = frame_id.get(0).id;
+            }
+            var iframe = document.getElementById(frame_id);
+            if (iframe && iframe.tagName.toUpperCase() != 'IFRAME') {
+                iframe = iframe.getElementsByTagName('iframe')[0];
+            }
+            if (iframe) {
+                // Frame exists,
+                iframe.contentWindow.postMessage(JSON.stringify({
+                                                                "event": "command",
+                                                                "func": func,
+                                                                "args": args || [],
+                                                                "id": frame_id
+                                                                }), "*");
+            }
+        };
+        var divID = this.parentElement.id;
+        var tempUrlArray = this.src.split('/');
+        var ytVideoID = tempUrlArray[tempUrlArray.length-2];
+        var videoFrame = $("<iframe>").attr({
+                                            id: ytVideoID,
+                                            src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
+                                            class: "fm_movievideo",
+                                            frameborder: "0"
+                                            }).load(function(){
+                                                    //TODO: find a better way to have callPlayer() called after videoFrame is prepended
+                                                    setTimeout(function(){
+                                                               callPlayer(ytVideoID,'playVideo');
+                                                               }, 1500);
+                                                    });
+        
+        $('#'+divID).prepend(videoFrame);
+        $('#'+this.id).remove();
+    };
+
     
     return {
         
@@ -368,7 +408,7 @@ function videoWgt(parent, data, append){
         var ytVideoID = (data.url.youtube).split('/').pop();
         
         this.videoThumbnail = $("<img>").attr({
-                                              id: 'img_'+data.projectId,
+                                              id: 'img_'+ytVideoID,
                                               src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
                                               class: "fm_movievideo"
                                              });
@@ -380,9 +420,8 @@ function videoWgt(parent, data, append){
         });
         
     }else{
-        this.videoThumbnail = $("<iframe>").attr({
-           class: "fm_video_making fm_movievideo",
-            frameborder: "0"
+        this.videoThumbnail = $("<img>").attr({
+           class: "fm_video_making fm_movievideo"
         });
     }
     
@@ -400,7 +439,7 @@ function videoWgt(parent, data, append){
     //this.like = $("<span>").attr("class", "fm_like_num").appendTo(bar);
     //this.comment = $("<span>").attr("class", "fm_comment_num").appendTo(bar);
     
-    this.commentWgt = new commentListWgt(widget);  
+    this.commentWgt = new commentListWgt(widget);
     
     if(append)
         widget.appendTo(parent); // Top First.
@@ -411,7 +450,7 @@ function videoWgt(parent, data, append){
 videoWgt.prototype.setSrc = function(src){
     //this.videoFrame.attr("src", src+"?rel=0&showinfo=0&modestbranding=1&controls=0").attr("class", "fm_video");
     var ytVideoID = (src).split('/').pop();
-    this.videoThumbnail.attr("src", "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg").attr("class", "fm_video");
+    this.videoThumbnail.attr("src", "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg").attr("class", "fm_video").attr("id", "dummy_"+ytVideoID);
 }
 
 videoWgt.prototype.setComments = function(data, sequence_num){
