@@ -319,7 +319,7 @@ FmMobile.movieCreatePg = {
 		/*
 		var btnSubmit1Click_cb = function () {
 			//console.dir(customizedContent);
-			$.post(starServerURL+'/upload_user_data_info', customizedContent, function(result){
+			$.post(starServerURL+'/miix/videos/user_content_description', customizedContent, function(result){
 				console.dir(result);
 			});
             
@@ -857,7 +857,7 @@ FmMobile.moviePreviewPg = {
             customizedContent.timeStamp = (new Date()).toISOString();
             
             
-            $.post(starServerURL+'/upload_user_data_info', customizedContent, function(result){
+            $.post(starServerURL+'/miix/videos/user_content_description', customizedContent, function(result){
                 console.dir("upload user data info result: "+result);
                 if ( !result.err ) {
                     FmMobile.addProcessingWork(projectID);
@@ -949,7 +949,7 @@ FmMobile.moviePreviewPg = {
 
             //uploadingMgr.showAll($("#moviePreviewPg_contentArea"));
 
-            ft.upload(imageURI, starServerURL+"/upload", uploadSuccess_cb, uploadFail_cb, options);
+            ft.upload(imageURI, starServerURL+"/miix/videos/user_content_files", uploadSuccess_cb, uploadFail_cb, options);
             
             $("#moviePreview").trigger("stopPreviewAnimation");
             $('#divStatus').html("照片上傳成功後即開始影像合成，合成完成後會通知您去分享給朋友！");

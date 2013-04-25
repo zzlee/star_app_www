@@ -139,7 +139,7 @@ FmMobile.init = {
         if(!localStorage.fb_userID)
             return;
         
-        var url = remotesite + "/api/member.isFBTokenValid";
+        var url = remotesite + "/members/fb_token_validity";
         var data = {
             "_id": localStorage._id,
             "fb_id": localStorage.fb_userID,
@@ -167,7 +167,7 @@ FmMobile.init = {
 
 FmMobile.addProcessingWork = function(pid){
     
-    var url = remotesite + "/api/submitAVideo";
+    var url = remotesite + "/miix/videos/miix_videos";
     var data = {
         "_id": localStorage._id,
         "userID": localStorage.fb_userID,
@@ -192,7 +192,7 @@ FmMobile.ajaxNewVideos = function(){
     FM_LOG("[ajaxNewVideos]");
     var videoWorks = ($.jStorage.get("videoWorks")) ? $.jStorage.get("videoWorks") : [];
     var processingWorks = ($.jStorage.get("processingWorks")) ? $.jStorage.get("processingWorks") : {};
-    var url = domain + "/api/newVideoList";
+    var url = domain + "/miix/videos/new_videos";
     var after = -1;
     
     if(!$.isEmptyObject(processingWorks) || $.isEmptyObject(videoWorks)){
@@ -256,7 +256,7 @@ FmMobile.ajaxNewStoryVideos = function(){
     FM_LOG("[ajaxNewStoryVideos]");
     var streetVideos = ($.jStorage.get("streetVideos")) ? $.jStorage.get("streetVideos") : [];
     var after = -1;
-    var url = remotesite + "/api/newVideoList";
+    var url = remotesite + "/miix/videos/new_videos";
     
     if(!$.isEmptyObject(streetVideos)){
         after = new Date(streetVideos[0].createdOn).getTime(); // First - Newest
@@ -316,7 +316,7 @@ FmMobile.dooh = function(evt){
 
 FmMobile.submitDooh = function(){
     var pid = $.jStorage.get("dooh_pid");
-    var url = remotesite + "/api/submitDooh";
+    var url = remotesite + "/miix/videos/videos_on_dooh";
     
     var query = {
         "_id": localStorage._id,
@@ -606,7 +606,7 @@ FmMobile.authPopup = {
     onFBConnected: function(){
         FM_LOG("[onFBConnected]: ");
        // if(!localStorage.fb_userID)
-        var url = remotesite + "/api/signupwithFB";
+        var url = remotesite + "/members/fb_info";
             data = {"authResponse": {
                 "userID": localStorage.fb_userID,
 				"userName": localStorage.fb_name,
@@ -667,7 +667,7 @@ FmMobile.authPopup = {
     
     sendDeviceToken: function(){
         FM_LOG("[sendDeviceToken] ");
-        var url = domain + "/api/deviceToken";
+        var url = domain + "/members/device_tokens";
         var query = {"user":{
                 "_id": localStorage._id,
                 "accessToken": localStorage.fb_accessToken,

@@ -222,7 +222,7 @@ var videoListAdapter = (function(){
             for(var i=0; i < data.length; i++){
                 
                 
-                var url = domain + "/api/fbGetComment";
+                var url = domain + "/fb/comment";
                 var query = {
                     "accessToken": localStorage.fb_accessToken,
                     "fb_id": fb_id
@@ -316,7 +316,7 @@ var videoListAdapter = (function(){
                 temp = dummyItems[pid];
                 dummyItems[pid].setSrc(videoWork.url.youtube);
                 
-                var url = domain + "/api/fbGetComment";
+                var url = domain + "/fb/comment";
                 var query = {
                     "accessToken": localStorage.fb_accessToken,
                     "fb_id": fb_id,
@@ -364,7 +364,7 @@ function _videoListAdapter(parent, data){
         else
             var fb_id = data[i].fb_id;
         
-        var url = domain + "/api/fbGetComment";
+        var url = domain + "/fb/comment";
         var query = {
             "accessToken": localStorage.fb_accessToken,
             "fb_id": fb_id
@@ -585,7 +585,7 @@ commentListWgt.prototype.setData = function(result, sequence_num){
             //var commentTxt = $("<p>").attr("class", "fm_txt").html(comment).appendTo(commentContent);
             var commentTxt = $("<div>").attr("class", "fm_fbw2").html(comment).appendTo(commentContent); //GZ
             
-            var url = domain + "/api/fbGetThumbnail";
+            var url = domain + "/fb/thumbnail";
             var query = {
                 "accessToken": localStorage.fb_accessToken,
                 "fb_id": data[i].id,

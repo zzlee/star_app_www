@@ -40,7 +40,7 @@ FmMobile.authentication = {
             return;
         }
            
-        var url = remotesite + "/api/codeGeneration",
+        var url = remotesite + "/members/authentication_code",
             data = {
                 phoneNum: phoneNum,
                 fb_userID: localStorage.fb_userID,
