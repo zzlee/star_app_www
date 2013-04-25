@@ -16,7 +16,7 @@ FmMobile.authentication = {
     init: function(){
         
         if(localStorage.verified == 'true'){
-            $.mobile.changePage("myVideo.html");
+            $.mobile.changePage("my_video.html");
             
         }else{
             this.verification();
@@ -80,7 +80,7 @@ FmMobile.authentication = {
            if(res.message){
                navigator.notification.alert(res.message, FmMobile.submitDooh, "認證");
                localStorage.verified = true;
-               $.mobile.changePage("myVideo.html");
+               $.mobile.changePage("my_video.html");
                
            }else{
                navigator.notification.alert(res.error);

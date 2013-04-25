@@ -368,7 +368,7 @@ FmMobile.moviePreviewPg = {
                         $('#submitPhotoBtn').click();
                         break;
                     case 2:
-                        $.mobile.changePage("myVideo.html");
+                        $.mobile.changePage("my_video.html");
                         break;
                 }
             }
@@ -413,7 +413,7 @@ FmMobile.moviePreviewPg = {
                    if ( !result.err ) {
                    FmMobile.addProcessingWork(projectID);
                    $.mobile.hidePageLoadingMsg();
-                   $.mobile.changePage("myVideo.html");
+                   $.mobile.changePage("my_video.html");
                    
                    }
                    })
@@ -431,7 +431,7 @@ FmMobile.moviePreviewPg = {
                    $('#submitPhotoBtn').click();
                    break;
                    case 2:
-                   $.mobile.changePage("myVideo.html");
+                   $.mobile.changePage("my_video.html");
                    break;
                    }
                    }

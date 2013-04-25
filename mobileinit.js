@@ -31,8 +31,8 @@ $(document).bind("mobileinit", function(){
                 $("#myVideoPg").live("pagebeforeshow", FmMobile.myVideoPg.beforeshow);
                 $("#settingPg").live("pageshow", FmMobile.settingPg.show);
                 $("#tocPg").live("pageshow", FmMobile.tocPg.show);
-                $("#fbLoginPg").live("pageshow", FmMobile.fbLoginPg.show); 
                 $("#tocPg").live("pageinit", FmMobile.tocPg.init);
+                $("#fbLoginPg").live("pageshow", FmMobile.fbLoginPg.show);
                  
                 //$("#homePg").live("pageinit", FmMobile.homePg.init);
                 //$("#videoPg").live("pagebeforecreate", FmMobile.videoPg.init);
@@ -705,12 +705,12 @@ FmMobile.indexPg = {
         //recordUserAction("starts MiixCard app", true);
         
         if(localStorage.fb_userID){
-            $.mobile.changePage("myVideo.html");
+            $.mobile.changePage("my_video.html");
             //$.mobile.changePage("movie_create.html"); //for temp test
         }
         else {
             window.location.href = "orientation.html";
-            //$.mobile.changePage("myVideo.html");
+            //$.mobile.changePage("my_video.html");
             
         }
                   
