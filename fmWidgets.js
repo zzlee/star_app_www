@@ -148,7 +148,47 @@ var videoListAdapter = (function(){
     var count = 0;
     var videoItems = null;
     var dummyItems = null;
-    
+                        
+    var bindClickEventToThumbnail = function(){
+        console.log('[click on video list: ]'+this);
+        
+        var callPlayer = function (frame_id, func, args) {
+            if (window.jQuery && frame_id instanceof jQuery){
+                frame_id = frame_id.get(0).id;
+            }
+            var iframe = document.getElementById(frame_id);
+            if (iframe && iframe.tagName.toUpperCase() != 'IFRAME') {
+                iframe = iframe.getElementsByTagName('iframe')[0];
+            }
+            if (iframe) {
+                // Frame exists,
+                iframe.contentWindow.postMessage(JSON.stringify({
+                                                                "event": "command",
+                                                                "func": func,
+                                                                "args": args || [],
+                                                                "id": frame_id
+                                                                }), "*");
+            }
+        };
+        var divID = this.parentElement.id;
+        var tempUrlArray = this.src.split('/');
+        var ytVideoID = tempUrlArray[tempUrlArray.length-2];
+        var videoFrame = $("<iframe>").attr({
+                                            id: ytVideoID,
+                                            src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
+                                            class: "fm_movievideo",
+                                            frameborder: "0"
+                                            }).load(function(){
+                                                    //TODO: find a better way to have callPlayer() called after videoFrame is prepended
+                                                    setTimeout(function(){
+                                                               callPlayer(ytVideoID,'playVideo');
+                                                               }, 1500);
+                                                    });
+        
+        $('#'+divID).prepend(videoFrame);
+        $('#'+this.id).remove();
+    };
+
     
     return {
         
@@ -201,13 +241,58 @@ var videoListAdapter = (function(){
                     $.get(url, query, function(result){
                           
                           FM_LOG("[Comments]" + result.id + ":\n" + JSON.stringify(result));
-                          if(result.id){
+                          if(videoItems[result.id]){
                               videoItems[result.id].setComments(result);
                               $.jStorage.set(result.id, result);
                           }
                     });
                 }
             }
+                        
+            //listen to click event
+            $("div [class='fm_bar']").click(function(){
+                $(this.parentElement.parentElement.children[1]).toggle();
+            });
+            $('#videoList>div>img').click(function(){
+                console.log('[click on video list: ]'+this);
+                
+                var callPlayer = function (frame_id, func, args) {
+                    if (window.jQuery && frame_id instanceof jQuery){
+                        frame_id = frame_id.get(0).id;
+                    }
+                    var iframe = document.getElementById(frame_id);
+                    if (iframe && iframe.tagName.toUpperCase() != 'IFRAME') {
+                        iframe = iframe.getElementsByTagName('iframe')[0];
+                    }
+                    if (iframe) {
+                        // Frame exists, 
+                        iframe.contentWindow.postMessage(JSON.stringify({
+                        "event": "command",
+                        "func": func,
+                        "args": args || [],
+                        "id": frame_id
+                        }), "*");
+                    }
+                };
+                var divID = this.parentElement.id;
+                var tempUrlArray = this.src.split('/');
+                var ytVideoID = tempUrlArray[tempUrlArray.length-2];
+                var videoFrame = $("<iframe>").attr({
+                    id: ytVideoID,
+                    src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
+                    class: "fm_movievideo",
+                    frameborder: "0"
+                }).load(function(){
+                    //TODO: find a better way to have callPlayer() called after videoFrame is prepended
+                    setTimeout(function(){
+                        callPlayer(ytVideoID,'playVideo');
+                    }, 1500);
+                });
+                                          
+                $('#'+divID).prepend(videoFrame);
+                $('#'+this.id).remove();
+            });
+
         },
                         
         freshCommentbar: function(){
@@ -311,34 +396,50 @@ function videoWgt(parent, data, append){
     */
     widget = $("<div>").attr({id: data.projectId, class: "fm_movie"});
     
-    this.videoFrame;
-    
     if(data.url){
+        /*
         this.videoFrame = $("<iframe>").attr({
             src: data.url.youtube + "?rel=0&showinfo=0&modestbranding=1&controls=0",
             class: "fm_movievideo",
             frameborder: "0"
         });
+         */
+        
+        var ytVideoID = (data.url.youtube).split('/').pop();
+        
+        this.videoThumbnail = $("<img>").attr({
+                                              id: 'img_'+ytVideoID,
+                                              src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
+                                              class: "fm_movievideo"
+                                             });
+                
         
     }else if(data.trash){
-        this.videoFrame = $("<div>").attr({
+        this.videoThumbnail = $("<div>").attr({
             class: "fm_trashtalk"
         });
         
     }else{
-        this.videoFrame = $("<iframe>").attr({
-           class: "fm_video_making fm_movievideo",
-            frameborder: "0"
+        this.videoThumbnail = $("<img>").attr({
+           class: "fm_video_making fm_movievideo"
         });
     }
-    this.videoFrame.appendTo(widget);
-    this.videoFrame.height( window.innerWidth/1.77778 ); //GZ //TODO:: have a cleanner way to set height (such as manipulating CSS
+    
+    
+    //GZ //TODO:: have a cleanner way to set height (such as manipulating CSS
+    //this.videoFrame.height( window.innerWidth/1.77778 );
+    this.videoThumbnail.height( window.innerWidth/1.77778 );
+    
+    
+    //this.videoFrame.appendTo(widget);
+    widget.html(this.videoThumbnail);
+    
     
     //var bar = $("<div>").attr("class", "fm_bar").appendTo(widget);
     //this.like = $("<span>").attr("class", "fm_like_num").appendTo(bar);
     //this.comment = $("<span>").attr("class", "fm_comment_num").appendTo(bar);
     
-    this.commentWgt = new commentListWgt(widget);  
+    this.commentWgt = new commentListWgt(widget);
     
     if(append)
         widget.appendTo(parent); // Top First.
@@ -347,7 +448,9 @@ function videoWgt(parent, data, append){
 }
 
 videoWgt.prototype.setSrc = function(src){
-    this.videoFrame.attr("src", src+"?rel=0&showinfo=0&modestbranding=1&controls=0").attr("class", "fm_video");
+    //this.videoFrame.attr("src", src+"?rel=0&showinfo=0&modestbranding=1&controls=0").attr("class", "fm_video");
+    var ytVideoID = (src).split('/').pop();
+    this.videoThumbnail.attr("src", "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg").attr("class", "fm_video").attr("id", "dummy_"+ytVideoID);
 }
 
 videoWgt.prototype.setComments = function(data, sequence_num){
@@ -443,11 +546,7 @@ commentListWgt.prototype.setData = function(result, sequence_num){
     this.div_commentnb.html( commentcount.toString() );
     this.div_comment.html('<img src="./images/icon/comment.png" style="width:100%"></img>');
     this.div_bar.html('<img src="./images/icon/expand_arrow.png" style="width:100%"></img>');
-    this.listWgt.hide();
-    this.div_bar.click(function(){
-        $(this.parentElement.parentElement.children[1]).toggle();
-    });
-    
+    this.listWgt.hide();    
     
     
     if(result.comments.data){

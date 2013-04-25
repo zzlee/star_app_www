@@ -55,22 +55,25 @@ FBConnect.prototype.onClose = function(){
 
 FBConnect.prototype.onLocationChange = function(newLoc)
 {
-    FM_LOG("[onLocationChange] ");
+    FM_LOG("[onLocationChange] newLoc= "+newLoc);
 	if(newLoc.indexOf(this.redirect_uri[0]) == 0 || newLoc.indexOf(this.redirect_uri[1]) == 0 )
 	{
         FM_LOG("[onLocationChange] Redirect");
 		var result = unescape(newLoc).split("#")[1];
+        FM_LOG("[onLocationChange] result= "+result);
         
-		// Token Parsing.
-		this.accessToken = result.split("&")[0].split("=")[1];
-        FM_LOG("accessToken: " + this.accessToken);
-		this.expiresIn = Date.now() + parseInt( result.split("&")[1].split("=")[1] );
-        FM_LOG("expiresIn: " + this.expiresIn);
-        this.code = result.split("&")[2].split("=")[1];
-        FM_LOG("code: " + this.code);
-        
-        localStorage.fb_accessToken = this.accessToken;
-        this.getUserID();
+        if (result){
+            // Token Parsing.
+            this.accessToken = result.split("&")[0].split("=")[1];
+            FM_LOG("accessToken: " + this.accessToken);
+            this.expiresIn = Date.now() + parseInt( result.split("&")[1].split("=")[1] );
+            FM_LOG("expiresIn: " + this.expiresIn);
+            //this.code = result.split("&")[2].split("=")[1];
+            //FM_LOG("code: " + this.code);
+            
+            localStorage.fb_accessToken = this.accessToken;
+            this.getUserID();
+        }
 	}
 };
 
