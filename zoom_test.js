@@ -26,7 +26,7 @@ image_init = function(){
     image = new Image();
     
     //canvas.width = screen.availWidth;
-    //canvas.height = canvas.width / ustomizableObjectDimensions[fileObjectID].width * customizableObjectDimensions[fileObjectID].height;
+    //canvas.height = canvas.width / customizableObjectDimensions[fileObjectID].width * customizableObjectDimensions[fileObjectID].height;
 
     image.onload = function(){
 
