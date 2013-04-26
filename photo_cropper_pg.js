@@ -37,10 +37,17 @@ FmMobile.photoCropperPg = {
             context.drawImage(image,
                               option.destination.x, option.destination.y,
                               option.scope.w, option.scope.h);
+            
+            croppedArea = {
+            x:-option.destination.x / image.width,  //fraction relative to its width
+            y:-option.destination.y / image.height,  //fraction relative to its height
+            width:canvas.width / option.scope.w,  //fraction relative to its width
+            height:canvas.height / option.scope.h  //fraction relative to its height
+            };
         };
         image.src = fileProcessedForCropperURI;
     },
-        
+    
     show: function(event, data){
         
         //JF - image event
@@ -95,6 +102,13 @@ FmMobile.photoCropperPg = {
         
         $$('#photoZoom').pinch(function(e){
                             p_before.status = 0;
+                               
+                            croppedArea = {
+                               x:-option.destination.x / image.width,  //fraction relative to its width
+                               y:-option.destination.y / image.height,  //fraction relative to its height
+                               width:canvas.width / option.scope.w,  //fraction relative to its width
+                               height:canvas.height / option.scope.h  //fraction relative to its height
+                               };
                             });
         
         $$('#photoZoom').swiping(function(e){
@@ -124,6 +138,13 @@ FmMobile.photoCropperPg = {
         $$('#photoZoom').swipe(function(e){
                             //console.log('[swipe]');
                             s_now.status = 0;
+                               
+                            croppedArea = {
+                               x:-option.destination.x / image.width,  //fraction relative to its width
+                               y:-option.destination.y / image.height,  //fraction relative to its height
+                               width:canvas.width / option.scope.w,  //fraction relative to its width
+                               height:canvas.height / option.scope.h  //fraction relative to its height
+                               };
                             });
         
         showImage = function(){
