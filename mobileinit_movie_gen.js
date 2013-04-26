@@ -20,8 +20,8 @@ var mobileinitForMovieGen = function() {
     $("#movieCreatePg").live("pageshow", FmMobile.movieCreatePg.show);
 	$("#photoCropperPg").live("pageinit", FmMobile.photoCropperPg.load);
     $("#photoCropperPg").live("pageshow", FmMobile.photoCropperPg.show);
-	$("#moviePreviewPg").live("pageinit", FmMobile.moviePreviewPg.load);
-    $("#moviePreviewPg").live("pageshow", FmMobile.moviePreviewPg.show);
+	//$("#moviePreviewPg").live("pageinit", FmMobile.moviePreviewPg.load);
+    //$("#moviePreviewPg").live("pageshow", FmMobile.moviePreviewPg.show);
 }
 
 /*
