@@ -305,32 +305,9 @@ FmMobile.moviePreviewPg = {
                    });
         }
         
-        //get cropped image
-        croppedArea = myPhotoCropper.getCroppedArea();
-        var rawPhotoImg = new Image();
-        rawPhotoImg.src = fileProcessedForCropperURI;
-        rawPhotoImg.onload = function(){
-            var sourceCanvas = document.createElement("canvas");
-            var sourceCanvasContext = sourceCanvas.getContext("2d");
-            sourceCanvas.width = rawPhotoImg.width;
-            sourceCanvas.height = rawPhotoImg.height;
-            sourceCanvasContext.drawImage(rawPhotoImg, 0, 0);
-            //console.dir(tempCanvas);
-            var destinationCanvas = document.createElement("canvas");
-            var destinationCanvasContext = destinationCanvas.getContext("2d");
-            destinationCanvas.width = rawPhotoImg.width*croppedArea.width;
-            destinationCanvas.height = rawPhotoImg.height*croppedArea.height;
-            destinationCanvasContext.drawImage(sourceCanvas,
-                                               rawPhotoImg.width*croppedArea.x,
-                                               rawPhotoImg.height*croppedArea.y,
-                                               rawPhotoImg.width*croppedArea.width,
-                                               rawPhotoImg.height*croppedArea.height,
-                                               0, 0,
-                                               destinationCanvas.width,
-                                               destinationCanvas.height);
-            photoCroppedURI = destinationCanvas.toDataURL();
-            $.mobile.changePage("movie_preview.html");
-        }
+        //JF - get cropped image
+        photoCroppedURI = document.getElementById('photoZoom').toDataURL();
+        $.mobile.changePage("movie_preview.html");
         
         
         $.ajax({
@@ -338,9 +315,6 @@ FmMobile.moviePreviewPg = {
                dataType: 'xml',
                success: getTemplateDescription_cb
                });
-        
-        
-        
         
     },
         

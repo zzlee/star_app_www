@@ -1,6 +1,7 @@
 div.fm_page {
     background-image: url("../images/bg/bokeh_iphone_home_s.png");
     background-repeat: repeat-y;
+    background-size: 100%;
 	/*background-size: contain;*/
     
 	/*width:320px;*/

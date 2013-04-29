@@ -37,12 +37,4 @@ $(document).bind("mobileinit", function(){
 
 
 
-
-
-
-
-
-	
-
-
             
