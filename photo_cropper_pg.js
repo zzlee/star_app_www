@@ -39,15 +39,13 @@ load: function(event, data){
                           option.scope.w, option.scope.h);
         
         croppedArea = {
-        x:-option.destination.x / image.width,  //fraction relative to its width
-        y:-option.destination.y / image.height,  //fraction relative to its height
-        width:canvas.width / option.scope.w,  //fraction relative to its width
-        height:canvas.height / option.scope.h  //fraction relative to its height
+            x:-option.destination.x / option.scope.w,  //fraction relative to its width
+            y:-option.destination.y / option.scope.h,  //fraction relative to its height
+            width:canvas.width / option.scope.w,  //fraction relative to its width
+            height:canvas.height / option.scope.h  //fraction relative to its height
         };
     };
-    image.src = fileProcessedForCropperURI;
     
-
     var onSubmitBtnClick= function() {
         var uploadFail_cb = function(error) {
             
@@ -122,7 +120,7 @@ load: function(event, data){
             options.mimeType = "image/jpeg";
             //options.mimeType = "image/png";
             options.chunkedMode = true;
-                        
+            
             var params = new Object();
             params.fileObjectID = fileObjectID;
             params.projectID = projectID;
@@ -174,13 +172,12 @@ load: function(event, data){
     
     $('#submitBtn').click(onSubmitBtnClick);
     $('#cancelBtn').click(function(){
-        $.mobile.changePage("movie_create.html");
-    });
+                          $.mobile.changePage("movie_create.html");
+                          });
+   
     
+    image.src = fileProcessedForCropperURI;
 },
-
-    
-    
     
 show: function(event, data){
     
@@ -238,10 +235,10 @@ show: function(event, data){
                            p_before.status = 0;
                            
                            croppedArea = {
-                           x:-option.destination.x / image.width,  //fraction relative to its width
-                           y:-option.destination.y / image.height,  //fraction relative to its height
-                           width:canvas.width / option.scope.w,  //fraction relative to its width
-                           height:canvas.height / option.scope.h  //fraction relative to its height
+                               x:-option.destination.x / option.scope.w,  //fraction relative to its width
+                               y:-option.destination.y / option.scope.h,  //fraction relative to its height
+                               width:canvas.width / option.scope.w,  //fraction relative to its width
+                               height:canvas.height / option.scope.h  //fraction relative to its height
                            };
                            });
     
@@ -274,10 +271,10 @@ show: function(event, data){
                            s_now.status = 0;
                            
                            croppedArea = {
-                           x:-option.destination.x / image.width,  //fraction relative to its width
-                           y:-option.destination.y / image.height,  //fraction relative to its height
-                           width:canvas.width / option.scope.w,  //fraction relative to its width
-                           height:canvas.height / option.scope.h  //fraction relative to its height
+                               x:-option.destination.x / option.scope.w,  //fraction relative to its width
+                               y:-option.destination.y / option.scope.h,  //fraction relative to its height
+                               width:canvas.width / option.scope.w,  //fraction relative to its width
+                               height:canvas.height / option.scope.h  //fraction relative to its height
                            };
                            });
     
