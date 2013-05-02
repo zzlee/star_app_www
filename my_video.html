@@ -1,52 +1,44 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="./css/jquery-ui.css"/>
-    <link rel="stylesheet" href="./css/jquery.mobile-1.2.0.css"/>
-    <!-- CUSTOM INITIALIZATION CODE -->
-    <script src="./lib/cordova-2.2.0.js" type="text/javascript" charset="utf-8"></script>
-    <script src="./lib/jquery-1.8.2.min.js"></script>
-    <script src="./lib/jquery-ui.js"></script>
-    <script src="./lib/ChildBrowser.js"></script>
-    <script src="./lib/json2.js"></script>
-    <script src="./lib/jstorage.min.js"></script>
-    <script src="./lib/kinetic-v4.0.5.min.js"></script>
-    <script src="./lib/lufylegend-1.6.1.js"></script>
-    <script src="./lib/GAPlugin.js"></script>
-    <script src="./lib/PushNotification.js"></script>
-    <script src="./lib/exif.js"></script>
-    <script src="./lib/binaryajax.js"></script>
-    <script src="./lib/quojs-2.3.1/quo.js"></script>
-    <script src="./lib/jquery.mobile-1.2.0.js"></script>
-    <link rel="stylesheet" href="./css/fm.css"/>
-    <link rel="stylesheet" href="./css/fm2.css"/>
-</head>
-<body class="container">
-    <div data-role="page" id="myVideoPg" class="fm_page">
-        <div data-role="header">
-            <a href="menu_popup.html" id="menuBtn" style="margin-top:10px; margin-left:5px;" data-rel="dialog" class="fm_header_btn"></a>
-            <h1>我的影片</h1>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>My Video</title>
+<link rel="stylesheet" href="style.css">
+<!-- media queries css -->
+<link href="media-queries.css" rel="stylesheet" type="text/css">
+<link href="jquery.mobile-1.0.min.css" rel="stylesheet" type="text/css"/>
+<link href="animate-custom.css" rel="stylesheet">
+<script src="jquery-1.6.4.min.js" type="text/javascript"></script>
+<script src="jquery.mobile-1.0.min.js" type="text/javascript"></script>
+
+</head> 
+<body> 
+
+<div data-role="page" id="page">
+	<div data-role="header" id="header">
+		<h1>My Video</h1>
+	</div>
+	<div class="content_my_video" data-role="content">
+    <div id="my-video-btnbar">
+    <div class="my-video-icon"><img src="images/a-my_video.png" width="160" height="111"></div>
+        <div class="my-video-icon"><img src="images/e-dooh.png" width="160" height="111"></div>
         </div>
-        
-        <div data-role="content" id="myVideo_contentArea" class="fm_content fm_myvideo">
-            <div class="fm_profile" id="fm_profile">
-                <div class="fm_pic" id="fb_user_pic"><img src="" width="85"></div>
-                <div class="fm_name" id="fb_name"></div>
-                <div class="fm_name" id="fb_user_location"></div>
-            </div>
-            <div class="fm_myvideobtn" id="fm_myvideobtn">
-                <div data-role="navbar">
-                    <ul>
-                        <li><a id="miix-link" href="#" class="ui-btn-active ui-state-persist" onclick="FmMobile.myVideoPg.loadMyVideo();">我的影片</a></li>
-                        <li><a id="miix_street-link" href="#" onclick="FmMobile.myVideoPg.loadMyStreetVideo();">影像故事</a></li>
-                    </ul>
-                </div><!-- /navbar -->
-            </div>
-            <!--<ul data-role="listview" id="videoList" class="fm_videoList"></ul>-->
-            <div id="videoList" class="fm_videoList"></div>
+        <div id="my-video-list">
+      <div class="content-movie"><img src="images/movie_pic.png" width="266" height="184"></div>
+        <div class="my-video-number">NO.12345</div>
         </div>
     </div>
+    <div id="nav-bar">
+<div id="ui-menu"><img src="images/a-m1.png" width="80" height="40"></div>
+<div id="ui-menu"><img src="images/e-m2.png" width="80" height="40"></div>
+<div id="ui-menu"><img src="images/e-m3.png" width="80" height="40"></div>
+<div id="ui-menu"><img src="images/e-m4.png" width="80" height="40"></div>
+
+  </div>
+	<!-- /navbar -->
+      
+	</div>
+</div>
 </body>
 </html>
