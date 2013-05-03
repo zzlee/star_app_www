@@ -9,13 +9,13 @@ html{
 body{
     width:100%;
     height:100%;
-    overflow:hidden;
 }
 
 @font-face {
-  font-family: "";
-  src: url(UrbanJungleDEMO.otf);
+    font-family: "Urban Jungle";
+    src: url("../font/UrbanJungleDEMO.otf");
 }
+
 .text{
 	font-size:200%;
 	font-family:"Urban Jungle";
@@ -28,7 +28,7 @@ body{
 	display:table;
 	width: 100%;
 	height: 8.69%;
-	position:absolute;
+	position:fixed;
 	background: #e21b74;
 	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#e21b74), to(#891846));
 	background: -webkit-linear-gradient(#e21b74, #891846);
@@ -38,6 +38,7 @@ body{
 	background: linear-gradient(#e21b74, #891846);
 	-pie-background: linear-gradient(#e21b74, #891846);
 	behavior: url(/pie/PIE.htc);
+    z-index: 1;
 }
 .header-text{
 	display: table-cell;
@@ -47,16 +48,15 @@ body{
 }
 /* Page ------------------------------------------------------------*/
 #page {
-	overflow: hidden;
 	width:100%;
 	height:100%;
 }
 /* Container_background ------------------------------------------------------------*/
 .container{
 	background-image: url(../images/empty_bg_836.png);
-	background-repeat:no-repeat; 
+	background-repeat:no-repeat;
 	width: 100%;
-	height: 82.64%;
+	padding: 0px;
 	background-size:100% 100%;
 	top:8.69%;
 	position:absolute;
@@ -67,7 +67,7 @@ body{
 #nav-bar {
 	width: 100%;
 	height:8.69%;
-	position:absolute; 
+	position:fixed;
 	bottom: 0;
 }
 .ui-menu-active {
@@ -86,6 +86,7 @@ body{
 	text-align: center;
 	vertical-align: middle;
 	position: relative;
+    padding:0px;
 	border-top-width: 0px;
 	border-bottom-width: 0px;
 	border-left-width: 0px;
@@ -112,6 +113,7 @@ body{
 	vertical-align: middle;
 	text-align: center;
 	position: relative;
+    padding:0px;
 	border-right-width: 1px;
 	border-right-style: solid;
 	border-right-color: rgba(204,204,204,0.5);
@@ -131,7 +133,7 @@ body{
 	background-repeat: no-repeat;
 	background-size:100%;
 	position:absolute;
-
+    
 }
 #login {
 	background-image:url(../images/login.png);
@@ -231,7 +233,7 @@ body{
 .mobile-verify{
 	width: 95%;
 	padding-top: 5%;
-	padding-left: 5%; 
+	padding-left: 5%;
 }
 .mobile-sent{
 	width: 100%;

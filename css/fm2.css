@@ -323,11 +323,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', end
 	/* margin-top: 1.5%; */
 	font-size: 100%;
 	text-align: center;
-	float: left;
 	width: 100%;
+    display:table-cell;
+    vertical-align:middle;
 }
 
 .fm_button2 {
+    display:table;
 	height: 5.691%;
 	width: 65.277%;
 	margin-top: 0%;
