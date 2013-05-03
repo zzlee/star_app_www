@@ -9,13 +9,20 @@ html{
 body{
     width:100%;
     height:100%;
-    overflow:hidden;
 }
 
 @font-face {
-  font-family: "";
-  src: url(UrbanJungleDEMO.otf);
+    font-family: "Urban Jungle";
+    src: url("../font/UrbanJungleDEMO.otf");
 }
+
+.text{
+	font-size:150%;
+	font-family:"Urban Jungle";
+}
+
+/* Header ------------------------------------------------------------*/
+
 .header {
 	font-family: "Urban Jungle";
 	display:table;
@@ -31,19 +38,30 @@ body{
 	background: linear-gradient(#e21b74, #891846);
 	-pie-background: linear-gradient(#e21b74, #891846);
 	behavior: url(/pie/PIE.htc);
-    z-index:1;
+    z-index: 1;
 }
 .header-text{
 	display:table-cell;
 	vertical-align:middle;
 	text-align:center;
+	color:#FFF
 }
 /* Page ------------------------------------------------------------*/
 #page {
 	width:100%;
 	height:100%;
 }
-
+/* Container_background ------------------------------------------------------------*/
+.container{
+	background-image: url(../images/empty_bg_836.png);
+	background-repeat:no-repeat;
+	width: 100%;
+	padding: 0px;
+	background-size:100% 100%;
+	top:8.69%;
+	position:absolute;
+    overflow:auto;
+}
 
 /* Nav-bar ------------------------------------------------------------*/
 #nav-bar {
@@ -52,8 +70,8 @@ body{
 	position:fixed;
 	bottom: 0;
 }
-.ui-menu {
-	width: 25%;
+.ui-menu-active {
+	width: 24.6%;
 	height: 100%;
 	float: left;
 	background: #e21b74;
@@ -69,9 +87,18 @@ body{
 	vertical-align: middle;
 	position: relative;
     padding:0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	border-top-style: none;
+	border-right-style: solid;
+	border-bottom-style: none;
+	border-left-style: none;
+	border-right-color: rgba(204,204,204,0.5);
+	border-right-width: 1px;
 }
-.ui-menu-active {
-	width: 25%;
+.ui-menu {
+	width: 24.6%;
 	height: 100%;
 	float: left;
 	background: #5a595c;
@@ -87,26 +114,29 @@ body{
 	text-align: center;
 	position: relative;
     padding:0px;
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color: rgba(204,204,204,0.5);
 }
 .menu-img{
-	position:absolute;
-	left:0;
-	right:0;
-	top:0;
-	bottom:0;
-	margin:auto;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
 }
 /* Login ------------------------------------------------------------*/
 .content_login{
 	width: 100%;
-	background-image: url(./images/choose_movie_bg_836.png);
+	background-image:url(../images/login_bg_1036.png);
 	background-repeat: no-repeat;
 	background-size:100%;
-
+	position:absolute;
+    
 }
 #login {
-	background-image: url(images/login.png);
-	background-size:100%;
+	background-image:url(../images/login.png);
 	background-position: center center;
 	background-repeat: no-repeat;
 	margin-top: 120%;
@@ -116,22 +146,34 @@ body{
 
 
 /* Choose Photo ------------------------------------------------------------*/
-.content_createmovie{
-	background-image: url(./images/create_movie_bg_836.png);
-	width: 100%;
-	height: auto;
-	background-repeat: no-repeat;
-	background-size:100% 100%;
-}
 .content-movie{
-	width: 91.5%;
-	padding-top: 26%;
-	padding-left: 8.5%;
+	background-image:url(../images/big_frame.png);
+	background-repeat:no-repeat;
+	background-size:100%;
+	width: 90%;
+	margin-top: 5%;
+	margin-left: 5%;
+	position:relative;
+}
+.content-movie-img{
+    position:absolute;
+	top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+	width:90%;
+	margin-top:3.5%;
+	margin-left:3.5%;
 }
 
 .create-movie-icon {
-	float: left;
-	padding-top: 4.2%;
+	width:49%;
+	display:inline-block;
+}
+.icon-img{
+	padding-top:20%;
+	padding-left:25%;
+	width:50%;
 }
 /* Photo Upload ------------------------------------------------------------*/
 #process-bar {
@@ -149,17 +191,15 @@ body{
 	height: auto;
 	background-repeat: no-repeat;
 }
-#my-video-btnbar {
-	width: 100%;
-	height: auto;
-}
 #my-video-list {
+	margin-top:30%;
 	width: 100%;
 	height: auto;
 }
 .my-video-icon {
-	float: left;
-	padding-bottom: 7%;
+	display:table;
+	float:left;
+	width:49%;
 }
 .my-video-number {
 	width: 90%;
@@ -175,14 +215,12 @@ body{
 	padding-bottom: 3%;
 	padding-top: 5%;
 }
-/* Book Screen------------------------------------------------------------*/
-.content_book_screen{
-	background-image: url("../images/empty_bg_836.png");
-	/*width: 100%;
-	height: auto; */
-	background-size:100%;
-	background-repeat: no-repeat;
+.my-video-icon-img{
+	width:100%;
 }
+
+/* Booking------------------------------------------------------------*/
+
 #toc {
 	width: 90%;
 	padding: 5%;
@@ -191,22 +229,12 @@ body{
 .mobile-verify{
 	width: 95%;
 	padding-top: 5%;
-	padding-left: 5%; 
+	padding-left: 5%;
 }
 .mobile-sent{
 	width: 75%;
 	padding-top: 5%;
-	padding-left: 25%; 
-}
-/* Booking_Choose Movie------------------------------------------------------------*/
-.content_choose_movie{
-	background-image: url("../images/empty_bg_836.png");
-	background-repeat:no-repeat; 
-	width: 100%;
-	background-size:100% 100%;
-	top:8.69%;
-	position:absolute;
-    padding:0px
+	padding-left: 25%;
 }
 .choose-movie{
 	width: 49%;
