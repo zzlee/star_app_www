@@ -1027,9 +1027,10 @@ a.ui-link-inherit {
 .ui-btn-corner-right,
 .ui-btn-corner-left,
 .ui-btn-corner-all {
-  -webkit-background-clip: padding-box;
-     -moz-background-clip: padding;
-          background-clip: padding-box;
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding;
+	background-clip: padding-box;
+	width: 80%;
 }
 /* Overlay / modal
 -----------------------------------------------------------------------------------------------------------*/
@@ -2209,7 +2210,19 @@ label.ui-select { font-size: 16px; line-height: 1.4; font-weight: normal; margin
 /* when no placeholder is defined in a multiple select, the header height doesn't even extend past the close button.  this shim's content in there */
 .ui-selectmenu .ui-header h1:after { content: '.'; visibility: hidden; }
 label.ui-input-text { font-size: 16px; line-height: 1.4; display: block; font-weight: normal; margin: 0 0 .3em; }
-input.ui-input-text, textarea.ui-input-text { background-image: none; padding: .4em; margin: .5em 0; line-height: 1.4; font-size: 16px; display: block; width: 100%; outline: 0; }
+input.ui-input-text, textarea.ui-input-text {
+	background-image: none;
+	padding: 0.4em;
+	line-height: 1.4;
+	font-size: 16px;
+	display: block;
+	width: 95%;
+	outline: 0;
+	margin-top: 0.5em;
+	margin-right: 0;
+	margin-bottom: 0.5em;
+	margin-left: 0;
+}
 input.ui-input-text.ui-mini, textarea.ui-input-text.ui-mini { margin: .25em 0; }
 .ui-field-contain input.ui-input-text, .ui-field-contain textarea.ui-input-text { margin: 0; }
 input.ui-input-text, textarea.ui-input-text, .ui-input-search { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; }

@@ -45,7 +45,6 @@ body{
 	vertical-align: middle;
 	text-align: center;
 	color: #FFF;
-	font-size: 200%;
 }
 /* Page ------------------------------------------------------------*/
 #page {
@@ -55,14 +54,13 @@ body{
 /* Container_background ------------------------------------------------------------*/
 .container{
 	background-image: url(../images/empty_bg_836.png);
-	background-repeat: no-repeat;
+	background-repeat:no-repeat;
 	width: 100%;
 	padding: 0px;
-	background-size: 100% 100%;
-	top: 8.69%;
-	position: absolute;
-	overflow: auto;
-	min-height: 82.62%;
+	background-size:100% 100%;
+	top:8.69%;
+	position:absolute;
+    overflow:auto;
 }
 
 /* Nav-bar ------------------------------------------------------------*/
@@ -173,13 +171,16 @@ body{
 	display:inline-block;
 }
 .icon-img{
-	padding-top: 20%;
-	padding-left: 25%;
-	width: 50%;
+	padding-top:20%;
+	padding-left:25%;
+	width:50%;
 }
 /* Photo Upload ------------------------------------------------------------*/
 #process-bar {
-	width: auto;
+	width: 85%;
+	padding-top: 12%;
+	padding-left: 15%;
+	padding-bottom: 15%;
 }
 
 
@@ -235,7 +236,13 @@ body{
 	padding-left: 5%;
 }
 .mobile-sent{
+<<<<<<< HEAD
 	width: 100%;
+=======
+	width: 75%;
+	padding-top: 5%;
+	padding-left: 25%;
+>>>>>>> origin/gz_miixit_pages
 }
 .choose-movie{
 	width: 49%;
