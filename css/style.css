@@ -213,9 +213,6 @@ body{
 	/*float: left;*/
 	display:inline-block;
 }
-.choose-movie-element{
-	
-}
 .choose-movie-pic{
 	width: 90%;
 	margin-top:5%;
@@ -227,7 +224,7 @@ body{
 	background-size:100%;
 }
 .movie-pic-dummy{
-	padding-top: 75%; /* 4:3 aspect ratio */
+	padding-top: 60%; /* 16:9 aspect ratio */
 }
 .movie-pic-img{
 	position:absolute;
