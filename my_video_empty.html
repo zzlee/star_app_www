@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
 <title>My Video</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="./css/style.css">
 <!-- media queries css -->
 <link href="media-queries.css" rel="stylesheet" type="text/css">
 <link href="jquery.mobile-1.0.min.css" rel="stylesheet" type="text/css"/>
@@ -16,24 +16,24 @@
 <body> 
 
 <div data-role="page" id="page">
-	<div data-role="header" id="header">
-		<h1>My Video</h1>
-	</div>
-	<div class="content_my_video" data-role="content">
-    <div id="my-video-btnbar">
-    <div class="my-video-icon"><img src="images/e-my_video.png" width="160" height="111"></div>
-        <div class="my-video-icon"><img src="images/e-dooh.png" width="160" height="111"></div>
-        </div>
+	<div class="header">
+        <h1 class="header-text">my video</h1>
+    </div>
+	<div class="container" data-role="content">
+    <div class="my-video-icon"><img class="my-video-icon-img" src="images/e-my_video.png"></div>
+        <div class="my-video-icon"><img class="my-video-icon-img" src="images/e-dooh.png"></div>
+        <div class="line"><img class="line-img" src="images/line.png"></div>
         <div id="my-video-list">
-      <div class="content-movie"><img src="images/video_empty.png" width="266" height="184"></div>
-        <div class="my-video-makevideo"><img src="images/makevideo.png" width="321" height="73"></div>
+     <div class="content-movie"><div class="movie-pic-dummy"></div><img class="content-movie-img" src="images/video_empty.png"></img>
+        </div>
+        <div class="my-video-makevideo"><img class="line-img" src="images/makevideo.png"></div>
         </div>
     </div>
-    <div id="nav-bar">
-<div id="ui-menu"><img src="images/e-m1.png" width="80" height="40"></div>
-<div id="ui-menu"><img src="images/a-m2.png" width="80" height="40"></div>
-<div id="ui-menu"><img src="images/e-m3.png" width="80" height="40"></div>
-<div id="ui-menu"><img src="images/e-m4.png" width="80" height="40"></div>
+     <div id="nav-bar">
+<div class="ui-menu-active"><img class="menu-img" src="images/m1.png" width="23" height="26"></div>
+<div class="ui-menu"><img class="menu-img" src="images/m2.png" width="23" height="23"></div>
+<div class="ui-menu"><img class="menu-img" src="images/m3.png" width="23" height="23"></div>
+<div class="ui-menu"><img class="menu-img" src="images/m4.png" width="27" height="27"></div>
 
   </div>
 	<!-- /navbar -->

@@ -17,7 +17,7 @@ body{
   src: url(UrbanJungleDEMO.otf);
 }
 .text{
-	font-size:150%;
+	font-size:200%;
 	font-family:"Urban Jungle";
 }
 
@@ -40,10 +40,10 @@ body{
 	behavior: url(/pie/PIE.htc);
 }
 .header-text{
-	display:table-cell;
-	vertical-align:middle;
-	text-align:center;
-	color:#FFF
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	color: #FFF;
 }
 /* Page ------------------------------------------------------------*/
 #page {
@@ -189,15 +189,24 @@ body{
 	height: auto;
 	background-repeat: no-repeat;
 }
-#my-video-list {
-	margin-top:30%;
-	width: 100%;
-	height: auto;
-}
 .my-video-icon {
 	display:table;
 	float:left;
 	width:49%;
+}
+.my-video-icon-img{
+	width:100%;
+}
+.line{
+	width:100%;
+}
+.line-img{
+	width:100%;
+}
+#my-video-list {
+	margin-top:2%;
+	width: 100%;
+	height: auto;
 }
 .my-video-number {
 	width: 90%;
@@ -210,11 +219,6 @@ body{
 }
 .my-video-makevideo {
 	width: 100%;
-	padding-bottom: 3%;
-	padding-top: 5%;
-}
-.my-video-icon-img{
-	width:100%;
 }
 
 /* Booking------------------------------------------------------------*/
@@ -230,9 +234,7 @@ body{
 	padding-left: 5%; 
 }
 .mobile-sent{
-	width: 75%;
-	padding-top: 5%;
-	padding-left: 25%; 
+	width: 100%;
 }
 .choose-movie{
 	width: 49%;
