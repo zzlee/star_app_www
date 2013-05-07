@@ -1,0 +1,274 @@
+@charset "utf-8";
+/* Font ------------------------------------------------------------*/
+
+html{
+    width:100%;
+    height:100%;
+}
+
+body{
+    width:100%;
+    height:100%;
+}
+
+@font-face {
+    font-family: "Urban Jungle";
+    src: url("../font/UrbanJungleDEMO.otf");
+}
+
+.text{
+	font-size:200%;
+	font-family:"Urban Jungle";
+}
+
+/* Header ------------------------------------------------------------*/
+
+.header {
+	font-family: "Urban Jungle";
+	display:table;
+	width: 100%;
+	height: 8.69%;
+	position:fixed;
+	background: #e21b74;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#e21b74), to(#891846));
+	background: -webkit-linear-gradient(#e21b74, #891846);
+	background: -moz-linear-gradient(#e21b74, #891846);
+	background: -ms-linear-gradient(#e21b74, #891846);
+	background: -o-linear-gradient(#e21b74, #891846);
+	background: linear-gradient(#e21b74, #891846);
+	-pie-background: linear-gradient(#e21b74, #891846);
+	behavior: url(/pie/PIE.htc);
+    z-index: 1;
+}
+.header-text{
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	color: #FFF;
+	font-size: 200%;
+}
+/* Page ------------------------------------------------------------*/
+#page {
+	width:100%;
+	height:100%;
+}
+/* Container_background ------------------------------------------------------------*/
+.container{
+	background-image: url(../images/empty_bg_836.png);
+	background-repeat: no-repeat;
+	width: 100%;
+	padding: 0px;
+	background-size: 100% 100%;
+	top: 8.69%;
+	position: absolute;
+	overflow: auto;
+	min-height: 82.62%;
+}
+
+/* Nav-bar ------------------------------------------------------------*/
+#nav-bar {
+	width: 100%;
+	height:8.69%;
+	position:fixed;
+	bottom: 0;
+}
+.ui-menu-active {
+	width: 24.6%;
+	height: 100%;
+	float: left;
+	background: #e21b74;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#e21b74), to(#891846));
+	background: -webkit-linear-gradient(#e21b74, #891846);
+	background: -moz-linear-gradient(#e21b74, #891846);
+	background: -ms-linear-gradient(#e21b74, #891846);
+	background: -o-linear-gradient(#e21b74, #891846);
+	background: linear-gradient(#e21b74, #891846);
+	-pie-background: linear-gradient(#e21b74, #891846);
+	behavior: url(/pie/PIE.htc);
+	text-align: center;
+	vertical-align: middle;
+	position: relative;
+    padding:0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	border-top-style: none;
+	border-right-style: solid;
+	border-bottom-style: none;
+	border-left-style: none;
+	border-right-color: rgba(204,204,204,0.5);
+	border-right-width: 1px;
+}
+.ui-menu {
+	width: 24.6%;
+	height: 100%;
+	float: left;
+	background: #5a595c;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#5a595c), to(#0C0C10));
+	background: -webkit-linear-gradient(#5a595c, #0C0C10);
+	background: -moz-linear-gradient(#5a595c, #0C0C10);
+	background: -ms-linear-gradient(#5a595c, #0C0C10);
+	background: -o-linear-gradient(#5a595c, #0C0C10);
+	background: linear-gradient(#5a595c, #0C0C10);
+	-pie-background: linear-gradient(#5a595c, #0C0C10);
+	behavior: url(/pie/PIE.htc);
+	vertical-align: middle;
+	text-align: center;
+	position: relative;
+    padding:0px;
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color: rgba(204,204,204,0.5);
+}
+.menu-img{
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+}
+/* Login ------------------------------------------------------------*/
+.content_login{
+	width: 100%;
+	background-image:url(../images/login_bg_1036.png);
+	background-repeat: no-repeat;
+	background-size:100%;
+	position:absolute;
+    
+}
+#login {
+	background-image:url(../images/login.png);
+	background-position: center center;
+	background-repeat: no-repeat;
+	margin-top: 120%;
+	height: 80px;
+	margin-bottom: 10%;
+}
+
+
+/* Choose Photo ------------------------------------------------------------*/
+.content-movie{
+	background-image:url(../images/big_frame.png);
+	background-repeat:no-repeat;
+	background-size:100%;
+	width: 90%;
+	margin-top: 5%;
+	margin-left: 5%;
+	position:relative;
+}
+.content-movie-img{
+    position:absolute;
+	top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+	width:90%;
+	margin-top:3.5%;
+	margin-left:3.5%;
+}
+
+.create-movie-icon {
+	width:49%;
+	display:inline-block;
+}
+.icon-img{
+	padding-top: 20%;
+	padding-left: 25%;
+	width: 50%;
+}
+/* Photo Upload ------------------------------------------------------------*/
+#process-bar {
+	width: auto;
+}
+
+
+/* My Video ------------------------------------------------------------*/
+.content_my_video{
+	background-image: url(images/my_video_bg_836.png);
+	width: 100%;
+	height: auto;
+	background-repeat: no-repeat;
+}
+.my-video-icon {
+	display:table;
+	float:left;
+	width:49%;
+}
+.my-video-icon-img{
+	width:100%;
+}
+.line{
+	width:100%;
+}
+.line-img{
+	width:100%;
+}
+#my-video-list {
+	margin-top:2%;
+	width: 100%;
+	height: auto;
+}
+.my-video-number {
+	width: 90%;
+	padding-top: 8%;
+	padding-bottom: 10%;
+	padding-right: 10%;
+	font-size: 100%;
+	text-align: right;
+	font-family: "Urban Jungle";
+}
+.my-video-makevideo {
+	width: 100%;
+}
+
+/* Booking------------------------------------------------------------*/
+
+#toc {
+	width: 90%;
+	padding: 5%;
+	
+}
+.mobile-verify{
+	width: 95%;
+	padding-top: 5%;
+	padding-left: 5%;
+}
+.mobile-sent{
+	width: 100%;
+}
+.choose-movie{
+	width: 49%;
+	/*float: left;*/
+	display:inline-block;
+}
+.choose-movie-pic{
+	width: 90%;
+	margin-top:5%;
+	margin-left:5%;
+    display: inline-block;
+    position: relative;
+	background-image:url(../images/frame2.png);
+	background-repeat:no-repeat;
+	background-size:100%;
+}
+.movie-pic-dummy{
+	padding-top: 60%; /* 16:9 aspect ratio */
+}
+.movie-pic-img{
+	position:absolute;
+	top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+	width:91.5%;
+	margin-top:4%;
+	margin-left:4.5%;
+}
+.choose-movie-number{
+	padding-top: 4%;
+	padding-bottom: 3%;
+	font-family: "Urban Jungle";
+	text-align: center;
+	font-size: 100%;
+}

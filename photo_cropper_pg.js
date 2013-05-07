@@ -21,30 +21,7 @@ stageAllowableHeight: 0,
     //  Page methods.
 load: function(event, data){
     
-    //JF - image initial
-    canvas = document.getElementById('photoZoom');
-    context = canvas.getContext('2d');
-    image = new Image();
     
-    canvas.width = screen.availWidth;
-    canvas.height = canvas.width / customizableObjectDimensions[fileObjectID].width * customizableObjectDimensions[fileObjectID].height;
-    
-    image.onload = function(){
-        
-        option.scope.w = canvas.width;
-        option.scope.h = image.height / image.width * canvas.width;
-        
-        context.drawImage(image,
-                          option.destination.x, option.destination.y,
-                          option.scope.w, option.scope.h);
-        
-        croppedArea = {
-            x:-option.destination.x / option.scope.w,  //fraction relative to its width
-            y:-option.destination.y / option.scope.h,  //fraction relative to its height
-            width:canvas.width / option.scope.w,  //fraction relative to its width
-            height:canvas.height / option.scope.h  //fraction relative to its height
-        };
-    };
     
     var onSubmitBtnClick= function() {
         var uploadFail_cb = function(error) {
@@ -176,10 +153,43 @@ load: function(event, data){
                           });
    
     
-    image.src = fileProcessedForCropperURI;
+    
 },
     
 show: function(event, data){
+    
+    //JF - image initial
+    canvas = document.getElementById('photoZoom');
+    context = canvas.getContext('2d');
+    image = new Image();
+    
+    //canvas.width = screen.availWidth;
+    canvas.width = $('.movie-pic-dummy').width();
+    canvas.height = canvas.width / customizableObjectDimensions[fileObjectID].width * customizableObjectDimensions[fileObjectID].height;
+    
+    image.onload = function(){
+        
+        option.scope.w = canvas.width;
+        option.scope.h = image.height / image.width * canvas.width;
+        
+        option.destination.x = 0;
+        option.destination.y = -0.5 * (option.scope.h - canvas.height);
+        
+        context.drawImage(image,
+                          option.destination.x, option.destination.y,
+                          option.scope.w, option.scope.h);
+        
+        croppedArea = {
+        x:-option.destination.x / option.scope.w,  //fraction relative to its width
+        y:-option.destination.y / option.scope.h,  //fraction relative to its height
+        width:canvas.width / option.scope.w,  //fraction relative to its width
+        height:canvas.height / option.scope.h  //fraction relative to its height
+        };
+    };
+    
+    image.src = fileProcessedForCropperURI;
+    
+    
     
     //JF - image event
     $$('#photoZoom').pinching(function(e){
