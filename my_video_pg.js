@@ -59,6 +59,7 @@ FmMobile.myVideoPg = {
         //  Initialization method.
     init: function(){
         FM_LOG("[myVideoPg] pageinit");
+        FmMobile.bindClickEventToNavBar();
         videoListAdapter.freshCommentbar();
         $("#myVideo_contentArea").height( window.innerHeight - $("div[data-role=header]").height() );
     },

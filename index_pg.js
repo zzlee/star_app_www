@@ -19,7 +19,7 @@ FmMobile.indexPg = {
         
         if(localStorage.fb_userID){
             //$.mobile.changePage("my_video.html");
-            $.mobile.changePage("booking_choose_movie.html"); //for temp test
+            $.mobile.changePage("movie_create.html"); //for temp test
         }
         else {
             window.location.href = "orientation.html";
