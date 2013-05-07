@@ -40,28 +40,29 @@
     <script src="./lib/jquery.mobile-1.2.0.js"></script>
     <link rel="stylesheet" href="./css/fm.css"/>
     <link rel="stylesheet" href="./css/fm2.css"/>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body> 
 
-<div data-role="page" id="index" class="fm_page">
-<div data-role="header" class="fm_header">
-    <a href="menu_popup.html" style="margin-top:10px; margin-left:5px;" data-rel="dialog" class="fm_header_btn"></a>
-    <h1>手機驗證</h1>
-</div>
-<div data-role="content" class="fm_mycontent">
-  
-    <div class="fm_cellphonenumber" id="fm_cellphonenumber">
-        <div class="fm_fullname">輸入手機號碼</div>
-        <div class="fm_fullname" id="fm_fullname">
-            <input type="tel" name="phoneNum" id="phoneNum_input" value="09XXXXXXXX" onfocus="this.value='09';" />
-        </div>
-        <div class="fm_empty346"></div>
-        <div class="fm_buttonlong2">
-            <div class="fm_cameratext2" onclick="FmMobile.authentication.getCode();">送出</div>
-        </div>
+<div data-role="page" id="page">
+	 <div class="header">
+        <p class="header-text">verification</p>
     </div>
-</div>
-</div>
+	<div class="container" data-role="content">
+    <div class="mobile-verify"><font class="text">mobile<input name="" type="password" maxlength="9"></div>
+     <div class="mobile-sent"><img class="line-img" src="images/cellphone_sent.png"></div>
+    </div>      
+  </div>
+   <div id="nav-bar">
+<div class="ui-menu"><img class="menu-img" src="images/m1.png" width="23" height="26"></div>
+<div class="ui-menu"><img class="menu-img" src="images/m2.png" width="23" height="23"></div>
+<div class="ui-menu-active"><img class="menu-img" src="images/m3.png" width="23" height="23"></div>
+<div class="ui-menu"><img class="menu-img" src="images/m4.png" width="27" height="27"></div>
+
+  </div>
+	<!-- /navbar -->
+      
+	</div>
 </div>
 </body>
 </html>

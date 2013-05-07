@@ -29,7 +29,10 @@ $(document).bind("mobileinit", function(){
                 $("#myVideoPg").live("pagebeforecreate", FmMobile.myVideoPg.loadMyVideo);
 				$("#myVideoPg").live("pageinit", FmMobile.myVideoPg.init);
                 $("#myVideoPg").live("pagebeforeshow", FmMobile.myVideoPg.beforeshow);
+                $("#settingPg").live("pageinit", FmMobile.settingPg.init);
                 $("#settingPg").live("pageshow", FmMobile.settingPg.show);
+                $("#bookingChooseMoviePg").live("pageinit", FmMobile.bookingChooseMoviePg.init);
+                $("#bookingChooseMoviePg").live("pageshow", FmMobile.bookingChooseMoviePg.show);
                 $("#tocPg").live("pageshow", FmMobile.tocPg.show);
                 $("#tocPg").live("pageinit", FmMobile.tocPg.init);
                 $("#fbLoginPg").live("pageshow", FmMobile.fbLoginPg.show);
@@ -598,5 +601,23 @@ FmMobile.authPopup = {
             FM_LOG("[From Server]: " + response.message);
         });
     },
+};
+
+
+FmMobile.bindClickEventToNavBar = function(){
+    $("#nav-bar > div").click(function(){
+        if (this.id == "btnCreateMovie"){
+            $.mobile.changePage("movie_create.html");
+        }
+        else if (this.id == "btnMyVideo") {
+            $.mobile.changePage("my_video.html");
+        }
+        else if (this.id == "btnSubmitDOOH") {
+            $.mobile.changePage("booking_choose_movie.html");
+        }
+        else if (this.id == "btnSetting") {
+            $.mobile.changePage("setting.html");
+        }
+    });
 };
 

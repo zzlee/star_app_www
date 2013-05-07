@@ -10,7 +10,9 @@ FmMobile.movieCreatePg = {
     
     load: function(event, data){
         
-                
+        
+        FmMobile.bindClickEventToNavBar();
+        
         if ( localStorage._id ) {
             userName = localStorage._id;
         }

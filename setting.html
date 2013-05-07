@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -40,21 +40,28 @@
     <script src="./lib/jquery.mobile-1.2.0.js"></script>
     <link rel="stylesheet" href="./css/fm.css"/>
     <link rel="stylesheet" href="./css/fm2.css"/>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
-<body class="container">
-    <div data-role="page" id="settingPg" class="fm_page">
-        <div data-role="header">
-            <a href="menu_popup.html" id="menuBtn" style="margin-top:10px; margin-left:5px;" data-rel="dialog" class="fm_header_btn"></a>
-            <h1>設定</h1>
-        </div>
-        <div data-role="content" id="contentArea">
-            <ul data-role="listview" data-inset="true">
-                <li><a href="orientation.html" rel="external">活動步驟</a></li>
-                <li><a href="toc.html">活動辦法</a></li>     
-                <li><a href="mailto:service@feltmeng.com">聯絡信箱</a></li>
-                <li><a href="#" onclick="FmMobile.authPopup.FBLogout()">登出</a></li>
-            </ul>
-        </div>
+<body> 
+
+<div data-role="page" id="settingPg">
+	<div class="header">
+        <p class="header-text">setting</p>
     </div>
-</body> 
+	<div class="container" data-role="content">
+        <ul data-role="listview" style="margin:0px">
+            <li><a href="#">About Miix it!</a></li>
+            <li><a href="#">Orientation</a></li>
+            <li><a href="#">Email us</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
+    </div>
+    <div id="nav-bar">
+        <div id="btnCreateMovie" class="ui-menu"><img class="menu-img" src="images/m1.png" width="23" height="26"></div>
+        <div id="btnMyVideo" class="ui-menu"><img class="menu-img" src="images/m2.png" width="23" height="23"></div>
+        <div id="btnSubmitDOOH" class="ui-menu"><img class="menu-img" src="images/m3.png" width="23" height="23"></div>
+        <div id="btnSetting" class="ui-menu-active"><img class="menu-img" src="images/m4.png" width="27" height="27"></div>
+    </div>
+</div>
+</body>
 </html>
