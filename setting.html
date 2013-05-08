@@ -29,6 +29,7 @@
     <script src="authentication.js"></script>
     <script src="fb_login_pg.js"></script>
     <script src="index_pg.js"></script>
+    <script src="booking_choose_movie_pg.js"></script>
     <script src="my_video_pg.js"></script>
     <script src="orientation_pg.js"></script>
     <script src="setting_pg.js"></script>
@@ -42,19 +43,22 @@
     <link rel="stylesheet" href="./css/fm2.css"/>
     <link rel="stylesheet" href="./css/style.css">
 </head>
-<body> 
+<body>
 
 <div data-role="page" id="settingPg">
 	<div class="header">
         <p class="header-text">setting</p>
     </div>
 	<div class="container" data-role="content">
-        <ul data-role="listview" style="margin:0px">
-            <li><a href="#">About Miix it!</a></li>
-            <li><a href="#">Orientation</a></li>
-            <li><a href="#">Email us</a></li>
-            <li><a href="#">Logout</a></li>
+        <ul id="settingList" data-role="listview" style="margin:0px">
+            <li><a id="itemAboutMiixIt" href="#">About Miix it!</a></li>
+            <li visible="false" id="contentAboutMiixIt" style="text-align:center">Miix It! v1.0 build130508</li>
+            <li><a id="itemOrientation" href="orientation.html">Orientation</a></li>
+            <li><a id="itemMailUs" href="mailto:service@feltmeng.com">Email us</a></li>
+            <li><a id="itemLogout" href="#">Logout</a></li>
         </ul>
+        
+        
     </div>
     <div id="nav-bar">
         <div id="btnCreateMovie" class="ui-menu"><img class="menu-img" src="images/m1.png" width="23" height="26"></div>
