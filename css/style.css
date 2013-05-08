@@ -272,3 +272,11 @@ body{
 	text-align: center;
 	font-size: 100%;
 }
+
+/* Orientation------------------------------------------------------------*/
+.orientation{
+    background: rgb(0, 0, 0);
+	background-repeat: round;
+    background-size:100% 100%;
+}
+
