@@ -131,19 +131,23 @@ body{
 /* Login ------------------------------------------------------------*/
 .content_login{
 	width: 100%;
+    height: 100%;
 	background-image:url(../images/login_bg_1036.png);
 	background-repeat: no-repeat;
-	background-size:100%;
+	background-size:100% 100%;
 	position:absolute;
+    padding:0px;
     
 }
 #login {
 	background-image:url(../images/login.png);
 	background-position: center center;
 	background-repeat: no-repeat;
-	margin-top: 120%;
-	height: 80px;
-	margin-bottom: 10%;
+    position:absolute;
+    width: 78.125%;
+	height: 17.3914%;
+    left: 10.9375%;
+    top: 75%;
 }
 
 
