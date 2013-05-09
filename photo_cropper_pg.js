@@ -21,7 +21,7 @@ stageAllowableHeight: 0,
     //  Page methods.
 load: function(event, data){
     
-    
+    FmMobile.bindClickEventToNavBar();
     
     var onSubmitBtnClick= function() {
         var uploadFail_cb = function(error) {
