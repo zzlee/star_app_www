@@ -62,7 +62,7 @@ body{
 	top: 8.69%;
 	position: absolute;
 	overflow: auto;
-	min-height: 82.62%;
+	min-height: 84%;
 }
 
 /* Nav-bar ------------------------------------------------------------*/
@@ -71,9 +71,10 @@ body{
 	height:8.69%;
 	position:fixed;
 	bottom: 0;
+    background-color: rgba(204,204,204,1);
 }
 .ui-menu-active {
-	width: 24.6%;
+	width: 24.7%;
 	height: 100%;
 	float: left;
 	background: #e21b74;
@@ -87,8 +88,9 @@ body{
 	behavior: url(/pie/PIE.htc);
 	text-align: center;
 	vertical-align: middle;
-	position: relative;
+	position: absolute;
     padding:0px;
+    /*
 	border-top-width: 0px;
 	border-bottom-width: 0px;
 	border-left-width: 0px;
@@ -98,9 +100,10 @@ body{
 	border-left-style: none;
 	border-right-color: rgba(204,204,204,0.5);
 	border-right-width: 1px;
+     */
 }
-.ui-menu {
-	width: 24.6%;
+.ui-menu-inactive {
+	width: 24.7%;
 	height: 100%;
 	float: left;
 	background: #5a595c;
@@ -114,11 +117,13 @@ body{
 	behavior: url(/pie/PIE.htc);
 	vertical-align: middle;
 	text-align: center;
-	position: relative;
+	position: absolute;
     padding:0px;
+    /*
 	border-right-width: 1px;
 	border-right-style: solid;
 	border-right-color: rgba(204,204,204,0.5);
+     */
 }
 .menu-img{
 	position: absolute;
@@ -127,6 +132,22 @@ body{
 	top: 0;
 	bottom: 0;
 	margin: auto;
+}
+#nav-bar>div:nth-child(1)
+{
+    left:0px;
+}
+#nav-bar>div:nth-child(2)
+{
+    left:25.1%;
+}
+#nav-bar>div:nth-child(3)
+{
+    right:25.1%;
+}
+#nav-bar>div:nth-child(4)
+{
+    right:0px;
 }
 /* Login ------------------------------------------------------------*/
 .content_login{
