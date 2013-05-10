@@ -53,6 +53,16 @@ body{
 	height:100%;
 }
 /* Container_background ------------------------------------------------------------*/
+#fixedBackground {
+	background-image: url(../images/empty_bg_836.png);
+	background-repeat: no-repeat;
+	width: 100%;
+	padding: 0px;
+	background-size: 100% 100%;
+	top: 8.69%;
+	position: fixed;
+	min-height: 84%;
+}
 .container{
 	background-image: url(../images/empty_bg_836.png);
 	background-repeat: no-repeat;
