@@ -322,10 +322,12 @@ var videoListAdapter = (function(){
                     "projectId": pid
                 };
                 
+                /*
                 if(!videoWork.fb_id){
                     temp.setComments({"comments": {"count": "0"} }, videoWork.no);
                     return;
                 }
+                 */
                 
                 var fb_id = videoWork.fb_id;
                 
@@ -455,7 +457,7 @@ function videoWgt(parent, data, append){
 videoWgt.prototype.setSrc = function(src){
     //this.videoFrame.attr("src", src+"?rel=0&showinfo=0&modestbranding=1&controls=0").attr("class", "fm_video");
     var ytVideoID = (src).split('/').pop();
-    this.videoThumbnail.attr("src", "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg").attr("class", "fm_video").attr("id", "dummy_"+ytVideoID);
+    this.videoThumbnail.attr("src", "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg").attr("class", "content-movie-img").attr("id", "dummy_"+ytVideoID);
 }
 
 videoWgt.prototype.setComments = function(data, sequence_num){
