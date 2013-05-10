@@ -193,9 +193,8 @@ var videoListAdapter = (function(){
     return {
         
         init: function(parent, data, dummy){
-            videoListWgt = $("#videoList");
+            videoListWgt = $("#my-video-list");
             videoListWgt.html("");
-            //videoListWgt.appendTo(parent);
                         
             if(videoItems)
                 delete videoItems;
@@ -214,7 +213,6 @@ var videoListAdapter = (function(){
                         
             for(var pid in dummy){
                 var d_item = new videoWgt(videoListWgt, {"projectId":pid}, false);
-                //videoListWgt.prepend(d_item);
                 dummyItems[pid] = d_item;
                 d_item.setComments({"comments": {"count": "0"} });
             }
@@ -228,8 +226,7 @@ var videoListAdapter = (function(){
                     "fb_id": fb_id
                 };
                 var v_item = new videoWgt(videoListWgt, data[i], true);
-                //videoListWgt.append(v_item);
-                v_item.setComments({"comments": {"count": "0"} }, data[i].no);
+                //v_item.setComments({"comments": {"count": "0"} }, data[i].no);
                 
                 if(!data[i].fb_id)
                     continue;
@@ -250,9 +247,11 @@ var videoListAdapter = (function(){
             }
                         
             //listen to click event
+            /*
             $("div [class='fm_bar']").click(function(){
                 $(this.parentElement.parentElement.children[1]).toggle();
             });
+             */
             $('#videoList>div>img').click(function(){
                 console.log('[click on video list: ]'+this);
                 
@@ -280,7 +279,7 @@ var videoListAdapter = (function(){
                 var videoFrame = $("<iframe>").attr({
                     id: ytVideoID,
                     src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
-                    class: "fm_movievideo",
+                    class: "content-movie-img",
                     frameborder: "0"
                 }).load(function(){
                     //TODO: find a better way to have callPlayer() called after videoFrame is prepended
@@ -394,7 +393,11 @@ function videoWgt(parent, data, append){
         widget = $("<div>").attr({id: data.projectId, class: "fm_videoItem"});
     }
     */
-    widget = $("<div>").attr({id: data.projectId, class: "fm_movie"});
+    widget = $("<div>").attr({id: data.projectId, class: "content-movie"});
+    
+    var numberDiv = $("<div>").attr({class: "my-video-number"});
+    var dummyDiv = $("<div>").attr({class: "movie-pic-dummy"});
+    dummyDiv.appendTo(widget);
     
     if(data.url){
         /*
@@ -410,8 +413,10 @@ function videoWgt(parent, data, append){
         this.videoThumbnail = $("<img>").attr({
                                               id: 'img_'+ytVideoID,
                                               src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
-                                              class: "fm_movievideo"
+                                              class: "content-movie-img"
                                              });
+        
+        numberDiv.html("NO."+data.no);
                 
         
     }else if(data.trash){
@@ -421,30 +426,30 @@ function videoWgt(parent, data, append){
         
     }else{
         this.videoThumbnail = $("<img>").attr({
-           class: "fm_video_making fm_movievideo"
+            class: "content-movie-img",
+            src:"images/waiting.png"
         });
     }
+            
+    
+    //widget.html(this.videoThumbnail);
+    this.videoThumbnail.appendTo(widget);
     
     
-    //GZ //TODO:: have a cleanner way to set height (such as manipulating CSS
-    //this.videoFrame.height( window.innerWidth/1.77778 );
-    this.videoThumbnail.height( window.innerWidth/1.77778 );
+    //this.commentWgt = new commentListWgt(widget);
     
-    
-    //this.videoFrame.appendTo(widget);
-    widget.html(this.videoThumbnail);
-    
-    
-    //var bar = $("<div>").attr("class", "fm_bar").appendTo(widget);
-    //this.like = $("<span>").attr("class", "fm_like_num").appendTo(bar);
-    //this.comment = $("<span>").attr("class", "fm_comment_num").appendTo(bar);
-    
-    this.commentWgt = new commentListWgt(widget);
-    
-    if(append)
+    if(append){
         widget.appendTo(parent); // Top First.
-    else
+        if(data.url){
+            numberDiv.appendTo(parent);
+        }
+    }
+    else{
+        if(data.url){
+            numberDiv.prepend(parent);
+        }
         parent.prepend(widget);  // Top Last.
+    }
 }
 
 videoWgt.prototype.setSrc = function(src){
@@ -461,7 +466,7 @@ videoWgt.prototype.setComments = function(data, sequence_num){
     //this.like.html(like_count);
     //this.comment.html(comment_count);
     
-    if(data.comments)
+    if(data.comments && this.commentWgt)
 		this.commentWgt.setData(data, sequence_num);
 };
 

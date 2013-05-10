@@ -60,6 +60,17 @@ FmMobile.myVideoPg = {
     init: function(){
         FM_LOG("[myVideoPg] pageinit");
         FmMobile.bindClickEventToNavBar();
+        $("#btnMiixMovie").click(function(){
+            $("#btnMiixMovie>img").attr("src","images/a-my_video.png");
+            $("#btnLiveMovie>img").attr("src","images/e-dooh.png");
+            FmMobile.myVideoPg.loadMyVideo();
+        });
+        $("#btnLiveMovie").click(function(){
+            $("#btnMiixMovie>img").attr("src","images/e-my_video.png");
+            $("#btnLiveMovie>img").attr("src","images/a-dooh.png");
+            FmMobile.myVideoPg.loadMyStreetVideo();
+        });
+        
         videoListAdapter.freshCommentbar();
         $("#myVideo_contentArea").height( window.innerHeight - $("div[data-role=header]").height() );
     },
