@@ -252,7 +252,7 @@ var videoListAdapter = (function(){
                 $(this.parentElement.parentElement.children[1]).toggle();
             });
              */
-            $('#videoList>div>img').click(function(){
+            $('#my-video-list>div>img').click(function(){
                 console.log('[click on video list: ]'+this);
                 
                 var callPlayer = function (frame_id, func, args) {
