@@ -78,9 +78,10 @@ FmMobile.authentication = {
         
         $.post(url, data, function(res){
            if(res.message){
-               navigator.notification.alert(res.message, FmMobile.submitDooh, "認證");
                localStorage.verified = true;
-               $.mobile.changePage("booking_choose_movie.html");
+               navigator.notification.alert(res.message, function(){
+                                            $.mobile.changePage("booking_choose_movie.html");
+                                            }, "認證");
                
            }else{
                navigator.notification.alert(res.error);
