@@ -16,7 +16,7 @@ FmMobile.authentication = {
     init: function(){
         
         if(localStorage.verified == 'true'){
-            $.mobile.changePage("my_video.html");
+            $.mobile.changePage("booking_choose_movie.html");
             
         }else{
             this.verification();
@@ -51,7 +51,7 @@ FmMobile.authentication = {
               
               if(res.message){
                   navigator.notification.alert(res.message);
-                  $.mobile.changePage("codeInput.html");
+                  $.mobile.changePage("code_input.html");
               
               }else{
                 navigator.notification.alert(res.error);
@@ -78,9 +78,10 @@ FmMobile.authentication = {
         
         $.post(url, data, function(res){
            if(res.message){
-               navigator.notification.alert(res.message, FmMobile.submitDooh, "認證");
                localStorage.verified = true;
-               $.mobile.changePage("my_video.html");
+               navigator.notification.alert(res.message, function(){
+                                            $.mobile.changePage("booking_choose_movie.html");
+                                            }, "認證");
                
            }else{
                navigator.notification.alert(res.error);

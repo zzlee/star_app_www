@@ -41,28 +41,29 @@
     <link rel="stylesheet" href="./css/fm.css"/>
     <link rel="stylesheet" href="./css/fm2.css"/>
     <link rel="stylesheet" href="./css/style.css">
-</head> 
+</head>
 <body> 
 
-<div data-role="page" id="page">
+<div data-role="page" id="phoneNumInputPg">
 	 <div class="header">
         <p class="header-text">verification</p>
     </div>
 	<div class="container" data-role="content">
-    <div class="mobile-verify"><font class="text">Vertification<input name="" type="password" maxlength="9"></div>
-     <div class="mobile-sent"><img class="line-img" src="images/cellphone_sent.png"></div>
-    </div>      
-  </div>
-    <div id="nav-bar">
-<div class="ui-menu-inactive"><img class="menu-img" src="images/m1.png"></div>
-<div class="ui-menu-inactive"><img class="menu-img" src="images/m2.png"></div>
-<div class="ui-menu-active"><img class="menu-img" src="images/m3.png"></div>
-<div class="ui-menu-inactive"><img class="menu-img" src="images/m4.png"></div>
 
-  </div>
+        <div class="mobile-verify"><font class="text">mobile<input id="phoneNum_input" name="" type="tel" maxlength="10" onfocus="this.value='09';"></div>
+         <div class="mobile-sent"><img id="phone_num" class="line-img" src="images/cellphone_sent.png"></div>
+    </div>
+  
+    <div id="nav-bar">
+        <div id="btnCreateMovie" class="ui-menu-inactive"><img class="menu-img" src="images/m1.png"></div>
+        <div id="btnMyVideo" class="ui-menu-inactive"><img class="menu-img" src="images/m2.png"></div>
+        <div id="btnSubmitDOOH" class="ui-menu-active"><img class="menu-img" src="images/m3.png"></div>
+        <div id="btnSetting" class="ui-menu-inactive"><img class="menu-img" src="images/m4.png"></div>
+    </div>
+
 	<!-- /navbar -->
       
-	</div>
 </div>
+
 </body>
 </html>

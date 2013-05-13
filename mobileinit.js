@@ -37,6 +37,12 @@ $(document).bind("mobileinit", function(){
                 $("#tocPg").live("pageinit", FmMobile.tocPg.init);
                 $("#fbLoginPg").live("pageinit", FmMobile.fbLoginPg.init);
                 $("#fbLoginPg").live("pageshow", FmMobile.fbLoginPg.show);
+                $("#verificationPg").live("pageinit", FmMobile.verificationPg.init);
+                $("#verificationPg").live("pageshow", FmMobile.verificationPg.show);
+                $("#phoneNumInputPg").live("pageinit", FmMobile.phoneNumInputPg.init);
+                $("#phoneNumInputPg").live("pageshow", FmMobile.phoneNumInputPg.show);
+                $("#codeInputPg").live("pageinit", FmMobile.codeInputPg.init);
+                $("#codeInputPg").live("pageshow", FmMobile.codeInputPg.show);
                  
                 //$("#homePg").live("pageinit", FmMobile.homePg.init);
                 //$("#videoPg").live("pagebeforecreate", FmMobile.videoPg.init);
@@ -614,7 +620,8 @@ FmMobile.bindClickEventToNavBar = function(){
             $.mobile.changePage("my_video.html");
         }
         else if (this.id == "btnSubmitDOOH") {
-            $.mobile.changePage("booking_choose_movie.html");
+            //$.mobile.changePage("booking_choose_movie.html");
+            FmMobile.authentication.init();
         }
         else if (this.id == "btnSetting") {
             $.mobile.changePage("setting.html");
