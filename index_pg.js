@@ -22,7 +22,8 @@ FmMobile.indexPg = {
             //$.mobile.changePage("movie_create.html"); //for temp test
         }
         else {
-            window.location.href = "orientation.html";
+            //window.location.href = "orientation.html";
+            $.mobile.changePage("orientation_1.html");
             //$.mobile.changePage("my_video.html");
             
         }

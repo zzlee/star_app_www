@@ -554,8 +554,6 @@ FmMobile.authPopup = {
                 localStorage.fb_accessToken = response.data.accessToken;
                 localStorage.verified = (response.data.verified) ? response.data.verified : 'false';
                 FM_LOG("localStorage" + JSON.stringify(localStorage));
-                //$.mobile.changePage("orientation.html",{reloadPage:true});
-                //window.location.href = "orientation.html";
                
                 // Each time of Login, pull all videos.
                 FmMobile.ajaxNewVideos();

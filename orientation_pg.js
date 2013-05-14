@@ -13,7 +13,7 @@ FmMobile.orientationPg = {
                 $.mobile.changePage("setting.html");
             }
         }else{
-            $.mobile.changePage($("#orie_" + FmMobile.orientationPg.idx), {transition: "slide"});
+            $.mobile.changePage( ("orientation_" + FmMobile.orientationPg.idx+".html"), {transition: "slide"});
         }
     },
         
@@ -21,7 +21,7 @@ FmMobile.orientationPg = {
         if( --FmMobile.orientationPg.idx < 1){
             FmMobile.orientationPg.idx = 1;
         }else{
-            $.mobile.changePage($("#orie_" + FmMobile.orientationPg.idx)
+            $.mobile.changePage(("orientation_" + FmMobile.orientationPg.idx+".html")
                                 , { transition: "slide",
                                 reverse: true});
         }

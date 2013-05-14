@@ -9,6 +9,9 @@ FmMobile.settingPg = {
             if (this.id == "itemAboutMiixIt"){
                 $("#contentAboutMiixIt").toggle();
             }
+            else if (this.id == "itemOrientation") {
+                $.mobile.changePage("orientation_1.html");
+            }
             else if (this.id == "itemLogout") {
                 FmMobile.authPopup.FBLogout();
             }
