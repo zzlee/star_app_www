@@ -82,20 +82,27 @@ body{
 	height:8.69%;
 	position:fixed;
 	bottom: 0;
-    background-color: rgba(204,204,204,1);
+}
+.nav-bar-background1{
+	background-image: url(../images/m1b.png);
+	background-size: 100%;
+}
+.nav-bar-background2{
+	background-image: url(../images/m2b.png);
+	background-size: 100%;
+}
+.nav-bar-background3{
+	background-image: url(../images/m3b.png);
+	background-size: 100%;
+}
+.nav-bar-background4{
+	background-image: url(../images/m4b.png);
+	background-size: 100%;
 }
 .ui-menu-active {
 	width: 24.7%;
 	height: 100%;
 	float: left;
-	background: #e21b74;
-	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#e21b74), to(#891846));
-	background: -webkit-linear-gradient(#e21b74, #891846);
-	background: -moz-linear-gradient(#e21b74, #891846);
-	background: -ms-linear-gradient(#e21b74, #891846);
-	background: -o-linear-gradient(#e21b74, #891846);
-	background: linear-gradient(#e21b74, #891846);
-	-pie-background: linear-gradient(#e21b74, #891846);
 	behavior: url(/pie/PIE.htc);
 	text-align: center;
 	vertical-align: middle;
@@ -117,14 +124,6 @@ body{
 	width: 24.7%;
 	height: 100%;
 	float: left;
-	background: #5a595c;
-	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#5a595c), to(#0C0C10));
-	background: -webkit-linear-gradient(#5a595c, #0C0C10);
-	background: -moz-linear-gradient(#5a595c, #0C0C10);
-	background: -ms-linear-gradient(#5a595c, #0C0C10);
-	background: -o-linear-gradient(#5a595c, #0C0C10);
-	background: linear-gradient(#5a595c, #0C0C10);
-	-pie-background: linear-gradient(#5a595c, #0C0C10);
 	behavior: url(/pie/PIE.htc);
 	vertical-align: middle;
 	text-align: center;
@@ -175,15 +174,18 @@ body{
     padding:0px;
     
 }
-#login {
-	background-image:url(../images/login.png);
-	background-position: center center;
-	background-repeat: no-repeat;
-    position:absolute;
-    width: 78.125%;
-	height: 17.3914%;
-    left: 10.9375%;
-    top: 75%;
+.login{
+	width:100%;
+
+}
+
+.login_img{
+	top:80%;
+	width:60%;
+	left:0;
+	right:0;
+	margin:auto;
+	position:absolute;
 }
 
 
@@ -224,12 +226,6 @@ body{
 
 
 /* My Video ------------------------------------------------------------*/
-.content_my_video{
-	background-image: url(images/my_video_bg_836.png);
-	width: 100%;
-	height: auto;
-	background-repeat: no-repeat;
-}
 .my-video-icon {
 	display:table;
 	float:left;
@@ -319,4 +315,24 @@ body{
 	background-repeat: round;
     background-size:100% 100%;
 }
+.frame_pic{
+	width: 100%;
+	margin-top:10%;
+}
+.frame_pic_img{
+	width:100%;
+}
+.text_container{
+	width:100%;
 
+}
+.text_img{
+	width:100%;
+}
+.page_icon_img{
+	width:30%;
+	left:0;
+	right:0;
+	margin:auto;
+	position:absolute;
+}
