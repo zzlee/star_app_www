@@ -85,19 +85,19 @@ body{
 }
 .nav-bar-background1{
 	background-image: url(../images/m1b.png);
-	background-size: 100%;
+	background-size: 100% 100%;
 }
 .nav-bar-background2{
 	background-image: url(../images/m2b.png);
-	background-size: 100%;
+	background-size: 100% 100%;
 }
 .nav-bar-background3{
 	background-image: url(../images/m3b.png);
-	background-size: 100%;
+	background-size: 100% 100%;
 }
 .nav-bar-background4{
 	background-image: url(../images/m4b.png);
-	background-size: 100%;
+	background-size: 100% 100%;
 }
 .ui-menu-active {
 	width: 24.7%;
@@ -334,4 +334,16 @@ body{
 	right:0;
 	margin:auto;
 	position:absolute;
+}
+.orientation_container{
+	background-image: url(../images/empty_bg_836.png);
+	background-repeat: no-repeat;
+	width: 100%;
+	padding: 0px;
+	background-size: 100% 100%;
+	padding-top: 12.19%;
+    padding-bottom: 12.19%;
+	position: absolute;
+	overflow: auto;
+	height: 100%;
 }
