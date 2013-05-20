@@ -422,8 +422,9 @@ function videoWgt(parent, data, append){
                 
         
     }else if(data.trash){
-        this.videoThumbnail = $("<div>").attr({
-            class: "fm_trashtalk"
+        this.videoThumbnail = $("<img>").attr({
+            class: "content-movie-img",
+            src:"images/video_empty.png"
         });
         
     }else{
