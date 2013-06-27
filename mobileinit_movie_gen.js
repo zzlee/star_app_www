@@ -8,6 +8,7 @@ var projectID;
 var croppedArea;
 var customizableObjectDimensions = new Object();
 var customizedContent = new Object();
+var customizableObjects = new Array();
 var fileSelected;
 var myPhotoCropper;
 

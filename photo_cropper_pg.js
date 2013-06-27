@@ -53,11 +53,12 @@ load: function(event, data){
             
             //$('#divStatus').html("檔案上傳成功！");
             
-            customizedContent.customizableObjects[0].content = fileSelected;
+            customizableObjects[0].content = fileSelected;
             
             
             customizedContent.timeStamp = (new Date()).toISOString();
-            
+            customizedContent.customizableObjects = JSON.stringify(customizableObjects);
+
             
             $.post(starServerURL+'/miix/videos/user_content_description', customizedContent, function(result){
                    console.dir("upload user data info result: "+result);
