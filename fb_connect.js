@@ -18,7 +18,7 @@ function FBConnect()
 
 FBConnect.prototype.onConnect;
 
-FBConnect.proto type.connect = function(client_id, redirect_uri, display)
+FBConnect.prototype.connect = function(client_id, redirect_uri, display)
 {
     
 	this.client_id = client_id;
