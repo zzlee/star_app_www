@@ -27,6 +27,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 
 .text{
 	font-size:200%;
+	color: #dcd586;
 	font-family:"華康歐陽詢體W5";
 }
 
@@ -58,20 +59,41 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 	color: #dcd586;
 	font-size: 200%;
 }
+.back-img{
+	float:left;
+	position:absolute;
+	vertical-align:middle;
+	margin:auto;
+	left:5%;
+    top:0;
+    bottom: 0;  
+}
+
 /* Page ------------------------------------------------------------*/
 #page {
 	width:100%;
 	height:100%;
+	}
+
+/* Splash ------------------------------------------------------------*/
+.signage{
+	width:100%;
+	top:10%;
+	position:absolute;
+	}
+.ondascreen{
+	width:100%;
+	top:60%;
+	position:absolute;
+	}
 	
-	
-}
 /* Container_background ------------------------------------------------------------*/
 #fixedBackground {
 	width: 100%;
 	padding: 0px;
-	background-image: url(../images/empty_bg_836.png);
+	background-image: url(../images/bg.png);
 	background-size: 100% 100%;
-	top: 8.69%;
+	top: 12%;
 	position: fixed;
 	min-height: 72.84%;
 }
@@ -86,6 +108,61 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 	overflow: auto;
 	min-height: 72.84%;
 }
+.login_toc_container{
+	background-image: url(../images/bg.png);
+	background-size:100% 100%;
+	background-repeat:no-repeat;
+	top:10%;
+	width: 100%;
+	padding: 0px;
+	position: absolute;
+	overflow: auto;
+	min-height: 87.1%;
+}
+.splash_container{
+	background-image: url(../images/splash_bg.png);
+	background-size:100% 100%;
+	background-repeat:no-repeat;
+	width: 100%;
+	padding: 0px;
+	position: absolute;
+	overflow: auto;
+	height:100%;
+}
+.orientation_container{
+	background-image: url(../images/empty_bg_836.png);
+	background-repeat: no-repeat;
+	width: 100%;
+	padding: 0px;
+	background-size: 100% 100%;
+	padding-top: 12.19%;
+    padding-bottom: 12.19%;
+	position: absolute;
+	overflow: auto;
+	height: 100%;
+}
+.facebook_login_container{
+	top:10%;
+	background-image: url(../images/login_bg.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	width: 100%;
+	padding: 0px;
+	position: absolute;
+	overflow: auto;
+	height: 91.31%;
+	}
+.login_succes_container{
+	top:10%;
+	background-image: url(../images/login_success_bg.png);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	width: 100%;
+	padding: 0px;
+	position: absolute;
+	overflow: auto;
+	height: 91.31%;
+	}
 
 
 /* Nav-bar(footer) ------------------------------------------------------------*/
@@ -179,6 +256,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 {
 	height: 100%
 }
+.menu-text{
+	padding:5%;
+	font-size:60%;
+	width:100%;
+	bottom:2.5%;
+	position:absolute;
+	}
+	
 /* Login ------------------------------------------------------------*/
 .content_login{
 	width: 100%;
@@ -190,10 +275,39 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
     padding:0px;
     
 }
+.login-content{
+	padding:5% 5%;
+	margin:5%;
+	position:absolute;
+	border:15px solid transparent;
+	border-image:url(../images/border.png) 30 30 round;
+	overflow:auto;
+	height:78.5%;
+	font-size: 120%;
+	font-family: "華康歐陽詢體W5";
+	color: #000;
+	line-height: 150%;
+	overflow: auto;
+	background-image:url(../images/border_bg.png);
+	}
+	
+.apply_account_button{
+	top:95%;
+	position:absolute;
+	}	
+.apply_account_text{
+	top:100%;
+	position:absolute;
+	width:100%;
+	text-align:center;
+	font-size:150%;
+	font-family: "華康歐陽詢體W5";
+	color:#dcd586;
+	}
 .login{
 	width:100%;
+	}
 
-}
 
 .login_img{
 	top:80%;
@@ -203,9 +317,54 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 	margin:auto;
 	position:absolute;
 }
+.facebook_login_text{
+	margin-top:97%;
+	position:absolute;
+	width:100%;
+	text-align:center;
+	font-size:150%;
+	font-family: "華康歐陽詢體W5";
+	color:#dcd586;
+	}
+.facebook_login_button{
+	margin-top:90%;
+	width:100%;}
+.success_text{
+	z-index:1;
+	font-size:150%;
+	margin-top:50%;
+	text-align:center;
+	font-family: "華康歐陽詢體W5";
+	color:#dcd586;
+	}
+.login_success_text{
+	margin-top:57%;
+	position:absolute;
+	width:100%;
+	text-align:center;
+	font-size:150%;
+	font-family: "華康歐陽詢體W5";
+	color:#dcd586;
+	}
+.login_success_button{
+	margin-top:50%;
+	width:100%;}
 
 
-/* Choose Photo ------------------------------------------------------------*/
+/* Template ------------------------------------------------------------*/
+.template{
+	width:100%;
+	padding-top:5%;}
+
+.template_name{
+	padding-top: 5%;
+	width: 100%;
+	font-size: 185%;
+	font-family: "華康歐陽詢體W5";
+	color: #dcd586;
+	padding-bottom:3%;
+	;text-align: center;
+	}
 .content-movie{
 	background-image:url(../images/big_frame.png);
 	background-repeat:no-repeat;
@@ -229,12 +388,87 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 .create-movie-icon {
 	width:49%;
 	display:inline-block;
+	padding-bottom:2.5%;
 }
 .icon-img{
-	padding-top: 20%;
+	padding-top: 10%;
 	padding-left: 25%;
 	width: 50%;
 }
+.template_label{
+	width:100%;
+
+	}
+.label-img{
+	width:100%;
+	margin-top:5%;
+}	
+.template_label_text{
+	margin-top:7%;
+	position:absolute;
+	width:100%;
+	text-align:center;
+	font-size:150%;
+	font-family: "華康歐陽詢體W5";
+	color:#dcd586;
+	}
+.template_instruction{
+	margin-top: 5%;
+	margin-left:6%;
+	width: 100%;
+	font-size: 185%;
+	font-family: "華康歐陽詢體W5";
+	color: #dcd586;
+	line-height: 125%;
+	padding-bottom:2%;
+}
+.template_input_instruction{
+	margin-top: 5%;
+	margin-left:12%;
+	width: 100%;
+	font-size: 185%;
+	font-family: "華康歐陽詢體W5";
+	color: #dcd586;
+	line-height: 125%;
+	padding-bottom:2%;
+}
+.text_input_bg{
+	width:100%;
+	}
+.button_text{
+	position: absolute;
+	margin-top: 6%;
+	width: 50%;
+	text-align: center;
+	font-size: 150%;
+	font-family: "華康歐陽詢體W5";
+	color: #dcd586;
+	}
+.template_introduce{
+	padding:5% 5%;
+	margin:5%;
+	position:absolute;
+	border:15px solid transparent;
+	border-image:url(../images/border.png) 30 30 round;
+	overflow:auto;
+	height:78.5%;
+	font-size: 120%;
+	font-family: "華康歐陽詢體W5";
+	color: #000;
+	line-height: 150%;
+	overflow: auto;
+	background-image:url(../images/border_bg.png);
+	z-index:1;
+	}
+.close{
+	padding-left: 85%;
+	padding-top:2.5%;
+	z-index: 2;
+	position: absolute;
+	size: 20%;
+}
+
+
 /* Photo Upload ------------------------------------------------------------*/
 #process-bar {
 	width: auto;
@@ -290,6 +524,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 	width: 100%;
 }
 .choose-movie{
+	margin-top:10%;
 	width: 49%;
 	/*float: left;*/
 	display:inline-block;
@@ -318,9 +553,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 	margin-left:4.5%;
 }
 .choose-movie-number{
+	color:#dcd586;
 	padding-top: 4%;
 	padding-bottom: 3%;
-	font-family: "Urban Jungle";
+	font-family:"華康歐陽詢體W5";
 	text-align: center;
 	font-size: 100%;
 }
@@ -364,35 +600,43 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 	height: 100%;
 }
 /* Setting------------------------------------------------------------*/
-.setting{
-	background-image: url(../images/setting_bg1.png);
-	background-size:100% 100%;
-	background-repeat:no-repeat;
-	width:100%;
-	height:100%;
-	vertical-align: middle;
-	position: absolute;
-
-	}
-.menu-text{
-	font-size:80%;
-	width:100%;
-	bottom:5%;
-	position:absolute;
-	}
 .setting-content{
+	padding:5% 5%;
+	margin:5%;
+	position:absolute;
+	border:15px solid transparent;
+	border-image:url(../images/border.png) 30 30 round;
 	overflow:auto;
-	height:75%;
-	width: 72%;
-	margin-top: 12.5%;
-	margin-left: 15%;
-	margin-right: 15%;
+	height:78.5%;
 	font-size: 120%;
 	font-family: "華康歐陽詢體W5";
 	color: #000;
 	line-height: 150%;
 	overflow: auto;
+	background-image:url(../images/border_bg.png);
+	
 	}	
 .time{
 	font-size:80%;
 }
+
+.customer_button_sent{
+	display:table;
+	width:49%;
+
+}
+.customer_button_text{
+	position:absolute;
+	margin-left:16%;
+	margin-top:4%;
+	text-align:center;
+	font-size:100%;
+	font-family: "華康歐陽詢體W5";
+	color: #dcd586;}
+/* Background------------------------------------------------------------*/
+.round{
+	border:15px solid transparent;
+    width:90%;
+    padding:10px 20px;
+	border-image:url(../images/border.png) 30 30 round;
+	}
