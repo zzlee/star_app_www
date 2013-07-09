@@ -7,18 +7,31 @@ FmMobile.customerQuestionPg = {
     },
         
     init: function(){
-       // alert("test");
+       var memberId = "123345";
         
+        // post customer question
         
-        /*
-        $.ajax({
-               url:'http://192.168.5.129:80'
-        }
-        );
-         */
+        $("#customer_button").click(function(){
+                    var input_id=$("#input_id").val(); // input_id (影片代碼）
+                    var question_text=$("#question_text").val(); //question_text 問題敘述
+                    var select=$("#select option:selected").val(); //問題種類                                     
+                                    
+            $.ajax({
+               type: "POST",
+               url: starServerURL+"/members/"+memberId+"/questions",
+               data: {"it":input_id,
+                      "qt":question_text,
+                      "select":select
+                    }
+               }).done(function( result ) {
+                       alert(result);
+                   });
+              });
+
+        //get answer
         //TODO: get token from other place
         //
-        var memberId = "123345"
+        
         $.get(starServerURL+"/members/"+memberId+"/questions",{token:"53768608"},function(data,status){
               alert(status);
            
