@@ -16,7 +16,7 @@ FmMobile.customerQuestionPg = {
         }
         );
          */
-        
+        //TODO: get token from other place
         $.get("http://192.168.5.129/members/123415/questions",{token:"53768608"},function(data,status){
               alert(status);
             alert(data[0]._id);

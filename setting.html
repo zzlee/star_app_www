@@ -39,33 +39,57 @@
     <script src="mobileinit.js"></script>
     <script src="mobileinit_movie_gen.js"></script>
     <script src="./lib/jquery.mobile-1.2.0.js"></script>
+    <script src="SpryAssets/SpryValidationTextarea.js" type="text/javascript"></script>
+    <script src="SpryAssets/SpryValidationSelect.js" type="text/javascript"></script>
     <link rel="stylesheet" href="./css/fm.css"/>
     <link rel="stylesheet" href="./css/fm2.css"/>
     <link rel="stylesheet" href="./css/style.css">
+    <link href="SpryAssets/SpryValidationTextarea.css" rel="stylesheet" type="text/css">
+    <link href="SpryAssets/SpryValidationSelect.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript">
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+    </script>
 </head>
 <body>
 
 <div data-role="page" id="settingPg">
 	<div class="header">
-        <p class="header-text">setting</p>
+        <p class="header-text">設定</p>
     </div>
 	<div class="container" data-role="content">
-        <ul id="settingList" data-role="listview" style="margin:0px">
-            <li><a id="itemAboutMiixIt" href="#">About Miix it!</a></li>
-            <li id="contentAboutMiixIt" style="text-align:center">Miix It! v1.0 build130520</li>
-            <li><a id="itemOrientation" href="#">Orientation</a></li>
-            <li><a id="itemMailUs" href="mailto:service@feltmeng.com">Email us</a></li>
-            <li><a id="itemLogout" href="#">Logout</a></li>
+       <div class="setting">
+       <div class="setting-content">
+       <ul id="settingList" data-role="listview" style="margin:0px">
+            <li><a id="itemToc" href="#">使用規則</a></li>
+            <li><a id="itemTerm" href="#">條款及政策</a></li>
+            <li><a id="itemFAQ" href="#">FAQ</a></li>
+            <li><a id="itemOrientation" href="orientation.html" rel="external">Orientation</a></li>
+            <li><a id="itemAboutMiixIt" href="#">關於我們</a></li>
+            <li id="contentAboutMiixIt" style="text-align:center">登大螢幕 V1.0 build130508</li>
+            <li><a id="itemMailUs" href="#">客服/申訴/回報問題</a></li>
+            <li><a id="itemLogout" href="#">登出</a></li>
         </ul>
-        
-        
+    
+       </div>
+        </div>
     </div>
     <div id="nav-bar" class="nav-bar-background4">
-        <div id="btnCreateMovie" class="ui-menu-inactive"><img class="menu-img" src="images/m1.png"></div>
-        <div id="btnMyVideo" class="ui-menu-inactive"><img class="menu-img" src="images/m2.png"></div>
-        <div id="btnSubmitDOOH" class="ui-menu-inactive"><img class="menu-img" src="images/m3.png"></div>
-        <div id="btnSetting" class="ui-menu-active"><img class="menu-img" src="images/m4.png"></div>
+        <div id="btnCreateMovie" class="ui-menu-inactive"><img class="menu-img" src="images/m1.png">
+        <div class="menu-text">主題模板</div></div>
+        <div id="btnMyVideo" class="ui-menu-inactive"><img class="menu-img" src="images/m2.png">
+        <div class="menu-text">我的影片</div></div>
+        <div id="btnSubmitDOOH" class="ui-menu-inactive"><img class="menu-img" src="images/m3.png">
+        <div class="menu-text">大螢幕</div></div>
+        <div id="btnSetting" class="ui-menu-active"><img class="menu-img" src="images/m4-active.png">
+        <div class="menu-text">設定</div></div>
     </div>
 </div>
+<script type="text/javascript">
+var sprytextarea1 = new Spry.Widget.ValidationTextarea("sprytextarea1");
+var spryselect1 = new Spry.Widget.ValidationSelect("spryselect1");
+</script>
 </body>
 </html>
