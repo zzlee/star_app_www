@@ -35,6 +35,8 @@ $(document).bind("mobileinit", function(){
                 $("#bookingChooseMoviePg").live("pageshow", FmMobile.bookingChooseMoviePg.show);
                 $("#tocPg").live("pageshow", FmMobile.tocPg.show);
                 $("#tocPg").live("pageinit", FmMobile.tocPg.init);
+                $("#customerQuestionPg").live("pageshow", FmMobile.customerQuestionPg.show);
+                $("#customerQuestionPg").live("pageinit", FmMobile.customerQuestionPg.init);
                 $("#fbLoginPg").live("pageinit", FmMobile.fbLoginPg.init);
                 $("#fbLoginPg").live("pageshow", FmMobile.fbLoginPg.show);
                 $("#verificationPg").live("pageinit", FmMobile.verificationPg.init);
