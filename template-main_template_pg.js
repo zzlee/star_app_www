@@ -4,7 +4,7 @@ FmMobile.template_mainTemplatePg = {
     },
         
     init: function(){
-		FmMobile.bindClickEventToNavBar();
+		$('#nav-bar').show();
     },
     
 };
