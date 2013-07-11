@@ -21,6 +21,53 @@ var customizableObjects = [];
 var fileSelected;
 var myPhotoCropper;
 
+FmMobile.myflag=true;
+    
+
+$(document).bind("mobileinit", function(){
+	// Initialization Code here.
+	// $.mobile.ns = "fm";
+	$.mobile.allowCrossDomainPages = true;
+	$.mobile.pushStateEnabled = true;
+	
+	//$.mobile.page.prototype.options.addBackBtn = true;
+	   
+	/* pageinit executed after pagebeforecreate */
+	$("#indexPg").live("pageinit", FmMobile.indexPg.init);
+	$("#indexPg").live("pagebeforeshow", FmMobile.indexPg.beforeshow);
+	$("#indexPg").live("pageshow", FmMobile.indexPg.show);
+	$("#orie_1").live("pagebeforeshow", FmMobile.orientationPg.init);
+	$("#orie_1").live("pageshow", FmMobile.orientationPg.show);
+	$('div[id^="orie"]').live("swipeleft ", FmMobile.orientationPg.swipeleft);
+	$('div[id^="orie"]').live("swiperight", FmMobile.orientationPg.swiperight);
+	$("#myVideoPg").live("pagebeforecreate", FmMobile.myVideoPg.loadMyVideo);
+	$("#myVideoPg").live("pageinit", FmMobile.myVideoPg.init);
+	$("#myVideoPg").live("pagebeforeshow", FmMobile.myVideoPg.beforeshow);
+	$("#settingPg").live("pageinit", FmMobile.settingPg.init);
+	$("#settingPg").live("pageshow", FmMobile.settingPg.show);
+	$("#tocPg").live("pageshow", FmMobile.tocPg.show);
+	$("#tocPg").live("pageinit", FmMobile.tocPg.init);
+	$("#customerQuestionPg").live("pageshow", FmMobile.customerQuestionPg.show);
+	$("#customerQuestionPg").live("pageinit", FmMobile.customerQuestionPg.init);
+	$("#fbLoginPg").live("pageinit", FmMobile.fbLoginPg.init);
+	$("#fbLoginPg").live("pageshow", FmMobile.fbLoginPg.show);
+	$("#verificationPg").live("pageinit", FmMobile.verificationPg.init);
+	$("#verificationPg").live("pageshow", FmMobile.verificationPg.show);
+	$("#phoneNumInputPg").live("pageinit", FmMobile.phoneNumInputPg.init);
+	$("#phoneNumInputPg").live("pageshow", FmMobile.phoneNumInputPg.show);
+	$("#codeInputPg").live("pageinit", FmMobile.codeInputPg.init);
+	$("#codeInputPg").live("pageshow", FmMobile.codeInputPg.show);
+	$("#loginTocPg").live("pageinit", FmMobile.loginTocPg.init);
+	$("#loginTocPg").live("pageshow", FmMobile.loginTocPg.show);
+	$("#cellphoneLoginPg").live("pageinit", FmMobile.cellphoneLoginPg.init);
+	$("#cellphoneLoginPg").live("pageshow", FmMobile.cellphoneLoginPg.show);
+	 
+	 
+	setTimeout(function(){
+	    navigator.splashscreen.hide();
+	},3000);
+
+});
 
 $(document).bind("mobileinit", function(){
 	// Initialization Code here.
@@ -510,8 +557,7 @@ FmMobile.authPopup = {
                     localStorage.fb_accessToken = response.data.accessToken;
                     localStorage._id = response.data._id;
                     sessionStorage.sessionID = response.data.sessionID;
-                    
-                    $.mobile.changePage("home.html");
+                    $.mobile.changePage("verification.html");
                     
                 }else{
                     // Future - Handle FB Authentication Fail Here. - Popup something.
@@ -572,8 +618,9 @@ FmMobile.authPopup = {
                 // Each time of Login, pull all videos.
                 FmMobile.ajaxNewVideos();
                 FmMobile.ajaxNewStoryVideos();
-               
-                $.mobile.changePage("movie_create.html");
+               $.mobile.changePage("cellphone_login.html");  
+
+               // $.mobile.changePage("movie_create.html");
                 window.plugins.childBrowser.close();
                
                 FmMobile.analysis.setVariable("Facebook_ID", localStorage.fb_userID, 1);

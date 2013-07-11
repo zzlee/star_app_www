@@ -2,7 +2,7 @@ FmMobile.fbLoginPg = {
     PAGE_ID: "fbLoginPg",
         
     init: function(){
-        $("#login").click(function(){
+        $("#go_fb_login").click(function(){
             FmMobile.authPopup.init();
         });
     },
