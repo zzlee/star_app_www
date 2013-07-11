@@ -6,6 +6,10 @@ PAGE_ID: "codeInputPg",
         $("#verify_code").click(function(){
             FmMobile.authentication.sendCode();
         });
+        $("#back_phoneNumber").click(function(){
+                                     $.mobile.changePage('phone_num_input.html');
+         });
+        
     },
         
     show: function(){

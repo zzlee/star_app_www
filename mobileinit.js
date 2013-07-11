@@ -8,6 +8,8 @@ var local = false,
     localhost = "http://localhost:3000",
     remotesite = starServerURL,
     domain = (local) ?  localhost : remotesite;
+
+FmMobile.myflag=true;
     
 
 $(document).bind("mobileinit", function(){
@@ -45,7 +47,10 @@ $(document).bind("mobileinit", function(){
                 $("#phoneNumInputPg").live("pageshow", FmMobile.phoneNumInputPg.show);
                 $("#codeInputPg").live("pageinit", FmMobile.codeInputPg.init);
                 $("#codeInputPg").live("pageshow", FmMobile.codeInputPg.show);
-                 
+                $("#loginTocPg").live("pageinit", FmMobile.loginTocPg.init);
+                $("#loginTocPg").live("pageshow", FmMobile.loginTocPg.show);
+                 $("#cellphoneLoginPg").live("pageinit", FmMobile.cellphoneLoginPg.init);
+                 $("#cellphoneLoginPg").live("pageshow", FmMobile.cellphoneLoginPg.show);
                 //$("#homePg").live("pageinit", FmMobile.homePg.init);
                 //$("#videoPg").live("pagebeforecreate", FmMobile.videoPg.init);
                 //$("#reservationPg").live("pagebeforeshow", FmMobile.reservationPg.loadMyVideo);
@@ -498,8 +503,7 @@ FmMobile.authPopup = {
                     localStorage.fb_accessToken = response.data.accessToken;
                     localStorage._id = response.data._id;
                     sessionStorage.sessionID = response.data.sessionID;
-                    
-                    $.mobile.changePage("home.html");
+                    $.mobile.changePage("verification.html");
                     
                 }else{
                     // Future - Handle FB Authentication Fail Here. - Popup something.
@@ -560,8 +564,9 @@ FmMobile.authPopup = {
                 // Each time of Login, pull all videos.
                 FmMobile.ajaxNewVideos();
                 FmMobile.ajaxNewStoryVideos();
-               
-                $.mobile.changePage("movie_create.html");
+               $.mobile.changePage("cellphone_login.html");  
+
+               // $.mobile.changePage("movie_create.html");
                 window.plugins.childBrowser.close();
                
                 FmMobile.analysis.setVariable("Facebook_ID", localStorage.fb_userID, 1);

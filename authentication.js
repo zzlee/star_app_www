@@ -9,7 +9,7 @@ localhost = "http://localhost:3000",
 remotesite = starServerURL, //"http://192.168.5.188", //"http://www.feltmeng.idv.tw",
 domain = (local) ?  localhost : remotesite;
 
-
+var myflag=true;
 
 FmMobile.authentication = {
     
@@ -80,7 +80,7 @@ FmMobile.authentication = {
            if(res.message){
                localStorage.verified = true;
                navigator.notification.alert(res.message, function(){
-                                            $.mobile.changePage("booking_choose_movie.html");
+                                            $.mobile.changePage("login_success.html");
                                             }, "認證");
                
            }else{

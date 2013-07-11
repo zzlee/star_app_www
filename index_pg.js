@@ -29,7 +29,10 @@ FmMobile.indexPg = {
             
         }
          */
-        $.mobile.changePage("customer_question.html");
+       // $.mobile.changePage("phone_num_input.html");
+        
+        $.mobile.changePage("login_toc.html");
+
         
     },
         
