@@ -24,50 +24,6 @@ var myPhotoCropper;
 FmMobile.myflag=true;
     
 
-$(document).bind("mobileinit", function(){
-	// Initialization Code here.
-	// $.mobile.ns = "fm";
-	$.mobile.allowCrossDomainPages = true;
-	$.mobile.pushStateEnabled = true;
-	
-	//$.mobile.page.prototype.options.addBackBtn = true;
-	   
-	/* pageinit executed after pagebeforecreate */
-	$("#indexPg").live("pageinit", FmMobile.indexPg.init);
-	$("#indexPg").live("pagebeforeshow", FmMobile.indexPg.beforeshow);
-	$("#indexPg").live("pageshow", FmMobile.indexPg.show);
-	$("#orie_1").live("pagebeforeshow", FmMobile.orientationPg.init);
-	$("#orie_1").live("pageshow", FmMobile.orientationPg.show);
-	$('div[id^="orie"]').live("swipeleft ", FmMobile.orientationPg.swipeleft);
-	$('div[id^="orie"]').live("swiperight", FmMobile.orientationPg.swiperight);
-	$("#myVideoPg").live("pagebeforecreate", FmMobile.myVideoPg.loadMyVideo);
-	$("#myVideoPg").live("pageinit", FmMobile.myVideoPg.init);
-	$("#myVideoPg").live("pagebeforeshow", FmMobile.myVideoPg.beforeshow);
-	$("#settingPg").live("pageinit", FmMobile.settingPg.init);
-	$("#settingPg").live("pageshow", FmMobile.settingPg.show);
-	$("#tocPg").live("pageshow", FmMobile.tocPg.show);
-	$("#tocPg").live("pageinit", FmMobile.tocPg.init);
-	$("#customerQuestionPg").live("pageshow", FmMobile.customerQuestionPg.show);
-	$("#customerQuestionPg").live("pageinit", FmMobile.customerQuestionPg.init);
-	$("#fbLoginPg").live("pageinit", FmMobile.fbLoginPg.init);
-	$("#fbLoginPg").live("pageshow", FmMobile.fbLoginPg.show);
-	$("#verificationPg").live("pageinit", FmMobile.verificationPg.init);
-	$("#verificationPg").live("pageshow", FmMobile.verificationPg.show);
-	$("#phoneNumInputPg").live("pageinit", FmMobile.phoneNumInputPg.init);
-	$("#phoneNumInputPg").live("pageshow", FmMobile.phoneNumInputPg.show);
-	$("#codeInputPg").live("pageinit", FmMobile.codeInputPg.init);
-	$("#codeInputPg").live("pageshow", FmMobile.codeInputPg.show);
-	$("#loginTocPg").live("pageinit", FmMobile.loginTocPg.init);
-	$("#loginTocPg").live("pageshow", FmMobile.loginTocPg.show);
-	$("#cellphoneLoginPg").live("pageinit", FmMobile.cellphoneLoginPg.init);
-	$("#cellphoneLoginPg").live("pageshow", FmMobile.cellphoneLoginPg.show);
-	 
-	 
-	setTimeout(function(){
-	    navigator.splashscreen.hide();
-	},3000);
-
-});
 
 $(document).bind("mobileinit", function(){
 	// Initialization Code here.
@@ -85,11 +41,13 @@ $(document).bind("mobileinit", function(){
 	$("#orie_1").live("pageshow", FmMobile.orientationPg.show);
 	$('div[id^="orie"]').live("swipeleft ", FmMobile.orientationPg.swipeleft);
 	$('div[id^="orie"]').live("swiperight", FmMobile.orientationPg.swiperight);
-	$("#myVideoPg").live("pagebeforecreate", FmMobile.myVideoPg.loadMyVideo);
-	$("#myVideoPg").live("pageinit", FmMobile.myVideoPg.init);
-	$("#myVideoPg").live("pagebeforeshow", FmMobile.myVideoPg.beforeshow);
-	$("#settingPg").live("pageinit", FmMobile.settingPg.init);
-	$("#settingPg").live("pageshow", FmMobile.settingPg.show);
+	$("#myUgcPg").live("pagebeforecreate", FmMobile.myUgcPg.loadMyVideo);
+	$("#myUgcPg").live("pageinit", FmMobile.myUgcPg.init);
+	$("#myUgcPg").live("pagebeforeshow", FmMobile.myUgcPg.beforeshow);
+	$("#screenPg").live("pageinit", FmMobile.screenPg.init);
+	$("#screenPg").live("pageshow", FmMobile.screenPg.show);
+	$("#setting_MainPg").live("pageinit", FmMobile.setting_MainPg.init);
+	$("#setting_MainPg").live("pageshow", FmMobile.setting_MainPg.show);
 	$("#tocPg").live("pageshow", FmMobile.tocPg.show);
 	$("#tocPg").live("pageinit", FmMobile.tocPg.init);
 	$("#customerQuestionPg").live("pageshow", FmMobile.customerQuestionPg.show);
@@ -104,19 +62,13 @@ $(document).bind("mobileinit", function(){
 	$("#codeInputPg").live("pageshow", FmMobile.codeInputPg.show);
 	$("#photoCropperPg").live("pageinit", FmMobile.photoCropperPg.load);
 	$("#photoCropperPg").live("pageshow", FmMobile.photoCropperPg.show);
-	//$("#moviePreviewPg").live("pageinit", FmMobile.moviePreviewPg.load);
-	//$("#moviePreviewPg").live("pageshow", FmMobile.moviePreviewPg.show);
+	$("#template_mainTemplatePg").live("pageinit", FmMobile.template_mainTemplatePg.init);
+	$("#template_mainTemplatePg").live("pageshow", FmMobile.template_mainTemplatePg.show);
 	$.mobile.page.prototype.options.addBackBtn = true;
 	
-	 
-	//$("#homePg").live("pageinit", FmMobile.homePg.init);
-	//$("#videoPg").live("pagebeforecreate", FmMobile.videoPg.init);
-	//$("#reservationPg").live("pagebeforeshow", FmMobile.reservationPg.loadMyVideo);
-	//$("#"+FmMobile.censorshipPg.PAGE_ID).live("pagebeforeshow", FmMobile.censorshipPg.loadWaitingEvents);
-	//$("#popup").live(); Popup must use "live"
-	 
+	
 	setTimeout(function(){
-	    navigator.splashscreen.hide();
+		navigator.splashscreen.hide();
 	},3000);
 	
 	
@@ -672,18 +624,17 @@ FmMobile.authPopup = {
 
 FmMobile.bindClickEventToNavBar = function(){
     $("#nav-bar > div").click(function(){
-        if (this.id == "btnCreateMovie"){
-            $.mobile.changePage("movie_create.html");
+        if (this.id == "btnTemplate"){
+            $.mobile.changePage("template-main_template.html");
         }
-        else if (this.id == "btnMyVideo") {
-            $.mobile.changePage("my_video.html");
+        else if (this.id == "btnMyUgc") {
+            $.mobile.changePage("my_ugc.html");
         }
-        else if (this.id == "btnSubmitDOOH") {
-            //$.mobile.changePage("booking_choose_movie.html");
-            FmMobile.authentication.init();
+        else if (this.id == "btnScreen") {
+            $.mobile.changePage("screen.html");
         }
         else if (this.id == "btnSetting") {
-            $.mobile.changePage("setting.html");
+            $.mobile.changePage("setting-main.html");
         }
     });
 };

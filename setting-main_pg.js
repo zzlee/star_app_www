@@ -1,5 +1,4 @@
-FmMobile.settingPg = {
-    PAGE_ID: "settingPg",
+FmMobile.setting_MainPg = {
  
     init: function(){
         FmMobile.bindClickEventToNavBar();

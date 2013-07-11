@@ -1,6 +1,4 @@
-FmMobile.myVideoPg = {
-    //  Page constants.
-    PAGE_ID: "myVideoPg",
+FmMobile.myUgcPg = {
         
     trashItem: null,
     

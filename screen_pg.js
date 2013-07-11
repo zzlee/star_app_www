@@ -1,4 +1,4 @@
-FmMobile.template_mainTemplatePg = {
+FmMobile.screenPg = {
         
     show: function(){
     },
