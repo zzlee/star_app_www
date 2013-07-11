@@ -55,8 +55,7 @@ FmMobile.customerQuestionPg = {
                           var a_minute=a_d.getMinutes();
                           var a_timeOutput=a_y+"年"+a_m+"月"+a_dayOfmonth+"號"+" "+a_hour+":"+a_minute;
               
-                  $("#userQuesiotns").append("<div class='question'>Question : " 
-                                     +
+                  $("#userQuesiotns").append("<div class='question'>Question : "+
                                       data[i].question.description+"<br>"+"<div class='time'>"+
                                       timeOutput_q+"</div>"+"<br></div><div class='answer'>"+"Ans : "+
                                       data[i].answer.description+"<br>"+"<div class='time'>"+

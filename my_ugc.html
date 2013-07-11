@@ -29,7 +29,6 @@
     <script src="authentication.js"></script>
     <script src="fb_login_pg.js"></script>
     <script src="index_pg.js"></script>
-    <script src="booking_choose_movie_pg.js"></script>
     <script src="my_video_pg.js"></script>
     <script src="orientation_pg.js"></script>
     <script src="setting_pg.js"></script>
@@ -43,29 +42,47 @@
     <link rel="stylesheet" href="./css/fm2.css"/>
     <link rel="stylesheet" href="./css/style.css">
 </head>
-<body>
+<body> 
 
-<div data-role="page" id="settingPg">
+<div data-role="page" id="myVideoPg">
 	<div class="header">
-        <p class="header-text">setting</p>
+        <p class="header-text">我的影片</p>
     </div>
-	<div class="container" data-role="content">
-        <ul id="settingList" data-role="listview" style="margin:0px">
-            <li><a id="itemAboutMiixIt" href="#">About Miix it!</a></li>
-            <li id="contentAboutMiixIt" style="text-align:center">Miix It! v1.0 build130520</li>
-            <li><a id="itemOrientation" href="#">Orientation</a></li>
-            <li><a id="itemMailUs" href="mailto:service@feltmeng.com">Email us</a></li>
-            <li><a id="itemLogout" href="#">Logout</a></li>
-        </ul>
+    
+    <div id="fixedBackground"></div>
+	<div class="container" data-role="content" style="background-image: none;">
+        <div id="btnMiixMovie" class="my-video-icon"><div class="tab_button_text">發布清單</div><img class="my-video-icon-img" src="images/tab-active.png"></div>
+        <div id="btnLiveMovie" class="my-video-icon"><div class="tab_button_text">LIVE實況</div><img class="my-video-icon-img" src="images/tab.png"></div>
+
         
+        <div id="my-video-list">
+        <!--<div id="videoList">-->
+            <div class="content-movie">
+                 <div class="movie-pic-dummy"></div>
+                 <img class="content-movie-img" src="images/movie_pic.png"></img>
+            </div>
+            <img class="share" src="images/youtube.png"></img>
+            <img class="share" src="images/facebook.png"></img>
+            <div class="my-video-number">NO.12345</div>
+            <div class="content-movie">
+                 <div class="movie-pic-dummy"></div>
+                 <img class="content-movie-img" src="images/movie_pic.png"></img>
+            </div>
+            <img class="share" src="images/youtube.png"></img>
+            <img class="share" src="images/facebook.png"></img>
+            <div class="my-video-number">NO.12345</div>
+            
+        </div>
         
     </div>
-    <div id="nav-bar" class="nav-bar-background4">
+    
+    <div id="nav-bar" class="nav-bar-background2">
         <div id="btnCreateMovie" class="ui-menu-inactive"><img class="menu-img" src="images/m1.png"></div>
-        <div id="btnMyVideo" class="ui-menu-inactive"><img class="menu-img" src="images/m2.png"></div>
+        <div id="btnMyVideo" class="ui-menu-active"><img class="menu-img" src="images/m2.png"></div>
         <div id="btnSubmitDOOH" class="ui-menu-inactive"><img class="menu-img" src="images/m3.png"></div>
-        <div id="btnSetting" class="ui-menu-active"><img class="menu-img" src="images/m4.png"></div>
+        <div id="btnSetting" class="ui-menu-inactive"><img class="menu-img" src="images/m4.png"></div>
     </div>
+
 </div>
 </body>
 </html>

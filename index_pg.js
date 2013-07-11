@@ -29,7 +29,7 @@ FmMobile.indexPg = {
             
         }
          */
-        $.mobile.changePage("customer_question.html");
+        $.mobile.changePage("template-main_template.html");
         
     },
         

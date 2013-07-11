@@ -8,58 +8,72 @@ var local = false,
     localhost = "http://localhost:3000",
     remotesite = starServerURL,
     domain = (local) ?  localhost : remotesite;
-    
+
+var templateSelected;
+var fileSelectedURI, fileProcessedForCropperURI;
+var photoCroppedURI="./img/face.jpg";
+var fileObjectID;
+var projectID;
+var croppedArea;
+var customizableObjectDimensions = {};
+var customizedContent = {};
+var customizableObjects = [];
+var fileSelected;
+var myPhotoCropper;
+
 
 $(document).bind("mobileinit", function(){
-                // Initialization Code here.
-                // $.mobile.ns = "fm";
-                $.mobile.allowCrossDomainPages = true;
-                $.mobile.pushStateEnabled = true;
-                
-                //$.mobile.page.prototype.options.addBackBtn = true;
-               
-                /* pageinit executed after pagebeforecreate */
-                $("#indexPg").live("pageinit", FmMobile.indexPg.init);
-                $("#indexPg").live("pagebeforeshow", FmMobile.indexPg.beforeshow);
-                $("#indexPg").live("pageshow", FmMobile.indexPg.show);
-                $("#orie_1").live("pagebeforeshow", FmMobile.orientationPg.init);
-                $("#orie_1").live("pageshow", FmMobile.orientationPg.show);
-				$('div[id^="orie"]').live("swipeleft ", FmMobile.orientationPg.swipeleft);
-				$('div[id^="orie"]').live("swiperight", FmMobile.orientationPg.swiperight);
-                $("#myVideoPg").live("pagebeforecreate", FmMobile.myVideoPg.loadMyVideo);
-				$("#myVideoPg").live("pageinit", FmMobile.myVideoPg.init);
-                $("#myVideoPg").live("pagebeforeshow", FmMobile.myVideoPg.beforeshow);
-                $("#settingPg").live("pageinit", FmMobile.settingPg.init);
-                $("#settingPg").live("pageshow", FmMobile.settingPg.show);
-                $("#bookingChooseMoviePg").live("pageinit", FmMobile.bookingChooseMoviePg.init);
-                $("#bookingChooseMoviePg").live("pageshow", FmMobile.bookingChooseMoviePg.show);
-                $("#tocPg").live("pageshow", FmMobile.tocPg.show);
-                $("#tocPg").live("pageinit", FmMobile.tocPg.init);
-                $("#customerQuestionPg").live("pageshow", FmMobile.customerQuestionPg.show);
-                $("#customerQuestionPg").live("pageinit", FmMobile.customerQuestionPg.init);
-                $("#fbLoginPg").live("pageinit", FmMobile.fbLoginPg.init);
-                $("#fbLoginPg").live("pageshow", FmMobile.fbLoginPg.show);
-                $("#verificationPg").live("pageinit", FmMobile.verificationPg.init);
-                $("#verificationPg").live("pageshow", FmMobile.verificationPg.show);
-                $("#phoneNumInputPg").live("pageinit", FmMobile.phoneNumInputPg.init);
-                $("#phoneNumInputPg").live("pageshow", FmMobile.phoneNumInputPg.show);
-                $("#codeInputPg").live("pageinit", FmMobile.codeInputPg.init);
-                $("#codeInputPg").live("pageshow", FmMobile.codeInputPg.show);
-                 
-                //$("#homePg").live("pageinit", FmMobile.homePg.init);
-                //$("#videoPg").live("pagebeforecreate", FmMobile.videoPg.init);
-                //$("#reservationPg").live("pagebeforeshow", FmMobile.reservationPg.loadMyVideo);
-                //$("#"+FmMobile.censorshipPg.PAGE_ID).live("pagebeforeshow", FmMobile.censorshipPg.loadWaitingEvents);
-                //$("#popup").live(); Popup must use "live"
-                 
-                mobileinitForMovieGen(); //GZ
-                 
-                setTimeout(function(){
-                    navigator.splashscreen.hide();
-                },3000);
-
-                
-                FM_LOG("<----------------- LOAD JQM and INIT ----------------->");
+	// Initialization Code here.
+	// $.mobile.ns = "fm";
+	$.mobile.allowCrossDomainPages = true;
+	$.mobile.pushStateEnabled = true;
+	
+	//$.mobile.page.prototype.options.addBackBtn = true;
+	   
+	    /* pageinit executed after pagebeforecreate */
+	$("#indexPg").live("pageinit", FmMobile.indexPg.init);
+	$("#indexPg").live("pagebeforeshow", FmMobile.indexPg.beforeshow);
+	$("#indexPg").live("pageshow", FmMobile.indexPg.show);
+	$("#orie_1").live("pagebeforeshow", FmMobile.orientationPg.init);
+	$("#orie_1").live("pageshow", FmMobile.orientationPg.show);
+	$('div[id^="orie"]').live("swipeleft ", FmMobile.orientationPg.swipeleft);
+	$('div[id^="orie"]').live("swiperight", FmMobile.orientationPg.swiperight);
+	$("#myVideoPg").live("pagebeforecreate", FmMobile.myVideoPg.loadMyVideo);
+	$("#myVideoPg").live("pageinit", FmMobile.myVideoPg.init);
+	$("#myVideoPg").live("pagebeforeshow", FmMobile.myVideoPg.beforeshow);
+	$("#settingPg").live("pageinit", FmMobile.settingPg.init);
+	$("#settingPg").live("pageshow", FmMobile.settingPg.show);
+	$("#tocPg").live("pageshow", FmMobile.tocPg.show);
+	$("#tocPg").live("pageinit", FmMobile.tocPg.init);
+	$("#customerQuestionPg").live("pageshow", FmMobile.customerQuestionPg.show);
+	$("#customerQuestionPg").live("pageinit", FmMobile.customerQuestionPg.init);
+	$("#fbLoginPg").live("pageinit", FmMobile.fbLoginPg.init);
+	$("#fbLoginPg").live("pageshow", FmMobile.fbLoginPg.show);
+	$("#verificationPg").live("pageinit", FmMobile.verificationPg.init);
+	$("#verificationPg").live("pageshow", FmMobile.verificationPg.show);
+	$("#phoneNumInputPg").live("pageinit", FmMobile.phoneNumInputPg.init);
+	$("#phoneNumInputPg").live("pageshow", FmMobile.phoneNumInputPg.show);
+	$("#codeInputPg").live("pageinit", FmMobile.codeInputPg.init);
+	$("#codeInputPg").live("pageshow", FmMobile.codeInputPg.show);
+	$("#photoCropperPg").live("pageinit", FmMobile.photoCropperPg.load);
+	$("#photoCropperPg").live("pageshow", FmMobile.photoCropperPg.show);
+	//$("#moviePreviewPg").live("pageinit", FmMobile.moviePreviewPg.load);
+	//$("#moviePreviewPg").live("pageshow", FmMobile.moviePreviewPg.show);
+	$.mobile.page.prototype.options.addBackBtn = true;
+	
+	 
+	//$("#homePg").live("pageinit", FmMobile.homePg.init);
+	//$("#videoPg").live("pagebeforecreate", FmMobile.videoPg.init);
+	//$("#reservationPg").live("pagebeforeshow", FmMobile.reservationPg.loadMyVideo);
+	//$("#"+FmMobile.censorshipPg.PAGE_ID).live("pagebeforeshow", FmMobile.censorshipPg.loadWaitingEvents);
+	//$("#popup").live(); Popup must use "live"
+	 
+	setTimeout(function(){
+	    navigator.splashscreen.hide();
+	},3000);
+	
+	
+	FM_LOG("<----------------- LOAD JQM and INIT ----------------->");
                  
 });
 
@@ -342,7 +356,7 @@ FmMobile.submitDooh = function(){
        if(res.message){
            navigator.notification.alert(res.message);
            $.jStorage.set("dooh_pid", null);
-       }else{
+       }else {
            navigator.notification.alert('申請登上大螢幕失敗');
            console.log("[submitDooh]"+JSON.stringify(res));
        }
@@ -433,7 +447,6 @@ FmMobile.apn = {
         FM_LOG("[APN.getDeviceUniqueIdentifier]");
         pushNotification.getDeviceUniqueIdentifier(function(uuid) {
             FM_LOG('getDeviceUniqueIdentifier: ' + uuid);
-            //navigator.notification.alert(JSON.stringify(['getDeviceUniqueIdentifier', uuid]));
         });
     },
 };
@@ -471,8 +484,7 @@ FmMobile.analysis = {
     },
     
     trackPage: function(url){
-        FmMobile.ga.trackPage(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler
-                              , url);
+        FmMobile.ga.trackPage(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, url);
     },
 };
 
@@ -484,7 +496,7 @@ FmMobile.authPopup = {
     
         FM_LOG("[Long Polling FB Status:]");
         
-        var url = domain + "/api/fbStatus",
+		var url = domain + "/api/fbStatus",
             query = {"timestamp": Date.now()};
         
         $.get(url, query, function(response){
