@@ -4,7 +4,7 @@ FmMobile.screenPg = {
     },
         
     init: function(){
-		FmMobile.bindClickEventToNavBar();
+		$('#nav-bar').show();
     },
     
 };

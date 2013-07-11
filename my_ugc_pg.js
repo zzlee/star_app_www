@@ -57,7 +57,8 @@ FmMobile.myUgcPg = {
         //  Initialization method.
     init: function(){
         FM_LOG("[myVideoPg] pageinit");
-        FmMobile.bindClickEventToNavBar();
+        $('#nav-bar').show();
+        
         $("#btnMiixMovie").click(function(){
             $("#btnMiixMovie>img").attr("src","images/a-my_video.png");
             $("#btnLiveMovie>img").attr("src","images/e-dooh.png");

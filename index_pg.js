@@ -5,12 +5,15 @@ FmMobile.indexPg = {
     
     //  Page methods.
     init: function(){
-        FM_LOG("[indexPg.init] ");
+        
+    	FM_LOG("[indexPg.init] ");
         // Query Availabe New Video in Background.
         if(localStorage.fb_userID){
             FmMobile.ajaxNewVideos();
             FmMobile.ajaxNewStoryVideos();
         }
+        FmMobile.bindClickEventToNavBar();
+        $('#nav-bar').hide();
     },
         
     show: function(){

@@ -185,6 +185,7 @@ div[data-role=page] {
 	height:18.47%;
 	position:fixed;
 	bottom: 0;
+	z-index: 1;
 }
 .nav-bar-background1{
 	background-image: url(../images/navbar_bg.png);

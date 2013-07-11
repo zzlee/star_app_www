@@ -1,7 +1,7 @@
 FmMobile.setting_MainPg = {
  
     init: function(){
-        FmMobile.bindClickEventToNavBar();
+    	$('#nav-bar').show();
         
         $("#contentAboutMiixIt").hide();
         $("#settingList a").click(function(){
