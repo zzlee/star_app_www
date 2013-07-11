@@ -5,16 +5,15 @@ FmMobile.setting_MainPg = {
         
         $("#contentAboutMiixIt").hide();
         $("#settingList a").click(function(){
-              if(this.id=="itemToc"){
-                $.mobile.changePage("setting-toc.html");
-                 
-                                  }else if(this.id=="itemTerm"){
-                                  $.mobile.changePage("setting-term.html");
-                                  }else if(this.id="itemFAQ"){
-                                  $.mobile.changePage("setting-faq.html");
-                                  }else if (this.id == "itemOrientation") {
-                $.mobile.changePage("orientation_1.html");
-            }
+			if(this.id=="itemToc"){
+				$.mobile.changePage("setting-toc.html");
+			}else if(this.id=="itemTerm"){
+				$.mobile.changePage("setting-term.html");
+			}else if(this.id=="itemFAQ"){
+				$.mobile.changePage("setting-faq.html");
+			}else if (this.id == "itemOrientation") {
+				$.mobile.changePage("orientation_1.html");
+			}
                                   
             else if (this.id == "itemAboutMiixIt"){
                 $("#contentAboutMiixIt").toggle();
