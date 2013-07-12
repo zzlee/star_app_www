@@ -64,7 +64,14 @@ $(document).bind("mobileinit", function(){
 	$("#photoCropperPg").live("pageshow", FmMobile.photoCropperPg.show);
 	$("#template_mainTemplatePg").live("pageinit", FmMobile.template_mainTemplatePg.init);
 	$("#template_mainTemplatePg").live("pageshow", FmMobile.template_mainTemplatePg.show);
-	$.mobile.page.prototype.options.addBackBtn = true;
+    $("#settingTocPg").live("pageinit", FmMobile.settingTocPg.init);
+    $("#settingTocPg").live("pageshow", FmMobile.settingTocPg.show);
+    $("#settingTermPg").live("pageinit", FmMobile.settingTermPg.init);
+    $("#settingTermPg").live("pageshow", FmMobile.settingTermPg.show);
+    $("#settingFaqPg").live("pageinit", FmMobile.settingFaqPg.init);
+    $("#settingFaqPg").live("pageshow", FmMobile.settingFaqPg.show);
+                 
+    $.mobile.page.prototype.options.addBackBtn = true;
 	
 	
 	setTimeout(function(){
@@ -598,7 +605,7 @@ FmMobile.authPopup = {
         $.jStorage.set("streetVideos", []);
         $.jStorage.set("fb_profile", null);
         fb.Logout();
-        $.mobile.changePage("index.html");
+        $.mobile.changePage("fb_login.html");
         
     },
     

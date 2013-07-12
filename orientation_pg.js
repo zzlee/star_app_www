@@ -33,6 +33,8 @@ FmMobile.orientationPg = {
         
     init: function(){
         FmMobile.orientationPg.idx = 1;
+        $('#nav-bar').hide();
+
         
     },
         

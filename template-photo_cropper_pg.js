@@ -188,7 +188,7 @@ show: function(event, data){
         };
     };
     
-    image.src = fileProcessedForCropperURI;
+    image.src = "images/test.jpg";  //for test
     
     
     
