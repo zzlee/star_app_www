@@ -84,8 +84,18 @@ FmMobile.profile = null;
 FmMobile.ga = null;
 FmMobile.pushNotification = null;
 
-
-
+FmMobile.selectedTemplate = null;  //the main template that the user chooses, such as "miix_it", "cultural_and_creative", "mood", or "check_in"
+FmMobile.selectedSubTemplate = null; //the sub-template that the user chooses. It must be "text", "picture", "text_picture", "check_in",or "video"
+FmMobile.userContent = {
+		text: null,
+		picture: {
+			url: null, //the URL of the picture that the user chooses
+			crop: {_x:0, _y:0, _w:1, _h:1}  // _x=x_crop/width_picture; _y=y_crop/height_picture; _w=width_crop/width_picture;  _h=height_crop/height_picture
+		},
+		thumbnail:{
+			url: null
+		}
+};
 
 FmMobile.init = {
     
