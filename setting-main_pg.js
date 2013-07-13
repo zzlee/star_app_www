@@ -14,6 +14,9 @@ FmMobile.setting_MainPg = {
             else if (this.id == "itemLogout") {
                 FmMobile.authPopup.FBLogout();
             }
+            else if (this.id == "ugcTest") {
+            	$.mobile.changePage("image_test.html");
+            }
         });
 
     },

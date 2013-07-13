@@ -64,6 +64,9 @@ $(document).bind("mobileinit", function(){
 	$("#photoCropperPg").live("pageshow", FmMobile.photoCropperPg.show);
 	$("#template_mainTemplatePg").live("pageinit", FmMobile.template_mainTemplatePg.init);
 	$("#template_mainTemplatePg").live("pageshow", FmMobile.template_mainTemplatePg.show);
+	//test
+	$("#imageTestPg").live("pageinit", FmMobile.imageTestPg.init);
+	$("#imageTestPg").live("pageshow", FmMobile.imageTestPg.show);
 	$.mobile.page.prototype.options.addBackBtn = true;
 	
 	TemplateMgr.getInstance(function(err, _templateMgr){
