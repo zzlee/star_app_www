@@ -1,10 +1,15 @@
 FmMobile.screenPg = {
-        
+    PAGE_ID: "screenPg", 
+    
     show: function(){
     },
         
     init: function(){
-		$('#nav-bar').show();
+        FM_LOG("[screenPg] pageinit");
+//		$('#nav-bar').show();
+        FmMobile.bindClickEventToNavBar();
+        
+        
     },
     
 };

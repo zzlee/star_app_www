@@ -461,11 +461,13 @@ div[data-role=page] {
 	color: #dcd586;
 	}
 .tab_button_text{
-	position: absolute;
+
+	<!-- position: absolute;  -->
+    position: relative;
 	margin-top: 15.5%;
 	width: 50%;
 	text-align: center;
-	font-size: 150%;
+	font-size: 130%;
 	font-family: "華康歐陽詢體W5";
 	color: #dcd586;
 	}

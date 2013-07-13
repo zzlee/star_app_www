@@ -1,5 +1,6 @@
 FmMobile.myUgcPg = {
-        
+    PAGE_ID: "myUgcPg",
+    
     trashItem: null,
     
     //  Page methods.
@@ -60,13 +61,13 @@ FmMobile.myUgcPg = {
         $('#nav-bar').show();
         
         $("#btnMiixMovie").click(function(){
-            $("#btnMiixMovie>img").attr("src","images/a-my_video.png");
-            $("#btnLiveMovie>img").attr("src","images/e-dooh.png");
+//            $("#btnMiixMovie>img").attr("src","images/a-my_video.png");
+//            $("#btnLiveMovie>img").attr("src","images/e-dooh.png");
             FmMobile.myVideoPg.loadMyVideo();
         });
         $("#btnLiveMovie").click(function(){
-            $("#btnMiixMovie>img").attr("src","images/e-my_video.png");
-            $("#btnLiveMovie>img").attr("src","images/a-dooh.png");
+//            $("#btnMiixMovie>img").attr("src","images/e-my_video.png");
+//            $("#btnLiveMovie>img").attr("src","images/a-dooh.png");
             FmMobile.myVideoPg.loadMyStreetVideo();
         });
         
