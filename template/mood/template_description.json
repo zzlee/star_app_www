@@ -1,5 +1,6 @@
 {
     "name":"心情",
+    "representingImageUrl":"images/choose_movie.png",
     "outputSize":{
         "width":720,
         "height":480

@@ -23,7 +23,7 @@ var myPhotoCropper;
 
 FmMobile.myflag=true;
     
-
+var templateMgr = null;
 
 $(document).bind("mobileinit", function(){
 	// Initialization Code here.
@@ -65,6 +65,15 @@ $(document).bind("mobileinit", function(){
 	$("#template_mainTemplatePg").live("pageinit", FmMobile.template_mainTemplatePg.init);
 	$("#template_mainTemplatePg").live("pageshow", FmMobile.template_mainTemplatePg.show);
 	$.mobile.page.prototype.options.addBackBtn = true;
+	
+	TemplateMgr.getInstance(function(err, _templateMgr){
+		if (!err) {
+			templateMgr = _templateMgr;
+		}
+		else {
+			console.log("Fail to get templateMgr: "+err);
+		}
+	});
 	
 	
 	setTimeout(function(){
