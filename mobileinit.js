@@ -41,11 +41,12 @@ $(document).bind("mobileinit", function(){
 	$("#orie_1").live("pageshow", FmMobile.orientationPg.show);
 	$('div[id^="orie"]').live("swipeleft ", FmMobile.orientationPg.swipeleft);
 	$('div[id^="orie"]').live("swiperight", FmMobile.orientationPg.swiperight);
-	$("#myUgcPg").live("pagebeforecreate", FmMobile.myUgcPg.loadMyVideo);
+//	$("#myUgcPg").live("pagebeforecreate", FmMobile.myUgcPg.loadMyVideo);
 	$("#myUgcPg").live("pageinit", FmMobile.myUgcPg.init);
-	$("#myUgcPg").live("pagebeforeshow", FmMobile.myUgcPg.beforeshow);
+	$("#myUgcPg").live("pagebshow", FmMobile.myUgcPg.show);
 	$("#screenPg").live("pageinit", FmMobile.screenPg.init);
 	$("#screenPg").live("pageshow", FmMobile.screenPg.show);
+    $("#screenPg").live("pageloadvideo", FmMobile.screenPg.loadVideo);
 	$("#setting_MainPg").live("pageinit", FmMobile.setting_MainPg.init);
 	$("#setting_MainPg").live("pageshow", FmMobile.setting_MainPg.show);
 	$("#tocPg").live("pageshow", FmMobile.tocPg.show);
