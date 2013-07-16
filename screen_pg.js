@@ -2,12 +2,56 @@ FmMobile.screenPg = {
     /*
      1. Get the video from our server when the user enter this page.
      2. Set the info to UI
+     3. Play Youtube
      */
     PAGE_ID: "screenPg",
     
     
     show: function(){
         FM_LOG("[screenPg] pageshow");
+        FmMobile.analysis.trackPage("/screenPg");
+        
+        //From fm_widget
+        //if user click the img and then play the youtube
+        $('#my-video-list>div>img').click(function(){
+            console.log('[click on video list: ]'+this);
+
+            var callPlayer = function (frame_id, func, args) {
+                if (window.jQuery && frame_id instanceof jQuery){
+                    frame_id = frame_id.get(0).id;
+                }
+            var iframe = document.getElementById(frame_id);
+            if (iframe && iframe.tagName.toUpperCase() != 'IFRAME') {
+                iframe = iframe.getElementsByTagName('iframe')[0];
+            }
+            if (iframe) {
+            // Frame exists,
+                iframe.contentWindow.postMessage(JSON.stringify({
+                                                          "event": "command",
+                                                          "func": func,
+                                                          "args": args || [],
+                                                          "id": frame_id
+                                                          }), "*");
+            }
+            };
+            var divID = this.parentElement.id;
+            var tempUrlArray = this.src.split('/');
+            var ytVideoID = tempUrlArray[tempUrlArray.length-2];
+            var videoFrame = $("<iframe>").attr({
+                                              id: ytVideoID,
+                                              src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
+                                              class: "content-movie-img",
+                                              frameborder: "0"
+                                              }).load(function(){
+                                                      //TODO: find a better way to have callPlayer() called after videoFrame is prepended
+                                                      setTimeout(function(){
+                                                                 callPlayer(ytVideoID,'playVideo');
+                                                                 }, 1500);
+                                                      });
+
+            $('#'+divID).prepend(videoFrame);
+            $('#'+this.id).remove();
+            });
     },
     
     loadVideo: function(event, data){
@@ -41,7 +85,6 @@ FmMobile.screenPg = {
 
                               }
                               videoHighlights.push(data);
-//                              console.log(videoHighlights);
                       });
 //                       showArray(videoHighlights);
                        videoWgt(videoHighlights);
@@ -63,7 +106,6 @@ FmMobile.screenPg = {
         
         var videoWgt = function(arryVideo){
             var parent = $("#my-video-list");
-//            var widget;
 
             
             for(var i = 0; i< arryVideo.length; i++){
@@ -96,9 +138,6 @@ FmMobile.screenPg = {
                 }else{
                     console.log("[screenPg.init] videoWgt : no Youtube URL");
                 }
-
-                
-
                 
             }
 
