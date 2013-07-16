@@ -43,14 +43,20 @@
 <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-<div data-role="page" id="movieCreatePg">
+<div data-role="page" id="template_subTemplatePg">
   <div class="header">
     <p class="header-text">主題模板</p>
   </div>
-  <div class="container" data-role="content"> 
+    <img class="close" src="images/close.png" id="close">
+
+    <div class="template_introduce" id="show_intro">您所合成的影片現在不只可以透過facebook分享給朋友，還可以登上戶外螢幕！在”登上大螢幕”即可輕鬆預約播出時間，播放訊息還會自動更新至您的facebook讓您的好友們知道，方便大家一同共襄盛舉！本項服務需認證您的手機號碼，快按下”取得驗證碼”開始預訂大螢幕，嚐嚐成為大明星的滋味吧！
+        本服務遵守中華民國政府頒布的「個人資料保護法」管理，由夢蝶股份有限公司提供，您的資料僅用來作為本公司提供服務之用，本公司不會對第三方洩漏您的資料，您可不提供您的資料，但將影響本服務的運作，致使部分服務不完整。本辦法若有未盡完善之處，本公司保留修改服務條款的權力。
+    </div>
+    
+  <div class="container" data-role="content" id="show_sub">
     <!--template label-->
     <div class="template_label">
-      <div class="template_label_text">文創設計</div>
+      <div class="template_label_text" id="template_name">文創設計</div>
       <img class="label-img" src="images/label.png"></div>
     <!--ends template label--> 
     <!--style-->
@@ -61,9 +67,9 @@
           <img class="movie-pic-img" src="images/choose_movie.png"></img> </div>
       </div>
       <div class="my-video-icon">
-        <div class="style_button_text">版型一</div>
+        <div class="style_button_text" id="sub_1">版型一</div>
         <img id="submitBtn" class="my-video-icon-img" src="images/button.png"></div>
-      <div class="style_text">文:限39個中文字</div>
+      <div class="style_text" id="sub_1_descript">文:限39個中文字</div>
     </div>
     <div class="style">
       <div class="choose-movie-style">
@@ -72,9 +78,9 @@
           <img class="movie-pic-img" src="images/choose_movie.png"></img> </div>
       </div>
       <div class="my-video-icon">
-        <div class="style_button_text">版型二</div>
+        <div class="style_button_text" id="sub_2">版型二</div>
         <img id="submitBtn" class="my-video-icon-img" src="images/button.png"></div>
-      <div class="style_text">圖:上傳一張照片</div>
+      <div class="style_text" id="sub_2_descript">圖:上傳一張照片</div>
     </div>
     <div class="style">
       <div class="choose-movie-style">
@@ -83,9 +89,9 @@
           <img class="movie-pic-img" src="images/choose_movie.png"></img> </div>
       </div>
       <div class="my-video-icon">
-        <div class="style_button_text">版型三</div>
+        <div class="style_button_text" id="sub_3">版型三</div>
         <img id="submitBtn" class="my-video-icon-img" src="images/button.png"></div>
-      <div class="style_text">文:限24個中文字<br>
+      <div class="style_text" id="sub_3_descript">文:限24個中文字<br>
         圖:上傳一張照片</div>
     </div>
   </div>

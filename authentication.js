@@ -48,7 +48,7 @@ FmMobile.authentication = {
             };
         
         $.get(url, data, function(res){
-              
+              alert("test");
               if(res.message){
                   navigator.notification.alert(res.message);
                   $.mobile.changePage("code_input.html");

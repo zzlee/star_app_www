@@ -21,7 +21,7 @@ stageAllowableHeight: 0,
     //  Page methods.
 load: function(event, data){
     
-    FmMobile.bindClickEventToNavBar();
+    $("#nav-bar").show();
     
     var onSubmitBtnClick= function() {
         var uploadFail_cb = function(error) {
@@ -150,7 +150,7 @@ load: function(event, data){
     
     $('#submitBtn').click(onSubmitBtnClick);
     $('#cancelBtn').click(function(){
-                          $.mobile.changePage("movie_create.html");
+                          $.mobile.changePage("template-input_pic.html");
                           });
    
     
@@ -186,6 +186,8 @@ show: function(event, data){
         width:canvas.width / option.scope.w,  //fraction relative to its width
         height:canvas.height / option.scope.h  //fraction relative to its height
         };
+        alert(croppedArea.x);
+
     };
     
     image.src = fileProcessedForCropperURI;
@@ -287,6 +289,7 @@ show: function(event, data){
                                width:canvas.width / option.scope.w,  //fraction relative to its width
                                height:canvas.height / option.scope.h  //fraction relative to its height
                            };
+                           alert(croppedArea.x);
                            });
     
     showImage = function(){

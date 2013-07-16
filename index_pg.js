@@ -32,7 +32,7 @@ FmMobile.indexPg = {
             
         }
          */
-        $.mobile.changePage("template-main_template.html");
+        $.mobile.changePage("template-sub-checkin.html");
         
     },
         

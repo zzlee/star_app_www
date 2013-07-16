@@ -67,7 +67,7 @@ FmMobile.movieCreatePg = {
                                      var orientation = EXIF.getTag(tempImg, "Orientation");
                                      subsamplingResize(imageURI, { maxWidth: 960, maxHeight: 960, orientation: orientation }, function(resultURI){
                                                        fileProcessedForCropperURI = resultURI;
-                                                       $.mobile.changePage("photo_cropper.html");
+                                                       $.mobile.changePage("template-photo_cropper.html");
                                                        });
                                      });
                         
@@ -77,7 +77,7 @@ FmMobile.movieCreatePg = {
                 }
                 else {
                     fileProcessedForCropperURI = imageURI;
-                    $.mobile.changePage("photo_cropper.html");
+                    $.mobile.changePage("template-photo_cropper.html");
                     
                 }
                 

@@ -1,6 +1,7 @@
 {
-    "selected":"mood",
-    "name":"心情",
+    
+    "selected":"cultural_and_creative",
+    "name":"文創設計",
     "representingImageUrl":"images/choose_movie.png",
     "introdcutionContentUrl":"mood_introdction.html",
     "outputSize":{

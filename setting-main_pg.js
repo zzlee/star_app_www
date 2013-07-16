@@ -2,7 +2,8 @@ FmMobile.setting_MainPg = {
  
     init: function(){
     	$('#nav-bar').show();
-        
+        //console.dir(templateMgr.getTemplateList());
+ 
         $("#contentAboutMiixIt").hide();
         $("#settingList a").click(function(){
             if (this.id == "itemAboutMiixIt"){
