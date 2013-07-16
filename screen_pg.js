@@ -87,7 +87,7 @@ FmMobile.screenPg = {
                               videoHighlights.push(data);
                       });
 //                       showArray(videoHighlights);
-                       videoWgt(videoHighlights);
+                       videoList(videoHighlights);
                    }else{
                        console.log("[error] : " + response.error);
                    }
@@ -104,7 +104,7 @@ FmMobile.screenPg = {
         }
         
         
-        var videoWgt = function(arryVideo){
+        var videoList = function(arryVideo){
             var parent = $("#my-video-list");
             parent.html("");
 
@@ -137,7 +137,7 @@ FmMobile.screenPg = {
                     PosterDiv.appendTo(parent);
                     
                 }else{
-                    console.log("[screenPg.init] videoWgt : no Youtube URL");
+                    console.log("[screenPg.init] videoList : no Youtube URL");
                 }
                 
             }

@@ -43,7 +43,8 @@ $(document).bind("mobileinit", function(){
 	$('div[id^="orie"]').live("swiperight", FmMobile.orientationPg.swiperight);
 //	$("#myUgcPg").live("pagebeforecreate", FmMobile.myUgcPg.loadMyVideo);
 	$("#myUgcPg").live("pageinit", FmMobile.myUgcPg.init);
-	$("#myUgcPg").live("pagebshow", FmMobile.myUgcPg.show);
+	$("#myUgcPg").live("pageshow", FmMobile.myUgcPg.show);
+    $("#myUgcPg").live("pageloadlivevideo", FmMobile.myUgcPg.loadMyVideo);
 	$("#screenPg").live("pageinit", FmMobile.screenPg.init);
 	$("#screenPg").live("pageshow", FmMobile.screenPg.show);
     $("#screenPg").live("pageloadvideo", FmMobile.screenPg.loadVideo);
