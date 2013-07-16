@@ -106,6 +106,7 @@ FmMobile.screenPg = {
         
         var videoWgt = function(arryVideo){
             var parent = $("#my-video-list");
+            parent.html("");
 
             
             for(var i = 0; i< arryVideo.length; i++){
