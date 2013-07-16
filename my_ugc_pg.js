@@ -86,14 +86,14 @@ FmMobile.myUgcPg = {
     
     show: function(){
         FM_LOG("[myUgcPg] pageshow");
-        $("#btnMiixMovie").click(function(){
+        $("#btnMiixMovie>div").click(function(){
 //            $("#btnMiixMovie>img").attr("src","images/a-my_video.png");
 //            $("#btnLiveMovie>img").attr("src","images/e-dooh.png");
              FmMobile.myUgcPg.init();
          
          
          });
-        $("#btnLiveMovie").click(function(){
+        $("#btnLiveMovie>div").click(function(){
  //            $("#btnMiixMovie>img").attr("src","images/e-my_video.png");
  //            $("#btnLiveMovie>img").attr("src","images/a-dooh.png");
 
@@ -187,6 +187,7 @@ FmMobile.myUgcPg = {
                                                  class: "share",
                                                  src: "images/facebook.png"
                                                  });
+                dummyDiv.appendTo(widget);
                 if(arryVideo[i].Youtube){
                     var ytVideoID = (arryVideo[i].Youtube).split('/').pop();
                     console.log(i + " ytVideoID :" + ytVideoID);
