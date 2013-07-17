@@ -55,9 +55,9 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 </head>
 <body>
 
-<div data-role="page" id="settingPg">
+<div data-role="page" id="settingFaqPg">
 	<div class="header">
-    <img class="back-img" src="images/back.png"></img>
+    <img class="back-img" src="images/back.png" id="back_setting"></img>
         <p class="header-text">FAQ</p>
     </div>
 	<div class="container" data-role="content">
@@ -71,6 +71,11 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
        </div>
         </div>
     </div>
+   </div>
+<script type="text/javascript">
+var sprytextarea1 = new Spry.Widget.ValidationTextarea("sprytextarea1");
+var spryselect1 = new Spry.Widget.ValidationSelect("spryselect1");
+</script>
     <div id="nav-bar" class="nav-bar-background4">
         <div id="btnCreateMovie" class="ui-menu-inactive"><img class="menu-img" src="images/m1.png">
         <div class="menu-text">主題模板</div></div>
@@ -81,10 +86,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <div id="btnSetting" class="ui-menu-active"><img class="menu-img" src="images/m4-active.png">
         <div class="menu-text">設定</div></div>
     </div>
-</div>
-<script type="text/javascript">
-var sprytextarea1 = new Spry.Widget.ValidationTextarea("sprytextarea1");
-var spryselect1 = new Spry.Widget.ValidationSelect("spryselect1");
-</script>
+
+    
 </body>
 </html>

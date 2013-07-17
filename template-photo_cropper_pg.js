@@ -21,7 +21,7 @@ stageAllowableHeight: 0,
     //  Page methods.
 load: function(event, data){
     
-    FmMobile.bindClickEventToNavBar();
+    $("#nav-bar").show();
     
     var onSubmitBtnClick= function() {
         var uploadFail_cb = function(error) {
@@ -150,7 +150,15 @@ load: function(event, data){
     
     $('#submitBtn').click(onSubmitBtnClick);
     $('#cancelBtn').click(function(){
-                          $.mobile.changePage("movie_create.html");
+                          
+                          if( FmMobile.selectedSubTemplate=="picture_only"){
+                          $.mobile.changePage("template-input_pic.html");
+                          }else if(FmMobile.selectedSubTemplate=="picture_plus_text"){
+                          $.mobile.changePage("template-input_text_pic.html");
+                          }else if(FmMobile.selectedSubTemplate=="check_in"){
+                          $.mobile.changePage("template-input_text_pic.html");
+
+                          }
                           });
    
     
@@ -186,9 +194,11 @@ show: function(event, data){
         width:canvas.width / option.scope.w,  //fraction relative to its width
         height:canvas.height / option.scope.h  //fraction relative to its height
         };
+        alert(croppedArea.x);
+
     };
     
-    image.src = fileProcessedForCropperURI;
+    image.src = "images/test.jpg";  //for test
     
     
     
@@ -287,6 +297,7 @@ show: function(event, data){
                                width:canvas.width / option.scope.w,  //fraction relative to its width
                                height:canvas.height / option.scope.h  //fraction relative to its height
                            };
+                           alert(croppedArea.x);
                            });
     
     showImage = function(){

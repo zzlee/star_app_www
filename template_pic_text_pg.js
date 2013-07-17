@@ -1,18 +1,19 @@
-FmMobile.movieCreatePg = {
+FmMobile.template_pic_text_pg = {
 	//  Page constants.
-    PAGE_ID: "movieCreatePg",
+    PAGE_ID: "template_pic_text_pg",
     
     //  Page methods.
     show: function(){
-        FmMobile.analysis.trackPage("/movieCreatePg");
-        recordUserAction("enters movieCreatePg");
+        FmMobile.analysis.trackPage("/template_pic_text_pg");
+        recordUserAction("enters template_pic_text_pg");
     },
     
     load: function(event, data){
         
         
-        FmMobile.bindClickEventToNavBar();
-        
+       // FmMobile.bindClickEventToNavBar();
+        $('#nav-bar').show();
+
         if ( localStorage._id ) {
             userName = localStorage._id;
         }
