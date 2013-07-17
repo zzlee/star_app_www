@@ -64,6 +64,7 @@ $(document).bind("mobileinit", function(){
 	$("#photoCropperPg").live("pageshow", FmMobile.photoCropperPg.show);
 	$("#template_mainTemplatePg").live("pageinit", FmMobile.template_mainTemplatePg.init);
 	$("#template_mainTemplatePg").live("pageshow", FmMobile.template_mainTemplatePg.show);
+<<<<<<< HEAD
     $("#template_subTemplatePg").live("pageinit", FmMobile.template_subTemplatePg.init);
     $("#template_subTemplatePg").live("pageshow", FmMobile.template_subTemplatePg.show);
     $("#template_previewPg").live("pageinit", FmMobile.template_previewPg.init);
@@ -98,6 +99,16 @@ $(document).bind("mobileinit", function(){
                  
                  
 	$.mobile.page.prototype.options.addBackBtn = true;
+=======
+    $("#settingTocPg").live("pageinit", FmMobile.settingTocPg.init);
+    $("#settingTocPg").live("pageshow", FmMobile.settingTocPg.show);
+    $("#settingTermPg").live("pageinit", FmMobile.settingTermPg.init);
+    $("#settingTermPg").live("pageshow", FmMobile.settingTermPg.show);
+    $("#settingFaqPg").live("pageinit", FmMobile.settingFaqPg.init);
+    $("#settingFaqPg").live("pageshow", FmMobile.settingFaqPg.show);
+                 
+    $.mobile.page.prototype.options.addBackBtn = true;
+>>>>>>> origin/joy_verification_flow
 	
 	TemplateMgr.getInstance(function(err, _templateMgr){
                             alert("templatmgr");
@@ -651,7 +662,7 @@ FmMobile.authPopup = {
         $.jStorage.set("streetVideos", []);
         $.jStorage.set("fb_profile", null);
         fb.Logout();
-        $.mobile.changePage("index.html");
+        $.mobile.changePage("fb_login.html");
         
     },
     

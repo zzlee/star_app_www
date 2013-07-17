@@ -6,11 +6,15 @@ FmMobile.orientationPg = {
     swipeleft: function(){
         if( ++FmMobile.orientationPg.idx > FmMobile.orientationPg.max){
             //FmMobile.orientationPg.idx = FmMobile.orientationPg.max;
-            if (!localStorage._id) {
-                $.mobile.changePage("fb_login.html", {transition: "slide"});
+            
+            /* test for setting flow, so change "if(!localStorage._id)" to
+            "if(localStorage._id)", 
+            */
+             if (localStorage._id) {
+                $.mobile.changePage("login_toc.html", {transition: "slide"});
             }
             else {
-                $.mobile.changePage("setting.html");
+                $.mobile.changePage("setting-main.html");
             }
         }else{
             $.mobile.changePage( ("orientation_" + FmMobile.orientationPg.idx+".html"), {transition: "slide"});
@@ -29,6 +33,8 @@ FmMobile.orientationPg = {
         
     init: function(){
         FmMobile.orientationPg.idx = 1;
+        $('#nav-bar').hide();
+
         
     },
         
