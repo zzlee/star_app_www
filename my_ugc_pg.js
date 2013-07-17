@@ -1,5 +1,6 @@
 FmMobile.myUgcPg = {
     PAGE_ID: "myUgcPg",
+    myVideos: null,
     
     init: function(){
         FM_LOG("[myUgcPg] pageinit");
@@ -7,11 +8,11 @@ FmMobile.myUgcPg = {
         
 
         var url = starServerURL + "/miix/ugc_hightlights";
-        var myVideos = new Array();
-        
+        FmMobile.myUgcPg.myVideos = new Array();
         //screen_pg.js
         $.ajax({
                url: url,
+               data: (new Date()).getTime(),
                dataType: 'json',
                success: function(response){
                    if(response){
@@ -24,76 +25,17 @@ FmMobile.myUgcPg = {
                               No: item.no,
                       
                           }
-                          myVideos.push(data);
+                          FmMobile.myUgcPg.myVideos.push(data);
                         });
-                        videoList(myVideos);
+                        console.log(FmMobile.myUgcPg.myVideos);
+                           FmMobile.myUgcPg.loadLiveVideo(FmMobile.myUgcPg.myVideos, "video");
+      
                     }else{
                        console.log("[error] : " + response.error);
                    }
                }
         });
-        
-        
-        var videoList = function(arryVideo){
-            var parent = $("#my-video-list");
-            //remove all tags in my-video-list
-            parent.html("");
-            /** html 
-               <div id = projectId class="content-movie">
-             
-               </div>
-             
-             
-             */
-            for(var i = 0; i< arryVideo.length; i++){
-                //For video item
-                var widget = $("<div>").attr({id: arryVideo[i].ProjectId, class: "content-movie"});
-                var dummyDiv = $("<div>").attr({class: "movie-pic-dummy"});
-                //For video info
-                var info = $("<div>").attr({id: "my-video-info"});
-                var numberDiv = $("<div>").attr({class: "my-video-number"});
-                
-                dummyDiv.appendTo(widget);
-                
-                if(arryVideo[i].Youtube){
-                    var ytVideoID = (arryVideo[i].Youtube).split('/').pop();
-                    console.log(i + " ytVideoID :" + ytVideoID + ", No. " + arryVideo[i].No);
-                    this.videoThumbnail = $("<img>").attr({
-                                                          id: 'img_'+ytVideoID,
-                                                          src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
-                                                          class: "content-movie-img"
-                                                          });
-                    this.videoThumbnail.appendTo(widget);
-                    
-                    this.shareYoutubeDiv = $("<img>").attr({
-                                                          id: "copyUrl_" + ytVideoID,
-                                                          class: "share",
-                                                          src: "images/youtube.png"
-                                                          });
-                    this.shareYoutubeDiv.appendTo(info);
-                    
-                    this.shareFbDiv = $("<img>").attr({
-                                                     id: "shareFb_" + ytVideoID,
-                                                     class: "share",
-                                                     src: "images/facebook.png"
-                                                     });
-                    shareFbDiv.appendTo(info);
-                    
-                    numberDiv.html("NO." + arryVideo[i].No);
-                    numberDiv.appendTo(info);
-                    info.appendTo(widget);
-                    
-                    widget.appendTo(parent);
-                    
-                }else{
-                    console.log("[myUgcPg.init] videoList : no Youtube URL");
-                }
-                
-            }
-            
-            
-            
-        }
+
 
         
     },
@@ -101,19 +43,14 @@ FmMobile.myUgcPg = {
     show: function(){
         FM_LOG("[myUgcPg] pageshow");
         $("#btnMiixMovie").click(function(){
-//            $("#btnMiixMovie>img").attr("src","images/a-my_video.png");
-//            $("#btnLiveMovie>img").attr("src","images/e-dooh.png");
-             FmMobile.myUgcPg.init();
-         
+             FmMobile.myUgcPg.loadLiveVideo(FmMobile.myUgcPg.myVideos, "video");
          
          });
         $("#btnLiveMovie").click(function(){
- //            $("#btnMiixMovie>img").attr("src","images/e-my_video.png");
- //            $("#btnLiveMovie>img").attr("src","images/a-dooh.png");
-
-             FmMobile.myUgcPg.loadLiveVideo();
+             FmMobile.myUgcPg.loadLiveVideo(FmMobile.myUgcPg.myVideos, "live");
          
          });
+
         
         /**  Video play  */
         $('#my-video-list>div>img').click(function(){
@@ -161,7 +98,8 @@ FmMobile.myUgcPg = {
             var tmpIDArray = this.id.split('_');
             switch(tmpIDArray[0]){
                 case "copyUrl":
-                    alert("youtube url: " + 'https://www.youtube.com/watch?feature=player_embedded&v=' + tmpIDArray[1]);
+                  window.clipboardPluginCopy("https://www.youtube.com/watch?feature=player_embedded&v=" + tmpIDArray[1], function() { alert("已複製到剪貼簿")} , function(e){alert(e);});
+
                     break;
                 case "shareFb":
                     alert("share to FB");
@@ -175,79 +113,62 @@ FmMobile.myUgcPg = {
 
     },
     
-    loadLiveVideo: function(){
+    loadLiveVideo: function(arryVideo, type){
         FM_LOG("[myUgcPg] loadLiveVideo");
-        var url = starServerURL + "/miix/ugc_hightlights";
-        var myLiveVideos = new Array();
-        
-        //screen_pg.js
-        $.ajax({
-               url: url,
-               dataType: 'json',
-               success: function(response){
-                   if(response){
-                       $.each(response, function(i, item){
-                          var data ={
-                              Title : item.title,
-                              ProjectId: item.projectId,
-                              Genre: item.genre,
-                              Youtube : item.url.youtube,
-                          }
-                          myLiveVideos.push(data);
-                      });
-                   videoList(myLiveVideos);
-                   }else{
-                       console.log("[error] : " + response.error);
-                   }
-               }
-           });
-        
-        
-        var videoList = function(arryVideo){
-            var parent = $("#my-video-list");
-            //remove all tags in my-video-list
-            parent.html("");
+        console.log('[type]' + type);
+        var parent = $("#my-video-list");
+        //remove all tags in my-video-list
+        parent.html("");
+        for(var i = 0; i< arryVideo.length; i++){
+            var widget = $("<div>").attr({id: arryVideo[i].ProjectId, class: "content-movie"});
+            var dummyDiv = $("<div>").attr({class: "movie-pic-dummy"});
+            //For video info
+            var info = $("<div>").attr({id: "my-video-info"});
             
+            dummyDiv.appendTo(widget);
             
-            for(var i = 0; i< arryVideo.length; i++){
-                var widget = $("<div>").attr({id: arryVideo[i].ProjectId, class: "content-movie"});
-                var dummyDiv = $("<div>").attr({class: "movie-pic-dummy"});
-                var shareYoutubeDiv = $("<img>").attr({
-                                                      class: "share",
-                                                      src: "images/youtube.png"
+            if(arryVideo[i].Youtube){
+                var ytVideoID = (arryVideo[i].Youtube).split('/').pop();
+                console.log(i + " ytVideoID :" + ytVideoID + ", No. " + arryVideo[i].No);
+                this.videoThumbnail = $("<img>").attr({
+                                                      id: 'img_'+ytVideoID,
+                                                      src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
+                                                      class: "content-movie-img"
                                                       });
-                var shareFbDiv = $("<img>").attr({
-                                                 class: "share",
-                                                 src: "images/facebook.png"
-                                                 });
-                dummyDiv.appendTo(widget);
-                if(arryVideo[i].Youtube){
-                    var ytVideoID = (arryVideo[i].Youtube).split('/').pop();
-                    console.log(i + " ytVideoID :" + ytVideoID);
-                    this.videoThumbnail = $("<img>").attr({
-                                                          id: 'img_'+ytVideoID,
-                                                          src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
-                                                          class: "content-movie-img"
-                                                          });
-                    this.videoThumbnail.appendTo(widget);
-                    
-                    
-                    widget.appendTo(parent);
-                    
-                    shareYoutubeDiv.appendTo(parent);
-                    shareFbDiv.appendTo(parent);
-                    
-                }else{
-                    console.log("[myUgcPg.loadLiveVideo] videoList : no Youtube URL");
+                this.videoThumbnail.appendTo(widget);
+                
+                this.shareYoutubeDiv = $("<img>").attr({
+                                                       id: "copyUrl_" + ytVideoID,
+                                                       class: "share",
+                                                       src: "images/youtube.png"
+                                                       });
+                this.shareYoutubeDiv.appendTo(info);
+                
+                this.shareFbDiv = $("<img>").attr({
+                                                  id: "shareFb_" + ytVideoID,
+                                                  class: "share",
+                                                  src: "images/facebook.png"
+                                                  });
+                this.shareFbDiv.appendTo(info);
+                if(type == "video"){
+                    this.numberDiv = $("<div>").attr({class: "my-video-number"});
+                    this.numberDiv.html("NO." + arryVideo[i].No);
+                    this.numberDiv.appendTo(info);
+                    info.appendTo(widget);
+                }else if(type == "live"){
+                    info.appendTo(widget);
                 }
                 
+                widget.appendTo(parent);
+                
+            }else{
+                console.log("[myUgcPg.loadLiveVideo] videoList : no Youtube URL");
             }
             
-            
-            
         }
-
     },
+    
+    
     
     
 };

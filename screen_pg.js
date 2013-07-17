@@ -72,6 +72,7 @@ FmMobile.screenPg = {
         //it's async
         $.ajax({
                url: url,
+               data: (new Date()).getTime(),
                dataType: 'json',
                success: function(response){
                    if(response){
