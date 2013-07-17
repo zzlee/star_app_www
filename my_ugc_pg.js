@@ -100,14 +100,14 @@ FmMobile.myUgcPg = {
     
     show: function(){
         FM_LOG("[myUgcPg] pageshow");
-        $("#btnMiixMovie>div").click(function(){
+        $("#btnMiixMovie").click(function(){
 //            $("#btnMiixMovie>img").attr("src","images/a-my_video.png");
 //            $("#btnLiveMovie>img").attr("src","images/e-dooh.png");
              FmMobile.myUgcPg.init();
          
          
          });
-        $("#btnLiveMovie>div").click(function(){
+        $("#btnLiveMovie").click(function(){
  //            $("#btnMiixMovie>img").attr("src","images/e-my_video.png");
  //            $("#btnLiveMovie>img").attr("src","images/a-dooh.png");
 
