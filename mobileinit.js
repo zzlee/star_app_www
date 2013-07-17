@@ -64,7 +64,6 @@ $(document).bind("mobileinit", function(){
 	$("#photoCropperPg").live("pageshow", FmMobile.photoCropperPg.show);
 	$("#template_mainTemplatePg").live("pageinit", FmMobile.template_mainTemplatePg.init);
 	$("#template_mainTemplatePg").live("pageshow", FmMobile.template_mainTemplatePg.show);
-<<<<<<< HEAD
     $("#template_subTemplatePg").live("pageinit", FmMobile.template_subTemplatePg.init);
     $("#template_subTemplatePg").live("pageshow", FmMobile.template_subTemplatePg.show);
     $("#template_previewPg").live("pageinit", FmMobile.template_previewPg.init);
@@ -79,18 +78,6 @@ $(document).bind("mobileinit", function(){
     $("#template_miixitPg").live("pageshow", FmMobile.template_miixitPg.show);
     $("#template_pic_text_pg").live("pageinit", FmMobile.template_pic_text_pg.load);
     $("#template_pic_text_pg").live("pageshow", FmMobile.template_pic_text_pg.show);
-
-                 
-                 
-                 
-                 
-                 
-                 
-
-                 
-                 
-                 
-                 //test
 	$("#imageTestPg").live("pageinit", FmMobile.imageTestPg.init);
 	$("#imageTestPg").live("pageshow", FmMobile.imageTestPg.show);
                  
@@ -99,7 +86,7 @@ $(document).bind("mobileinit", function(){
                  
                  
 	$.mobile.page.prototype.options.addBackBtn = true;
-=======
+
     $("#settingTocPg").live("pageinit", FmMobile.settingTocPg.init);
     $("#settingTocPg").live("pageshow", FmMobile.settingTocPg.show);
     $("#settingTermPg").live("pageinit", FmMobile.settingTermPg.init);
@@ -108,8 +95,7 @@ $(document).bind("mobileinit", function(){
     $("#settingFaqPg").live("pageshow", FmMobile.settingFaqPg.show);
                  
     $.mobile.page.prototype.options.addBackBtn = true;
->>>>>>> origin/joy_verification_flow
-	
+
 	TemplateMgr.getInstance(function(err, _templateMgr){
                             alert("templatmgr");
 		if (!err) {

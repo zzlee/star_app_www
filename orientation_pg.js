@@ -10,7 +10,7 @@ FmMobile.orientationPg = {
             /* test for setting flow, so change "if(!localStorage._id)" to
             "if(localStorage._id)", 
             */
-             if (localStorage._id) {
+             if (!localStorage._id) {
                 $.mobile.changePage("login_toc.html", {transition: "slide"});
             }
             else {

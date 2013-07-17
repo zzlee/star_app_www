@@ -32,7 +32,7 @@ FmMobile.indexPg = {
             
         }
          */
-        $.mobile.changePage("setting-main.html");
+        $.mobile.changePage("fb_login.html");
         
     },
         
