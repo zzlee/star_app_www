@@ -38,21 +38,23 @@ FmMobile.myUgcPg = {
             var parent = $("#my-video-list");
             //remove all tags in my-video-list
             parent.html("");
-            
-            
+            /** html 
+               <div id = projectId class="content-movie">
+             
+               </div>
+             
+             
+             */
             for(var i = 0; i< arryVideo.length; i++){
+                //For video item
                 var widget = $("<div>").attr({id: arryVideo[i].ProjectId, class: "content-movie"});
                 var dummyDiv = $("<div>").attr({class: "movie-pic-dummy"});
-                var shareYoutubeDiv = $("<img>").attr({
-                                                   class: "share",
-                                                   src: "images/youtube.png"
-                                                   });
-                var shareFbDiv = $("<img>").attr({
-                                              class: "share",
-                                              src: "images/facebook.png"
-                                              });
+                //For video info
+                var info = $("<div>").attr({id: "my-video-info"});
                 var numberDiv = $("<div>").attr({class: "my-video-number"});
+                
                 dummyDiv.appendTo(widget);
+                
                 if(arryVideo[i].Youtube){
                     var ytVideoID = (arryVideo[i].Youtube).split('/').pop();
                     console.log(i + " ytVideoID :" + ytVideoID + ", No. " + arryVideo[i].No);
@@ -63,13 +65,25 @@ FmMobile.myUgcPg = {
                                                           });
                     this.videoThumbnail.appendTo(widget);
                     
+                    this.shareYoutubeDiv = $("<img>").attr({
+                                                          id: "copyUrl_" + ytVideoID,
+                                                          class: "share",
+                                                          src: "images/youtube.png"
+                                                          });
+                    this.shareYoutubeDiv.appendTo(info);
+                    
+                    this.shareFbDiv = $("<img>").attr({
+                                                     id: "shareFb_" + ytVideoID,
+                                                     class: "share",
+                                                     src: "images/facebook.png"
+                                                     });
+                    shareFbDiv.appendTo(info);
+                    
+                    numberDiv.html("NO." + arryVideo[i].No);
+                    numberDiv.appendTo(info);
+                    info.appendTo(widget);
                     
                     widget.appendTo(parent);
-
-                    shareYoutubeDiv.appendTo(parent);
-                    shareFbDiv.appendTo(parent);
-                    numberDiv.html("NO." + arryVideo[i].No);
-                    numberDiv.appendTo(parent);
                     
                 }else{
                     console.log("[myUgcPg.init] videoList : no Youtube URL");
@@ -101,6 +115,7 @@ FmMobile.myUgcPg = {
          
          });
         
+        /**  Video play  */
         $('#my-video-list>div>img').click(function(){
             console.log("click" + this);
             var callPlayer = function (frame_id, func, args) {
@@ -138,6 +153,24 @@ FmMobile.myUgcPg = {
 
             $('#'+divID).prepend(videoFrame);
             $('#'+this.id).remove();
+        });
+        
+        /** Copy youtube url and share to FB */
+        $('#my-video-info>img').click(function(){
+            var imgID = this.id;        //
+            var tmpIDArray = this.id.split('_');
+            switch(tmpIDArray[0]){
+                case "copyUrl":
+                    alert("youtube url: " + 'https://www.youtube.com/watch?feature=player_embedded&v=' + tmpIDArray[1]);
+                    break;
+                case "shareFb":
+                    alert("share to FB");
+                    break;
+                default:
+                    alert("You don't touch the button.");
+
+                }
+            
         });
 
     },
