@@ -165,12 +165,22 @@ load: function(event, data){
     
 },
     
+    
+    
 show: function(event, data){
     
     //JF - image initial
     canvas = document.getElementById('photoZoom');
     context = canvas.getContext('2d');
     image = new Image();
+    
+    
+    var change_css=($('.movie-pic-dummy').width())*0.95;
+    $('.content-movie-img').css({
+            'width':change_css,
+            });
+
+    
     
     //canvas.width = screen.availWidth;
     canvas.width = $('.movie-pic-dummy').width();
@@ -198,9 +208,9 @@ show: function(event, data){
 
     };
     
-    image.src = "images/test.jpg";  //for test
+    //image.src = "images/test.jpg";  //for test
     
-    
+        image.src = fileProcessedForCropperURI;
     
     //JF - image event
     $$('#photoZoom').pinching(function(e){

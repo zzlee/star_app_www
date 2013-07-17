@@ -44,6 +44,10 @@ FmMobile.template_pic_text_pg = {
         var buttonClick_cb = function(event, ui) {
             
             console.log('button clicked!');
+            if($("#ur_text").val().length==0 ||$("#ur_text").val()==" "){
+                alert("請輸入文字！");
+            }else{
+            
             fileObjectID = event.data.objectID;
             console.log('[buttonClick_cb()] fileObjectID = %s', fileObjectID);
             //alert('fileObjectID = '+fileObjectID );
@@ -78,6 +82,8 @@ FmMobile.template_pic_text_pg = {
                 }
                 else {
                     fileProcessedForCropperURI = imageURI;
+                    
+                    
                     $.mobile.changePage("template-photo_cropper.html");
                     
                 }
@@ -105,7 +111,7 @@ FmMobile.template_pic_text_pg = {
             
             
             
-            
+            }
         }
         
         var getCustomizableObject_cb = function(xmlDoc) {
@@ -124,6 +130,7 @@ FmMobile.template_pic_text_pg = {
                     height: customizableObjectsXml[i].getElementsByTagName("original_height")[0].childNodes[0].nodeValue };
                 
                 $('#movieKeyFrame').attr('src', './template/'+templateID+'/'+objKeyFrame);
+                
                 
                 $('#btnUseCamera').bind( "click", { objectID: objID, objectIndex: i, PhotoSource: "camera" }, buttonClick_cb);
                 $('#btnUseAlbum').bind( "click", { objectID: objID, objectIndex: i, PhotoSource: "album" }, buttonClick_cb);
@@ -144,6 +151,33 @@ FmMobile.template_pic_text_pg = {
                dataType: 'xml',
                success: getCustomizableObject_cb		
                });
+        
+        
+        
+        
+        var text_limit=24;
+        $("#ur_text").focusout(function(){
+                               
+                               if($("#ur_text").val().length>text_limit){
+                               //alert("超過6個中文字囉！");
+                               var num = $("#ur_text").val().substr(0, text_limit);
+                               $("#ur_text").val(num);
+                               }
+                               $("#now").text(text_limit - $("#ur_text").val().length);
+                               
+                               });
+        
+        $("#ur_text").keyup(function(){
+                            var curLength = $("#ur_text").val().length;
+                            if (curLength > text_limit) {
+                            var num = $("#ur_text").val().substr(0,text_limit);
+                            $("#ur_text").val(num);
+                            alert("超過"+text_limit+"字數限制，多出的字將被移除！");
+                            }
+                            });
+        
+        
+        
         
         /*
          var btnSubmit1Click_cb = function () {
