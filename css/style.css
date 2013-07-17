@@ -140,18 +140,7 @@ div[data-role=page] {
 	overflow: auto;
 	height:100%;
 }
-.orientation_container{
-	background-image: url(../images/empty_bg_836.png);
-	background-repeat: no-repeat;
-	width: 100%;
-	padding: 0px;
-	background-size: 100% 100%;
-	padding-top: 12.19%;
-    padding-bottom: 12.19%;
-	position: absolute;
-	overflow: auto;
-	height: 100%;
-}
+
 .facebook_login_container{
 	top:10%;
 	background-image: url(../images/login_bg.png);
@@ -461,13 +450,11 @@ div[data-role=page] {
 	color: #dcd586;
 	}
 .tab_button_text{
-
-	<!-- position: absolute;  -->
-    position: relative;
+	position: absolute;
 	margin-top: 15.5%;
 	width: 50%;
 	text-align: center;
-	font-size: 130%;
+	font-size: 150%;
 	font-family: "華康歐陽詢體W5";
 	color: #dcd586;
 	}
@@ -655,27 +642,38 @@ div[data-role=page] {
 
 }
 .text_img{
+	margin-top:28%;
 	width:100%;
 }
 .page_icon_img{
-	width:30%;
+	padding-top:5%;
+	width:10%;
 	left:0;
 	right:0;
 	margin:auto;
 	position:absolute;
+
 }
 .orientation_container{
-	background-image: url(../images/empty_bg_836.png);
+	background-image: url(../images/orientation_bg.png);
 	background-repeat: no-repeat;
 	width: 100%;
 	padding: 0px;
 	background-size: 100% 100%;
 	padding-top: 12.19%;
-    padding-bottom: 12.19%;settingPg
+    padding-bottom: 12.19%;
 	position: absolute;
 	overflow: auto;
 	height: 100%;
 }
+.orientation_text{
+	margin-top:5%;
+	width:100%;
+	text-align:center;
+	font-size:150%;
+	font-family: "華康歐陽詢體W5";
+	color:#dcd586;
+	}
 /* Setting------------------------------------------------------------*/
 .setting-content{
 	padding:5% 5%;
