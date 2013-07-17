@@ -7,6 +7,7 @@
         "height":480
     },
     "subTemplate":{
+        "selected":"check_in",
         "text":{
             "backgroundImageUrl":"miix_",
             "customizableObjects":[

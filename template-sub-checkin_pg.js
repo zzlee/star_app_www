@@ -7,7 +7,7 @@ FmMobile.template_checkinPg = {
     },
         
     init: function(){
-		$('#nav-bar').show();
+		$('#nav-bar').hide();
         $('#show_sub').hide();
         $("#show_intro").show();
         
@@ -16,6 +16,19 @@ FmMobile.template_checkinPg = {
                            $('#show_sub').show();
                           $('#close').hide();
                           });
+        
+        $('#back_main').click(function(){
+                  $.mobile.changePage("template-main_template.html");
+                              
+          });
+        
+        
+        $('#next_step').click(function(){
+          FmMobile.selectedSubTemplate=templateMgr.getTemplateList()[2].subTemplate.selected;
+
+                              $.mobile.changePage("template-input_text_pic.html");
+                              
+                              });
         /*
         
         var a=templateMgr.getTemplateList();

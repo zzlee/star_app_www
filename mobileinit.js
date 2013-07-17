@@ -74,6 +74,16 @@ $(document).bind("mobileinit", function(){
     $("#movieCreatePg").live("pageshow", FmMobile.movieCreatePg.show);
     $("#template_checkinPg").live("pageinit", FmMobile.template_checkinPg.init);
     $("#template_checkinPg").live("pageshow", FmMobile.template_checkinPg.show);
+    $("#template_miixitPg").live("pageinit", FmMobile.template_miixitPg.init);
+    $("#template_miixitPg").live("pageshow", FmMobile.template_miixitPg.show);
+    $("#template_pic_text_pg").live("pageinit", FmMobile.template_pic_text_pg.load);
+    $("#template_pic_text_pg").live("pageshow", FmMobile.template_pic_text_pg.show);
+
+                 
+                 
+                 
+                 
+                 
                  
 
                  

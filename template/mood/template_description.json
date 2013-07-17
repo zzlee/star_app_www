@@ -9,6 +9,7 @@
     },
     "subTemplate":{
         "text_only":{
+            "selected":"text_only",
             "name":"版型一",
             "description":"文：限39個中文字",
             "backgroundImageUrl":"mood-text-bg.jpg",
@@ -35,6 +36,7 @@
             }
         },
         "picture_only":{
+            "selected":"picture_only",
             "name":"版型二",
             "description":"圖：上傳一張照片",
             "backgroundImageUrl":"mood-picture-bg.jpg",
@@ -60,6 +62,7 @@
             }
         },
         "picture_plus_text":{
+            "selected":"picture_plus_text",
             "name":"版型三",
             "description":"文：限24個中文字<br>圖：上傳一張照片",
             "backgroundImageUrl":"test_bg.jpg",

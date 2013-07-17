@@ -150,7 +150,15 @@ load: function(event, data){
     
     $('#submitBtn').click(onSubmitBtnClick);
     $('#cancelBtn').click(function(){
+                          
+                          if( FmMobile.selectedSubTemplate=="picture_only"){
                           $.mobile.changePage("template-input_pic.html");
+                          }else if(FmMobile.selectedSubTemplate=="picture_plus_text"){
+                          $.mobile.changePage("template-input_text_pic.html");
+                          }else if(FmMobile.selectedSubTemplate=="check_in"){
+                          $.mobile.changePage("template-input_text_pic.html");
+
+                          }
                           });
    
     
