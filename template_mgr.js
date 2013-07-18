@@ -66,6 +66,7 @@ TemplateMgr = (function(){
 					getTemplateList: function(){
 						var templateList = [];
 						for(var template in templates){
+							templates[template].id = template;
 							templateList.push(templates[template]);
 						}
 						return templateList;
@@ -76,6 +77,7 @@ TemplateMgr = (function(){
 						var subTemplates = templates[mainTemplateId].subTemplate;
 						for(var subTemplate in subTemplates){
 							//sort subTemplateList by name
+							subTemplates[subTemplate].id = subTemplate;
 							if (subTemplateList.length===0){
 								subTemplateList.push(subTemplates[subTemplate]);
 							}
