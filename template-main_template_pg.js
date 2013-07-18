@@ -11,6 +11,14 @@ PAGE_ID: "template_mainTemplatePg",
        // console.dir(templateMgr.getTemplateList());
                  //$.mobile.changePage("template-sub_template.html");
        
+       // $("#mood_img").attr("src",templateMgr.getTemplateList()[1].representingImageUrl);
+        
+        $("#go_cultural").click(function(){
+                            $.mobile.changePage("template-sub_cultural.html");
+                            FmMobile.selectedTemplate=templateMgr.getTemplateList()[0].selected;
+                            });
+
+        
         
         $("#go_mood").click(function(){
                 $.mobile.changePage("template-sub_template.html");

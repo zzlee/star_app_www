@@ -23,6 +23,16 @@ FmMobile.template_pic_text_pg = {
         
         
         
+        if(FmMobile.selectedTemplate=="cultural_and_creative"){
+            
+            $("#template_name_2").html('').append(templateMgr.getTemplateList()[0].name);
+        }else if(FmMobile.selectedTemplate=="mood"){
+            $("#template_name_2").html('').append(templateMgr.getTemplateList()[1].name);
+        }else if(FmMobile.selectedTemplate=="check_in"){
+            $("#template_name_2").html('').append(templateMgr.getTemplateList()[2].name);
+        }
+        
+        
         var url = $(this).data('url');
         //var templateID = url.split("=")[1];
         var templateID = "greeting";
@@ -40,6 +50,9 @@ FmMobile.template_pic_text_pg = {
         var itemContentIsReady;
         
         
+        $("#back_main").click(function(){
+                              $.mobile.changePage("template-main_template.html");
+                              });
         
         var buttonClick_cb = function(event, ui) {
             
@@ -47,6 +60,7 @@ FmMobile.template_pic_text_pg = {
             if($("#ur_text").val().length==0 ||$("#ur_text").val()==" "){
                 alert("請輸入文字！");
             }else{
+                FmMobile.userContent.text=$("#ur_text").val();
             
             fileObjectID = event.data.objectID;
             console.log('[buttonClick_cb()] fileObjectID = %s', fileObjectID);

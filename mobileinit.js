@@ -72,8 +72,13 @@ $(document).bind("mobileinit", function(){
     $("#template_previewPg").live("pageshow", FmMobile.template_previewPg.show);
     $("#template_input_textPg").live("pageinit", FmMobile.template_input_textPg.init);
     $("#template_input_textPg").live("pageshow", FmMobile.template_input_textPg.show);
-    $("#movieCreatePg").live("pageinit", FmMobile.movieCreatePg.load);
-    $("#movieCreatePg").live("pageshow", FmMobile.movieCreatePg.show);
+  //  $("#movieCreatePg").live("pageinit", FmMobile.movieCreatePg.load);
+   // $("#movieCreatePg").live("pageshow", FmMobile.movieCreatePg.show);
+                 
+                 $("#template_pic_pg").live("pageinit", FmMobile.template_pic_pg.load);
+                 $("#template_pic_pg").live("pageshow", FmMobile.template_pic_pg .show);
+                 
+                 
     $("#template_checkinPg").live("pageinit", FmMobile.template_checkinPg.init);
     $("#template_checkinPg").live("pageshow", FmMobile.template_checkinPg.show);
     $("#template_miixitPg").live("pageinit", FmMobile.template_miixitPg.init);
@@ -95,11 +100,13 @@ $(document).bind("mobileinit", function(){
     $("#settingTermPg").live("pageshow", FmMobile.settingTermPg.show);
     $("#settingFaqPg").live("pageinit", FmMobile.settingFaqPg.init);
     $("#settingFaqPg").live("pageshow", FmMobile.settingFaqPg.show);
+    $("#template_sub_cultural_Pg").live("pageinit", FmMobile.template_sub_cultural_Pg.init);
+    $("#template_sub_cultural_Pg").live("pageshow", FmMobile.template_sub_cultural_Pg.show);
                  
     $.mobile.page.prototype.options.addBackBtn = true;
 
 	TemplateMgr.getInstance(function(err, _templateMgr){
-                            alert("templatmgr");
+                            //alert("templatmgr");
 		if (!err) {
 			templateMgr = _templateMgr;
 		}

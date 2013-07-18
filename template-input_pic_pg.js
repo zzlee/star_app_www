@@ -1,15 +1,15 @@
-FmMobile.movieCreatePg = {
+FmMobile.template_pic_pg = {
 	//  Page constants.
-    PAGE_ID: "movieCreatePg",
+    PAGE_ID: "template_pic_pg",
     
     //  Page methods.
     show: function(){
-        FmMobile.analysis.trackPage("/movieCreatePg");
-        recordUserAction("enters movieCreatePg");
+        FmMobile.analysis.trackPage("/template_pic_pg");
+        recordUserAction("enters template_pic_pg");
     },
     
     load: function(event, data){
-        
+        FmMobile.userContent.text=null;
         
         //FmMobile.bindClickEventToNavBar();
         
@@ -20,6 +20,23 @@ FmMobile.movieCreatePg = {
         else {
             userName = "anonymous";
         }
+        
+        
+       // if(FmMobile.selectedTemplate=="cultural_and_creative"){
+            
+        $("#back_main").click(function(){
+                              $.mobile.changePage("template-main_template.html");
+                              });
+        
+        if(FmMobile.selectedTemplate=="cultural_and_creative"){
+            
+            $("#template_name_2").html('').append(templateMgr.getTemplateList()[0].name);
+        }else if(FmMobile.selectedTemplate=="mood"){
+            $("#template_name_2").html('').append(templateMgr.getTemplateList()[1].name);
+        }else if(FmMobile.selectedTemplate=="miix_it"){
+             $("#template_name_2").html('').append(templateMgr.getTemplateList()[3].name);
+        }
+
         
         
         
