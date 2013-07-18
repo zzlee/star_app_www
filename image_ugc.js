@@ -66,17 +66,32 @@ ImageUgc = (function(){
 
 		var obj = {
 			//==public services of ImageUgc==
+			/**
+			 * Get the url of this image UGC
+			 */
 			getImageUrl: function(){
 				return ugcCanvas.toDataURL('image/png');
 			},
 			
-			uploadToServer:function(ugcProjectId, cbOfUploadToServer){
-				var reultURI = resultCanvas.toDataURL('image/png').replace('image/octet-stream');
+			/**
+			 * Upload the UGC to server
+			 * 
+			 * @param ugcProjectId
+			 * @param ugcInfo
+			 * @param cbOfUploadToServer
+			 */
+			uploadToServer:function(ugcProjectId, ugcInfo, cbOfUploadToServer){
+				var reultURI = ugcCanvas.toDataURL('image/png').replace('image/octet-stream');
                 
-                $.ajax( starServerURL+"/miix/base64_image_ugcs/"+ugcProjectId, {
+				$.ajax( starServerURL+"/miix/base64_image_ugcs/123456", {
+                //$.ajax( starServerURL+"/miix/base64_image_ugcs/"+ugcProjectId, {
 					type: "PUT",
                     data: {
-                        imgBase64: reultURI
+                        imgBase64: reultURI,
+                        ownerId: ugcInfo.ownerId._id,
+                        ownerFbUserId: ugcInfo.ownerId.fbUserId,
+                        contentGenre: ugcInfo.contentGenre,
+                        title: ugcInfo.title
                     },
                     success: function(data, textStatus, jqXHR ){
 						if (cbOfUploadToServer){
