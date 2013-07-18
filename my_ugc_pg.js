@@ -27,8 +27,7 @@ FmMobile.myUgcPg = {
                           }
                           FmMobile.myUgcPg.myVideos.push(data);
                         });
-                        console.log(FmMobile.myUgcPg.myVideos);
-                           FmMobile.myUgcPg.loadLiveVideo(FmMobile.myUgcPg.myVideos, "video");
+                          FmMobile.myUgcPg.loadLiveVideo(FmMobile.myUgcPg.myVideos, "video");
       
                     }else{
                        console.log("[error] : " + response.error);
@@ -36,7 +35,7 @@ FmMobile.myUgcPg = {
                }
         });
 
-
+        
         
     },
     
@@ -50,14 +49,18 @@ FmMobile.myUgcPg = {
              FmMobile.myUgcPg.loadLiveVideo(FmMobile.myUgcPg.myVideos, "live");
          
          });
+        
+        FmMobile.myUgcPg.loadLiveVideo(FmMobile.myUgcPg.myVideos, "video");
     },
     
     loadLiveVideo: function(arryVideo, type){
         FM_LOG("[myUgcPg] loadLiveVideo");
-        console.log('[type]' + type);
+        console.log('[Type] : ' + type);
         var parent = $("#my-video-list");
+        
         //remove all tags in my-video-list
         parent.html("");
+        
         for(var i = 0; i< arryVideo.length; i++){
             var widget = $("<div>").attr({id: arryVideo[i].ProjectId, class: "content-movie"});
             var dummyDiv = $("<div>").attr({class: "movie-pic-dummy"});
@@ -113,62 +116,61 @@ FmMobile.myUgcPg = {
         /**  Video play  */
         FM_LOG("[myUgcPg.ClickEvent]");
         $('#my-video-list>div>img').click(function(){
-                                          console.log("click" + this);
-                                          var callPlayer = function (frame_id, func, args) {
-                                          if (window.jQuery && frame_id instanceof jQuery){
-                                          frame_id = frame_id.get(0).id;
-                                          }
-                                          var iframe = document.getElementById(frame_id);
-                                          if (iframe && iframe.tagName.toUpperCase() != 'IFRAME') {
-                                          iframe = iframe.getElementsByTagName('iframe')[0];
-                                          }
-                                          if (iframe) {
-                                          // Frame exists,
-                                          iframe.contentWindow.postMessage(JSON.stringify({
-                                                                                          "event": "command",
-                                                                                          "func": func,
-                                                                                          "args": args || [],
-                                                                                          "id": frame_id
-                                                                                          }), "*");
-                                          }
-                                          };
-                                          var divID = this.parentElement.id;
-                                          var tempUrlArray = this.src.split('/');
-                                          var ytVideoID = tempUrlArray[tempUrlArray.length-2];
-                                          var videoFrame = $("<iframe>").attr({
-                                                                              id: ytVideoID,
-                                                                              src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
-                                                                              class: "content-movie-img",
-                                                                              frameborder: "0"
-                                                                              }).load(function(){
-                                                                                      //TODO: find a better way to have callPlayer() called after videoFrame is prepended
-                                                                                      setTimeout(function(){
-                                                                                                 callPlayer(ytVideoID,'playVideo');
-                                                                                                 }, 1500);
-                                                                                      });
-                                          
-                                          $('#'+divID).prepend(videoFrame);
-                                          $('#'+this.id).remove();
-                                          });
+            console.log("click" + this);
+            var callPlayer = function (frame_id, func, args) {
+            if (window.jQuery && frame_id instanceof jQuery){
+                frame_id = frame_id.get(0).id;
+            }
+            var iframe = document.getElementById(frame_id);
+            if (iframe && iframe.tagName.toUpperCase() != 'IFRAME') {
+                iframe = iframe.getElementsByTagName('iframe')[0];
+            }
+            if (iframe) {
+                // Frame exists,
+                iframe.contentWindow.postMessage(JSON.stringify({
+                                                      "event": "command",
+                                                      "func": func,
+                                                      "args": args || [],
+                                                      "id": frame_id
+                                                      }), "*");
+            }};
+            var divID = this.parentElement.id;
+            var tempUrlArray = this.src.split('/');
+            var ytVideoID = tempUrlArray[tempUrlArray.length-2];
+            var videoFrame = $("<iframe>").attr({
+                                      id: ytVideoID,
+                                      src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
+                                          class: "content-movie-img",
+                                      frameborder: "0"
+                                      }).load(function(){
+                                          //TODO: find a better way to have callPlayer() called after videoFrame is prepended
+                                          setTimeout(function(){
+                                             callPlayer(ytVideoID,'playVideo');
+                                             }, 1500);
+                                      });
+
+                $('#'+divID).prepend(videoFrame);
+                $('#'+this.id).remove();
+        });
         
         /** Copy youtube url and share to FB */
         $('#my-video-info>img').click(function(){
-                                      var imgID = this.id;        //
-                                      var tmpIDArray = this.id.split('_');
-                                      switch(tmpIDArray[0]){
-                                      case "copyUrl":
-                                      window.clipboardPluginCopy("https://www.youtube.com/watch?feature=player_embedded&v=" + tmpIDArray[1], function() { alert("已複製到剪貼簿")} , function(e){alert(e);});
-                                      
-                                      break;
-                                      case "shareFb":
-                                      alert("share to FB");
-                                      break;
-                                      default:
-                                      alert("You don't touch the button.");
-                                      
-                                      }
-                                      
-                                      });
+            var imgID = this.id;        //
+            var tmpIDArray = this.id.split('_');
+            switch(tmpIDArray[0]){
+                case "copyUrl":
+                    window.clipboardPluginCopy("https://www.youtube.com/watch?feature=player_embedded&v=" + tmpIDArray[1], function() { alert("已複製到剪貼簿")} , function(e){alert(e);});
+
+                    break;
+                case "shareFb":
+                    alert("share to FB");
+                    break;
+                default:
+                    alert("You don't touch the button.");
+
+            }
+
+        });
 
     },
     
