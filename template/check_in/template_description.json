@@ -1,0 +1,28 @@
+{
+    
+    "selected":"check_in",
+    "name":"打卡",
+    "outputSize":{
+        "width":720,
+        "height":480
+    },
+    "subTemplate":{
+        "selected":"check_in",
+        "text":{
+            "backgroundImageUrl":"miix_",
+            "customizableObjects":[
+                                   {
+                                   "id":"greeting_photo",
+                                   "format":"image",
+                                   "description":"一張用來問候的的相片"
+                                   }
+                                   ]
+        },
+        "picture":{
+            
+        },
+        "text_picture":{
+            
+        }
+    }
+}

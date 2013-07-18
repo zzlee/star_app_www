@@ -43,7 +43,7 @@
 <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-<div data-role="page" id="template_subTemplatePg">
+<div data-role="page" id="template_checkinPg">
   <div class="header">
     <p class="header-text">主題模板</p>
   </div>
@@ -53,50 +53,29 @@
         本服務遵守中華民國政府頒布的「個人資料保護法」管理，由夢蝶股份有限公司提供，您的資料僅用來作為本公司提供服務之用，本公司不會對第三方洩漏您的資料，您可不提供您的資料，但將影響本服務的運作，致使部分服務不完整。本辦法若有未盡完善之處，本公司保留修改服務條款的權力。
     </div>
     
-  <div class="container" data-role="content" id="show_sub">
-    <!--template label-->
-    <div class="template_label">
-      <div class="template_label_text" id="template_name">文創設計</div>
-      <img class="label-img" src="images/label.png"></div>
-    <!--ends template label--> 
-    <!--style-->
-    <div class="style">
-      <div class="choose-movie-style">
-        <div class="choose-movie-pic">
-          <div class="movie-pic-dummy"></div>
-          <img class="movie-pic-img" src="images/choose_movie.png"></img> </div>
-      </div>
-      <div class="my-video-icon">
-        <div class="style_button_text" id="sub_1">版型一</div>
+        <div class="template_label">
+            <div class="template_label_text">打卡</div>
+            <img class="label-img" src="images/label.png"></div>
+        <div class="content-movie">
+            <div class="movie-pic-dummy"></div>
+            <!--<img class="content-movie-img" src="images/movie_pic.png"></img>-->
+            <video class="content-movie-img">
+                <source src="images/template_preview.mp4" type="video/mp4">
+                    </video></div>
+        <div class="template_instruction">文:發表在facebook，不限字數<br>
+            圖:上傳一張照片<br>
+        </div>
+        <div class="my-video-icon">
+        <div class="button_text" id="back_main">回模板選擇</div>
+        <img id="cancelBtn" class="my-video-icon-img" src="images/button.png"></div>
+        <div class="my-video-icon"><div class="button_text" id="next_step">下一步</div>
         <img id="submitBtn" class="my-video-icon-img" src="images/button.png"></div>
-      <div class="style_text" id="sub_1_descript">文:限39個中文字</div>
     </div>
-    <div class="style">
-      <div class="choose-movie-style">
-        <div class="choose-movie-pic">
-          <div class="movie-pic-dummy"></div>
-          <img class="movie-pic-img" src="images/choose_movie.png"></img> </div>
-      </div>
-      <div class="my-video-icon">
-        <div class="style_button_text" id="sub_2">版型二</div>
-        <img id="submitBtn" class="my-video-icon-img" src="images/button.png"></div>
-      <div class="style_text" id="sub_2_descript">圖:上傳一張照片</div>
-    </div>
-    <div class="style">
-      <div class="choose-movie-style">
-        <div class="choose-movie-pic">
-          <div class="movie-pic-dummy"></div>
-          <img class="movie-pic-img" src="images/choose_movie.png"></img> </div>
-      </div>
-      <div class="my-video-icon">
-        <div class="style_button_text" id="sub_3">版型三</div>
-        <img id="submitBtn" class="my-video-icon-img" src="images/button.png"></div>
-      <div class="style_text" id="sub_3_descript">文:限24個中文字<br>
-        圖:上傳一張照片</div>
-    </div>
-  </div>
-  
-  <!--ends style--> 
+
+
+
+
+   <!--ends style--> 
   
 </div>
 <!--nav var-->

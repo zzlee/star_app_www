@@ -41,9 +41,10 @@
 <link rel="stylesheet" href="./css/fm.css"/>
 <link rel="stylesheet" href="./css/fm2.css"/>
 <link rel="stylesheet" href="./css/style.css">
+
 </head>
 <body>
-<div data-role="page" id="movieCreatePg">
+<div data-role="page" id="template_input_textPg">
   <div class="header">
     <p class="header-text">主題模板</p>
   </div>
@@ -51,25 +52,36 @@
     <div class="template_label">
       <div class="template_label_text">打卡</div>
       <img class="label-img" src="images/label.png"></div>
-    <div class="template_input_instruction"> 輸入文字(刊登於facebook)</div>
-    <div class="text_input_bg"><textarea rows=""></textarea></div>
-  <div class="template_label_text">回模板選擇</div><img class="label-img" src="images/button_long.png">
-  
+    <div class="template_input_instruction"> 輸入文字(限39個中文字),<br>輸入字數剩下<span id="now">t</span>個字
+    </div>
+    <div class="text_input_bg">
+       
+        <textarea rows="" id="ur_text"></textarea>
+    
+    </div>
+  <div class="template_label_text">回模板選擇</div>
+      <img class="label-img" src="images/button_long.png">
+          <div class="template_label_text" id="go_preview">preview</div>
+  </div>
+
 </div>
-<div id="nav-bar" class="nav-bar-background1">
-  <div id="btnCreateMovie" class="ui-menu-active"><img class="menu-img" src="images/m1-active.png">
-    <div class="menu-text">主題模板</div>
-  </div>
-  <div id="btnMyVideo" class="ui-menu-inactive"><img class="menu-img" src="images/m2.png">
-    <div class="menu-text">我的影片</div>
-  </div>
-  <div id="btnSubmitDOOH" class="ui-menu-inactive"><img class="menu-img" src="images/m3.png">
-    <div class="menu-text">大螢幕</div>
-  </div>
-  <div id="btnSetting" class="ui-menu-inactive"><img class="menu-img" src="images/m4.png">
-    <div class="menu-text">設定</div>
-  </div>
-</div>
-</div>
+    <div id="nav-bar" class="nav-bar-background3">
+        <div id="btnTemplate" class="ui-menu-inactive">
+            <img class="menu-img" src="images/m1-active.png">
+                <div class="menu-text">主題模板</div>
+                </div>
+        <div id="btnMyUgc" class="ui-menu-inactive">
+            <img class="menu-img" src="images/m2.png">
+                <div class="menu-text">我的影片</div>
+                </div>
+        <div id="btnScreen" class="ui-menu-inactive">
+            <img class="menu-img" src="images/m3.png">
+                <div class="menu-text">大螢幕</div>
+                </div>
+        <div id="btnSetting" class="ui-menu-active">
+            <img class="menu-img" src="images/m4.png">
+                <div class="menu-text">設定</div>
+                </div>
+    </div>
 </body>
 </html>
