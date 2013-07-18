@@ -115,7 +115,7 @@ div[data-role=page] {
 	top:10%;
 	width: 100%;
 	padding: 0px;
-	overflow: auto;
+    position: absolute;
 	min-height: 72.84%;
 }
 .login_toc_container{
@@ -318,7 +318,7 @@ div[data-role=page] {
 	position:absolute;
 }
 .facebook_login_text{
-	margin-top:97%;
+	margin-top:68.5%;
 	position:absolute;
 	width:100%;
 	text-align:center;
@@ -401,10 +401,9 @@ div[data-role=page] {
 	}
 .label-img{
 	width:100%;
-	margin-top:5%;
+	top:5%;
 }	
 .template_label_text{
-	margin-top:7%;
 	position:absolute;
 	width:100%;
 	text-align:center;
@@ -441,10 +440,10 @@ div[data-role=page] {
 	}
 .button_text{
 	position: absolute;
-	margin-top: 6%;
+	margin-top: 4%;
 	width: 50%;
 	text-align: center;
-	font-size: 150%;
+	font-size: 120%;
 	font-family: "華康歐陽詢體W5";
 	color: #dcd586;
 	}
@@ -510,8 +509,9 @@ div[data-role=page] {
 	font-size: 150%;
 	font-family: "華康歐陽詢體W5";
 	color: #dcd586;
-	margin-top:6%;}
-	
+	margin-top:3.5%;
+}
+
 .share{
 	margin-top: 5%;
 	margin-left: 5%;
