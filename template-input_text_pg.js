@@ -9,7 +9,18 @@ show: function(){
 init: function(){
     $("#nav-bar").show();
     
-   
+    if(FmMobile.selectedTemplate=="cultural_and_creative"){
+        
+        $("#template_name_2").html('').append(templateMgr.getTemplateList()[0].name);
+    }else if(FmMobile.selectedTemplate=="mood"){
+        $("#template_name_2").html('').append(templateMgr.getTemplateList()[1].name);
+    }
+    
+    
+    $("#back_main").click(function(){
+                          $.mobile.changePage("template-main_template.html");
+                          });
+    
     $("#go_preview").click(function(){
                            if($("#ur_text").val().length==0 ||$("#ur_text").val()==" "){
                            alert("請輸入文字！");
@@ -17,6 +28,14 @@ init: function(){
                         
                            $.mobile.changePage("template-preview.html");
                            FmMobile.userContent.text=$('#ur_text').val();
+                           FmMobile.userContent.picture.url=null;
+                           FmMobile.userContent.picture.crop._x=null;
+                           FmMobile.userContent.picture.crop._y=null;
+
+                           FmMobile.userContent.picture.crop._w=null;
+                           FmMobile.userContent.picture.crop._h=null;
+
+
                            }
                            });
     

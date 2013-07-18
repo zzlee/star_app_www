@@ -1,9 +1,9 @@
-FmMobile.template_subTemplatePg = {
-    PAGE_ID: "template_subTemplatePg",
+FmMobile.template_sub_cultural_Pg = {
+    PAGE_ID: "template_sub_cultural_Pg",
         
     show: function(){
-        FmMobile.analysis.trackPage("/template_subTemplatePg");
-        recordUserAction("enters template_subTemplatePg");
+        FmMobile.analysis.trackPage("/template_sub_cultural_Pg");
+        recordUserAction("enters template_sub_cultural_Pg");
     },
         
     init: function(){
@@ -19,28 +19,23 @@ FmMobile.template_subTemplatePg = {
         
         var tem_mgr=templateMgr.getTemplateList();
 
-        
-        
-        $("#template_name").html('').append(tem_mgr[1].name);
-        
-        
        
-        $("#sub_1").html('').append(tem_mgr[1].subTemplate.text_only.name).click(function(){
-                    
-       FmMobile.selectedSubTemplate=tem_mgr[1].subTemplate.text_only.selected;
+        $("#sub_1").html('').append(tem_mgr[0].subTemplate.text_only.name).click(function(){
+                     alert("hi");
+       FmMobile.selectedSubTemplate=tem_mgr[0].subTemplate.text_only.selected;
                      $.mobile.changePage("template-input_text.html");
                      });
-        $("#sub_2").html('').append(tem_mgr[1].subTemplate.picture_only.name).click(function(){
-             
-               FmMobile.selectedSubTemplate=tem_mgr[1].subTemplate.picture_only.selected;
+        $("#sub_2").html('').append(tem_mgr[0].subTemplate.picture_only.name).click(function(){
+               alert("hi");
+               FmMobile.selectedSubTemplate=tem_mgr[0].subTemplate.picture_only.selected;
                $.mobile.changePage("template-input_pic.html");
                });
 
 
         
-       $("#sub_3").html('').append(tem_mgr[1].subTemplate.picture_plus_text.name).click(function(){
-                 
-                   FmMobile.selectedSubTemplate=tem_mgr[1].subTemplate.picture_plus_text.selected;
+       $("#sub_3").html('').append(tem_mgr[0].subTemplate.picture_plus_text.name).click(function(){
+                   alert("hi");
+                   FmMobile.selectedSubTemplate=tem_mgr[0].subTemplate.picture_plus_text.selected;
                    $.mobile.changePage("template-input_text_pic.html");
                    });
 

@@ -24,6 +24,8 @@ load: function(event, data){
     $("#nav-bar").show();
     
     var onSubmitBtnClick= function() {
+        
+          
         var uploadFail_cb = function(error) {
             
             var onConfirm = function(buttonIndex) {
@@ -33,6 +35,8 @@ load: function(event, data){
                         break;
                     case 2:
                         $.mobile.changePage("my_video.html");
+
+                        
                         break;
                 }
             }
@@ -65,7 +69,7 @@ load: function(event, data){
                    if ( !result.err ) {
                    FmMobile.addProcessingWork(projectID);
                    $.mobile.hidePageLoadingMsg();
-                   $.mobile.changePage("my_video.html");
+                   $.mobile.changePage("template-preview.html");
                    
                    }
                    })
@@ -76,7 +80,7 @@ load: function(event, data){
                    $('#submitPhotoBtn').click();
                    break;
                    case 2:
-                   $.mobile.changePage("my_video.html");
+                   $.mobile.changePage("template-preview.html");
                    break;
                    }
                    }
@@ -168,6 +172,7 @@ load: function(event, data){
     
     
 show: function(event, data){
+    FmMobile.userContent.picture.url=fileSelectedURI;
     
     //JF - image initial
     canvas = document.getElementById('photoZoom');
@@ -211,6 +216,7 @@ show: function(event, data){
     //image.src = "images/test.jpg";  //for test
     
         image.src = fileProcessedForCropperURI;
+   // FmMobile.userContent.picture.url=fileProcessedForCropperURI;
     
     //JF - image event
     $$('#photoZoom').pinching(function(e){
@@ -307,7 +313,13 @@ show: function(event, data){
                                width:canvas.width / option.scope.w,  //fraction relative to its width
                                height:canvas.height / option.scope.h  //fraction relative to its height
                            };
-                           alert(croppedArea.x);
+                           
+                           FmMobile.userContent.picture.crop._x=croppedArea.x;
+                           FmMobile.userContent.picture.crop._y=croppedArea.y;
+                           FmMobile.userContent.picture.crop._w=croppedArea.width;
+                           FmMobile.userContent.picture.crop._h=croppedArea.height;
+
+
                            });
     
     showImage = function(){

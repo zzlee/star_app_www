@@ -1,7 +1,7 @@
 {
     "selected":"mood",
     "name":"心情",
-    "representingImageUrl":"images/choose_movie.png",
+    "representingImageUrl":"koala.jpg",
     "introdcutionContentUrl":"mood_introdction.html",
     "outputSize":{
         "width":720,
