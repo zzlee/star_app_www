@@ -451,7 +451,7 @@ div[data-role=page] {
 	}
 .tab_button_text{
 	position: absolute;
-	margin-top: 9.5%;
+	top: 8.5%;
 	width: 50%;
 	text-align: center;
 	font-size: 100%;

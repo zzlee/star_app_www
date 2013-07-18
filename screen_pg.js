@@ -4,6 +4,10 @@ FmMobile.screenPg = {
      2. Set the info to UI
      3. Play Youtube
      */
+    
+    //TODO: 小巨蛋頁面 not finishoied
+
+
     PAGE_ID: "screenPg",
     
     
