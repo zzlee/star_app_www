@@ -104,11 +104,8 @@ $(document).bind("mobileinit", function(){
     $.mobile.page.prototype.options.addBackBtn = true;
 
 	TemplateMgr.getInstance(function(err, _templateMgr){
-<<<<<<< HEAD
-                            //alert("templatmgr");
-=======
 		
->>>>>>> origin/gz_ondascreen
+
 		if (!err) {
 			templateMgr = _templateMgr;
 		}
@@ -142,10 +139,12 @@ FmMobile.userContent = {
 		picture: {
 			urlOfOriginal: null, //the URL of the original picture that the user chooses
 			urlOfCropped: null, //the URL of the picture that the user crops. (It is normally a base64 string got from canvas.toDataURL() )
-			crop: {_x:0, _y:0, _w:1, _h:1},  // _x=x_crop/width_picture; _y=y_crop/height_picture; _w=width_crop/width_picture;  _h=height_crop/height_picture
+		//url:null,
+        crop: {_x:0, _y:0, _w:1, _h:1},  // _x=x_crop/width_picture; _y=y_crop/height_picture; _w=width_crop/width_picture;  _h=height_crop/height_picture
 		},
 		thumbnail:{
-			url: null
+			url:'img/darth-vader.jpg'
+
 		}
 };
 

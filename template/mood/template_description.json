@@ -12,7 +12,7 @@
             "selected":"text_only",
             "name":"版型一",
             "description":"文：限39個中文字",
-            "backgroundImageUrl":"mood-text-bg.jpg",
+            "backgroundImageUrl":"test_bg.jpg",
             "customizableObjects":[
                 {
                     "id":"text0",
@@ -41,17 +41,17 @@
             "selected":"picture_only",
             "name":"版型二",
             "description":"圖：上傳一張照片",
-            "backgroundImageUrl":"mood-picture-bg.jpg",
+            "backgroundImageUrl":"test_bg.jpg",
             "customizableObjects":[
                 {
-                    "id":"picture0",
-                    "type":"text",
-                    "x":"23",
-                    "y":"44",
-                    "width":"303",
-                    "height":"34",
-                    "angle":"0",
-                    "description":"心情文字"
+                                   "id":"picture0",
+                                   "type":"image",
+                                   "x":"775",
+                                   "y":"22",
+                                   "width":"240",
+                                   "height":"180",
+                                   "angle":"10.36",
+                                   "description":"心情照片"
                 },
                 {
                     "id":"thumbnail",

@@ -9,6 +9,7 @@
         "height":480
     },
     "subTemplate":{
+        "selected":
         "text_only":{
             "name":"版型一",
             "description":"文：限39個中文字",
