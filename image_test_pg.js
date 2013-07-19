@@ -101,18 +101,17 @@ FmMobile.imageTestPg = {
         	console.dir(templateMgr.getTemplateList());
         	console.dir(templateMgr.getSubTemplateList("mood"));
 			console.dir(templateMgr.getSubTemplate("mood","picture_plus_text"));
-		}*/
+		}
     	
-    	/*
         $.get(starServerURL+'/miix/members/512da133989cfc2403000005/ugcs', {token: "53768608", limit:"5"}, function(data) {
             //alert(data);
             console.dir(data);
-        });*/
+        });
     	
         $.get(starServerURL+'/miix/ugc_hightlights', {token: "53768608", limit:"5"}, function(data) {
             //alert(data);
             console.dir(data);
-        });
+        });*/
 
 
         
@@ -145,6 +144,37 @@ FmMobile.imageTestPg = {
         		console.log("err="+err);
         	});
         }); */
+    	
+    	
+        //== videoUgc test ==
+        FmMobile.userContent.text = "很多人習慣在手機充電時講電話，這樣的動作千萬得小心";
+        FmMobile.userContent.picture.urlOfOriginal = 'img/Koala.jpg';
+
+        
+        var videoUgc = null;
+        ImageUgc.getInstance('mood', 'picture_plus_text', FmMobile.userContent, function(err, _videoUgc){
+        	if (!err){
+        		videoUgc = _videoUgc;
+        		$("#canvasImg").attr("src", videoUgc.getImageUrl() );
+        	}
+        });
+        
+        $('#btnTest').click(function(){
+        	var mainTemplate = "mood";
+        	var ownerId = '512da133989cfc2403000005'; //Gance's
+        	var ownerFbUserId = '100004619173955'; //Gance's
+        	var ugcProjectId = mainTemplate +'-'+ ownerId +'-'+ (new Date()).toISOString().replace(/[-:.]/g, "");
+        	var ugcInfo = {
+        			ownerId:{_id:ownerId, fbUserId:ownerFbUserId },
+        			contentGenre: mainTemplate,
+        			title: "today's mood"
+        	};
+        	
+        	videoUgc.uploadToServer(ugcProjectId, ugcInfo, function(err){
+        		console.log("err="+err);
+        	});
+        }); */
+
 
 
         

@@ -7,28 +7,6 @@ VideoUgc = (function(){
 		var template = null;
 		var customizableObjects = [];
 		var customizableObjectDimensions = {};
-		var customizedContent = {};
-		
-		var uploadUserContent = function (imageUri, cbOfUploadUserContent) {
-                        
-            
-        };
-        
-        var sendUserContentDescription = function(r) {
-            
-            customizedContent.timeStamp = (new Date()).toISOString();
-            customizedContent.customizableObjects = JSON.stringify(customizableObjects);
-
-            
-            $.post(starServerURL+'/miix/videos/user_content_description', customizedContent, function(result){
-                   console.dir("upload user data info result: "+result);
-                   if ( !result.err ) {
-                   }
-                   })
-            .error(function() {
-                   });
-        };
-
 		
 		var obj = {
 			//==public services of VideoUgc==
@@ -50,59 +28,81 @@ VideoUgc = (function(){
 				async.series([
 					function(callback){
 					    //upload user content file
+						var imageUri = userContent.picture.urlOfOriginal;
 						var options = new FileUploadOptions();
-			            options.fileKey = "file";
-			            options.fileName = userContent.picture.urlOfOriginal.substr(imageUri.lastIndexOf('/')+1);
-			            options.mimeType = "image/jpeg"; //TODO: to have mimeType customizable? 
-			            //options.mimeType = "image/png";
-			            options.chunkedMode = true;
-			            
-			            var params = new Object();
-			            params.fileObjectID = fileObjectID;
-			            params.projectID = ugcProjectId;
-			            params.croppedArea_x = userContent.picture.crop._x;
-			            params.croppedArea_y = userContent.picture.crop._y;
-			            params.croppedArea_width = userContent.picture.crop._w;
-			            params.croppedArea_height = userContent.picture.crop._h;
-			            params.obj_OriginalWidth = customizableObjectDimensions[fileObjectID].width;
-			            params.obj_OriginalHeight = customizableObjectDimensions[fileObjectID].height;
-			            params.osVersion = "iOS_"+device.version;            
-			            
-			            options.params = params;
-			            options.chunkedMode = true;
-			            
-			            var ft = new FileTransfer();
-			            
-			            ft.onprogress = function(progressEvent) {
-			                if (progressEvent.lengthComputable) {
-			                    var uploadPercentage = progressEvent.loaded / progressEvent.total * 100;
-			                    console.log("uploadPercentage=" + uploadPercentage.toString());
-			                } else {
-			                    console.log("upload some chunk....");
-			                }
-			            };
-			            
-			            var uploadSuccess_cb = function(r) {
-			                console.log("Code = " + r.responseCode);
-			                console.log("Response = " + r.response);
-			                console.log("Sent = " + r.bytesSent);
-			            };
-			            
-			            var uploadFail_cb = function() {
-			            	
-			            };
-			            
-			            
-			            ft.upload(imageUri, starServerURL+"/miix/videos/user_content_files", uploadSuccess_cb, uploadFail_cb, options);
-
-					    callback(null);
+						options.fileKey = "file";
+						options.fileName = imageUri.substr(imageUri.lastIndexOf('/')+1);
+						options.mimeType = "image/jpeg"; //TODO: to have mimeType customizable? 
+						//options.mimeType = "image/png";
+						options.chunkedMode = true;
+						
+						var fileObjectID = customizableObjects[0].ID; //TODO: hard code for now. Any better way?
+						
+						var params = new Object();
+						//params.fileObjectID = fileObjectID; //not used in server side
+						params.projectID = ugcProjectId; //for server side to save user content to specific project folder
+						//for server side to crop the user content image
+						params.croppedArea_x = userContent.picture.crop._x;
+						params.croppedArea_y = userContent.picture.crop._y;
+						params.croppedArea_width = userContent.picture.crop._w;
+						params.croppedArea_height = userContent.picture.crop._h;
+						//for server side to zoom the user content image to the same size as original footage image
+						params.obj_OriginalWidth = customizableObjectDimensions[fileObjectID].width;
+						params.obj_OriginalHeight = customizableObjectDimensions[fileObjectID].height;
+						
+						options.params = params;
+						options.chunkedMode = true;
+						
+						var ft = new FileTransfer();
+						
+						ft.onprogress = function(progressEvent) {
+							if (progressEvent.lengthComputable) {
+								var uploadPercentage = progressEvent.loaded / progressEvent.total * 100;
+								console.log("uploadPercentage=" + uploadPercentage.toString());
+							} else {
+						        console.log("upload some chunk....");
+							}
+						};
+						
+						var uploadSuccess_cb = function(r) {
+						    callback(null);
+						};
+						
+						var uploadFail_cb = function(error) {
+							console.log("upload error source " + error.source);
+						    console.log("upload error target " + error.target);
+							callback("Failed to uplaod user content file to server: "+error.code);
+						};
+						
+						
+						ft.upload(imageUri, starServerURL+"/miix/videos/user_content_files", uploadSuccess_cb, uploadFail_cb, options);
 					},
 					function(callback){
 					    //send user content description
-					    callback(null);
+						
+						var userContentDescription = {};
+						userContentDescription.projectID = ugcProjectId;
+						//userContentDescription.templateID = templateID; //not used in server side
+						//userContentDescription.userName = userName;  //not used in server side
+						userContentDescription.ownerID = ugcInfo.ownerId._id;
+						userContentDescription.ownerFbUserID = ugcInfo.ownerId.fbUserId;
+						userContentDescription.customizableObjects = JSON.stringify(customizableObjects);
+						userContentDescription.timeStamp = (new Date()).toISOString(); //only for avoiding Safari's cache mechanism
+						
+						
+						$.ajax( starServerURL+'/miix/videos/user_content_description', {
+							type: "POST",
+							data: userContentDescription,
+							success: function(data, textStatus, jqXHR ){
+								callback(null);
+							},
+							error: function(jqXHR, textStatus, errorThrown){
+								callback(errorThrown);
+							}
+		                });
+				        
 					}
 				],
-				// optional callback
 				function(err, results){
 				    // results is now equal to ['one', 'two']
 				});
@@ -161,15 +161,15 @@ VideoUgc = (function(){
 		],
 		function(err, results){
 			if (!err) {
-				cb_constructor(null, obj);
+				cbOfConstructor(null, obj);
 			}
 			else {
-				cb_constructor('Failed to initiate an VideoUgc object', null);
+				cbOfConstructor('Failed to initiate an VideoUgc object', null);
 			}
 		});
 
 		
-	}
+	}//end of constructor
 	
 	return {
 		/**
