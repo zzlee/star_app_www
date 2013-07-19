@@ -117,10 +117,13 @@ FmMobile.imageTestPg = {
         });
         
         $('#btnTest').click(function(){
-        	var ugcProjectId = 'mood-512da133989cfc2403000005' +'-'+ (new Date()).toISOString().replace(/[-:.]/g, "");
+        	var mainTemplate = "mood";
+        	var ownerId = '512da133989cfc2403000005'; //Gance's
+        	var ownerFbUserId = '100004619173955'; //Gance's
+        	var ugcProjectId = mainTemplate +'-'+ ownerId +'-'+ (new Date()).toISOString().replace(/[-:.]/g, "");
         	var ugcInfo = {
-        			ownerId:{_id:"512da133989cfc2403000005", fbUserId:"100004619173955" },
-        			contentGenre:"mood",
+        			ownerId:{_id:ownerId, fbUserId:ownerFbUserId },
+        			contentGenre: mainTemplate,
         			title: "today's mood"
         	};
         	
