@@ -108,13 +108,8 @@ FmMobile.imageTestPg = {
         FmMobile.userContent.picture.urlOfCropped = 'img/Koala.jpg';
         FmMobile.userContent.thumbnail.url = 'img/darth-vader.jpg';
         
-<<<<<<< HEAD
-        ImageUgc.getInstance('mood', 'picture_plus_text', FmMobile.userContent, function(err, imageUgc){
-                          
-=======
         var imageUgc = null;
         ImageUgc.getInstance('mood', 'picture_plus_text', FmMobile.userContent, function(err, _imageUgc){
->>>>>>> origin/gz_ondascreen
         	if (!err){
         		imageUgc = _imageUgc;
         		$("#canvasImg").attr("src", imageUgc.getImageUrl() );
