@@ -112,13 +112,12 @@ div[data-role=page] {
 	background-image: url(../images/bg.png);
 	background-size:100% 100%;
 	background-repeat:no-repeat;
-	margin-top:10%;
+	margin-top:15%;
 	width: 100%;
 	padding: 0px;
-	position: absolute;
-	overflow: auto;
 	min-height: 72.84%;
     padding-bottom: 37%;
+    z-index: 0;
 }
 .login_toc_container{
 	background-image: url(../images/bg.png);
@@ -661,8 +660,6 @@ div[data-role=page] {
 	width: 100%;
 	padding: 0px;
 	background-size: 100% 100%;
-	padding-top: 12.19%;
-    padding-bottom: 12.19%;
 	position: absolute;
 	overflow: auto;
 	height: 100%;
@@ -690,7 +687,9 @@ div[data-role=page] {
 	line-height: 150%;
 	overflow: auto;
 	background-image:url(../images/border_bg.png);
-	
+    padding-bottom: 25%;
+    z-index: 0;
+
 	}	
 .time{
 	font-size:80%;
