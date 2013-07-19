@@ -95,6 +95,12 @@ $(document).bind("mobileinit", function(){
                  $("#fbLoginSuccessPg").live("pageinit", FmMobile.fbLoginSuccessPg.init);
                  $("#fbLoginSuccessPg").live("pageshow", FmMobile.fbLoginSuccessPg.show);
                  
+     //$("#template_input_checkin_pg").live("pageinit", FmMobile.template_input_checkin_pg.init);
+     //$("#template_input_checkin_pg").live("pageshow", FmMobile.template_input_checkin_pg.show);
+                 
+
+                 
+                
                  
 	$.mobile.page.prototype.options.addBackBtn = true;
 
@@ -635,9 +641,9 @@ FmMobile.authPopup = {
             if(response.data){
                 localStorage._id = response.data._id;
                 localStorage.fb_accessToken = response.data.accessToken;
-        localStorage.verified = (response.data.verified) ? response.data.verified : 'false';
+       // localStorage.verified = (response.data.verified) ? response.data.verified : 'false';
                
-               //localStorage.verified='true';//此行為了測試電話認證！
+               localStorage.verified='true';//此行為了測試電話認證！
                 FM_LOG("localStorage" + JSON.stringify(localStorage));
                
                 // Each time of Login, pull all videos.

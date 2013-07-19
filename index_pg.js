@@ -32,8 +32,8 @@ FmMobile.indexPg = {
             
         }
          */
-        $.mobile.changePage("login_success.html");
-        
+       $.mobile.changePage("orientation_1.html");
+        //$.mobile.changePage("image_test.html");
     },
         
     beforeshow: function(){
