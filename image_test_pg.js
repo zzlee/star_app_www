@@ -101,8 +101,21 @@ FmMobile.imageTestPg = {
         	console.dir(templateMgr.getSubTemplateList("mood"));
 			console.dir(templateMgr.getSubTemplate("mood","picture_plus_text"));
 		}*/
+    	
+    	/*
+        $.get(starServerURL+'/miix/members/512da133989cfc2403000005/ugcs', {token: "53768608", limit:"5"}, function(data) {
+            //alert(data);
+            console.dir(data);
+        });*/
+    	
+        $.get(starServerURL+'/miix/ugc_hightlights', {token: "53768608", limit:"5"}, function(data) {
+            //alert(data);
+            console.dir(data);
+        });
+
+
         
-        
+        /*
         //== imageUgc test ==
         FmMobile.userContent.text = "很多人習慣在手機充電時講電話，這樣的動作千萬得小心";
         FmMobile.userContent.picture.urlOfCropped = 'img/Koala.jpg';
@@ -130,7 +143,7 @@ FmMobile.imageTestPg = {
         	imageUgc.uploadToServer(ugcProjectId, ugcInfo, function(err){
         		console.log("err="+err);
         	});
-        });
+        }); */
 
 
         

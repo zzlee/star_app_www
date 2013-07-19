@@ -110,15 +110,15 @@ ImageUgc = (function(){
 		
 		async.series([
 			function(callback){
-			//get templateMgr
+			    //get templateMgr
 				TemplateMgr.getInstance(function(err, _templateMgr){
 					if (!err) {
 						templateMgr = _templateMgr;
 						template = templateMgr.getSubTemplate(mainTemplateId, subTemplateId);
-						callback(null, obj);
+						callback(null);
 					}
 					else {
-						callback('Failed to get TemplateMgr instance', null);
+						callback('Failed to get TemplateMgr instance');
 					}
 				});
 			},
@@ -190,10 +190,41 @@ ImageUgc = (function(){
 	}
 	
 	return {
-		getInstance: function(mainTemplateId, subTemplateId, userContent, got_cb){
-				constructor(mainTemplateId, subTemplateId, userContent, function(err, _uInstance){
-					got_cb(err, _uInstance);
-				});
+		/**
+		 * Get an instance of ImgaeUgc
+		 * 
+		 * @param {String} mainTemplateId
+		 * @param {String} subTemplateId
+		 * @param {Object} userContent An object describing user's content
+		 *     <ul>
+		 *     <li>text: text content
+		 *     <li>picture: object
+		 *         <ul>
+		 *         <li>urlOfOriginal: the URL of the original picture that the user chooses
+		 *         <li>urlOfCropped: the URL of the picture that the user crops. (It is normally a base64 string got from canvas.toDataURL() )
+		 *         <li>crop: an object describing the cropped area
+		 *             <ul>
+		 *             <li>_x: _x=x_crop/width_picture
+		 *             <li>_y: _y=y_crop/height_picture
+		 *             <li>_w: _w=width_crop/width_picture
+		 *             <li>_h: _h=height_crop/height_picture
+		 *             </ul>
+		 *         </ul>
+		 *     <li>thumbnail: object
+		 *         <ul>
+		 *         <li>url: the URL of thumbnail
+		 *         </ul>
+		 *     </ul>
+		 * @param {Function} cbOfGetInstance The callback function with the signature cbOfGetInstance (err, uInstance):
+		 *     <ul>
+		 *     <li>err: error message if any
+		 *     <li>instance: instance of ImgaeUgc
+		 *     </li>
+		 */
+		getInstance: function(mainTemplateId, subTemplateId, userContent, cbOfGetInstance){
+			constructor(mainTemplateId, subTemplateId, userContent, function(err, instance){
+				cbOfGetInstance(err, instance);
+			});
 		}
 	};
 })();

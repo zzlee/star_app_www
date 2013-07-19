@@ -1,27 +1,17 @@
 {
-    
-         "selected":"miix_it",
+    "selected":"miix_it",
     "name":"影像合成",
     "outputSize":{
         "width":720,
         "height":480
     },
     "subTemplate":{
-        "text":{
-            "backgroundImageUrl":"miix_",
-            "customizableObjects":[
-                {
-                    "id":"greeting_photo",
-                    "format":"image",
-                    "description":"一張用來問候的的相片"
-                }
-            ]
-        },
-        "picture":{
-            
-        },
-        "text_picture":{
-            
+        "miix_one_image":{
+            "selected":"miix_one_image",
+            "name":"一張圖合成影片",
+            "outputType":"video",
+            "description":"圖：上傳一張照片",
+            "customizableObjectsXml":"template_customizable_object_list.xml"
         }
     }
 }

@@ -1,5 +1,4 @@
 {
-    
     "selected":"cultural_and_creative",
     "name":"文創設計",
     "representingImageUrl":"images/choose_movie.png",
@@ -11,6 +10,7 @@
     "subTemplate":{
         "text_only":{
             "name":"版型一",
+            "outputType":"image",
             "description":"文：限39個中文字",
             "backgroundImageUrl":"mood-text-bg.jpg",
             "customizableObjects":{
@@ -37,6 +37,7 @@
         },
         "picture_only":{
             "name":"版型二",
+            "outputType":"image",
             "description":"圖：上傳一張照片",
             "backgroundImageUrl":"mood-picture-bg.jpg",
             "customizableObjects":{
@@ -62,6 +63,7 @@
         },
         "picture_plus_text":{
             "name":"版型三",
+            "outputType":"image",
             "description":"文：限24個中文字<br>圖：上傳一張照片",
             "backgroundImageUrl":"test_bg.jpg",
             "customizableObjects":{
