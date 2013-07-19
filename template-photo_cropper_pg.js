@@ -23,6 +23,12 @@ load: function(event, data){
     
     $("#nav-bar").show();
     
+    $("#submitPhotoBtn2").click(function(){
+                        
+                                FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
+                                $.mobile.changePage("template-preview.html");
+                        });
+    
     var onSubmitBtnClick= function() {
        
         
@@ -72,7 +78,7 @@ load: function(event, data){
                    if ( !result.err ) {
                    FmMobile.addProcessingWork(projectID);
                    $.mobile.hidePageLoadingMsg();
-                   $.mobile.changePage("template-preview.html");
+                   //$.mobile.changePage("template-preview.html");
                    
                    }
                    })
@@ -83,7 +89,7 @@ load: function(event, data){
                    $('#submitPhotoBtn').click();
                    break;
                    case 2:
-                   $.mobile.changePage("template-preview.html");
+                  // $.mobile.changePage("template-preview.html");
                    break;
                    }
                    }
@@ -147,7 +153,7 @@ load: function(event, data){
             
         }
         
-        uploadPhoto(fileSelectedURI);
+        //uploadPhoto(fileSelectedURI);
         FmMobile.analysis.trackEvent("Button", "Click", "Submit", 24);
         //recordUserAction("submits a Photo");
         
