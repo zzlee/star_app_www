@@ -115,7 +115,9 @@ div[data-role=page] {
 	top:10%;
 	width: 100%;
 	padding: 0px;
+
 	position: absolute;
+    
 	overflow: auto;
 	min-height: 72.84%;
 }

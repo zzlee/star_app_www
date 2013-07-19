@@ -37,6 +37,9 @@
     <script src="photo_cropper_pg.js"></script>
     <script src="mobileinit.js"></script>
     <script src="mobileinit_movie_gen.js"></script>
+        <script src="">"image_ugc.js"</script>
+
+        
     <script src="./lib/jquery.mobile-1.2.0.js"></script>
     <link rel="stylesheet" href="./css/fm.css"/>
     <link rel="stylesheet" href="./css/fm2.css"/>
@@ -52,23 +55,36 @@
 	<div class="container" data-role="content">
         <div class="content-movie">
             <div class="movie-pic-dummy"></div>
-            <canvas id="photoZoom" class="content-movie-img"></canvas>
+            <img  class="content-movie-img" src="" id="show" />
+            <canvas id="photoZoom" class="content-movie-img"> </canvas>
             <!-- <img class="content-movie-img" src="images/movie_pic.png"></img> -->
         </div>
-        <div class="template_label_text" id="test">確定投件</div>
+        <div class="template_label_text" id="btnTest">確定投件</div>
         <div class="template_label"><img class="label-img" src="images/button_long.png"></div>
         
        
     </div>
     
-    <div id="nav-bar" class="nav-bar-background1">
-        <div id="btnCreateMovie" class="ui-menu-inactive"><img class="menu-img" src="images/m1.png"></div>
-        <div id="btnMyVideo" class="ui-menu-inactive"><img class="menu-img" src="images/m2.png"></div>
-        <div id="btnSubmitDOOH" class="ui-menu-inactive"><img class="menu-img" src="images/m3.png"></div>
-        <div id="btnSetting" class="ui-menu-active"><img class="menu-img" src="images/m4.png"></div>
-    </div>
-    
+        
 </div>
+    <div id="nav-bar" class="nav-bar-background3">
+        <div id="btnTemplate" class="ui-menu-inactive">
+            <img class="menu-img" src="images/m1-active.png">
+                <div class="menu-text">主題模板</div>
+                </div>
+        <div id="btnMyUgc" class="ui-menu-inactive">
+            <img class="menu-img" src="images/m2.png">
+                <div class="menu-text">我的影片</div>
+                </div>
+        <div id="btnScreen" class="ui-menu-inactive">
+            <img class="menu-img" src="images/m3.png">
+                <div class="menu-text">大螢幕</div>
+                </div>
+        <div id="btnSetting" class="ui-menu-active">
+            <img class="menu-img" src="images/m4.png">
+                <div class="menu-text">設定</div>
+                </div>
+    </div>
     
 </body>
 </html>

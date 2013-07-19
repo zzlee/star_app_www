@@ -23,7 +23,18 @@ load: function(event, data){
     
     $("#nav-bar").show();
     
+    $("#submitPhotoBtn2").click(function(){
+                        
+                                FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
+                                $.mobile.changePage("template-preview.html");
+                        });
+    
     var onSubmitBtnClick= function() {
+       
+        
+        FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
+        
+          
         var uploadFail_cb = function(error) {
             
             var onConfirm = function(buttonIndex) {
@@ -33,6 +44,8 @@ load: function(event, data){
                         break;
                     case 2:
                         $.mobile.changePage("my_video.html");
+
+                        
                         break;
                 }
             }
@@ -65,7 +78,7 @@ load: function(event, data){
                    if ( !result.err ) {
                    FmMobile.addProcessingWork(projectID);
                    $.mobile.hidePageLoadingMsg();
-                   $.mobile.changePage("my_video.html");
+                   //$.mobile.changePage("template-preview.html");
                    
                    }
                    })
@@ -76,7 +89,7 @@ load: function(event, data){
                    $('#submitPhotoBtn').click();
                    break;
                    case 2:
-                   $.mobile.changePage("my_video.html");
+                  // $.mobile.changePage("template-preview.html");
                    break;
                    }
                    }
@@ -140,7 +153,7 @@ load: function(event, data){
             
         }
         
-        uploadPhoto(fileSelectedURI);
+        //uploadPhoto(fileSelectedURI);
         FmMobile.analysis.trackEvent("Button", "Click", "Submit", 24);
         //recordUserAction("submits a Photo");
         
@@ -148,7 +161,7 @@ load: function(event, data){
         
     };
     
-    $('#submitBtn').click(onSubmitBtnClick);
+    $('#submitPhotoBtn').click(onSubmitBtnClick);
     $('#cancelBtn').click(function(){
                           
                           if( FmMobile.selectedSubTemplate=="picture_only"){
@@ -165,12 +178,23 @@ load: function(event, data){
     
 },
     
+    
+    
 show: function(event, data){
+    FmMobile.userContent.picture.urlOfOriginal=fileSelectedURI;
     
     //JF - image initial
     canvas = document.getElementById('photoZoom');
     context = canvas.getContext('2d');
     image = new Image();
+    
+    
+    var change_css=($('.movie-pic-dummy').width())*0.95;
+    $('.content-movie-img').css({
+            'width':change_css,
+            });
+
+    
     
     //canvas.width = screen.availWidth;
     canvas.width = $('.movie-pic-dummy').width();
@@ -198,9 +222,10 @@ show: function(event, data){
 
     };
     
-    image.src = "images/test.jpg";  //for test
+    //image.src = "images/test.jpg";  //for test
     
-    
+        image.src = fileProcessedForCropperURI;
+   // FmMobile.userContent.picture.url=fileProcessedForCropperURI;
     
     //JF - image event
     $$('#photoZoom').pinching(function(e){
@@ -297,7 +322,15 @@ show: function(event, data){
                                width:canvas.width / option.scope.w,  //fraction relative to its width
                                height:canvas.height / option.scope.h  //fraction relative to its height
                            };
-                           alert(croppedArea.x);
+                           
+                           FmMobile.userContent.picture.crop._x=croppedArea.x;
+                           FmMobile.userContent.picture.crop._y=croppedArea.y;
+                           FmMobile.userContent.picture.crop._w=croppedArea.width;
+                           FmMobile.userContent.picture.crop._h=croppedArea.height;
+                           
+                           
+
+
                            });
     
     showImage = function(){

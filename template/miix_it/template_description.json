@@ -1,6 +1,8 @@
 {
     "selected":"miix_it",
-    "name":"影像合成",
+    "name":"合成",
+    "representingImageUrl":"koala.jpg",
+    "introdcutionContentUrl":"mood_introdction.html",
     "outputSize":{
         "width":720,
         "height":480

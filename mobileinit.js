@@ -52,6 +52,9 @@ $(document).bind("mobileinit", function(){
 	$("#tocPg").live("pageinit", FmMobile.tocPg.init);
 	$("#customerQuestionPg").live("pageshow", FmMobile.customerQuestionPg.show);
 	$("#customerQuestionPg").live("pageinit", FmMobile.customerQuestionPg.init);
+                 $("#loginTocPg").live("pageinit", FmMobile.loginTocPg.init);
+                 $("#loginTocPg").live("pageshow", FmMobile.loginTocPg.show);
+                 
 	$("#fbLoginPg").live("pageinit", FmMobile.fbLoginPg.init);
 	$("#fbLoginPg").live("pageshow", FmMobile.fbLoginPg.show);
 	$("#verificationPg").live("pageinit", FmMobile.verificationPg.init);
@@ -70,8 +73,13 @@ $(document).bind("mobileinit", function(){
     $("#template_previewPg").live("pageshow", FmMobile.template_previewPg.show);
     $("#template_input_textPg").live("pageinit", FmMobile.template_input_textPg.init);
     $("#template_input_textPg").live("pageshow", FmMobile.template_input_textPg.show);
-    $("#movieCreatePg").live("pageinit", FmMobile.movieCreatePg.load);
-    $("#movieCreatePg").live("pageshow", FmMobile.movieCreatePg.show);
+  //  $("#movieCreatePg").live("pageinit", FmMobile.movieCreatePg.load);
+   // $("#movieCreatePg").live("pageshow", FmMobile.movieCreatePg.show);
+                 
+                 $("#template_pic_pg").live("pageinit", FmMobile.template_pic_pg.load);
+                 $("#template_pic_pg").live("pageshow", FmMobile.template_pic_pg .show);
+                 
+                 
     $("#template_checkinPg").live("pageinit", FmMobile.template_checkinPg.init);
     $("#template_checkinPg").live("pageshow", FmMobile.template_checkinPg.show);
     $("#template_miixitPg").live("pageinit", FmMobile.template_miixitPg.init);
@@ -84,6 +92,15 @@ $(document).bind("mobileinit", function(){
  $("#cellphoneLoginPg").live("pageinit", FmMobile.cellphoneLoginPg.init);
  $("#cellphoneLoginPg").live("pageshow", FmMobile.cellphoneLoginPg.show);
                  
+                 $("#fbLoginSuccessPg").live("pageinit", FmMobile.fbLoginSuccessPg.init);
+                 $("#fbLoginSuccessPg").live("pageshow", FmMobile.fbLoginSuccessPg.show);
+                 
+     //$("#template_input_checkin_pg").live("pageinit", FmMobile.template_input_checkin_pg.init);
+     //$("#template_input_checkin_pg").live("pageshow", FmMobile.template_input_checkin_pg.show);
+                 
+
+                 
+                
                  
 	$.mobile.page.prototype.options.addBackBtn = true;
 
@@ -93,11 +110,14 @@ $(document).bind("mobileinit", function(){
     $("#settingTermPg").live("pageshow", FmMobile.settingTermPg.show);
     $("#settingFaqPg").live("pageinit", FmMobile.settingFaqPg.init);
     $("#settingFaqPg").live("pageshow", FmMobile.settingFaqPg.show);
+    $("#template_sub_cultural_Pg").live("pageinit", FmMobile.template_sub_cultural_Pg.init);
+    $("#template_sub_cultural_Pg").live("pageshow", FmMobile.template_sub_cultural_Pg.show);
                  
     $.mobile.page.prototype.options.addBackBtn = true;
 
 	TemplateMgr.getInstance(function(err, _templateMgr){
 		
+
 		if (!err) {
 			templateMgr = _templateMgr;
 		}
@@ -131,10 +151,12 @@ FmMobile.userContent = {
 		picture: {
 			urlOfOriginal: null, //the URL of the original picture that the user chooses
 			urlOfCropped: null, //the URL of the picture that the user crops. (It is normally a base64 string got from canvas.toDataURL() )
-			crop: {_x:0, _y:0, _w:1, _h:1},  // _x=x_crop/width_picture; _y=y_crop/height_picture; _w=width_crop/width_picture;  _h=height_crop/height_picture
+		//url:null,
+        crop: {_x:0, _y:0, _w:1, _h:1},  // _x=x_crop/width_picture; _y=y_crop/height_picture; _w=width_crop/width_picture;  _h=height_crop/height_picture
 		},
 		thumbnail:{
-			url: null
+			url:'img/darth-vader.jpg'
+
 		}
 };
 
@@ -560,8 +582,12 @@ FmMobile.authPopup = {
                     localStorage.fb_accessToken = response.data.accessToken;
                     localStorage._id = response.data._id;
                     sessionStorage.sessionID = response.data.sessionID;
-                    $.mobile.changePage("verification.html");
-                    
+              
+              if(localStorage.verified == 'true'){
+              alert("gg");
+              }else{
+              $.mobile.changePage("verification.html");}
+              
                 }else{
                     // Future - Handle FB Authentication Fail Here. - Popup something.
                 }
@@ -615,14 +641,21 @@ FmMobile.authPopup = {
             if(response.data){
                 localStorage._id = response.data._id;
                 localStorage.fb_accessToken = response.data.accessToken;
-                localStorage.verified = (response.data.verified) ? response.data.verified : 'false';
+       // localStorage.verified = (response.data.verified) ? response.data.verified : 'false';
+               
+               localStorage.verified='true';//此行為了測試電話認證！
                 FM_LOG("localStorage" + JSON.stringify(localStorage));
                
                 // Each time of Login, pull all videos.
                 FmMobile.ajaxNewVideos();
                 FmMobile.ajaxNewStoryVideos();
+               
+               if(localStorage.verified == 'true'){
+               $.mobile.changePage("template-main_template.html");
+               
+               }else{
                $.mobile.changePage("cellphone_login.html");  
-
+               }
                // $.mobile.changePage("movie_create.html");
                 window.plugins.childBrowser.close();
                
@@ -641,7 +674,7 @@ FmMobile.authPopup = {
         delete localStorage.fb_userID;
         delete localStorage.fb_name;
         delete localStorage.fb_accessToken;
-        delete localStorage.verified;
+        //delete localStorage.verified;
         if(localStorage.email) delete localStorage.email;
         
         $.jStorage.set("videoWorks", []);

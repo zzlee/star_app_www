@@ -1,19 +1,19 @@
-FmMobile.template_pic_text_pg = {
+FmMobile.template_pic_pg = {
 	//  Page constants.
-    PAGE_ID: "template_pic_text_pg",
+    PAGE_ID: "template_pic_pg",
     
     //  Page methods.
     show: function(){
-        FmMobile.analysis.trackPage("/template_pic_text_pg");
-        recordUserAction("enters template_pic_text_pg");
+        FmMobile.analysis.trackPage("/template_pic_pg");
+        recordUserAction("enters template_pic_pg");
     },
     
     load: function(event, data){
+        FmMobile.userContent.text=null;
         
+        //FmMobile.bindClickEventToNavBar();
         
-       // FmMobile.bindClickEventToNavBar();
-        $('#nav-bar').show();
-
+        $("#nav-bar").show();
         if ( localStorage._id ) {
             userName = localStorage._id;
         }
@@ -22,15 +22,22 @@ FmMobile.template_pic_text_pg = {
         }
         
         
+       // if(FmMobile.selectedTemplate=="cultural_and_creative"){
+            
+        $("#back_main").click(function(){
+                              $.mobile.changePage("template-main_template.html");
+                              });
         
         if(FmMobile.selectedTemplate=="cultural_and_creative"){
             
             $("#template_name_2").html('').append(templateMgr.getTemplateList()[0].name);
         }else if(FmMobile.selectedTemplate=="mood"){
             $("#template_name_2").html('').append(templateMgr.getTemplateList()[1].name);
-        }else if(FmMobile.selectedTemplate=="check_in"){
-            $("#template_name_2").html('').append(templateMgr.getTemplateList()[2].name);
+        }else if(FmMobile.selectedTemplate=="miix_it"){
+             $("#template_name_2").html('').append(templateMgr.getTemplateList()[3].name);
         }
+
+        
         
         
         var url = $(this).data('url');
@@ -50,18 +57,10 @@ FmMobile.template_pic_text_pg = {
         var itemContentIsReady;
         
         
-        $("#back_main").click(function(){
-                              $.mobile.changePage("template-main_template.html");
-                              });
         
         var buttonClick_cb = function(event, ui) {
             
             console.log('button clicked!');
-            if($("#ur_text").val().length==0 ||$("#ur_text").val()==" "){
-                alert("請輸入文字！");
-            }else{
-                FmMobile.userContent.text=$("#ur_text").val();
-            
             fileObjectID = event.data.objectID;
             console.log('[buttonClick_cb()] fileObjectID = %s', fileObjectID);
             //alert('fileObjectID = '+fileObjectID );
@@ -96,8 +95,6 @@ FmMobile.template_pic_text_pg = {
                 }
                 else {
                     fileProcessedForCropperURI = imageURI;
-                    
-                    
                     $.mobile.changePage("template-photo_cropper.html");
                     
                 }
@@ -125,7 +122,7 @@ FmMobile.template_pic_text_pg = {
             
             
             
-            }
+            
         }
         
         var getCustomizableObject_cb = function(xmlDoc) {
@@ -144,7 +141,6 @@ FmMobile.template_pic_text_pg = {
                     height: customizableObjectsXml[i].getElementsByTagName("original_height")[0].childNodes[0].nodeValue };
                 
                 $('#movieKeyFrame').attr('src', './template/'+templateID+'/'+objKeyFrame);
-                
                 
                 $('#btnUseCamera').bind( "click", { objectID: objID, objectIndex: i, PhotoSource: "camera" }, buttonClick_cb);
                 $('#btnUseAlbum').bind( "click", { objectID: objID, objectIndex: i, PhotoSource: "album" }, buttonClick_cb);
@@ -165,33 +161,6 @@ FmMobile.template_pic_text_pg = {
                dataType: 'xml',
                success: getCustomizableObject_cb		
                });
-        
-        
-        
-        
-        var text_limit=24;
-        $("#ur_text").focusout(function(){
-                               
-                               if($("#ur_text").val().length>text_limit){
-                               //alert("超過6個中文字囉！");
-                               var num = $("#ur_text").val().substr(0, text_limit);
-                               $("#ur_text").val(num);
-                               }
-                               $("#now").text(text_limit - $("#ur_text").val().length);
-                               
-                               });
-        
-        $("#ur_text").keyup(function(){
-                            var curLength = $("#ur_text").val().length;
-                            if (curLength > text_limit) {
-                            var num = $("#ur_text").val().substr(0,text_limit);
-                            $("#ur_text").val(num);
-                            alert("超過"+text_limit+"字數限制，多出的字將被移除！");
-                            }
-                            });
-        
-        
-        
         
         /*
          var btnSubmit1Click_cb = function () {

@@ -23,8 +23,9 @@ FmMobile.template_checkinPg = {
           });
         
         
+        
         $('#next_step').click(function(){
-          FmMobile.selectedSubTemplate=templateMgr.getTemplateList()[2].subTemplate.selected;
+      FmMobile.selectedSubTemplate=templateMgr.getSubTemplateList("miix_it")[2].id;
 
                               $.mobile.changePage("template-input_text_pic.html");
                               

@@ -1,4 +1,5 @@
 FmMobile.imageTestPg = {
+
     PAGE_ID: "imageTestPg",
  
     init: function(){
@@ -150,7 +151,6 @@ FmMobile.imageTestPg = {
  
     },
     
-    show: function(){
-    },
+	show: function(){
+	}
 };
-
