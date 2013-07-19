@@ -641,9 +641,9 @@ FmMobile.authPopup = {
             if(response.data){
                 localStorage._id = response.data._id;
                 localStorage.fb_accessToken = response.data.accessToken;
-       // localStorage.verified = (response.data.verified) ? response.data.verified : 'false';
+       localStorage.verified = (response.data.verified) ? response.data.verified : 'false';
                
-               localStorage.verified='true';//此行為了測試電話認證！
+               //localStorage.verified='true';//此行為了測試電話認證！
                 FM_LOG("localStorage" + JSON.stringify(localStorage));
                
                 // Each time of Login, pull all videos.
@@ -651,8 +651,9 @@ FmMobile.authPopup = {
                 FmMobile.ajaxNewStoryVideos();
                
                if(localStorage.verified == 'true'){
-               $.mobile.changePage("template-main_template.html");
                
+              $.mobile.changePage("template-main_template.html");
+                alert("true");
                }else{
                $.mobile.changePage("cellphone_login.html");  
                }
@@ -674,7 +675,7 @@ FmMobile.authPopup = {
         delete localStorage.fb_userID;
         delete localStorage.fb_name;
         delete localStorage.fb_accessToken;
-        //delete localStorage.verified;
+        delete localStorage.verified;
         if(localStorage.email) delete localStorage.email;
         
         $.jStorage.set("videoWorks", []);

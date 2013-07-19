@@ -2,6 +2,8 @@ FmMobile.fbLoginPg = {
     PAGE_ID: "fbLoginPg",
         
     init: function(){
+        
+        $('#nav-bar').hide();
         $("#go_fb_login").click(function(){
             FmMobile.authPopup.init();
         });
