@@ -20,7 +20,7 @@ FmMobile.indexPg = {
         FM_LOG("[indexPg.show]");
         //recordUserAction("starts MiixCard app", true);
         
-        /*
+        
         if(localStorage.fb_userID){
             $.mobile.changePage("my_video.html");
             //$.mobile.changePage("movie_create.html"); //for temp test
@@ -31,8 +31,8 @@ FmMobile.indexPg = {
             //$.mobile.changePage("my_video.html");
             
         }
-         */
-       $.mobile.changePage("orientation_1.html");
+         
+      // $.mobile.changePage("setting-customer.html");
         //$.mobile.changePage("image_test.html");
     },
         

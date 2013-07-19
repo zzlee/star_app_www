@@ -13,23 +13,28 @@ FmMobile.customerQuestionPg = {
                                  $.mobile.changePage("setting-main.html");
                                  });
         
-       var memberId = "123345";
+       var memberId = localStorage._id;
         
         // post customer question
         
         $("#customer_button").click(function(){
                     var input_id=$("#input_id").val(); // input_id (影片代碼）
                     var question_text=$("#question_text").val(); //question_text 問題敘述
-                    var select=$("#select option:selected").val(); //問題種類                                     
+                    var select=$("#select option:selected").val(); //問題種類
+                    
+                    
                                     
             $.ajax({
                type: "POST",
-               url: starServerURL+"/members/"+memberId+"/questions",
-               data: {"it":input_id,
-                      "qt":question_text,
-                      "select":select
+               url: starServerURL+"/miix_service/"+memberId+"/questions",
+               data: {
+                      
+                      "no":input_id,
+                      "question":question_text,
+                      "genre":select
                     }
                }).done(function( result ) {
+                       
                        alert(result);
                    });
               });
