@@ -97,6 +97,8 @@ FmMobile.imageTestPg = {
 
         /*
         if (templateMgr) {
+        	console.dir(templateMgr.getTemplateList());
+        	console.dir(templateMgr.getSubTemplateList("mood"));
 			console.dir(templateMgr.getSubTemplate("mood","picture_plus_text"));
 		}*/
         
@@ -106,11 +108,33 @@ FmMobile.imageTestPg = {
         FmMobile.userContent.picture.urlOfCropped = 'img/Koala.jpg';
         FmMobile.userContent.thumbnail.url = 'img/darth-vader.jpg';
         
+<<<<<<< HEAD
         ImageUgc.getInstance('mood', 'picture_plus_text', FmMobile.userContent, function(err, imageUgc){
                           
+=======
+        var imageUgc = null;
+        ImageUgc.getInstance('mood', 'picture_plus_text', FmMobile.userContent, function(err, _imageUgc){
+>>>>>>> origin/gz_ondascreen
         	if (!err){
+        		imageUgc = _imageUgc;
         		$("#canvasImg").attr("src", imageUgc.getImageUrl() );
         	}
+        });
+        
+        $('#btnTest').click(function(){
+        	var mainTemplate = "mood";
+        	var ownerId = '512da133989cfc2403000005'; //Gance's
+        	var ownerFbUserId = '100004619173955'; //Gance's
+        	var ugcProjectId = mainTemplate +'-'+ ownerId +'-'+ (new Date()).toISOString().replace(/[-:.]/g, "");
+        	var ugcInfo = {
+        			ownerId:{_id:ownerId, fbUserId:ownerFbUserId },
+        			contentGenre: mainTemplate,
+        			title: "today's mood"
+        	};
+        	
+        	imageUgc.uploadToServer(ugcProjectId, ugcInfo, function(err){
+        		console.log("err="+err);
+        	});
         });
 
 
