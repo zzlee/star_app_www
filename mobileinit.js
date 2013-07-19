@@ -106,11 +106,8 @@ $(document).bind("mobileinit", function(){
     $.mobile.page.prototype.options.addBackBtn = true;
 
 	TemplateMgr.getInstance(function(err, _templateMgr){
-<<<<<<< HEAD
                             //alert("templatmgr");
-=======
-		
->>>>>>> origin/gz_ondascreen
+
 		if (!err) {
 			templateMgr = _templateMgr;
 		}

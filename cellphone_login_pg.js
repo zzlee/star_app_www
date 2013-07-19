@@ -6,6 +6,7 @@ init: function(){
     $("#verify").click(function(){
                        $.mobile.changePage('phone_num_input.html');
                        });
+    $("#nav-bar").hide();
 },
     
 show: function(){
