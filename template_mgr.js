@@ -1,59 +1,63 @@
 
 TemplateMgr = (function(){
 	var uInstance = null;
-	var templates = {};
 	
-	var loadTemplate = function(loaded_cb){
-		var templateList = null;
-		async.series([
-			function(cb1_series){
-				var settings = {
-						type: "GET",
-						dataType: "json",
-						success: function(data, textStatus, jqXHR ){
-							//console.dir(data);
-							templateList = data;
-							cb1_series(null);
-						},
-						error: function(jqXHR, textStatus, errorThrown){
-							cb1_series(errorThrown);
-						}						
-				};
-				$.ajax('template/template_list.json',settings);
-			},
-			function(cb2_series){
-				
-				var iterator = function(aTemplate, cb_each){
+	
+	function constructor(cb_constructor){
+		
+		var templates = {};
+		var TEMPLATE_FOLDER_PATH = 'template';
+		
+		
+		var loadTemplate = function(loaded_cb){
+			var templateList = null;
+			async.series([
+				function(cb1_series){
 					var settings = {
 							type: "GET",
 							dataType: "json",
 							success: function(data, textStatus, jqXHR ){
 								//console.dir(data);
-								templates[aTemplate] = data;
-								cb_each(null);
+								templateList = data;
+								cb1_series(null);
 							},
 							error: function(jqXHR, textStatus, errorThrown){
-								cb_each(errorThrown);
+								cb1_series(errorThrown);
 							}						
 					};
-					$.ajax('template/'+aTemplate+'/template_description.json',settings);
-				};
-				async.eachSeries(templateList, iterator, function(err, results){
-					cb2_series(err);
-				});
-			},
-		], function (err, result) {
-			if (!err){
-				loaded_cb(null);
-			}
-			else {
-				loaded_cb("Failed to read template json files: "+err);
-			}
-			//console.dir(templates);
-		});
-	};
-	
-	function constructor(cb_constructor){
+					$.ajax('template/template_list.json',settings);
+				},
+				function(cb2_series){
+					
+					var iterator = function(aTemplate, cb_each){
+						var settings = {
+								type: "GET",
+								dataType: "json",
+								success: function(data, textStatus, jqXHR ){
+									//console.dir(data);
+									templates[aTemplate] = data;
+									cb_each(null);
+								},
+								error: function(jqXHR, textStatus, errorThrown){
+									cb_each(errorThrown);
+								}						
+						};
+						$.ajax('template/'+aTemplate+'/template_description.json',settings);
+					};
+					async.eachSeries(templateList, iterator, function(err, results){
+						cb2_series(err);
+					});
+				},
+			], function (err, result) {
+				if (!err){
+					loaded_cb(null);
+				}
+				else {
+					loaded_cb("Failed to read template json files: "+err);
+				}
+				//console.dir(templates);
+			});
+		};
 		
 		loadTemplate(function(err){
 			if (!err){
@@ -88,6 +92,10 @@ TemplateMgr = (function(){
 					
 					getSubTemplate: function(mainTemplateId, subTemplateId){
 						return templates[mainTemplateId].subTemplate[subTemplateId];
+					},
+					
+					getTemplateFolderPath: function(){
+						return TEMPLATE_FOLDER_PATH;
 					}
 			
 				});
@@ -108,7 +116,7 @@ TemplateMgr = (function(){
 				});
             }
 			else {
-				got_cb(err, uInstance);
+				got_cb(null, uInstance);
 			}
 		}
 	};
