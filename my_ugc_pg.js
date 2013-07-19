@@ -7,12 +7,18 @@ FmMobile.myUgcPg = {
         $('#nav-bar').show();
         
 
-        var url = starServerURL + "/miix/ugc_hightlights";
+        var url = starServerURL + "/miix/members/:memberId/ugcs";
         FmMobile.myUgcPg.myVideos = new Array();
         //screen_pg.js
+        //Everytime reload the data from our Server.
+        var query = {
+            "_id": localStorage._id,
+            "userID": localStorage.fb_userID,
+            "timestamp": Date.now()
+        };
         $.ajax({
                url: url,
-               data: (new Date()).getTime(),
+               data: query,
                dataType: 'json',
                success: function(response){
                    if(response){
@@ -22,12 +28,17 @@ FmMobile.myUgcPg = {
                               ProjectId: item.projectId,
                               Genre: item.genre,
                               Youtube : item.url.youtube,
+                              //if column no data then send " "
+                              //Youtube : item.url.youtube,
+                              //Tudou : item.url.tudou,
+                              //S3 : item.url.s3,
                               No: item.no,
-                      
+                              
                           }
                           FmMobile.myUgcPg.myVideos.push(data);
+                              console.log("[data] :" + data);
                         });
-                          FmMobile.myUgcPg.loadLiveVideo(FmMobile.myUgcPg.myVideos, "video");
+//                          FmMobile.myUgcPg.loadLiveVideo(FmMobile.myUgcPg.myVideos, "video");
       
                     }else{
                        console.log("[error] : " + response.error);
@@ -61,15 +72,17 @@ FmMobile.myUgcPg = {
         //remove all tags in my-video-list
         parent.html("");
         
+        /** Set data to List */
         for(var i = 0; i< arryVideo.length; i++){
             var widget = $("<div>").attr({id: arryVideo[i].ProjectId, class: "content-movie"});
             var dummyDiv = $("<div>").attr({class: "movie-pic-dummy"});
-            //For video info
+            //For item info ex. Copy Youtube'url, Share on FB and # of video/image
             var info = $("<div>").attr({id: "my-video-info"});
             
             dummyDiv.appendTo(widget);
             
-            if(arryVideo[i].Youtube){
+            //For Youtube
+            if(arryVideo[i].Youtube != ""){
                 var ytVideoID = (arryVideo[i].Youtube).split('/').pop();
                 console.log(i + " ytVideoID :" + ytVideoID + ", No. " + arryVideo[i].No);
                 this.videoThumbnail = $("<img>").attr({
@@ -102,7 +115,23 @@ FmMobile.myUgcPg = {
                 }
                 
                 widget.appendTo(parent);
+            }else if(arrVideo[i].S3 != ""){
+                //Get the image's name
+                var s3ImageName = arrVideo[i].S3;
+                var s3Url = arrVideo[i].S3;
+                console.log(i + " s3ImageName : " + s3ImageName);
+                this.imageThumbnail = $("<img>").attr({
+                                                      //set image's name to id
+                                                      id: "img_" +s3ImageName,
+                                                      src: s3Url,
+                                                      class: "content-movie-img"
+                                                      });
+                this.imageThumbnail.appendTo(widget);
                 
+                
+            }else if(arrVideo[i].Todou != ""){
+                
+            
             }else{
                 console.log("[myUgcPg.loadLiveVideo] videoList : no Youtube URL");
             }
@@ -117,6 +146,11 @@ FmMobile.myUgcPg = {
         FM_LOG("[myUgcPg.ClickEvent]");
         $('#my-video-list>div>img').click(function(){
             console.log("click" + this);
+            //if gene != youtube url
+            // jump the callPlayer
+            //else if( photo)
+            // connect S3 and show the photo!
+                                    
             var callPlayer = function (frame_id, func, args) {
             if (window.jQuery && frame_id instanceof jQuery){
                 frame_id = frame_id.get(0).id;
