@@ -107,6 +107,7 @@ FmMobile.imageTestPg = {
         FmMobile.userContent.thumbnail.url = 'img/darth-vader.jpg';
         
         ImageUgc.getInstance('mood', 'picture_plus_text', FmMobile.userContent, function(err, imageUgc){
+                          
         	if (!err){
         		$("#canvasImg").attr("src", imageUgc.getImageUrl() );
         	}

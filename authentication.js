@@ -16,9 +16,11 @@ FmMobile.authentication = {
     init: function(){
         
         if(localStorage.verified == 'true'){
+            console.log("verified is true");
             $.mobile.changePage("booking_choose_movie.html");
             
         }else{
+             console.log("verified is false");
             this.verification();
         }
         

@@ -23,6 +23,7 @@ init: function(){
       });
     
     $('#next_step').click(function(){
+                FmMobile.selectedSubTemplate=templateMgr.getSubTemplateList("miix_it")[1].id;
                           $.mobile.changePage("template-input_pic.html");
                           });
     /*

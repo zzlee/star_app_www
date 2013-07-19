@@ -28,15 +28,15 @@ init: function(){
                         
                            $.mobile.changePage("template-preview.html");
                            FmMobile.userContent.text=$('#ur_text').val();
-                           FmMobile.userContent.picture.url=null;
+                           FmMobile.userContent.picture.urlOfOriginal=null;
                            FmMobile.userContent.picture.crop._x=null;
                            FmMobile.userContent.picture.crop._y=null;
 
                            FmMobile.userContent.picture.crop._w=null;
                            FmMobile.userContent.picture.crop._h=null;
-
-
-                           }
+              
+                           
+                                              }
                            });
     
   var text_limit=39;
@@ -59,6 +59,9 @@ init: function(){
                         alert("超過"+text_limit+"字數限制，多出的字將被移除！");
                         }
    });
+    
+    
+    
  
 
   },

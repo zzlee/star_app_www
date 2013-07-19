@@ -115,6 +115,8 @@ div[data-role=page] {
 	margin-top:10%;
 	width: 100%;
 	padding: 0px;
+	position: absolute;
+	overflow: auto;
 	min-height: 72.84%;
     padding-bottom: 37%;
 }

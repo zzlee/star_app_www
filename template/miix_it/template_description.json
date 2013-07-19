@@ -1,27 +1,108 @@
 {
-    
-         "selected":"miix_it",
-    "name":"影像合成",
+    "selected":"miix_it",
+    "name":"合成",
+    "representingImageUrl":"koala.jpg",
+    "introdcutionContentUrl":"mood_introdction.html",
     "outputSize":{
         "width":720,
         "height":480
     },
     "subTemplate":{
-        "text":{
-            "backgroundImageUrl":"miix_",
+        "text_only":{
+            "selected":"text_only",
+            "name":"版型一",
+            "description":"文：限39個中文字",
+            "backgroundImageUrl":"test_bg.jpg",
             "customizableObjects":[
-                {
-                    "id":"greeting_photo",
-                    "format":"image",
-                    "description":"一張用來問候的的相片"
-                }
-            ]
+                                   {
+                                   "id":"text0",
+                                   "type":"text",
+                                   "x":"23",
+                                   "y":"44",
+                                   "width":"303",
+                                   "lineHeight":"34",
+                                   "angle":"0",
+                                   "description":"心情文字",
+                                   "maxTextLength":"39"
+                                   },
+                                   {
+                                   "id":"thumbnail",
+                                   "type":"image",
+                                   "x":"35",
+                                   "y":"33",
+                                   "width":"303",
+                                   "height":"34",
+                                   "angle":"0",
+                                   "description":"大頭貼"
+                                   }
+                                   ]
         },
-        "picture":{
-            
+        "picture_only":{
+            "selected":"picture_only",
+            "name":"版型二",
+            "description":"圖：上傳一張照片",
+            "backgroundImageUrl":"test_bg.jpg",
+            "customizableObjects":[
+                                   {
+                                   "id":"picture0",
+                                   "type":"image",
+                                   "x":"775",
+                                   "y":"22",
+                                   "width":"240",
+                                   "height":"180",
+                                   "angle":"10.36",
+                                   "description":"心情照片"
+                                   },
+                                   {
+                                   "id":"thumbnail",
+                                   "type":"image",
+                                   "x":"35",
+                                   "y":"33",
+                                   "width":"303",
+                                   "height":"34",
+                                   "angle":"0",
+                                   "description":"大頭貼"
+                                   }
+                                   ]
         },
-        "text_picture":{
-            
+        "picture_plus_text":{
+            "selected":"picture_plus_text",
+            "name":"版型三",
+            "description":"文：限24個中文字<br>圖：上傳一張照片",
+            "backgroundImageUrl":"test_bg.jpg",
+            "customizableObjects":[
+                                   {
+                                   "id":"text0",
+                                   "type":"text",
+                                   "x":"10",
+                                   "y":"40",
+                                   "width":"240",
+                                   "lineHeight":"30",
+                                   "angle":"0",
+                                   "description":"心情文字",
+                                   "maxTextLength":"24"
+                                   },
+                                   {
+                                   "id":"picture0",
+                                   "type":"image",
+                                   "x":"775",
+                                   "y":"22",
+                                   "width":"240",
+                                   "height":"180",
+                                   "angle":"10.36",
+                                   "description":"心情照片"
+                                   },
+                                   {
+                                   "id":"thumbnail",
+                                   "type":"image",
+                                   "x":"300",
+                                   "y":"100",
+                                   "width":"50",
+                                   "height":"50",
+                                   "angle":"0",
+                                   "description":"大頭貼"
+                                   }
+                                   ]
         }
     }
 }

@@ -17,25 +17,25 @@ FmMobile.template_sub_cultural_Pg = {
                           $('#close').hide();
                           });
         
-        var tem_mgr=templateMgr.getTemplateList();
-
+        //var tem_mgr=templateMgr.getTemplateList();
+templateMgr.getSubTemplateList("cultural_and_creative")[0].id;
        
-        $("#sub_1").html('').append(tem_mgr[0].subTemplate.text_only.name).click(function(){
+        $("#sub_1").html('').append(templateMgr.getSubTemplateList("cultural_and_creative")[0].name).click(function(){
                      alert("hi");
-       FmMobile.selectedSubTemplate=tem_mgr[0].subTemplate.text_only.selected;
-                     $.mobile.changePage("template-input_text.html");
+       FmMobile.selectedSubTemplate=templateMgr.getSubTemplateList("cultural_and_creative")[0].id;
+         $.mobile.changePage("template-input_text.html");
                      });
-        $("#sub_2").html('').append(tem_mgr[0].subTemplate.picture_only.name).click(function(){
+        $("#sub_2").html('').append(templateMgr.getSubTemplateList("cultural_and_creative")[1].name).click(function(){
                alert("hi");
-               FmMobile.selectedSubTemplate=tem_mgr[0].subTemplate.picture_only.selected;
+               FmMobile.selectedSubTemplate=templateMgr.getSubTemplateList("cultural_and_creative")[1].id;;
                $.mobile.changePage("template-input_pic.html");
                });
 
 
         
-       $("#sub_3").html('').append(tem_mgr[0].subTemplate.picture_plus_text.name).click(function(){
+       $("#sub_3").html('').append(templateMgr.getSubTemplateList("cultural_and_creative")[2].name).click(function(){
                    alert("hi");
-                   FmMobile.selectedSubTemplate=tem_mgr[0].subTemplate.picture_plus_text.selected;
+                   FmMobile.selectedSubTemplate=templateMgr.getSubTemplateList("cultural_and_creative")[2].id;
                    $.mobile.changePage("template-input_text_pic.html");
                    });
 

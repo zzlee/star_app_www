@@ -24,6 +24,9 @@ load: function(event, data){
     $("#nav-bar").show();
     
     var onSubmitBtnClick= function() {
+       
+        
+        FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
         
           
         var uploadFail_cb = function(error) {
@@ -152,7 +155,7 @@ load: function(event, data){
         
     };
     
-    $('#submitBtn').click(onSubmitBtnClick);
+    $('#submitPhotoBtn').click(onSubmitBtnClick);
     $('#cancelBtn').click(function(){
                           
                           if( FmMobile.selectedSubTemplate=="picture_only"){
@@ -172,7 +175,7 @@ load: function(event, data){
     
     
 show: function(event, data){
-    FmMobile.userContent.picture.url=fileSelectedURI;
+    FmMobile.userContent.picture.urlOfOriginal=fileSelectedURI;
     
     //JF - image initial
     canvas = document.getElementById('photoZoom');
@@ -318,6 +321,8 @@ show: function(event, data){
                            FmMobile.userContent.picture.crop._y=croppedArea.y;
                            FmMobile.userContent.picture.crop._w=croppedArea.width;
                            FmMobile.userContent.picture.crop._h=croppedArea.height;
+                           
+                           
 
 
                            });
