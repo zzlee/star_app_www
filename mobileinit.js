@@ -52,6 +52,9 @@ $(document).bind("mobileinit", function(){
 	$("#tocPg").live("pageinit", FmMobile.tocPg.init);
 	$("#customerQuestionPg").live("pageshow", FmMobile.customerQuestionPg.show);
 	$("#customerQuestionPg").live("pageinit", FmMobile.customerQuestionPg.init);
+                 $("#loginTocPg").live("pageinit", FmMobile.loginTocPg.init);
+                 $("#loginTocPg").live("pageshow", FmMobile.loginTocPg.show);
+                 
 	$("#fbLoginPg").live("pageinit", FmMobile.fbLoginPg.init);
 	$("#fbLoginPg").live("pageshow", FmMobile.fbLoginPg.show);
 	$("#verificationPg").live("pageinit", FmMobile.verificationPg.init);
@@ -88,6 +91,9 @@ $(document).bind("mobileinit", function(){
                  
  $("#cellphoneLoginPg").live("pageinit", FmMobile.cellphoneLoginPg.init);
  $("#cellphoneLoginPg").live("pageshow", FmMobile.cellphoneLoginPg.show);
+                 
+                 $("#fbLoginSuccessPg").live("pageinit", FmMobile.fbLoginSuccessPg.init);
+                 $("#fbLoginSuccessPg").live("pageshow", FmMobile.fbLoginSuccessPg.show);
                  
                  
 	$.mobile.page.prototype.options.addBackBtn = true;
@@ -570,8 +576,12 @@ FmMobile.authPopup = {
                     localStorage.fb_accessToken = response.data.accessToken;
                     localStorage._id = response.data._id;
                     sessionStorage.sessionID = response.data.sessionID;
-                    $.mobile.changePage("verification.html");
-                    
+              
+              if(localStorage.verified == 'true'){
+              alert("gg");
+              }else{
+              $.mobile.changePage("verification.html");}
+              
                 }else{
                     // Future - Handle FB Authentication Fail Here. - Popup something.
                 }
@@ -625,14 +635,21 @@ FmMobile.authPopup = {
             if(response.data){
                 localStorage._id = response.data._id;
                 localStorage.fb_accessToken = response.data.accessToken;
-                localStorage.verified = (response.data.verified) ? response.data.verified : 'false';
+        localStorage.verified = (response.data.verified) ? response.data.verified : 'false';
+               
+               //localStorage.verified='true';//此行為了測試電話認證！
                 FM_LOG("localStorage" + JSON.stringify(localStorage));
                
                 // Each time of Login, pull all videos.
                 FmMobile.ajaxNewVideos();
                 FmMobile.ajaxNewStoryVideos();
+               
+               if(localStorage.verified == 'true'){
+               $.mobile.changePage("template-main_template.html");
+               
+               }else{
                $.mobile.changePage("cellphone_login.html");  
-
+               }
                // $.mobile.changePage("movie_create.html");
                 window.plugins.childBrowser.close();
                
@@ -651,7 +668,7 @@ FmMobile.authPopup = {
         delete localStorage.fb_userID;
         delete localStorage.fb_name;
         delete localStorage.fb_accessToken;
-        delete localStorage.verified;
+        //delete localStorage.verified;
         if(localStorage.email) delete localStorage.email;
         
         $.jStorage.set("videoWorks", []);
