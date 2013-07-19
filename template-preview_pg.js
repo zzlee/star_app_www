@@ -9,16 +9,38 @@ show: function(){
 init: function(){
     $("#nav-bar").show();
     
-    
-    ImageUgc.getInstance(FmMobile.selectedTemplate, FmMobile.selectedSubTemplate, FmMobile.userContent,function(err, imageUgc){
+    var imageUgc;
+    ImageUgc.getInstance(FmMobile.selectedTemplate, FmMobile.selectedSubTemplate, FmMobile.userContent,function(err, _imageUgc){
                          console.log(err);
                          if (!err){
+                         imageUgc = _imageUgc;
                          console.log(err);
                              $("#show").attr("src", imageUgc.getImageUrl() );
                          console.log(err);
 
                          }
                          });
+
+    
+    
+    $('#btnTest').click(function(){
+                        
+                        //alert("22");
+                        var mainTemplate = FmMobile.selectedTemplate;
+                        var ownerId = localStorage._id; //Gance's
+                        var ownerFbUserId = localStorage.fb_userID; //Gance's
+                        var ugcProjectId = mainTemplate +'-'+ ownerId +'-'+ (new Date()).toISOString().replace(/[-:.]/g, "");
+                        var ugcInfo = {
+                        ownerId:{_id:ownerId, fbUserId:ownerFbUserId },
+                        contentGenre: mainTemplate,
+                        title: "today's mood"
+                        };
+                        
+                        imageUgc.uploadToServer(ugcProjectId, ugcInfo, function(err){
+                                                console.log("err="+err);
+                                                if(!err){alert("success!");}
+                                                });
+                        });
 
     
     /*
