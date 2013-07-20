@@ -25,9 +25,9 @@ FmMobile.template_checkinPg = {
         
         
         $('#next_step').click(function(){
-      FmMobile.selectedSubTemplate=templateMgr.getSubTemplateList("miix_it")[2].id;
+      FmMobile.selectedSubTemplate=templateMgr.getSubTemplateList("check_in")[1].id;
 
-                              $.mobile.changePage("template-input_text_pic.html");
+                              $.mobile.changePage("template_input_checkin.html");
                               
                               });
         /*

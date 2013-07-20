@@ -37,7 +37,7 @@
                                    }
                                    ]
         },
-        "picture_only":{
+        "check_in":{
             "selected":"picture_only",
             "name":"版型二",
             "description":"圖：上傳一張照片",

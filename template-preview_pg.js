@@ -18,6 +18,8 @@ init: function(){
                              $("#show").attr("src", imageUgc.getImageUrl() );
                          console.log(err);
 
+                         }else{
+                         console.log(err);
                          }
                          });
 

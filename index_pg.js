@@ -19,7 +19,7 @@ FmMobile.indexPg = {
     show: function(){
         FM_LOG("[indexPg.show]");
         //recordUserAction("starts MiixCard app", true);
-        
+        /*
        // localStorage.fb_userID &&
         if(localStorage.fb_userID && localStorage.verified=='true'){
             $.mobile.changePage("template-main_template.html");
@@ -31,8 +31,8 @@ FmMobile.indexPg = {
             //$.mobile.changePage("my_video.html");
             
         }
-       
-      //$.mobile.changePage("template-main_template.html");
+       */
+      $.mobile.changePage("template-main_template.html");
         //$.mobile.changePage("image_test.html");
     },
         
