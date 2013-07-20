@@ -40,9 +40,15 @@ init: function(){
                         
                         imageUgc.uploadToServer(ugcProjectId, ugcInfo, function(err){
                                                 console.log("err="+err);
-                                                if(!err){alert("success!");}
-//                                                    $.mobile.change("my_ugc.html");
-                                                });
+                                                if(!err){
+                                                alert("success!");
+                                                $.mobile.changePage("my_ugc.html");
+
+                                                }
+//     $.mobile.change("my_ugc.html");
+                                                                                               });
+                        
+                        
                         
                         });
 
