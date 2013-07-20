@@ -13,23 +13,28 @@ FmMobile.customerQuestionPg = {
                                  $.mobile.changePage("setting-main.html");
                                  });
         
-       var memberId = "123345";
+        var memberId =localStorage._id;
         
         // post customer question
         
         $("#customer_button").click(function(){
                     var input_id=$("#input_id").val(); // input_id (影片代碼）
                     var question_text=$("#question_text").val(); //question_text 問題敘述
-                    var select=$("#select option:selected").val(); //問題種類                                     
+                    var select=$("#select option:selected").val(); //問題種類
+                    
+                    
                                     
             $.ajax({
                type: "POST",
-               url: starServerURL+"/members/"+memberId+"/questions",
-               data: {"it":input_id,
-                      "qt":question_text,
-                      "select":select
+               url: starServerURL+"/miix_service/"+memberId+"/questions",
+               data: {
+                      
+                      "no":input_id,
+                      "question":question_text,
+                      "genre":select
                     }
                }).done(function( result ) {
+                       
                        alert(result);
                    });
               });
@@ -38,14 +43,18 @@ FmMobile.customerQuestionPg = {
         //TODO: get token from other place
         //
         
-        $.get(starServerURL+"/members/"+memberId+"/questions",{token:"53768608"},function(data,status){
+        $.get(starServerURL+"/miix_service/"+memberId+"/questions",{token:"53768608"},function(data,status){
               alert(status);
-           
+              alert(data[1].content.question);
+              console.log(data);
+              alert(data[1].content.questionTime);
+              
               $("#userQuesiotns").html('');
+              
               
               for(var i=0;i<data.length;i++){
               
-                          var _d= new Date(Number(data[i].question.date));
+                          var _d= new Date(Number(data[i].content.questionTime));
                           var _y=_d.getFullYear();
                           var _m=_d.getMonth()+1;
                           var dayOfmonth=_d.getDate();
@@ -53,7 +62,7 @@ FmMobile.customerQuestionPg = {
                           var minute=_d.getMinutes();
                           var timeOutput_q=_y+"年"+_m+"月"+dayOfmonth+"號"+" "+hour+":"+minute;
                           
-                          var a_d= new Date(Number(data[i].answer.date));
+                          var a_d= new Date(Number(data[i].content.answerTime));
                           var a_y=a_d.getFullYear();
                           var a_m=a_d.getMonth()+1;
                           var a_dayOfmonth=a_d.getDate();
@@ -61,13 +70,17 @@ FmMobile.customerQuestionPg = {
                           var a_minute=a_d.getMinutes();
                           var a_timeOutput=a_y+"年"+a_m+"月"+a_dayOfmonth+"號"+" "+a_hour+":"+a_minute;
               
+              
+
                   $("#userQuesiotns").append("<div class='question'>Question : "+
-                                      data[i].question.description+"<br>"+"<div class='time'>"+
+                                      data[i].content.question+"<br>"+"<div class='time'>"+
                                       timeOutput_q+"</div>"+"<br></div><div class='answer'>"+"Ans : "+
-                                      data[i].answer.description+"<br>"+"<div class='time'>"+
+                                      data[i].content.answer+"<br>"+"<div class='time'>"+
                                       a_timeOutput+"</div>"+"<br></div>"+
                                       "<hr>");
-                }
+              
+               }
+              
             });
         }
     };

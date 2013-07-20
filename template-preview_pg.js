@@ -9,6 +9,43 @@ show: function(){
 init: function(){
     $("#nav-bar").show();
     
+    
+    if(FmMobile.selectedTemplate=='miix_it'){
+                
+         var videoUgc;
+         VideoUgc.getInstance('miix_it', 'miix_one_image', function(err, _videoUgc){
+         if (!err){
+         videoUgc = _videoUgc;
+         }
+         });
+         
+         $('#btnTest').click(function(){
+         alert("aaa");
+         var mainTemplate = FmMobile.selectedTemplate;
+         var ownerId = localStorage._id; //Gance's
+         var ownerFbUserId = localStorage.fb_userID; //Gance's
+         var ugcInfo = {
+         ownerId:{_id:ownerId, fbUserId:ownerFbUserId },
+         title: "My Miix move!!"
+         };
+         
+         
+         
+         videoUgc.askServerToGenerate(FmMobile.userContent, ugcInfo, function(err){
+                                     console.log("err="+err);
+                                      if(!err){
+                                      alert("good");
+                                      }
+                                      $.mobile.changePage("my_ugc.html");
+                                 });
+       
+                             
+                             });
+         
+
+        
+    }
+    else{
     var imageUgc;
     ImageUgc.getInstance(FmMobile.selectedTemplate, FmMobile.selectedSubTemplate, FmMobile.userContent,function(err, _imageUgc){
                          console.log(err);
@@ -18,6 +55,8 @@ init: function(){
                              $("#show").attr("src", imageUgc.getImageUrl() );
                          console.log(err);
 
+                         }else{
+                         console.log(err);
                          }
                          });
 
@@ -38,13 +77,14 @@ init: function(){
                         
                         imageUgc.uploadToServer(ugcProjectId, ugcInfo, function(err){
                                                 console.log("err="+err);
+                        
                                                 if(!err){alert("success!");}
-//                                                    $.mobile.change("my_ugc.html");
+                                               $.mobile.changePage("my_ugc.html");
                                                 });
                         
                         });
 
-    
+    }
     /*
     ImageUgc.getInstance(FmMobile.selectedTemplate,FmMobile.selectedSubTemplate, FmMobile.userContent,
                          function(err, imageUgc){

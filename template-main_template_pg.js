@@ -7,6 +7,10 @@ PAGE_ID: "template_mainTemplatePg",
     },
         
     init: function(){
+        
+         //document.addEventListener("deviceready", onDeviceReady, false);
+       // var aa=device.name;
+        //alert(aa);
 		$('#nav-bar').show();
        // console.dir(templateMgr.getTemplateList());
                  //$.mobile.changePage("template-sub_template.html");

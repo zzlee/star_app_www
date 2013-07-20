@@ -23,12 +23,49 @@ load: function(event, data){
     
     $("#nav-bar").show();
     
+    if(FmMobile.selectedTemplate=='miix_it'){
+        
+         $("#submitPhotoBtn2").click(function(){
+        FmMobile.userContent.picture.urlOfOriginal = fileSelectedURI;
+        FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
+        $.mobile.changePage("template-preview.html");
+                                     });
+        /*
+        var videoUgc;
+        VideoUgc.getInstance('miix_it', 'miix_one_image', function(err, _videoUgc){
+                             if (!err){
+                                 videoUgc = _videoUgc;
+                                }
+             });
+
+        $("#submitPhotoBtn2").click(function(){
+                                    alert("aaa");
+                        var mainTemplate = FmMobile.selectedTemplate;
+                        var ownerId = localStorage._id; //Gance's
+                        var ownerFbUserId = localStorage.fb_userID; //Gance's
+                        var ugcInfo = {
+                                ownerId:{_id:ownerId, fbUserId:ownerFbUserId },
+                                title: "My Miix move!!"
+                            };
+                                    
+                    
+                                    
+                    videoUgc.askServerToGenerate(FmMobile.userContent, ugcInfo, function(err){
+                                 console.log("err="+err);
+                                         });
+            });
+        */
+                                    
+                        
+        
+    }else{
     $("#submitPhotoBtn2").click(function(){
                         
                                 FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
                                 $.mobile.changePage("template-preview.html");
                         });
     
+    }
     var onSubmitBtnClick= function() {
        
         

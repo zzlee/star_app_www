@@ -1,11 +1,11 @@
-FmMobile.template_input_checkin = {
+FmMobile.template_input_miixit = {
 	//  Page constants.
-PAGE_ID: "template_input_checkin",
+PAGE_ID: "template_input_miixit",
     
     //  Page methods.
 show: function(){
-    FmMobile.analysis.trackPage("/template_input_checkin");
-    recordUserAction("enters template_input_checkin");
+    FmMobile.analysis.trackPage("/template_input_miixit");
+    recordUserAction("enters template_input_miixit");
 },
     
 load: function(event, data){
@@ -29,15 +29,15 @@ load: function(event, data){
                           });
     
     /*
-     if(FmMobile.selectedTemplate=="cultural_and_creative"){
-     
-     $("#template_name_2").html('').append(templateMgr.getTemplateList()[0].name);
-     }else if(FmMobile.selectedTemplate=="mood"){
-     $("#template_name_2").html('').append(templateMgr.getTemplateList()[1].name);
-     }else if(FmMobile.selectedTemplate=="miix_it"){
-     $("#template_name_2").html('').append(templateMgr.getTemplateList()[3].name);
-     }
-     */
+    if(FmMobile.selectedTemplate=="cultural_and_creative"){
+        
+        $("#template_name_2").html('').append(templateMgr.getTemplateList()[0].name);
+    }else if(FmMobile.selectedTemplate=="mood"){
+        $("#template_name_2").html('').append(templateMgr.getTemplateList()[1].name);
+    }else if(FmMobile.selectedTemplate=="miix_it"){
+        $("#template_name_2").html('').append(templateMgr.getTemplateList()[3].name);
+    }
+    */
     
     
     
@@ -68,7 +68,7 @@ load: function(event, data){
         
         
         var getPhotoFail = function (message) {
-            //alert('æ²¡æœ‰é¸åˆ°ç›¸ç‰‡ï¼Œè«‹å†é¸ä¸€æ¬¡ï¼');
+            //alert('没有選到相片，請再選一次！');
         }
         
         
