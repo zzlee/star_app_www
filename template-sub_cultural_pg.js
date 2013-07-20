@@ -18,26 +18,26 @@ FmMobile.template_sub_cultural_Pg = {
                           });
         
         //var tem_mgr=templateMgr.getTemplateList();
-templateMgr.getSubTemplateList("cultural_and_creative")[0].id;
+        templateMgr.getSubTemplateList("cultural_and_creative")[0].id;
        
         $("#sub_1").html('').append(templateMgr.getSubTemplateList("cultural_and_creative")[0].name).click(function(){
-                     alert("hi");
-       FmMobile.selectedSubTemplate=templateMgr.getSubTemplateList("cultural_and_creative")[0].id;
-         $.mobile.changePage("template-input_text.html");
-                     });
+//                     alert("hi");
+            FmMobile.selectedSubTemplate=templateMgr.getSubTemplateList("cultural_and_creative")[0].id;
+            $.mobile.changePage("template-input_text.html");
+         });
         $("#sub_2").html('').append(templateMgr.getSubTemplateList("cultural_and_creative")[1].name).click(function(){
-               alert("hi");
-               FmMobile.selectedSubTemplate=templateMgr.getSubTemplateList("cultural_and_creative")[1].id;;
-               $.mobile.changePage("template-input_pic.html");
-               });
+//               alert("hi");
+            FmMobile.selectedSubTemplate=templateMgr.getSubTemplateList("cultural_and_creative")[1].id;;
+            $.mobile.changePage("template-input_pic.html");
+        });
 
 
         
-       $("#sub_3").html('').append(templateMgr.getSubTemplateList("cultural_and_creative")[2].name).click(function(){
-                   alert("hi");
-                   FmMobile.selectedSubTemplate=templateMgr.getSubTemplateList("cultural_and_creative")[2].id;
-                   $.mobile.changePage("template-input_text_pic.html");
-                   });
+        $("#sub_3").html('').append(templateMgr.getSubTemplateList("cultural_and_creative")[2].name).click(function(){
+//                   alert("hi");
+            FmMobile.selectedSubTemplate=templateMgr.getSubTemplateList("cultural_and_creative")[2].id;
+            $.mobile.changePage("template-input_text_pic.html");
+        });
 
 
         

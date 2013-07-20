@@ -16,7 +16,7 @@ PAGE_ID: "phoneNumInputPg",
                               setTimeout(function(){FmMobile.myflag=true},180000);
                               });
         
-    
+        $("#nav-bar").hide();
         
         
     },
