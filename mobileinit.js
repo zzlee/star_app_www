@@ -101,6 +101,12 @@ $(document).bind("mobileinit", function(){
                  $("#template_input_checkin").live("pageinit", FmMobile.template_input_checkin.load);
                  $("#template_input_checkin").live("pageshow", FmMobile.template_input_checkin.show);
                  
+                 $("#template_input_miixit").live("pageinit", FmMobile.template_input_miixit.load);
+                 $("#template_input_miixit").live("pageshow", FmMobile.template_input_miixit.show);
+                 
+                 
+                 
+                 
     $.mobile.page.prototype.options.addBackBtn = true;
 $.mobile.page.prototype.options.addBackBtn = true;
 	TemplateMgr.getInstance(function(err, _templateMgr){
