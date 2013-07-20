@@ -33,6 +33,7 @@ $(document).bind("mobileinit", function(){
 	
 	//$.mobile.page.prototype.options.addBackBtn = true;
 	   
+<<<<<<< HEAD
                 /* pageinit executed after pagebeforecreate */
             $("#indexPg").live("pageinit", FmMobile.indexPg.init);
             $("#indexPg").live("pagebeforeshow", FmMobile.indexPg.beforeshow);
@@ -100,6 +101,31 @@ $(document).bind("mobileinit", function(){
             $("#template_sub_cultural_Pg").live("pageshow", FmMobile.template_sub_cultural_Pg.show);
                  $("#template_input_checkin").live("pageinit", FmMobile.template_input_checkin.load);
                  $("#template_input_checkin").live("pageshow", FmMobile.template_input_checkin.show);
+=======
+	    /* pageinit executed after pagebeforecreate */
+	$("#indexPg").live("pageinit", FmMobile.indexPg.init);
+	$("#indexPg").live("pagebeforeshow", FmMobile.indexPg.beforeshow);
+	$("#indexPg").live("pageshow", FmMobile.indexPg.show);
+	$("#orie_1").live("pagebeforeshow", FmMobile.orientationPg.init);
+	$("#orie_1").live("pageshow", FmMobile.orientationPg.show);
+	$('div[id^="orie"]').live("swipeleft ", FmMobile.orientationPg.swipeleft);
+	$('div[id^="orie"]').live("swiperight", FmMobile.orientationPg.swiperight);
+//	$("#myUgcPg").live("pagebeforecreate", FmMobile.myUgcPg.loadMyVideo);
+	$("#myUgcPg").live("pageinit", FmMobile.myUgcPg.init);
+	$("#myUgcPg").live("pageshow", FmMobile.myUgcPg.show);
+    $("#myUgcPg").live("pageloadlivevideo", FmMobile.myUgcPg.loadMyVideo);
+	$("#screenPg").live("pageinit", FmMobile.screenPg.init);
+	$("#screenPg").live("pageshow", FmMobile.screenPg.show);
+    $("#screenPg").live("pageloadvideo", FmMobile.screenPg.loadVideo);
+	$("#setting_MainPg").live("pageinit", FmMobile.setting_MainPg.init);
+	$("#setting_MainPg").live("pageshow", FmMobile.setting_MainPg.show);
+	$("#tocPg").live("pageshow", FmMobile.tocPg.show);
+	$("#tocPg").live("pageinit", FmMobile.tocPg.init);
+	$("#customerQuestionPg").live("pageshow", FmMobile.customerQuestionPg.show);
+	$("#customerQuestionPg").live("pageinit", FmMobile.customerQuestionPg.init);
+                 $("#loginTocPg").live("pageinit", FmMobile.loginTocPg.init);
+                 $("#loginTocPg").live("pageshow", FmMobile.loginTocPg.show);
+>>>>>>> origin/jean_dascreen
                  
                  $("#template_input_miixit").live("pageinit", FmMobile.template_input_miixit.load);
                  $("#template_input_miixit").live("pageshow", FmMobile.template_input_miixit.show);
@@ -110,8 +136,7 @@ $(document).bind("mobileinit", function(){
     $.mobile.page.prototype.options.addBackBtn = true;
 $.mobile.page.prototype.options.addBackBtn = true;
 	TemplateMgr.getInstance(function(err, _templateMgr){
-		
-
+                            //alert("templatmgr");
 		if (!err) {
 			templateMgr = _templateMgr;
 		}

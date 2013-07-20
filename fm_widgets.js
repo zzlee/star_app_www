@@ -395,10 +395,29 @@ function videoWgt(parent, data, append){
         widget = $("<div>").attr({id: data.projectId, class: "fm_videoItem"});
     }
     */
+    
+    /*  HTML FORMAT:
+     <div class="content-movie">
+     <div class="movie-pic-dummy"></div>
+     <img class="content-movie-img" src="images/movie_pic.png"></img>
+     </div>
+     <img class="share" src="images/youtube.png"></img>
+     <img class="share" src="images/facebook.png"></img>
+     <div class="my-video-number">NO.12345</div>
+     */
+    
     widget = $("<div>").attr({id: data.projectId, class: "content-movie"});
     
     var numberDiv = $("<div>").attr({class: "my-video-number"});
     var dummyDiv = $("<div>").attr({class: "movie-pic-dummy"});
+    var shareYoutube = $("<img>").attr({
+                                       class: "share",
+                                       src: "images/youtube.png"
+                                       });
+    var shareFb = $("<img>").attr({
+                                  class: "share",
+                                  src: "images/facebook.png"
+                                  });
     dummyDiv.appendTo(widget);
     
     if(data.url){
@@ -417,6 +436,7 @@ function videoWgt(parent, data, append){
                                               src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
                                               class: "content-movie-img"
                                              });
+        
         
         numberDiv.html("NO."+data.no);
                 
@@ -444,11 +464,15 @@ function videoWgt(parent, data, append){
     if(append){
         widget.appendTo(parent); // Top First.
         if(data.url){
+            shareYoutube.appendTo(parent);
+            shareFb.appendTo(parent);
             numberDiv.appendTo(parent);
         }
     }
     else{
         if(data.url){
+            shareYoutube.prepend(parent);
+            shareFb.prepend(parent);
             numberDiv.prepend(parent);
         }
         parent.prepend(widget);  // Top Last.

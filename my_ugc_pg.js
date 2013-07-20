@@ -1,91 +1,267 @@
 FmMobile.myUgcPg = {
-        
-    trashItem: null,
+    PAGE_ID: "myUgcPg",
+    myVideos: null,
     
-    //  Page methods.
-    loadMyVideo: function(event, data){
-        FM_LOG("[myVideoPg] pagebeforecreate: loadMyVideoPg");
-        //uploadingMgr.showAll($("#myVideo_contentArea"));
-        /* TEST Data */
-        /*var vWorks = [{"title":"MiixCard movie","projectId":"miixcard-50b82149157d80e80d000002-20121130T030443775Z","fb_id":"100004053532907_515809601771886","_id":"50b82288157d80e80d000003","__v":0,"ownerId":{"_id":"50b82149157d80e80d000002","userID":"100004053532907"},"url":{"youtube":"http://www.youtube.com/embed/VXH9PJWV5tg"}, "createdOn":"1354492800000"}
-         ,{"title":"MiixCard movie","projectId":"miixcard-50b82149157d80e80d000002-20121130T111930901Z","fb_id":"100004053532907_506201579401847","_id":"50b896861f5a59ec0c000009","__v":0,"ownerId":{"_id":"50b82149157d80e80d000002","userID":"100004053532907"},"url":{"youtube":"http://www.youtube.com/embed/iIV167g3AYo"}, "createdOn":"1354492800000"}];
-         
-         
-         var pWork = "miixcard-50b82149157d80e80d000002-20121203T131446527Z";
-         FmMobile.addProcessingWork(pWork);
-         $.jStorage.set("videoWorks", vWorks);
-         
-         localStorage._id = "50b34c4a8198caec0e000001";
-         localStorage.fb_accessToken = "AAABqPdYntP0BAOj2VmPf8AVllT1TArJKN3eD9UbzJtzig6oap4aPA5Sx5Ahbl5ypzycr9O09Mbad3NEcPlqZAi8ZBl0Es7A8VXrdavSoLdIVZBMRNVh";
-         localStorage.fb_name="Gabriel Feltmeng"
-         localStorage.fb_userID = "100004053532907"; */
-        
-        //$.jStorage.set("videoWorks", []);
-        //$.jStorage.set("processingWorks", {});
-        /* End of TEST Data */
-        
-        
-        var videoWorks = ($.jStorage.get("videoWorks")) ? $.jStorage.get("videoWorks") : [];
-        var processingWorks = ($.jStorage.get("processingWorks")) ? $.jStorage.get("processingWorks") : {};
-        
-        
-        if(videoWorks.length == 0 && $.isEmptyObject(processingWorks)){
-            //Neither processed videos nor processing videos.
-            //$("#fm_profile").hide();
-            $("#fm_myvideobtn").hide();
-            FmMobile.myVideoPg.trashItem = new trashtalk();
-            
-        }else{
-            // Initialize VideoList with videos in storage.
-            //$("#fm_profile").show();
-            $("#fm_myvideobtn").show();
-            videoListAdapter.init($("#myVideo_contentArea", $(this) ), videoWorks, processingWorks);
-        }
-    },
-        
-        
-        loadMyStreetVideo : function(){
-            
-            
-            var streetVideos = ($.jStorage.get("streetVideos")) ? $.jStorage.get("streetVideos") : [];
-            
-            videoListAdapter.init($("#myVideo_contentArea", $(this) ), streetVideos, {});
-            
-        },
-        
-        
-        //  Initialization method.
     init: function(){
-        FM_LOG("[myVideoPg] pageinit");
+        FM_LOG("[myUgcPg] pageinit");
         $('#nav-bar').show();
         
-        $("#btnMiixMovie").click(function(){
-            $("#btnMiixMovie>img").attr("src","images/a-my_video.png");
-            $("#btnLiveMovie>img").attr("src","images/e-dooh.png");
-            FmMobile.myVideoPg.loadMyVideo();
+
+        var url = starServerURL + "/miix/members/" + localStorage._id + "/ugcs";
+        FmMobile.myUgcPg.myVideos = new Array();
+        //screen_pg.js
+        //Everytime reload the data from our Server.
+
+        $.ajax({
+               url: url,
+               dataType: 'json',
+               success: function(response){
+                   if(response){
+                       $.each(response, function(i, item){
+                          var data ={
+                              Title : item.title,
+                              ProjectId: item.projectId,
+                              Genre: item.genre,
+//                              Youtube : item.url.youtube,
+                              //if column no data then send " "
+//                              Youtube : item.url.youtube,
+//                              S3 : item.url.s3,
+                              Url : item.url,
+                              No: item.no,
+                              
+                          }
+                          FmMobile.myUgcPg.myVideos.push(data);
+                              
+                        });
+                          FmMobile.myUgcPg.loadLiveVideo(FmMobile.myUgcPg.myVideos, "video");
+//                        FmMobile.myUgcPg.test(FmMobile.myUgcPg.myVideos);
+                    }else{
+                       console.log("[error] : " + response.error);
+                   }
+               }
         });
-        $("#btnLiveMovie").click(function(){
-            $("#btnMiixMovie>img").attr("src","images/e-my_video.png");
-            $("#btnLiveMovie>img").attr("src","images/a-dooh.png");
-            FmMobile.myVideoPg.loadMyStreetVideo();
-        });
+
         
-        videoListAdapter.freshCommentbar();
-        $("#myVideo_contentArea").height( window.innerHeight - $("div[data-role=header]").height() );
+        
     },
+    
+    show: function(){
+        FM_LOG("[myUgcPg] pageshow");
+        $("#btnMiixMovie").click(function(){
+             FmMobile.myUgcPg.loadLiveVideo(FmMobile.myUgcPg.myVideos, "video");
+         
+         });
+        $("#btnLiveMovie").click(function(){
+             FmMobile.myUgcPg.loadLiveVideo(FmMobile.myUgcPg.myVideos, "live");
+         
+         });
         
-    beforeshow: function(){
-        FM_LOG("[myVideoPg] pagebeforeshow");
-        //FmMobile.analysis.trackPage("/myVideo");
-        //recordUserAction("enters myVideoPg");
-        var profile = $.jStorage.get("fb_profile");
-        $("#fb_user_pic > img").attr("src", localStorage.fb_user_pic);
-        $("#fb_name").html(localStorage.fb_name);
-        if(profile.location)
-            $("#fb_user_location").html(profile.location.name);
-        else
-            $("#fb_user_location").html("Earth");
+        FmMobile.myUgcPg.loadLiveVideo(FmMobile.myUgcPg.myVideos, "video");
+    },
+    
+test: function(arry){
+    for(var i = 0 ; i< arry.length; i++)
+        console.log(arry[i]);
+},
+    
+    loadLiveVideo: function(arryVideo, type){
+        FM_LOG("[myUgcPg] loadLiveVideo");
+        console.log('[Type] : ' + type);
+        var parent = $("#my-video-list");
         
-    }
+        //remove all tags in my-video-list
+        parent.html("");
+        FmMobile.myUgcPg.test(arryVideo);
+
+        /** Set data to List */
+        for(var i = 0; i< arryVideo.length; i++){
+            var widget = $("<div>").attr({id: arryVideo[i].ProjectId, class: "content-movie"});
+            var dummyDiv = $("<div>").attr({class: "movie-pic-dummy"});
+            //For item info ex. Copy Youtube'url, Share on FB and # of video/image
+            var info = $("<div>").attr({id: "my-video-info"});
+            
+            dummyDiv.appendTo(widget);
+            switch(arryVideo[i].Genre){
+                case "miix":
+                    if(typeof(arryVideo[i].Url) != "undefined"){
+                        var ytVideoID = (arryVideo[i].Url.youtube).split('/').pop();
+                        console.log(i + " ytVideoID :" + ytVideoID + ", No. " + arryVideo[i].No);
+                        this.videoThumbnail = $("<img>").attr({
+                                                              id: 'imgYouTube_'+ytVideoID,
+                                                              src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
+                                                              class: "content-movie-img"
+                                                              });
+                        this.videoThumbnail.appendTo(widget);
+                        
+                        this.shareYoutubeDiv = $("<img>").attr({
+                                                               id: "copyUrl_" + ytVideoID,
+                                                               class: "share",
+                                                               src: "images/youtube.png"
+                                                               });
+                        this.shareYoutubeDiv.appendTo(info);
+                        
+                        this.shareFbDiv = $("<img>").attr({
+                                                          id: "shareFb_" + ytVideoID,
+                                                          class: "share",
+                                                          src: "images/facebook.png"
+                                                          });
+                        this.shareFbDiv.appendTo(info);
+                        if(type == "video"){
+                            this.numberDiv = $("<div>").attr({class: "my-video-number"});
+                            this.numberDiv.html("NO." + arryVideo[i].No);
+                            this.numberDiv.appendTo(info);
+                            info.appendTo(widget);
+                        }else if(type == "live"){
+                            info.appendTo(widget);
+                        }
+                        
+
+                    }else{
+                        this.videoThumbnail = $("<img>").attr({
+                                                              id: 'imgError_' + i,
+                                                              src: "images/choose_movie.png",
+                                                              class: "content-movie-img"
+                                                              });
+                        this.videoThumbnail.appendTo(widget);
+//                        console.log("[myUgcPg] no youtube url");
+//                        continue;
+                    }
+                    widget.appendTo(parent);
+                    break;
+                case "miix_image":
+//                    if(arrVideo[i].Url.s3){
+                        //Get the image's name
+                        var projectId = arryVideo[i].ProjectId;
+                        console.log("s3 :" + arryVideo[i].Url.s3);
+                        var s3Url = arryVideo[i].Url.s3;
+//                        console.log(i + " s3ImageName : " + s3ImageName);
+                        this.imageThumbnail = $("<img>").attr({
+                                                              //set image's name to id
+                                                              id: "imgS3_" +projectId,
+                                                              src: s3Url,
+                                                              class: "content-movie-img"
+                                                              });
+                        this.imageThumbnail.appendTo(widget);
+                    
+                        this.shareYoutubeDiv = $("<img>").attr({
+                                                               id: "copyUrlS3_" + projectId,
+                                                               class: "share",
+                                                               src: "images/youtube.png"
+                                                               });
+                        this.shareYoutubeDiv.appendTo(info);
+                        
+                        this.shareFbDiv = $("<img>").attr({
+                                                          id: "shareFb_" + s3Url,
+                                                          class: "share",
+                                                          src: "images/facebook.png"
+                                                          });
+                        this.shareFbDiv.appendTo(info);
+                    
+                        if(type == "video"){
+                            this.numberDiv = $("<div>").attr({class: "my-video-number"});
+                            this.numberDiv.html("NO." + arryVideo[i].No);
+                            this.numberDiv.appendTo(info);
+                            info.appendTo(widget);
+                        }else if(type == "live"){
+                            info.appendTo(widget);
+                        }
+//                    }else{
+//                        console.log("[myUgcPg] no S3 url");
+//                    }
+                        widget.appendTo(parent);
+                    break;
+                default :
+                    console.log("Eroor : no Genre");
+            }
+
+        }
+        
+        FmMobile.myUgcPg.ClickEvent();
+    },
+    
+    ClickEvent: function(){
+        /**  Video play  */
+        FM_LOG("[myUgcPg.ClickEvent]");
+        $('#my-video-list>div>img').click(function(){
+            console.log("click" + this);
+                                     
+                                          
+            var divID = this.parentElement.id;
+            var arryIdType = this.id.split('_');
+            switch(arryIdType[0]){
+                case "imgYouTube":
+                    var tempUrlArray = this.src.split('/');
+                    console.log("tempUrlArry " + tempUrlArray[tempUrlArray.length-2])
+                    var ytVideoID = tempUrlArray[tempUrlArray.length-2];
+                    var videoFrame = $("<iframe>").attr({
+                                                id: ytVideoID,
+                                                src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
+                                                class: "content-movie-img",
+                                                frameborder: "0"
+                                                }).load(function(){
+                                                      //TODO: find a better way to have callPlayer() called after videoFrame is prepended
+                                                      setTimeout(function(){
+                                                                 callPlayer(ytVideoID,'playVideo');
+                                                                 }, 1500);
+                                                  });
+
+                    var callPlayer = function (frame_id, func, args) {
+                    if (window.jQuery && frame_id instanceof jQuery){
+                    frame_id = frame_id.get(0).id;
+                    }
+                    var iframe = document.getElementById(frame_id);
+                    if (iframe && iframe.tagName.toUpperCase() != 'IFRAME') {
+                    iframe = iframe.getElementsByTagName('iframe')[0];
+                    }
+                    if (iframe) {
+                    // Frame exists,
+                    iframe.contentWindow.postMessage(JSON.stringify({
+                        "event": "command",
+                        "func": func,
+                        "args": args || [],
+                        "id": frame_id
+                        }), "*");
+                    }};
+                    
+                    $('#'+divID).prepend(videoFrame);
+                    $('#'+this.id).remove();
+                    break;
+                case "imgError":
+                case "imgS3":
+                    console.log("you chosse the error item or the image");
+                    break;
+                default:
+                    console.log("Click event is not woked");
+            }
+            
+
+        });
+        
+        /** Copy youtube url and share to FB */
+        $('#my-video-info>img').click(function(){
+            var imgID = this.id;        //
+            var tmpIDArray = this.id.split('_');
+            switch(tmpIDArray[0]){
+                case "copyUrl":
+                    window.clipboardPluginCopy("https://www.youtube.com/watch?feature=player_embedded&v=" + tmpIDArray[1], function() { alert("已複製到剪貼簿")} , function(e){alert(e);});
+
+                    break;
+                case "shareFb":
+                    alert("share to FB");
+                    break;
+                case "copyUrlS3":
+                    console.log("S3 URL " + tmpIDArray[1]);
+                    window.clipboardPluginCopy("https://s3.amazonaws.com/miix_content/user_project/" + tmpIDArray[1] + "/" + tmpIDArray[1] + ".png", function() { alert("已複製到剪貼簿")} , function(e){alert(e);});
+                    break;
+                default:
+                    alert("You don't touch the button.");
+
+            }
+        });
+
+    },
+    
+    
+    
     
 };
