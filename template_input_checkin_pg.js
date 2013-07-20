@@ -29,15 +29,15 @@ load: function(event, data){
                           });
     
     /*
-    if(FmMobile.selectedTemplate=="cultural_and_creative"){
-        
-        $("#template_name_2").html('').append(templateMgr.getTemplateList()[0].name);
-    }else if(FmMobile.selectedTemplate=="mood"){
-        $("#template_name_2").html('').append(templateMgr.getTemplateList()[1].name);
-    }else if(FmMobile.selectedTemplate=="miix_it"){
-        $("#template_name_2").html('').append(templateMgr.getTemplateList()[3].name);
-    }
-    */
+     if(FmMobile.selectedTemplate=="cultural_and_creative"){
+     
+     $("#template_name_2").html('').append(templateMgr.getTemplateList()[0].name);
+     }else if(FmMobile.selectedTemplate=="mood"){
+     $("#template_name_2").html('').append(templateMgr.getTemplateList()[1].name);
+     }else if(FmMobile.selectedTemplate=="miix_it"){
+     $("#template_name_2").html('').append(templateMgr.getTemplateList()[3].name);
+     }
+     */
     
     
     
@@ -68,7 +68,7 @@ load: function(event, data){
         
         
         var getPhotoFail = function (message) {
-            //alert('没有選到相片，請再選一次！');
+            //alert('æ²¡æœ‰é¸åˆ°ç›¸ç‰‡ï¼Œè«‹å†é¸ä¸€æ¬¡ï¼');
         }
         
         
