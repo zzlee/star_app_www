@@ -135,7 +135,9 @@ VideoUgc = (function(){
 					}
 				],
 				function(err, results){
-				    // results is now equal to ['one', 'two']
+				    if (cbOfAskServerToGenerate) {
+				    	cbOfAskServerToGenerate(err, results);
+				    }
 				});
 				
 			}

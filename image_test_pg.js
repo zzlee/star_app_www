@@ -181,10 +181,7 @@ FmMobile.imageTestPg = {
                 sourceType: navigator.camera.PictureSourceType.CAMERA
             });
         	
-        	
-        	
-        	
-        }); 
+}); 
 
 
 
