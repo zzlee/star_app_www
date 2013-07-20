@@ -647,9 +647,9 @@ onFBConnected: function(){
            if(response.data){
            localStorage._id = response.data._id;
            localStorage.fb_accessToken = response.data.accessToken;
-           // localStorage.verified = (response.data.verified) ? response.data.verified : 'false';
+            localStorage.verified = (response.data.verified) ? response.data.verified : 'false';
            
-           localStorage.verified='true';//此行為了測試電話認證！
+           //localStorage.verified='true';//此行為了測試電話認證！
            FM_LOG("localStorage" + JSON.stringify(localStorage));
            
            // Each time of Login, pull all videos.
