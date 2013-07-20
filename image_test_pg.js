@@ -147,33 +147,44 @@ FmMobile.imageTestPg = {
     	
     	
         //== videoUgc test ==
-        FmMobile.userContent.text = "很多人習慣在手機充電時講電話，這樣的動作千萬得小心";
-        FmMobile.userContent.picture.urlOfOriginal = 'img/Koala.jpg';
-
+        
         
         var videoUgc = null;
-        ImageUgc.getInstance('mood', 'picture_plus_text', FmMobile.userContent, function(err, _videoUgc){
+        VideoUgc.getInstance('miix_it', 'miix_one_image', function(err, _videoUgc){
         	if (!err){
         		videoUgc = _videoUgc;
-        		$("#canvasImg").attr("src", videoUgc.getImageUrl() );
         	}
         });
         
         $('#btnTest').click(function(){
-        	var mainTemplate = "mood";
-        	var ownerId = '512da133989cfc2403000005'; //Gance's
-        	var ownerFbUserId = '100004619173955'; //Gance's
-        	var ugcProjectId = mainTemplate +'-'+ ownerId +'-'+ (new Date()).toISOString().replace(/[-:.]/g, "");
-        	var ugcInfo = {
-        			ownerId:{_id:ownerId, fbUserId:ownerFbUserId },
-        			contentGenre: mainTemplate,
-        			title: "today's mood"
-        	};
         	
-        	videoUgc.uploadToServer(ugcProjectId, ugcInfo, function(err){
-        		console.log("err="+err);
-        	});
-        }); */
+			navigator.camera.getPicture(function(imageURI){
+				//do the work
+				var mainTemplate = "miix_it";
+	        	var ownerId = '512da133989cfc2403000005'; //Gance's
+	        	var ownerFbUserId = '100004619173955'; //Gance's
+	        	var ugcInfo = {
+	        			ownerId:{_id:ownerId, fbUserId:ownerFbUserId },
+	        			title: "My Miix move!!"
+	        	};
+	        	FmMobile.userContent.picture.urlOfOriginal = imageURI;
+	        	
+	        	videoUgc.askServerToGenerate(FmMobile.userContent, ugcInfo, function(err){
+	        		console.log("err="+err);
+	        	});
+        		
+        	}, function(){
+        		alert('Failed to sellect file');
+        	},{
+                quality: 50,
+                destinationType: navigator.camera.DestinationType.FILE_URI,
+                sourceType: navigator.camera.PictureSourceType.CAMERA
+            });
+        	
+        	
+        	
+        	
+        }); 
 
 
 
