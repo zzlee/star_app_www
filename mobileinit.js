@@ -178,15 +178,15 @@ onBodyLoad: function(){
     
     document.addEventListener("resume", FmMobile.init.onResume, false);
     document.addEventListener("pause", FmMobile.init.onPause, false);
-    document.addEventListener("push-notification", function(event){
-                              FmMobile.ajaxNewVideos();
-                              FmMobile.ajaxNewStoryVideos();
-                              FM_LOG("push-notification:");
-                              console.dir(event);
-                              //navigator.notification.alert(JSON.stringify(['push-notification!', event]));
-                              navigator.notification.alert('You have a new video!');
-                              //alert(event);
-                              });
+//        document.addEventListener("push-notification", function(event){
+//            FmMobile.ajaxNewVideos();
+//            FmMobile.ajaxNewStoryVideos();
+//            FM_LOG("push-notification:");
+//            console.dir(event);
+//            //navigator.notification.alert(JSON.stringify(['push-notification!', event]));
+//            navigator.notification.alert('You have a new video!');
+//            //alert(event);
+//        });
     
     //TODO:
     //document.addEventListener("touchmove", function(e){ e.preventDefault(); }, true);
@@ -435,7 +435,7 @@ FmMobile.submitDooh = function(){
            navigator.notification.alert(res.message);
            $.jStorage.set("dooh_pid", null);
            }else {
-           navigator.notification.alert('申請登上大螢幕失敗');
+           navigator.notification.alert('���大螢幕失);
            console.log("[submitDooh]"+JSON.stringify(res));
            }
            });
@@ -543,26 +543,26 @@ nativePluginErrorHandler: function(error){
 init: function(){
     FM_LOG("[analysis.init]");
     
-    FmMobile.ga = window.plugins.gaPlugin;
-    FmMobile.ga.init(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler                , "UA-37288251-1", 10); // UA-37288251-1 for Web.
+//        FmMobile.ga = window.plugins.gaPlugin;
+//        FmMobile.ga.init(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler                , "UA-37288251-1", 10); // UA-37288251-1 for Web.
     
 },
     
     
 goingAway: function(){
-    FmMobile.ga.exit(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler);
+//        FmMobile.ga.exit(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler);
 },
     
 trackEvent: function(category, action, label, value){
-    FmMobile.ga.trackEvent(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, category, action, label, 1);
+//        FmMobile.ga.trackEvent(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, category, action, label, 1);
 },
     
 setVariable: function(key, value, index){
-    FmMobile.ga.setVariable(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, key, value, index);
+//        FmMobile.ga.setVariable(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, key, value, index);
 },
     
 trackPage: function(url){
-    FmMobile.ga.trackPage(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, url);
+//        FmMobile.ga.trackPage(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, url);
 },
 };
 
@@ -649,7 +649,7 @@ onFBConnected: function(){
            localStorage.fb_accessToken = response.data.accessToken;
             localStorage.verified = (response.data.verified) ? response.data.verified : 'false';
            
-           //localStorage.verified='true';//此行為了測試電話認證！
+           //localStorage.verified='true';//此��測試�話認��
            FM_LOG("localStorage" + JSON.stringify(localStorage));
            
            // Each time of Login, pull all videos.
