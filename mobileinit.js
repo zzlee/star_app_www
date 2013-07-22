@@ -173,7 +173,7 @@ onBodyLoad: function(){
     FM_LOG("[Init.onDeviceReady]");
     
     document.addEventListener("deviceready", FmMobile.analysis.init, true);
-    document.addEventListener("deviceready", FmMobile.apn.init, true);
+//    document.addEventListener("deviceready", FmMobile.apn.init, true);
     document.addEventListener("deviceready", FmMobile.init.isFBTokenValid, true);
     
     document.addEventListener("resume", FmMobile.init.onResume, false);
@@ -435,7 +435,7 @@ FmMobile.submitDooh = function(){
            navigator.notification.alert(res.message);
            $.jStorage.set("dooh_pid", null);
            }else {
-           navigator.notification.alert('���大螢幕失);
+           navigator.notification.alert('大螢幕預約失敗');
            console.log("[submitDooh]"+JSON.stringify(res));
            }
            });
@@ -649,7 +649,7 @@ onFBConnected: function(){
            localStorage.fb_accessToken = response.data.accessToken;
             localStorage.verified = (response.data.verified) ? response.data.verified : 'false';
            
-           //localStorage.verified='true';//此��測試�話認��
+           //localStorage.verified='true';//此��測試�話認��
            FM_LOG("localStorage" + JSON.stringify(localStorage));
            
            // Each time of Login, pull all videos.
