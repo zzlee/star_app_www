@@ -2,7 +2,7 @@ FmMobile.codeInputPg = {
 PAGE_ID: "codeInputPg",
     
     init: function(){
-        FmMobile.bindClickEventToNavBar();
+        //FmMobile.bindClickEventToNavBar();
         $("#verify_code").click(function(){
             FmMobile.authentication.sendCode();
         });

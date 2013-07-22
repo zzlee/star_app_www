@@ -3,7 +3,7 @@ FmMobile.phoneNumInputPg = {
 PAGE_ID: "phoneNumInputPg",
   
     init: function(){
-        FmMobile.bindClickEventToNavBar();
+        //FmMobile.bindClickEventToNavBar();
         
         $("#phone_num").click(function(){
                               if(FmMobile.myflag){
