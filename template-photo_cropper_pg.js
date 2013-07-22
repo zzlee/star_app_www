@@ -255,7 +255,7 @@ show: function(event, data){
         width:canvas.width / option.scope.w,  //fraction relative to its width
         height:canvas.height / option.scope.h  //fraction relative to its height
         };
-        alert(croppedArea.x);
+        //alert(croppedArea.x);
 
     };
     

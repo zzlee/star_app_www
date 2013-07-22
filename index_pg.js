@@ -33,7 +33,8 @@ FmMobile.indexPg = {
         }
         
        
-      //$.mobile.changePage("template-main_template.html");
+        
+     //$.mobile.changePage("login_toc.html");
         //$.mobile.changePage("image_test.html");
     },
         
