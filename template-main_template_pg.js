@@ -12,6 +12,9 @@ PAGE_ID: "template_mainTemplatePg",
        // var aa=device.name;
         //alert(aa);
 		$('#nav-bar').show();
+        
+       // alert(FmMobile.my_phone);
+        //alert( device.platform);
        // console.dir(templateMgr.getTemplateList());
                  //$.mobile.changePage("template-sub_template.html");
        

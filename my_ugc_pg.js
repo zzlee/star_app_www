@@ -241,6 +241,14 @@ test: function(arry){
         $('#my-video-info>img').click(function(){
             var imgID = this.id;        //
             var tmpIDArray = this.id.split('_');
+            //            for(var i = 0; i < tmpIDArray.length; i++)
+            //                console.log("id.split[" + i + "] :" + tmpIDArray[i]);
+
+            if(tmpIDArray.length > 2)
+            tmpIDArray[0] = tmpIDArray[1] + "_" + tmpIDArray[2] + "_" + tmpIDArray[3];
+
+            console.log("tmpIdArray[0] :" + tmpIDArray[0]);
+
             switch(tmpIDArray[0]){
                 case "copyUrl":
 //                    window.clipboardPluginCopy("https://www.youtube.com/watch?feature=player_embedded&v=" + tmpIDArray[1], function() { alert("已複製到剪貼簿")} , function(e){alert(e);});
