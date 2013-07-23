@@ -8,6 +8,7 @@ FmMobile.customerQuestionPg = {
         
     init: function(){
         $('#nav-bar').show();
+        $("#userQuesiotns").html('');
 
         $("#back_setting").click(function(){
                                  $.mobile.changePage("setting-main.html");
@@ -71,14 +72,26 @@ FmMobile.customerQuestionPg = {
                           var a_timeOutput=a_y+"年"+a_m+"月"+a_dayOfmonth+"號"+" "+a_hour+":"+a_minute;
               
               console.log(data.message[i].question);
+              
+              
+              if(!data.message[i].answer){
+              $("#userQuesiotns").append("<div class='question'>Question : "+
+                                         data.message[i].question+"<br>"+"<div class='time'>"+
+                                         timeOutput_q+"</div>"+"<br></div><div class='answer'>"+"Ans : (尚未回復您的問題！抱歉！) "+
+                                         "<hr>"
+                                         
+                                         );
 
+              
+              }else{
+              
                   $("#userQuesiotns").append("<div class='question'>Question : "+
                                       data.message[i].question+"<br>"+"<div class='time'>"+
                                       timeOutput_q+"</div>"+"<br></div><div class='answer'>"+"Ans : "+
                                       data.message[i].answer+"<br>"+"<div class='time'>"+
                                       a_timeOutput+"</div>"+"<br></div>"+
                                       "<hr>");
-              
+              }
                }
               
             });
