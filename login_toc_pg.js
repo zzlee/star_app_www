@@ -2,7 +2,7 @@ FmMobile.loginTocPg = {
 PAGE_ID: "loginTocPg",
     
 init: function(){
-    FmMobile.bindClickEventToNavBar();
+    //FmMobile.bindClickEventToNavBar();
     $("#go_verify").click(function(){
                       $.mobile.changePage('fb_login.html');
 

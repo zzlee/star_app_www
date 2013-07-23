@@ -2,7 +2,7 @@ FmMobile.cellphoneLoginPg = {
 PAGE_ID: "cellphoneLoginPg",
     
 init: function(){
-    FmMobile.bindClickEventToNavBar();
+    //FmMobile.bindClickEventToNavBar();
     $("#change_fb").click(function(){
                           FmMobile.authPopup.FBLogout();
                           });

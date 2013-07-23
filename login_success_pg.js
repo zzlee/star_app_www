@@ -2,7 +2,7 @@ FmMobile.fbLoginSuccessPg = {
 PAGE_ID: "fbLoginSuccessPg",
     
 init: function(){
-    FmMobile.bindClickEventToNavBar();
+    //FmMobile.bindClickEventToNavBar();
     $("#start_template").click(function(){
                           $.mobile.changePage('template-main_template.html');
                           
