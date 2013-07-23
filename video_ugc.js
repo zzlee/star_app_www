@@ -198,7 +198,7 @@ VideoUgc = (function(){
 				cbOfConstructor(null, obj);
 			}
 			else {
-				cbOfConstructor('Failed to initiate an VideoUgc object', null);
+				cbOfConstructor('Failed to initiate an VideoUgc object: '+err, null);
 			}
 		});
 
