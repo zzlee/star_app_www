@@ -22,6 +22,7 @@ var fileSelected;
 var myPhotoCropper;
 
 FmMobile.myflag=true;
+FmMobile.check_in_pic;
 
 var templateMgr = null;
 
@@ -709,6 +710,21 @@ sendDeviceToken: function(){
            FM_LOG("[From Server]: " + response.message);
            });
 },
+
+    
+postMessage:function(message){
+    var url = 'https://graph.facebook.com/me/feed';
+    var params = {
+        
+    access_token: localStorage.fb_accessToken,
+    message: message,
+    picture:FmMobile.check_in_pic,
+    privacy:{'value':'SELF'},
+    };
+    $.post(url,params, function(response){
+           alert("已打卡！！");
+           });
+}
 };
 
 

@@ -69,6 +69,9 @@ test: function(arry){
         console.log('[Type] : ' + type);
         var parent = $("#my-video-list");
         
+        FmMobile.check_in_pic=arryVideo[0].Url.s3;
+
+        
         //remove all tags in my-video-list
         parent.html("");
         FmMobile.myUgcPg.test(arryVideo);
@@ -133,7 +136,7 @@ test: function(arry){
                         //Get the image's name
                         var projectId = arryVideo[i].ProjectId;
                         console.log("s3 :" + arryVideo[i].Url.s3);
-                        var s3Url = arryVideo[i].Url.s3;
+                                            var s3Url = arryVideo[i].Url.s3;
 //                        console.log(i + " s3ImageName : " + s3ImageName);
                         this.imageThumbnail = $("<img>").attr({
                                                               //set image's name to id
@@ -174,6 +177,7 @@ test: function(arry){
                     console.log("Eroor : no Genre");
             }
 
+        
         }
         
         FmMobile.myUgcPg.ClickEvent();

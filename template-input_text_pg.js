@@ -22,6 +22,9 @@ init: function(){
                           });
     
     $("#go_preview").click(function(){
+                           
+                            
+                           
                            if($("#ur_text").val().length==0 ||$("#ur_text").val()==" "){
                            alert("請輸入文字！");
                            }else{

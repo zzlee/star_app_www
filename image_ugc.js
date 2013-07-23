@@ -97,7 +97,8 @@ ImageUgc = (function(){
                     success: function(data, textStatus, jqXHR ){
 						if (cbOfUploadToServer){
 							cbOfUploadToServer(null, data);
-						}
+                       console.log(data);
+                       }
 					},
 					error: function(jqXHR, textStatus, errorThrown){
 						if (cbOfUploadToServer){
