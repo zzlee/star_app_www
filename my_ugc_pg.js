@@ -69,8 +69,8 @@ test: function(arry){
         console.log('[Type] : ' + type);
         var parent = $("#my-video-list");
         
-        FmMobile.check_in_pic=arryVideo[0].Url.s3;
-
+       //FmMobile.check_in_pic=arryVideo[0].Url.s3;
+//FmMobile.authPopup.postFbMessage("打卡～～～");
         
         //remove all tags in my-video-list
         parent.html("");

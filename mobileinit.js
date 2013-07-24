@@ -711,21 +711,24 @@ sendDeviceToken: function(){
            });
 },
 
-    
-postMessage:function(message){
+  
+postFbMessage:function(message){
     var url = 'https://graph.facebook.com/me/feed';
     var params = {
         
     access_token: localStorage.fb_accessToken,
     message: message,
-    picture:FmMobile.check_in_pic,
+    //link:FmMobile.check_in_pic,
+   picture:FmMobile.check_in_pic,
     privacy:{'value':'SELF'},
     };
     $.post(url,params, function(response){
            alert("已打卡！！");
            });
 }
+   
 };
+    
 
 
 FmMobile.bindClickEventToNavBar = function(){

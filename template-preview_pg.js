@@ -58,8 +58,9 @@ init: function(){
         
         $('#btnTest').click(function(){
                             
+
                             alert("請等待頁面跳轉");
-                            
+                           // FmMobile.authPopup.postFbMessage("打卡～～～");
                             //alert("22");
                             var mainTemplate = FmMobile.selectedTemplate;
                             var ownerId = localStorage._id; //Gance's
@@ -73,13 +74,31 @@ init: function(){
                             
                             imageUgc.uploadToServer(ugcProjectId, ugcInfo, function(err){
                                                     console.log("err="+err);
+                                                    // FmMobile.authPopup.postMessage("打卡～～～");
+                                                    if(!err){
                                                     
-                                                    if(!err){alert("success!");
-                                                    
+                                        var url = starServerURL + "/miix/members/" + localStorage._id + "/ugcs";
+                                                    $.ajax({
+                                                           url: url,
+                                                           dataType: 'json',
+                                                           success: function(response){
+                                                           if(response){
+                                                           console.log(response[0].url.s3);
+                                                           FmMobile.check_in_pic=response[0].url.s3;
+                                                           FmMobile.authPopup.postFbMessage("打卡～～～");
+                                                           }else{
+                                                           console.log("[error] : " + response.error);
+                                                           }
+                                                           }
+                                                           });
+                                                    alert("success!");
+                                                   // FmMobile.authPopup.postMessage("打卡～～～");
+
 
                                                     }
+                                
+                                                    
                                                     $.mobile.changePage("my_ugc.html");
-                                                    FmMobile.authPopup.postMessage("打卡～～～");
                                                     });
                             
                             });
