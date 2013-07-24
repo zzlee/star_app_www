@@ -14,16 +14,17 @@ FmMobile.customerQuestionPg = {
                                  });
         
         var memberId =localStorage._id;
-        
+
         // post customer question
         
         $("#customer_button").click(function(){
-                    var input_id=$("#input_id").val(); // input_id (影片代碼）
-                    var question_text=$("#question_text").val(); //question_text 問題敘述
-                    var select=$("#select option:selected").val(); //問題種類
-                    
-                    
-                                    
+            var input_id=$("#input_id").val(); // input_id (影片代碼）
+            var question_text=$("#question_text").val(); //question_text 問題敘述
+            var select=$("#select option:selected").val(); //問題種類
+        	console.log("click");
+        	console.log("[question] # of video : " + input_id);
+        	console.log("[question] description : " + question_text);
+        	console.log("[question] type : " + select);
             $.ajax({
                type: "POST",
                url: starServerURL+"/miix_service/"+memberId+"/questions",
@@ -36,8 +37,9 @@ FmMobile.customerQuestionPg = {
                }).done(function( result ) {
                        
                        alert(result);
+                       console.log(result);
                    });
-              });
+        });
 
         //get answer
         //TODO: get token from other place

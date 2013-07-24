@@ -46,12 +46,7 @@
     <link rel="stylesheet" href="./css/style.css">
     <link href="SpryAssets/SpryValidationTextarea.css" rel="stylesheet" type="text/css">
     <link href="SpryAssets/SpryValidationSelect.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript">
-function MM_jumpMenu(targ,selObj,restore){ //v3.0
-  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
-  if (restore) selObj.selectedIndex=0;
-}
-    </script>
+    
 </head>
 <body>
 
@@ -61,8 +56,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <p class="header-text">客服/申訴/回報問題</p>
     </div>
 	<div class="container" data-role="content">
-       <div class="setting">
-       <div class="setting-content">
+       <div class="setting"><!-- removie it and then one X run -->
+       <div class="setting-content"><!-- removie it and then one X run -->
        <div class="form">刊登問題<br>
        <select name="select" size="1" id="select">
           <option value="account">帳號問題</option>
@@ -70,7 +65,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
           <option value="publish">刊登問題</option>
           <option value="others">其他問題</option>
          </select><br> 
-         影片代碼<br> <input type="text" id="input_id"><br>
+         影片代碼<br> <input type="password" id="input_id"></input><br>
          問題敘述<br>
          <textarea id="question_text"></textarea>
          </div>
@@ -90,10 +85,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
     </div>
   
 </div>
-<script type="text/javascript">
-var sprytextarea1 = new Spry.Widget.ValidationTextarea("sprytextarea1");
-var spryselect1 = new Spry.Widget.ValidationSelect("spryselect1");
-</script>
+
     <div id="nav-bar" class="nav-bar-background4">
         <div id="btnCreateMovie" class="ui-menu-inactive"><img class="menu-img" src="images/m1.png">
         <div class="menu-text">主題模板</div></div>
