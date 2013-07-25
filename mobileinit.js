@@ -491,7 +491,7 @@ FmMobile.submitDooh = function(){
            navigator.notification.alert(res.message);
            $.jStorage.set("dooh_pid", null);
        }else {
-           navigator.notification.alert('已登上大��');
+           navigator.notification.alert('已登上大螢幕');
            console.log("[submitDooh]"+JSON.stringify(res));
        }
     });

@@ -191,7 +191,7 @@ FmMobile.myUgcPg = {
     ClickEvent: function(){
         /**  Video play  */
         FM_LOG("[myUgcPg.ClickEvent]");
-        $('#my-video-list>div>img').click(function(){
+        $('#my-video-list>div>img').tap(function(){
             console.log("click" + this);
                                      
                                           
@@ -260,21 +260,26 @@ FmMobile.myUgcPg = {
 
             switch(tmpIDArray[0]){
                 case "copyUrl":
-//                    window.clipboardPluginCopy("https://www.youtube.com/watch?feature=player_embedded&v=" + tmpIDArray[1], function() { alert("已�製到�貼�)} , function(e){alert(e);});
-                	window.plugins.ClipboardManager.copy(
-                			"https://www.youtube.com/watch?feature=player_embedded&v=" + tmpIDArray[1],
-                			function() { alert("已�製到�貼�)},
-               			 function(e){alert(e);});
+//                    window.clipboardPluginCopy("https://www.youtube.com/watch?feature=player_embedded&v=" + tmpIDArray[1], function() { alert("已�製到�貼�)} , function(e){alert(e);});
+//                	window.plugins.ClipboardManager.copy(
+//                			"https://www.youtube.com/watch?feature=player_embedded&v=" + tmpIDArray[1],
+//                			function() { alert("已複製到剪貼簿上");},
+//               			 function(e){alert(e);});
+                	window.clipboardManagerCopy(
+                			"the text to copy",
+                			function(r){alert("copy is successful")},
+                			function(e){alert(e)}
+                		);
                     break;
                 case "shareFb":
                     alert("share to FB");
                     break;
                 case "copyUrlS3":
                     console.log("S3 URL " + tmpIDArray[1]);
-//                    window.clipboardPluginCopy("https://s3.amazonaws.com/miix_content/user_project/" + tmpIDArray[1] + "/" + tmpIDArray[1] + ".png", function() { alert("已�製到�貼�)} , function(e){alert(e);});
+//                    window.clipboardPluginCopy("https://s3.amazonaws.com/miix_content/user_project/" + tmpIDArray[1] + "/" + tmpIDArray[1] + ".png", function() { alert("已�製到�貼�)} , function(e){alert(e);});
                 	window.plugins.ClipboardManager.copy(
                 			"https://s3.amazonaws.com/miix_content/user_project/" + tmpIDArray[1] + "/" + tmpIDArray[1] + ".png",
-                			function() { alert("已�製到�貼�)},
+                			function() { alert("已複製到剪貼簿上")},
                 			 function(e){alert(e);});
                     break;
                 default:
