@@ -8,12 +8,10 @@ FmMobile.template_subTemplatePg = {
         
     init: function(){
 		$('#nav-bar').show();
-        $('#show_sub').hide();
         $("#show_intro").show();
         
         $("#close").click(function(){
                       $("#show_intro").hide();
-                           $('#show_sub').show();
                           $('#close').hide();
                           });
         

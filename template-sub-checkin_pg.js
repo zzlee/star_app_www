@@ -7,13 +7,11 @@ FmMobile.template_checkinPg = {
     },
         
     init: function(){
-		$('#nav-bar').hide();
-        $('#show_sub').hide();
+		$('#nav-bar').show();
         $("#show_intro").show();
         
         $("#close").click(function(){
                       $("#show_intro").hide();
-                           $('#show_sub').show();
                           $('#close').hide();
                           });
         
