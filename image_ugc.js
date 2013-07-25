@@ -10,6 +10,7 @@ ImageUgc = (function(){
 		var ugcCanvas = null;
 		var context = null;
 		var bgImage = null;
+		var customizableObjects = null;
 		
 		var drawChineseText = function( text, x, y, maxWidth, lineHeight, angle) {
 			x = Number(x);
@@ -164,15 +165,17 @@ ImageUgc = (function(){
 				
                 
 			}
+			//==end of public services of ImageUgc==
 		};
 		
 		async.series([
 			function(callback){
-			//get templateMgr
+			    //get templateMgr
 				TemplateMgr.getInstance(function(err, _templateMgr){
 					if (!err) {
 						templateMgr = _templateMgr;
 						template = templateMgr.getSubTemplate(mainTemplateId, subTemplateId);
+						customizableObjects = template.customizableObjects;
 						callback(null, obj);
 					}
 					else {

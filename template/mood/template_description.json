@@ -27,8 +27,8 @@
                     "maxTextLength":"39"
                 },
                 {
-                    "id":"thumbnail",
-                    "type":"image",
+                    "id":"thumbnail0",
+                    "type":"thumbnail",
                     "x":"35",
                     "y":"33",
                     "width":"303",
@@ -46,18 +46,18 @@
             "backgroundImageUrl":"test_bg.jpg",
             "customizableObjects":[
                 {
-                                   "id":"picture0",
-                                   "type":"image",
-                                   "x":"775",
-                                   "y":"22",
-                                   "width":"240",
-                                   "height":"180",
-                                   "angle":"10.36",
-                                   "description":"心情照片"
+                    "id":"picture0",
+                    "type":"image",
+                    "x":"775",
+                    "y":"22",
+                    "width":"240",
+                    "height":"180",
+                    "angle":"10.36",
+                    "description":"心情照片"
                 },
                 {
-                    "id":"thumbnail",
-                    "type":"image",
+                    "id":"thumbnail0",
+                    "type":"thumbnail",
                     "x":"35",
                     "y":"33",
                     "width":"303",
@@ -96,8 +96,8 @@
                     "description":"心情照片"
                 },
                 {
-                    "id":"thumbnail",
-                    "type":"image",
+                    "id":"thumbnail0",
+                    "type":"thumbnail",
                     "x":"300",
                     "y":"100",
                     "width":"50",
