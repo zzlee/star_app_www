@@ -173,6 +173,7 @@ onBodyLoad: function(){
     FM_LOG("[Init.onDeviceReady]");
     
     document.addEventListener("deviceready", FmMobile.analysis.init, true);
+    document.addEventListener("deviceready", FmMobile.gcm.init, true);
 //    document.addEventListener("deviceready", FmMobile.apn.init, true);
     document.addEventListener("deviceready", FmMobile.init.isFBTokenValid, true);
     
@@ -442,45 +443,113 @@ FmMobile.submitDooh = function(){
 };
 
 
+FmMobile.gcm = {
+		//This is from Garbriel
+		//Version: MiixCard_20121227
+		gcmregid: null,
+		senderid: "46997187553",	//project_rId(MiixCard)	
+		//project_rId(gcm_test) = 367333162680
+		
+		init: function(){
+			FM_LOG("[GCM.init]");
+			if(window.plugins){
+				window.plugins.GCM.register(FmMobile.gcm.senderid, "FmMobile.gcm.event", FmMobile.gcm.success, FmMobile.gcm.fail );
+			}else{
+				window.GCM.register(FmMobile.gcm.senderid, "FmMobile.gcm.event", FmMobile.gcm.success, FmMobile.gcm.fail );
+			}
+			
+		},
+		
+		event: function(e){
+			FM_LOG("[GCM.event]");
+			switch( e.event ){
+			  case 'registered':
+				// the definition of the e variable is json return defined in "GCMReceiver.java"
+				// In my case on registered I have EVENT and REGID defined
+				FmMobile.gcm.gcmregid = e.regid;
+				if ( FmMobile.gcm.gcmregid.length > 0 ){
+					FM_LOG("[GCM.Regid: " + e.regid + "]");
+					localStorage.deviceToken = e.regid;
+				}
 
+				break;
+
+			  case 'message':
+				// the definition of the e variable is json return defined in "GCMIntentService.java"
+				// In my case on registered I have EVENT, MSG and MSGCNT defined
+				FM_LOG("[GCM.message] " + JSON.stringify(e));
+				FmMobile.ajaxNewVideos();
+	            //navigator.notification.alert('You have a video!');
+				break;
+
+			  case 'error':
+				FM_LOG("[GCM.error] " + JSON.stringify(e));
+				break;
+
+			  default:
+				FM_LOG("[GCM.event] Unknown");
+				break;
+		    }
+		},
+		
+		success: function(e){
+			FM_LOG("[GCM.suceess] Register Successfully, waiting for RegId!");
+			FM_LOG("[GCM.suceess] " + JSON.stringify(e));  //If success it returns "OK"
+			
+		},
+		
+		fail: function(e){
+			FM_LOG("[GCM.Fail] Register Fail! " + JSON.stringify(e));
+		},	
+};
 
 
 
 FmMobile.analysis = {
-    
-nativePluginResultHandler: function(result){
-    FM_LOG("[ga.resultHandler] " + result);
-},
-    
-nativePluginErrorHandler: function(error){
-    FM_LOG("[ga.errorHandler] " + error);
-},
-    
-init: function(){
-    FM_LOG("[analysis.init]");
-    
-//        FmMobile.ga = window.plugins.gaPlugin;
-//        FmMobile.ga.init(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler                , "UA-37288251-1", 10); // UA-37288251-1 for Web.
-    
-},
-    
-    
-goingAway: function(){
-//        FmMobile.ga.exit(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler);
-},
-    
-trackEvent: function(category, action, label, value){
-//        FmMobile.ga.trackEvent(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, category, action, label, 1);
-},
-    
-setVariable: function(key, value, index){
-//        FmMobile.ga.setVariable(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, key, value, index);
-},
-    
-trackPage: function(url){
-//        FmMobile.ga.trackPage(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, url);
-},
-};
+	    
+	    nativePluginResultHandler: function(result){
+	        FM_LOG("[analysis.resultHandler] " + result);
+	    },
+	    
+	    nativePluginErrorHandler: function(error){
+	        FM_LOG("[analysis.errorHandler] " + error);
+	    },
+	    
+	    init: function(){
+	        FM_LOG("[analysis.init]");
+	        var gaId = "UA-37288251-4"; 
+	        //UA-37288251-4 : http://www.feltmeng.idv.tw
+	        //UA-37288251-1 : http://www.miix.tv
+	        FmMobile.ga = window.plugins.gaPlugin;
+	        FmMobile.ga.init(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, gaId, 30);
+	    },
+	    
+	    goingAway: function(){
+	    	FM_LOG("[analysis.goingAway]");
+	        FmMobile.ga.exit(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler);
+	    	
+	    },
+	    
+	    trackEvent: function(category, action, label, value){
+	    	FM_LOG("[analysis.trackEvent]");
+	    	FM_LOG("[analysis.trackEvent] category : " + category);
+	    	FM_LOG("[analysis.trackEvent] action : " + action);
+	    	FM_LOG("[analysis.trackEvent] label : " + label);
+	    	FM_LOG("[analysis.trackEvent] value : " + value);
+	        FmMobile.ga.trackEvent(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, category, action, label, 1);
+	    },
+	    
+	    setVariable: function(key, value, index){
+	    	FM_LOG("[analysis.setVariable]");
+	        FmMobile.ga.setVariable(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, key, value, index);
+	    	
+	    },
+	    
+	    trackPage: function(url){
+	    	FM_LOG("[analysis.trackPage] url :" + url);
+	    	FmMobile.ga.trackPage(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, url);
+	    },
+	};
 
 
 FmMobile.authPopup = {

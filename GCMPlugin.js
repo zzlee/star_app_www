@@ -1,4 +1,3 @@
-/** Android Plugin */
 (function () {
 
 	var GCM = function() {};
@@ -62,4 +61,3 @@
 
 	
 })();
-
