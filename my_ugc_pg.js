@@ -22,7 +22,11 @@ FmMobile.myUgcPg = {
                               Title : item.title,
                               ProjectId: item.projectId,
                               Genre: item.genre,
-                              Url : item.url,   // including youtube, s3 and tudou
+//                              Youtube : item.url.youtube,
+                              //if column no data then send " "
+//                              Youtube : item.url.youtube,
+//                              S3 : item.url.s3,
+                              Url : item.url,
                               No: item.no,
                               
                           }
@@ -55,10 +59,10 @@ FmMobile.myUgcPg = {
         FmMobile.myUgcPg.loadLiveVideo(FmMobile.myUgcPg.myVideos, "video");
     },
     
-    test: function(arry){
-        for(var i = 0 ; i< arry.length; i++)
-            console.log(arry[i]);
-    },
+test: function(arry){
+    for(var i = 0 ; i< arry.length; i++)
+        console.log(arry[i]);
+},
     
     loadLiveVideo: function(arryVideo, type){
         FM_LOG("[myUgcPg] loadLiveVideo");
@@ -77,15 +81,9 @@ FmMobile.myUgcPg = {
             var info = $("<div>").attr({id: "my-video-info"});
             
             dummyDiv.appendTo(widget);
-            
             switch(arryVideo[i].Genre){
-                //Genre type : video and image
-                //video : miix
-                //image : miix_image
                 case "miix":
                     if(typeof(arryVideo[i].Url) != "undefined"){
-                        //if arryVideo[i] exist
-                        //Get the youtube video ID
                         var ytVideoID = (arryVideo[i].Url.youtube).split('/').pop();
                         console.log(i + " ytVideoID :" + ytVideoID + ", No. " + arryVideo[i].No);
                         this.videoThumbnail = $("<img>").attr({
@@ -114,31 +112,31 @@ FmMobile.myUgcPg = {
                             this.numberDiv.appendTo(info);
                             info.appendTo(widget);
                         }else if(type == "live"){
-                            //TODO: Live waiting GZ's API
                             info.appendTo(widget);
                         }
                         
 
                     }else{
-                        //if youtube url not exist.
                         this.videoThumbnail = $("<img>").attr({
                                                               id: 'imgError_' + i,
                                                               src: "images/choose_movie.png",
                                                               class: "content-movie-img"
                                                               });
                         this.videoThumbnail.appendTo(widget);
+//                        console.log("[myUgcPg] no youtube url");
+//                        continue;
                     }
                     widget.appendTo(parent);
                     break;
                 case "miix_image":
-                    if(typeof(arryVideo[i].Url.s3) != "undefined"){
-                        //Get the image's project Id
+//                    if(arrVideo[i].Url.s3){
+                        //Get the image's name
                         var projectId = arryVideo[i].ProjectId;
                         console.log("s3 :" + arryVideo[i].Url.s3);
-                        
-                        //TODO: cultural and  creative, mood are different it should to update
                         var s3Url = arryVideo[i].Url.s3;
+//                        console.log(i + " s3ImageName : " + s3ImageName);
                         this.imageThumbnail = $("<img>").attr({
+                                                              //set image's name to id
                                                               id: "imgS3_" +projectId,
                                                               src: s3Url,
                                                               class: "content-movie-img"
@@ -165,19 +163,12 @@ FmMobile.myUgcPg = {
                             this.numberDiv.appendTo(info);
                             info.appendTo(widget);
                         }else if(type == "live"){
-                            //TODO: Wating a new API
                             info.appendTo(widget);
                         }
-                    }else{
-                        //if s3 url not exist
-                        this.videoThumbnail = $("<img>").attr({
-                                                              id: 'imgError_' + i,
-                                                              src: "images/choose_movie.png",
-                                                              class: "content-movie-img"
-                                                              });
-                        this.videoThumbnail.appendTo(widget);
-                    }
-                    widget.appendTo(parent);
+//                    }else{
+//                        console.log("[myUgcPg] no S3 url");
+//                    }
+                        widget.appendTo(parent);
                     break;
                 default :
                     console.log("Eroor : no Genre");
@@ -200,6 +191,7 @@ FmMobile.myUgcPg = {
             switch(arryIdType[0]){
                 case "imgYouTube":
                     var tempUrlArray = this.src.split('/');
+                    console.log("tempUrlArry " + tempUrlArray[tempUrlArray.length-2])
                     var ytVideoID = tempUrlArray[tempUrlArray.length-2];
                     var videoFrame = $("<iframe>").attr({
                                                 id: ytVideoID,
@@ -214,23 +206,22 @@ FmMobile.myUgcPg = {
                                                   });
 
                     var callPlayer = function (frame_id, func, args) {
-                        if (window.jQuery && frame_id instanceof jQuery){
-                            frame_id = frame_id.get(0).id;
-                        }
-                        var iframe = document.getElementById(frame_id);
-                        if (iframe && iframe.tagName.toUpperCase() != 'IFRAME') {
-                            iframe = iframe.getElementsByTagName('iframe')[0];
-                        }
-                        if (iframe) {
-                        // Frame exists,
-                            iframe.contentWindow.postMessage(JSON.stringify({
-                                                        "event": "command",
-                                                        "func": func,
-                                                        "args": args || [],
-                                                        "id": frame_id
-                                                        }), "*");
-                        }
-                    };
+                    if (window.jQuery && frame_id instanceof jQuery){
+                    frame_id = frame_id.get(0).id;
+                    }
+                    var iframe = document.getElementById(frame_id);
+                    if (iframe && iframe.tagName.toUpperCase() != 'IFRAME') {
+                    iframe = iframe.getElementsByTagName('iframe')[0];
+                    }
+                    if (iframe) {
+                    // Frame exists,
+                    iframe.contentWindow.postMessage(JSON.stringify({
+                        "event": "command",
+                        "func": func,
+                        "args": args || [],
+                        "id": frame_id
+                        }), "*");
+                    }};
                     
                     $('#'+divID).prepend(videoFrame);
                     $('#'+this.id).remove();
@@ -248,34 +239,27 @@ FmMobile.myUgcPg = {
         
         /** Copy youtube url and share to FB */
         $('#my-video-info>img').click(function(){
-            var imgID = this.id;        
+            var imgID = this.id;        //
             var tmpIDArray = this.id.split('_');
-//            for(var i = 0; i < tmpIDArray.length; i++)
-//                console.log("id.split[" + i + "] :" + tmpIDArray[i]);
-                                      
+            //            for(var i = 0; i < tmpIDArray.length; i++)
+            //                console.log("id.split[" + i + "] :" + tmpIDArray[i]);
+
             if(tmpIDArray.length > 2)
-              tmpIDArray[0] = tmpIDArray[1] + "_" + tmpIDArray[2] + "_" + tmpIDArray[3];
-                                      
+            tmpIDArray[0] = tmpIDArray[1] + "_" + tmpIDArray[2] + "_" + tmpIDArray[3];
+
             console.log("tmpIdArray[0] :" + tmpIDArray[0]);
 
             switch(tmpIDArray[0]){
                 case "copyUrl":
-//                    window.clipboardPluginCopy("https://www.youtube.com/watch?feature=player_embedded&v=" + tmpIDArray[1], function() { alert("已�製到�貼�)} , function(e){alert(e);});
-                	window.plugins.ClipboardManager.copy(
-                			"https://www.youtube.com/watch?feature=player_embedded&v=" + tmpIDArray[1],
-                			function() { alert("已�製到�貼�)},
-               			 function(e){alert(e);});
+//                    window.clipboardPluginCopy("https://www.youtube.com/watch?feature=player_embedded&v=" + tmpIDArray[1], function() { alert("已複製到剪貼簿")} , function(e){alert(e);});
+
                     break;
                 case "shareFb":
                     alert("share to FB");
                     break;
                 case "copyUrlS3":
                     console.log("S3 URL " + tmpIDArray[1]);
-//                    window.clipboardPluginCopy("https://s3.amazonaws.com/miix_content/user_project/" + tmpIDArray[1] + "/" + tmpIDArray[1] + ".png", function() { alert("已�製到�貼�)} , function(e){alert(e);});
-                	window.plugins.ClipboardManager.copy(
-                			"https://s3.amazonaws.com/miix_content/user_project/" + tmpIDArray[1] + "/" + tmpIDArray[1] + ".png",
-                			function() { alert("已�製到�貼�)},
-                			 function(e){alert(e);});
+//                    window.clipboardPluginCopy("https://s3.amazonaws.com/miix_content/user_project/" + tmpIDArray[1] + "/" + tmpIDArray[1] + ".png", function() { alert("已複製到剪貼簿")} , function(e){alert(e);});
                     break;
                 default:
                     alert("You don't touch the button.");
