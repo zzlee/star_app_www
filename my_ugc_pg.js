@@ -261,6 +261,8 @@ test: function(arry){
                 			function(r){alert("copy is successful")},
                 			function(e){alert(e)}
                 		);
+//                	window.plugins.clipboardPlugin("text is copy", function(){alert('copyied!!')}, function(e){alert(e)});
+                	
                     break;
                 case "shareFb":
                     alert("share to FB");
