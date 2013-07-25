@@ -32,7 +32,7 @@
                                    "x":"35",
                                    "y":"33",
                                    "width":"303",
-                                   "height":"34",
+                                   "height":"303",
                                    "angle":"0",
                                    "description":"大頭貼"
                                    }
@@ -61,7 +61,7 @@
                                    "x":"35",
                                    "y":"33",
                                    "width":"303",
-                                   "height":"34",
+                                   "height":"303",
                                    "angle":"0",
                                    "description":"大頭貼"
                                    }
@@ -100,8 +100,8 @@
                                    "type":"image",
                                    "x":"300",
                                    "y":"100",
-                                   "width":"50",
-                                   "height":"50",
+                                   "width":"100",
+                                   "height":"100",
                                    "angle":"0",
                                    "description":"大頭貼"
                                    }

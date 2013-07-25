@@ -162,7 +162,7 @@ urlOfCropped: null, //the URL of the picture that the user crops. (It is normall
 crop: {_x:0, _y:0, _w:1, _h:1},  // _x=x_crop/width_picture; _y=y_crop/height_picture; _w=width_crop/width_picture;  _h=height_crop/height_picture
 },
 thumbnail:{
-url:'img/darth-vader.jpg'
+url:localStorage.fb_user_pic
     
 }
 };
@@ -720,7 +720,8 @@ postFbMessage:function(message){
     message: message,
     //link:FmMobile.check_in_pic,
    picture:FmMobile.check_in_pic,
-    privacy:{'value':'SELF'},
+    //privacy:{'value':'SELF'},
+    
     };
     $.post(url,params, function(response){
            alert("已打卡！！");

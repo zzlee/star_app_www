@@ -13,6 +13,14 @@ PAGE_ID: "template_mainTemplatePg",
         //alert(aa);
 		$('#nav-bar').show();
         
+        
+       
+        
+            
+        
+       
+    
+        
        // alert(FmMobile.my_phone);
         //alert( device.platform);
        // console.dir(templateMgr.getTemplateList());
@@ -21,7 +29,9 @@ PAGE_ID: "template_mainTemplatePg",
        // $("#mood_img").attr("src",templateMgr.getTemplateList()[1].representingImageUrl);
         
         $("#go_cultural").click(function(){
-                            $.mobile.changePage("template-sub_cultural.html");
+                                
+                                
+                                                            $.mobile.changePage("template-sub_cultural.html");
                             FmMobile.selectedTemplate=templateMgr.getTemplateList()[0].selected;
                             });
 
@@ -33,6 +43,28 @@ PAGE_ID: "template_mainTemplatePg",
         });
         
         $("#go_checkin").click(function(){
+                               
+                 /*
+                    if (navigator.geolocation) {
+                        function errorHandler (error) {
+                                alert('Attempt to get location failed: ' + error.message);
+                            }
+
+                        function successHandler (location) {
+                                alert(location.coords.longitude);
+                                alert(location.coords.latitude);
+                            }
+
+                        var options = {
+                                enableHighAccuracy: true,
+                                maximumAge: 60000,
+                                timeout: 45000
+                            };
+
+                    navigator.geolocation.getCurrentPosition(successHandler, errorHandler, options);
+                    }
+                       */        
+                               
                 $.mobile.changePage("template-sub-checkin.html");
                 FmMobile.selectedTemplate=templateMgr.getTemplateList()[2].selected;
         });
