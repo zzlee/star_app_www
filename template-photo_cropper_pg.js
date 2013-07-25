@@ -158,7 +158,7 @@ load: function(event, data){
             params.croppedArea_height = croppedArea.height;
             params.obj_OriginalWidth = customizableObjectDimensions[fileObjectID].width;
             params.obj_OriginalHeight = customizableObjectDimensions[fileObjectID].height;
-            params.osVersion = "iOS_"+device.version;
+            params.osVersion = "Android_" +device.version;
             
             
             console.log('[uploadPhoto()] params.projectID = %s', params.projectID);

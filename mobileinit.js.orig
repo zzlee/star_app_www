@@ -168,17 +168,16 @@ url:'img/darth-vader.jpg'
 
 FmMobile.init = {
     
-<<<<<<< HEAD
-    onBodyLoad: function(){
-        
-        FM_LOG("[Init.onDeviceReady]");
-        
-        document.addEventListener("deviceready", FmMobile.analysis.init, true);
-        document.addEventListener("deviceready", FmMobile.apn.init, true);
-        document.addEventListener("deviceready", FmMobile.init.isFBTokenValid, true);
-        
-        document.addEventListener("resume", FmMobile.init.onResume, false);
-        document.addEventListener("pause", FmMobile.init.onPause, false);
+onBodyLoad: function(){
+    
+    FM_LOG("[Init.onDeviceReady]");
+    
+    document.addEventListener("deviceready", FmMobile.analysis.init, true);
+//    document.addEventListener("deviceready", FmMobile.apn.init, true);
+    document.addEventListener("deviceready", FmMobile.init.isFBTokenValid, true);
+    
+    document.addEventListener("resume", FmMobile.init.onResume, false);
+    document.addEventListener("pause", FmMobile.init.onPause, false);
 //        document.addEventListener("push-notification", function(event){
 //            FmMobile.ajaxNewVideos();
 //            FmMobile.ajaxNewStoryVideos();
@@ -188,71 +187,6 @@ FmMobile.init = {
 //            navigator.notification.alert('You have a new video!');
 //            //alert(event);
 //        });
-        
-        //TODO: 
-        //document.addEventListener("touchmove", function(e){ e.preventDefault(); }, true);
-        
-        // Metadata for TEST.
-        /*
-         localStorage._id = "50c9afd0064d2b8412000013"; // feltmeng.idv: "50b34c4a8198caec0e000001";
-         localStorage.fb_accessToken = "AAABqPdYntP0BAOj2VmPf8AVllT1TArJKN3eD9UbzJtzig6oap4aPA5Sx5Ahbl5ypzycr9O09Mbad3NEcPlqZAi8ZBl0Es7A8VXrdavSoLdIVZBMRNVh";
-         localStorage.fb_name="Gabriel Feltmeng";
-         localStorage.fb_userID = "100004053532907";
-         localStorage.verified = false;
-         localStorage.fb_name = "Gabriel Feltmeng";
-         localStorage.fb_user_pic = "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash4/371504_100004053532907_620345447_q.jpg";
-        
-        metadata = {
-            "id": "100004053532907",
-            "name": "Gabriel Feltmeng",
-            "first_name": "Gabriel",
-            "last_name": "Feltmeng",
-            "link": "http://www.facebook.com/gabriel.feltmeng",
-            "username": "gabriel.feltmeng",
-            "location": {
-                "id": "110765362279102",
-                "name": "Taipei, Taiwan"
-            },
-            "gender": "male",
-            "timezone": 8, 
-            "locale": "en_US", 
-            "verified": true, 
-            "updated_time": "2013-02-19T07:38:19+0000"
-        };
-        $.jStorage.set("fb_profile", metadata);*/
-        
-    },
-    
-    onResume: function(){
-        FM_LOG("[Init.onResume]");
-        if(localStorage.fb_userID){
-            FmMobile.ajaxNewVideos();
-            FmMobile.ajaxNewStoryVideos();
-            FmMobile.apn.getPendingNotification();
-            recordUserAction("resumes MiixCard app");
-            FmMobile.init.isFBTokenValid();
-        }
-    },
-=======
-onBodyLoad: function(){
-    
-    FM_LOG("[Init.onDeviceReady]");
-    
-    document.addEventListener("deviceready", FmMobile.analysis.init, true);
-    document.addEventListener("deviceready", FmMobile.apn.init, true);
-    document.addEventListener("deviceready", FmMobile.init.isFBTokenValid, true);
-    
-    document.addEventListener("resume", FmMobile.init.onResume, false);
-    document.addEventListener("pause", FmMobile.init.onPause, false);
-    document.addEventListener("push-notification", function(event){
-                              FmMobile.ajaxNewVideos();
-                              FmMobile.ajaxNewStoryVideos();
-                              FM_LOG("push-notification:");
-                              console.dir(event);
-                              //navigator.notification.alert(JSON.stringify(['push-notification!', event]));
-                              navigator.notification.alert('You have a new video!');
-                              //alert(event);
-                              });
     
     //TODO:
     //document.addEventListener("touchmove", function(e){ e.preventDefault(); }, true);
@@ -298,7 +232,6 @@ onResume: function(){
         FmMobile.init.isFBTokenValid();
     }
 },
->>>>>>> origin/ondascreen_v1_0__integration
     
 onPause: function(){
     if(localStorage.fb_userID){
@@ -501,8 +434,13 @@ FmMobile.submitDooh = function(){
            if(res.message){
            navigator.notification.alert(res.message);
            $.jStorage.set("dooh_pid", null);
+<<<<<<< HEAD
            }else {
-           navigator.notification.alert('申請登上大螢幕失敗');
+           navigator.notification.alert('大螢幕預約失敗');
+=======
+       }else {
+           navigator.notification.alert('已登上大螢幕');
+>>>>>>> jean_android_build130723
            console.log("[submitDooh]"+JSON.stringify(res));
            }
            });
@@ -607,57 +545,30 @@ nativePluginErrorHandler: function(error){
     FM_LOG("[ga.errorHandler] " + error);
 },
     
-<<<<<<< HEAD
-    init: function(){
-        FM_LOG("[analysis.init]");
-        
-//        FmMobile.ga = window.plugins.gaPlugin;
-//        FmMobile.ga.init(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler                , "UA-37288251-1", 10); // UA-37288251-1 for Web.
-        
-    },
-    
-    
-    goingAway: function(){
-//        FmMobile.ga.exit(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler);
-    },
-    
-    trackEvent: function(category, action, label, value){
-//        FmMobile.ga.trackEvent(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, category, action, label, 1);
-    },
-    
-    setVariable: function(key, value, index){
-//        FmMobile.ga.setVariable(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, key, value, index);
-    },
-    
-    trackPage: function(url){
-//        FmMobile.ga.trackPage(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, url);
-    },
-=======
 init: function(){
     FM_LOG("[analysis.init]");
     
-    FmMobile.ga = window.plugins.gaPlugin;
-    FmMobile.ga.init(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler                , "UA-37288251-1", 10); // UA-37288251-1 for Web.
+//        FmMobile.ga = window.plugins.gaPlugin;
+//        FmMobile.ga.init(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler                , "UA-37288251-1", 10); // UA-37288251-1 for Web.
     
 },
     
     
 goingAway: function(){
-    FmMobile.ga.exit(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler);
+//        FmMobile.ga.exit(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler);
 },
     
 trackEvent: function(category, action, label, value){
-    FmMobile.ga.trackEvent(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, category, action, label, 1);
+//        FmMobile.ga.trackEvent(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, category, action, label, 1);
 },
     
 setVariable: function(key, value, index){
-    FmMobile.ga.setVariable(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, key, value, index);
+//        FmMobile.ga.setVariable(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, key, value, index);
 },
     
 trackPage: function(url){
-    FmMobile.ga.trackPage(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, url);
+//        FmMobile.ga.trackPage(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, url);
 },
->>>>>>> origin/ondascreen_v1_0__integration
 };
 
 
@@ -743,7 +654,7 @@ onFBConnected: function(){
            localStorage.fb_accessToken = response.data.accessToken;
             localStorage.verified = (response.data.verified) ? response.data.verified : 'false';
            
-           //localStorage.verified='true';//此行為了測試電話認證！
+           //localStorage.verified='true';//此��測試�話認��
            FM_LOG("localStorage" + JSON.stringify(localStorage));
            
            // Each time of Login, pull all videos.

@@ -73,8 +73,10 @@
         <script src="http://jsconsole.com/remote.js?C76D25C7-A106-4751-AA0E-BBE9469FEB8D"></script><!-- DEBUGGER -->
 =======
         <script src="./lib/clipboardmanager.js"></script>
+        <!--<script src="http://jsconsole.com/remote.js?A976F5FA-D8B2-435F-BCA5-6BB7E57A8191"></script>DEBUGGER -->
+        <script src="http://debug.phonegap.com/target/target-script-min.js#jean"></script>
         <script src="GCMPlugin.js"></script>
->>>>>>> 364f3e90f686fe0d7333cf93e070f73912297953
+>>>>>>> jean_android_build130723
         
         <link rel="stylesheet" href="./css/style.css">
     </head>
