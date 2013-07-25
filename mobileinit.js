@@ -588,6 +588,7 @@ fbStatusPolling: function(){ //DEPRECATED - used in early implementation to hand
           localStorage.fb_userID = response.data.userID;
           localStorage.fb_accessToken = response.data.accessToken;
           localStorage._id = response.data._id;
+          localStorage.fb_user_pic=response.data.fb_user_pic;
           sessionStorage.sessionID = response.data.sessionID;
           
           if(localStorage.verified == 'true'){
@@ -681,6 +682,7 @@ FBLogout: function() {
     delete localStorage.fb_userID;
     delete localStorage.fb_name;
     delete localStorage.fb_accessToken;
+    delete localStorage.fb_user_pic;
     //delete localStorage.verified;
     if(localStorage.email) delete localStorage.email;
     
