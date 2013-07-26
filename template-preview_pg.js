@@ -58,8 +58,9 @@ init: function(){
         
         $('#btnTest').click(function(){
                             
-
+ 
                             alert("請等待頁面跳轉");
+                           
                            // FmMobile.authPopup.postFbMessage("打卡～～～");
                             //alert("22");
                             var mainTemplate = FmMobile.selectedTemplate;
@@ -122,7 +123,8 @@ init: function(){
     
     
     $('#btnTest').click(function(){
-                        //alert("22");
+                        
+                        alert("請等待頁面跳轉");
                         var mainTemplate = FmMobile.selectedTemplate;
                         var ownerId = localStorage._id; //Gance's
                         var ownerFbUserId = localStorage.fb_userID; //Gance's

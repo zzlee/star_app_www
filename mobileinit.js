@@ -162,7 +162,8 @@ urlOfCropped: null, //the URL of the picture that the user crops. (It is normall
 crop: {_x:0, _y:0, _w:1, _h:1},  // _x=x_crop/width_picture; _y=y_crop/height_picture; _w=width_crop/width_picture;  _h=height_crop/height_picture
 },
 thumbnail:{
-url:localStorage.fb_user_pic
+url:'https://graph.facebook.com/'+localStorage.fb_userID+'/picture/'
+
     
 }
 };
@@ -588,7 +589,7 @@ fbStatusPolling: function(){ //DEPRECATED - used in early implementation to hand
           localStorage.fb_userID = response.data.userID;
           localStorage.fb_accessToken = response.data.accessToken;
           localStorage._id = response.data._id;
-          localStorage.fb_user_pic=response.data.fb_user_pic;
+         // localStorage.fb_user_pic=response.data.fb_user_pic;
           sessionStorage.sessionID = response.data.sessionID;
           
           if(localStorage.verified == 'true'){
@@ -648,9 +649,10 @@ onFBConnected: function(){
            FM_LOG("[SignUp with FB]: ");
            if(response.data){
            localStorage._id = response.data._id;
+           //localStorage.fb_user_pic=response.data.fb_user_pic;
            localStorage.fb_accessToken = response.data.accessToken;
             localStorage.verified = (response.data.verified) ? response.data.verified : 'false';
-           
+           FmMobile.userContent.thumbnail.url='https://graph.facebook.com/'+localStorage.fb_userID+'/picture/';
            //localStorage.verified='true';//此行為了測試電話認證！
            FM_LOG("localStorage" + JSON.stringify(localStorage));
            
