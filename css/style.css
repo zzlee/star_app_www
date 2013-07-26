@@ -38,7 +38,13 @@ body{
 .header {
 	font-family: "華康歐陽詢體W5";
 	display:table;
-	background: #000000; /* Old browsers */
+	width: 100%;
+	height: 8.69%;
+	position:fixed;
+	color:#dcd586;
+	behavior: url(/pie/PIE.htc);
+    z-index: 1;
+    background: #000000; /* Old browsers */
 	background: -moz-linear-gradient(left,  #000000 0%, #970018 50%, #000000 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#000000), color-stop(50%,#970018), color-stop(100%,#000000)); /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(left,  #000000 0%,#970018 50%,#000000 100%); /* Chrome10+,Safari5.1+ */
@@ -46,22 +52,15 @@ body{
 	background: -ms-linear-gradient(left,  #000000 0%,#970018 50%,#000000 100%); /* IE10+ */
 	background: linear-gradient(to right,  #000000 0%,#970018 50%,#000000 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000',GradientType=1 ); /* IE6-9 */
-
-	width: 100%;
-	height: 8.69%;
-	position:fixed;
-	color:#dcd586;
-	behavior: url(/pie/PIE.htc);
-    z-index: 1;
 }
 .header-text{
 	display: table-cell;
 	vertical-align: middle;
 	text-align: center;
 	color: #dcd586;
-	font-size: 200%;
+	font-size: 180%;
     text-shadow: none;
-    padding-top: 2.5%;
+    padding-top: 1%;
 }
 .back-img{
 	float:left;
@@ -73,6 +72,15 @@ body{
     bottom: 0;  
     width:10%;
 }
+.header_bg{
+	width:100%;
+	position:fixed;
+	top:6.3%;
+	z-index:2;
+    }
+.header_bg_img{
+	width:100%;}
+
 
 /* Page ------------------------------------------------------------*/
 #page {
@@ -107,14 +115,14 @@ div[data-role=page] {
 #fixedBackground {
 	width: 100%;
 	padding: 0px;
-	background-image: url(../images/bg.png);
+
 	background-size: 100% 100%;
 	top: 10%;
 	position: fixed;
 	min-height: 72.84%;
 }
 .container{
-	background-image: url(../images/bg.png);
+	/*background-image: url(../images/bg.png);*/
 	background-size:100% 100%;
 	background-repeat:no-repeat;
 	margin-top:18%;
@@ -126,7 +134,7 @@ div[data-role=page] {
     display:block !improtant;
 }
 .login_toc_container{
-	background-image: url(../images/bg.png);
+	/*background-image: url(../images/bg.png);*/
 	background-size:100% 100%;
 	background-repeat:no-repeat;
 	top:10%;
@@ -265,7 +273,7 @@ div[data-role=page] {
 	height: 100%
 }
 .menu-text{
-	padding: 5% 5% 5% 13%;
+	padding: 4% 5% 5% 3%;
 	font-size:60%;
 	width:100%;
 	bottom:2.5%;
@@ -365,7 +373,7 @@ padding:5% 5%;
 	position:absolute;
 }
 .facebook_login_text{
-	margin-top:58.5%;
+	margin-top:70%;
 	position:absolute;
 	width:100%;
 	text-align:center;
@@ -450,7 +458,7 @@ padding:5% 5%;
 }
 .template_label{
 	width:100%;
-    margin-top: 5%;
+    /*margin-top: 5%;*/
 	}
 .label-img{
 	width:100%;
@@ -520,7 +528,7 @@ padding:5% 5%;
 }
 .tab_button_text{
 	position: absolute;
-	padding-top: 16%;
+	padding-top: 9.5%;
 	width: 50%;
 	text-align: center;
 	font-size: 100%;
@@ -531,8 +539,8 @@ padding:5% 5%;
 
 .template_introduce{
 	padding: 5% 5%;
-    margin: 2.5% 2.5% 2.5% 2.5%;
-    position: absolute;
+    margin: 0% 2.5% 2.5% 2.5%;
+    position: fixed;
     border: 15px solid
     transparent;
     border-image: url(../images/border.png) 30 30 round;
@@ -682,7 +690,7 @@ padding:5% 5%;
 	width: 100%;
 }
 .choose-movie{
-	margin-top: 10%;
+	/*margin-top: 10%;*/
 	width: 49%;
 	/*float: left;*/
 	display: inline-block;
@@ -738,7 +746,7 @@ padding:5% 5%;
     font-family: "華康歐陽詢體W5";
     text-shadow: none;
     color:#dcd586;
-    padding-top:11%;
+    padding-top:6%;
 
 }    
 
@@ -800,7 +808,7 @@ padding:5% 5%;
 	border:15px solid transparent;
 	border-image:url(../images/border.png) 30 30 round;
 	overflow:auto;
-	height:55%;
+	height:52%;
 	font-size: 120%;
     text-shadow: none;
 	font-family: "華康歐陽詢體W5";
@@ -822,8 +830,8 @@ padding:5% 5%;
 }
 .customer_button_text{
 	position:absolute;
-	margin-left:16%;
-	margin-top:2.5%;
+	margin-left:15%;
+	margin-top:3%;
 	text-align:center;
 	font-size:100%;
     text-shadow: none;
