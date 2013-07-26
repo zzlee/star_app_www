@@ -10,7 +10,9 @@ ImageUgc = (function(){
 		var ugcCanvas = null;
 		var context = null;
 		var bgImage = null;
-		var customizableObjects = null;
+		var customizableObjects = [];
+		var imageUserContentUri = userContent.picture.urlOfOriginal;
+        var imageUserContentFileName = imageUserContentUri.substr(imageUserContentUri.lastIndexOf('/')+1);
 		
 		var drawChineseText = function( text, x, y, maxWidth, lineHeight, angle) {
 			x = Number(x);
@@ -95,6 +97,7 @@ ImageUgc = (function(){
 		                        ownerFbUserId: ugcInfo.ownerId.fbUserId,
 		                        contentGenre: ugcInfo.contentGenre,
 		                        title: ugcInfo.title,
+		                        customizableObjects: JSON.stringify(customizableObjects),
 		                        time: (new Date()).getTime()
 		                    },
 		                    success: function(data, textStatus, jqXHR ){
@@ -106,19 +109,22 @@ ImageUgc = (function(){
 		                });
 				    },
                     function(callback){
-				        //upload original user content to server
-				        var imageUri = userContent.picture.urlOfOriginal;
+				        //upload original image user content file to server
                         var options = new FileUploadOptions();
                         options.fileKey = "file";
-                        options.fileName = imageUri.substr(imageUri.lastIndexOf('/')+1);
+                        options.fileName = imageUserContentFileName;
                         options.mimeType = "image/jpeg"; //TODO: to have mimeType customizable? 
                         options.chunkedMode = true;
                         
-                        fileSelected = options.fileName;
-                        var fileObjectID = customizableObjects[0].ID; //TODO: hard code for now. Any better way?
+                        var ImageCustomizableObjectId = null;
+                        for (var i=0;i<customizableObjects.length;i++){
+                            if (customizableObjects[i].type == "image"){
+                                ImageCustomizableObjectId = customizableObjects[i].id;
+                                break;
+                            }
+                        }
                         
                         var params = new Object();
-                        //params.fileObjectID = fileObjectID; //not used in server side
                         params.projectID = ugcProjectId; //for server side to save user content to specific project folder
                         //for server side to crop the user content image
                         params.croppedArea_x = userContent.picture.crop._x;
@@ -126,8 +132,8 @@ ImageUgc = (function(){
                         params.croppedArea_width = userContent.picture.crop._w;
                         params.croppedArea_height = userContent.picture.crop._h;
                         //for server side to zoom the user content image to the same size as original footage image
-                        params.obj_OriginalWidth = customizableObjectDimensions[fileObjectID].width;
-                        params.obj_OriginalHeight = customizableObjectDimensions[fileObjectID].height;
+                        params.obj_OriginalWidth = customizableObjectDimensions[ImageCustomizableObjectId].width;
+                        params.obj_OriginalHeight = customizableObjectDimensions[ImageCustomizableObjectId].height;
                         
                         options.params = params;
                         options.chunkedMode = true;
@@ -153,7 +159,7 @@ ImageUgc = (function(){
                             callback("Failed to uplaod user content file to server: "+error.code);
                         };
                         
-                        ft.upload(imageUri, starServerURL+"/miix/videos/user_content_files", uploadSuccess_cb, uploadFail_cb, options);
+                        ft.upload(imageUserContentUri, starServerURL+"/miix/videos/user_content_files", uploadSuccess_cb, uploadFail_cb, options);
 
                     }
 			    ],
@@ -175,7 +181,19 @@ ImageUgc = (function(){
 					if (!err) {
 						templateMgr = _templateMgr;
 						template = templateMgr.getSubTemplate(mainTemplateId, subTemplateId);
-						customizableObjects = template.customizableObjects;
+						var templateCustomizableObjects = template.customizableObjects;
+						for (var i=0;i<templateCustomizableObjects.length;i++){
+						    customizableObjects[i] = {
+						            id: templateCustomizableObjects[i].id,
+						            type: templateCustomizableObjects[i].type
+						    };
+						    if (customizableObjects[i].type == "text"){
+						        customizableObjects[i].content = userContent.text;
+						    }
+						    else if (customizableObjects[i].type == "image"){
+                                customizableObjects[i].content = imageUserContentFileName;
+                            }
+						}
 						callback(null, obj);
 					}
 					else {
@@ -206,20 +224,20 @@ ImageUgc = (function(){
 				};
 			},
 			function(callback){
-				//draw all the customizable objects
+			    var imageUrl = null;
 				var iteratorDrawCustomizalbeObjects = function(aCustomizableObject, cbOfIterator){
 					if (aCustomizableObject.type == "image"){
-						var imageUrl = null;
-						if (aCustomizableObject.id == "thumbnail"){
-							imageUrl = userContent.thumbnail.url;
-						}
-						else {
-							imageUrl = userContent.picture.urlOfCropped;
-						}
+						imageUrl = userContent.picture.urlOfCropped;
 						drawImage(imageUrl, aCustomizableObject.x, aCustomizableObject.y, aCustomizableObject.width, aCustomizableObject.height, aCustomizableObject.angle, function(errOfDrawImage){
 							cbOfIterator(errOfDrawImage);
 						});
 					}
+					else if (aCustomizableObject.type == "thumbnail"){
+                        imageUrl = userContent.thumbnail.url;
+                        drawImage(imageUrl, aCustomizableObject.x, aCustomizableObject.y, aCustomizableObject.width, aCustomizableObject.height, aCustomizableObject.angle, function(errOfDrawImage){
+                            cbOfIterator(errOfDrawImage);
+                        });
+                    }
 					else if (aCustomizableObject.type == "text"){
 						drawChineseText( userContent.text, aCustomizableObject.x, aCustomizableObject.y, aCustomizableObject.width, aCustomizableObject.lineHeight, aCustomizableObject.angle);
 						cbOfIterator(null);

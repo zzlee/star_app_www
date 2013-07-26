@@ -46,22 +46,26 @@ VideoUgc = (function(){
 			 */
 			askServerToGenerate: function(userContent, ugcInfo, cbOfAskServerToGenerate){
 				ugcProjectId = mainTemplateId +'-'+ ugcInfo.ownerId._id +'-'+ (new Date()).toISOString().replace(/[-:.]/g, "");
-				var fileSelected = null;
+                var imageUri = userContent.picture.urlOfOriginal;
+                var imageFileName = imageUri.substr(imageUri.lastIndexOf('/')+1);
 				async.series([
 					function(callback){
-                        //upload user content file
-                        var imageUri = userContent.picture.urlOfOriginal;
+					    //upload original image user content file to server
                         var options = new FileUploadOptions();
                         options.fileKey = "file";
-                        options.fileName = imageUri.substr(imageUri.lastIndexOf('/')+1);
+                        options.fileName = imageFileName;
                         options.mimeType = "image/jpeg"; //TODO: to have mimeType customizable? 
                         options.chunkedMode = true;
                         
-                        fileSelected = options.fileName;
-                        var fileObjectID = customizableObjects[0].ID; //TODO: hard code for now. Any better way?
+                        var ImageCustomizableObjectId = null;
+                        for (var i=0;i<customizableObjects.length;i++){
+                            if (customizableObjects[i].format == "image"){
+                                ImageCustomizableObjectId = customizableObjects[i].ID;
+                                break;
+                            }
+                        }
                         
                         var params = new Object();
-                        //params.fileObjectID = fileObjectID; //not used in server side
                         params.projectID = ugcProjectId; //for server side to save user content to specific project folder
                         //for server side to crop the user content image
                         params.croppedArea_x = userContent.picture.crop._x;
@@ -69,8 +73,8 @@ VideoUgc = (function(){
                         params.croppedArea_width = userContent.picture.crop._w;
                         params.croppedArea_height = userContent.picture.crop._h;
                         //for server side to zoom the user content image to the same size as original footage image
-                        params.obj_OriginalWidth = customizableObjectDimensions[fileObjectID].width;
-                        params.obj_OriginalHeight = customizableObjectDimensions[fileObjectID].height;
+                        params.obj_OriginalWidth = customizableObjectDimensions[ImageCustomizableObjectId].width;
+                        params.obj_OriginalHeight = customizableObjectDimensions[ImageCustomizableObjectId].height;
                         
                         options.params = params;
                         options.chunkedMode = true;
@@ -111,7 +115,7 @@ VideoUgc = (function(){
 						userContentDescription.timeStamp = (new Date()).toISOString(); //only for avoiding Safari's cache mechanism
 						*/
 						
-					    customizableObjects[0].content = fileSelected; //TODO: anything better than hard coding here ?
+					    customizableObjects[0].content = imageFileName; //TODO: anything better than hard coding here ?
 					    
 						$.ajax( starServerURL+"/miix/video_ugcs/"+ugcProjectId, {
 							type: "PUT",
