@@ -22,10 +22,6 @@ FmMobile.myUgcPg = {
                               Title : item.title,
                               ProjectId: item.projectId,
                               Genre: item.genre,
-//                              Youtube : item.url.youtube,
-                              //if column no data then send " "
-//                              Youtube : item.url.youtube,
-//                              S3 : item.url.s3,
                               Url : item.url,
                               No: item.no,
                               
@@ -59,10 +55,10 @@ FmMobile.myUgcPg = {
         FmMobile.myUgcPg.loadLiveVideo(FmMobile.myUgcPg.myVideos, "video");
     },
     
-test: function(arry){
-    for(var i = 0 ; i< arry.length; i++)
+    test: function(arry){
+    	for(var i = 0 ; i< arry.length; i++)
         console.log(arry[i]);
-},
+    },
     
     loadLiveVideo: function(arryVideo, type){
         FM_LOG("[myUgcPg] loadLiveVideo");
@@ -71,7 +67,7 @@ test: function(arry){
         
         //remove all tags in my-video-list
         parent.html("");
-        FmMobile.myUgcPg.test(arryVideo);
+//        FmMobile.myUgcPg.test(arryVideo);
 
         /** Set data to List */
         for(var i = 0; i< arryVideo.length; i++){
@@ -85,7 +81,7 @@ test: function(arry){
                 case "miix":
                     if(typeof(arryVideo[i].Url) != "undefined"){
                         var ytVideoID = (arryVideo[i].Url.youtube).split('/').pop();
-                        console.log(i + " ytVideoID :" + ytVideoID + ", No. " + arryVideo[i].No);
+//                        console.log(i + " ytVideoID :" + ytVideoID + ", No. " + arryVideo[i].No);
                         this.videoThumbnail = $("<img>").attr({
                                                               id: 'imgYouTube_'+ytVideoID,
                                                               src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
@@ -132,7 +128,7 @@ test: function(arry){
 //                    if(arrVideo[i].Url.s3){
                         //Get the image's name
                         var projectId = arryVideo[i].ProjectId;
-                        console.log("s3 :" + arryVideo[i].Url.s3);
+//                        console.log("s3 :" + arryVideo[i].Url.s3);
                         var s3Url = arryVideo[i].Url.s3;
 //                        console.log(i + " s3ImageName : " + s3ImageName);
                         this.imageThumbnail = $("<img>").attr({
@@ -183,7 +179,7 @@ test: function(arry){
         /**  Video play  */
         FM_LOG("[myUgcPg.ClickEvent]");
         $('#my-video-list>div>img').tap(function(){
-            console.log("click" + this);
+//            console.log("click" + this);
                                      
                                           
             var divID = this.parentElement.id;
@@ -191,7 +187,7 @@ test: function(arry){
             switch(arryIdType[0]){
                 case "imgYouTube":
                     var tempUrlArray = this.src.split('/');
-                    console.log("tempUrlArry " + tempUrlArray[tempUrlArray.length-2])
+//                    console.log("tempUrlArry " + tempUrlArray[tempUrlArray.length-2])
                     var ytVideoID = tempUrlArray[tempUrlArray.length-2];
                     var videoFrame = $("<iframe>").attr({
                                                 id: ytVideoID,
@@ -239,38 +235,64 @@ test: function(arry){
         
         /** Copy youtube url and share to FB */
         $('#my-video-info>img').click(function(){
-            var imgID = this.id;        //
+            var imgID = this.id;        
+//            console.log("imgID :" + imgID);
             var tmpIDArray = this.id.split('_');
-            //            for(var i = 0; i < tmpIDArray.length; i++)
-            //                console.log("id.split[" + i + "] :" + tmpIDArray[i]);
+//            for(var i = 0; i < tmpIDArray.length; i++)
+//            	console.log("id.split[" + i + "] :" + tmpIDArray[i]);
 
-            if(tmpIDArray.length > 2)
-            tmpIDArray[0] = tmpIDArray[1] + "_" + tmpIDArray[2] + "_" + tmpIDArray[3];
-
-            console.log("tmpIdArray[0] :" + tmpIDArray[0]);
+            /** template naming 
+             * copyUrlS3_template-xxxxxxx-xxxxxxxx
+             * type:
+             * 		mood-xxxxxxx
+             * 		check_in-xxxxxxxx
+             * 		cultural_and_creative-xxxxxxx
+             * 
+             * */
+            if(tmpIDArray.length == 2){
+            	//For youtube and mood
+            	tmpIDArray[1] = tmpIDArray[1];         	
+            }else if(tmpIDArray.length == 3){
+            	//For check_in
+            	tmpIDArray[1] = tmpIDArray[1] + "_" + tmpIDArray[2];
+            }else if(tmpIDArray.length == 4){
+            	//For cultural_and_creative
+            	tmpIDArray[1] = tmpIDArray[1] + "_" + tmpIDArray[2] + "_" + tmpIDArray[3];
+            }else{
+            	//Type is wrong.
+            	tmpIDarray[0] = "error";
+            }
 
             switch(tmpIDArray[0]){
                 case "copyUrl":
-//                    window.clipboardPluginCopy("https://www.youtube.com/watch?feature=player_embedded&v=" + tmpIDArray[1], function() { alert("已�製到�貼�} , function(e){alert(e);});
-//                	window.plugins.ClipboardManager.copy(
-//                			"https://www.youtube.com/watch?feature=player_embedded&v=" + tmpIDArray[1],
-//                			function() { alert("已�製到�貼簿�");},
-//               			 function(e){alert(e);});
+                	/**iOS Plugin */
+//                  window.clipboardPluginCopy("https://www.youtube.com/watch?feature=player_embedded&v=" + tmpIDArray[1], function() { alert("已�製到�貼�} , function(e){alert(e);});
+                	/** Android Plugin */
                 	window.clipboardManagerCopy(
-                			"the text to copy",
-                			function(r){alert("copy is successful")},
+                			"https://www.youtube.com/watch?feature=player_embedded&v=" + tmpIDArray[1],
+                			function(r){alert("已複製連結")},
                 			function(e){alert(e)}
                 		);
-//                	window.plugins.clipboardPlugin("text is copy", function(){alert('copyied!!')}, function(e){alert(e)});
                 	
                     break;
                 case "shareFb":
+                	//If you success to upload the photo, server will post your render photo to Facebook.
                     alert("share to FB");
                     break;
                 case "copyUrlS3":
                     console.log("S3 URL " + tmpIDArray[1]);
+                    /** iOS Plugin */
 //                    window.clipboardPluginCopy("https://s3.amazonaws.com/miix_content/user_project/" + tmpIDArray[1] + "/" + tmpIDArray[1] + ".png", function() { alert("已�製到�貼�} , function(e){alert(e);});
+                    /** Android Plugin */
+                	window.clipboardManagerCopy(
+                			"https://s3.amazonaws.com/miix_content/user_project/" + tmpIDArray[1] + "/" + tmpIDArray[1] + ".png",
+                			function(r){alert("已複製連結")},
+                			function(e){alert(e)}
+                		);
                     break;
+                case "error":
+                	alert("Your Url is not available.");
+                	break;
                 default:
                     alert("You don't touch the button.");
 
