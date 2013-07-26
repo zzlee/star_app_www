@@ -65,6 +65,9 @@ FmMobile.myUgcPg = {
         console.log('[Type] : ' + type);
         var parent = $("#my-video-list");
         
+       //FmMobile.check_in_pic=arryVideo[0].Url.s3;
+//FmMobile.authPopup.postFbMessage("�卡～��);
+        
         //remove all tags in my-video-list
         parent.html("");
 //        FmMobile.myUgcPg.test(arryVideo);
@@ -129,7 +132,7 @@ FmMobile.myUgcPg = {
                         //Get the image's name
                         var projectId = arryVideo[i].ProjectId;
 //                        console.log("s3 :" + arryVideo[i].Url.s3);
-                        var s3Url = arryVideo[i].Url.s3;
+                                            var s3Url = arryVideo[i].Url.s3;
 //                        console.log(i + " s3ImageName : " + s3ImageName);
                         this.imageThumbnail = $("<img>").attr({
                                                               //set image's name to id
@@ -170,6 +173,7 @@ FmMobile.myUgcPg = {
                     console.log("Eroor : no Genre");
             }
 
+        
         }
         
         FmMobile.myUgcPg.ClickEvent();
@@ -270,7 +274,7 @@ FmMobile.myUgcPg = {
                 	/** Android Plugin */
                 	window.clipboardManagerCopy(
                 			"https://www.youtube.com/watch?feature=player_embedded&v=" + tmpIDArray[1],
-                			function(r){alert("已複製連結")},
+                			function(r){alert("Url is copyied")},
                 			function(e){alert(e)}
                 		);
                 	
@@ -286,7 +290,7 @@ FmMobile.myUgcPg = {
                     /** Android Plugin */
                 	window.clipboardManagerCopy(
                 			"https://s3.amazonaws.com/miix_content/user_project/" + tmpIDArray[1] + "/" + tmpIDArray[1] + ".png",
-                			function(r){alert("已複製連結")},
+                			function(r){alert("Url is copyied.")},
                 			function(e){alert(e)}
                 		);
                     break;

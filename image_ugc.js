@@ -96,8 +96,11 @@ ImageUgc = (function(){
                     },
                     success: function(data, textStatus, jqXHR ){
 						if (cbOfUploadToServer){
+                     //  FmMobile.check_in_pic=arryVideo[0].Url.s3;
+                       // FmMobile.authPopup.postMessage("打卡～～～");
 							cbOfUploadToServer(null, data);
-						}
+                       console.log(data);
+                       }
 					},
 					error: function(jqXHR, textStatus, errorThrown){
 						if (cbOfUploadToServer){

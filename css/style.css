@@ -291,11 +291,34 @@ div[data-role=page] {
 	overflow: auto;
 	background-image:url(../images/border_bg.png);
 	}
+    
+.login_content_login_toc{
+padding:5% 5%;
+	margin:5%;
+	position:absolute;
+	border:15px solid transparent;
+	border-image:url(../images/border.png) 30 30 round;
+	overflow:auto;
+	height:65.5%;
+	font-size: 120%;
+	font-family: "華康歐陽詢體W5";
+	color: #000;
+	line-height: 150%;
+	overflow: auto;
+	background-image:url(../images/border_bg.png);
+}
 	
 .apply_account_button{
 	top:95%;
 	position:absolute;
-	}	
+	}
+ 
+    .apply_account_button_login_toc{
+	top:89%;
+	position:absolute;
+	}
+
+        	
 .apply_account_text{
 	top:100%;
 	position:absolute;
@@ -305,6 +328,17 @@ div[data-role=page] {
 	font-family: "華康歐陽詢體W5";
 	color:#dcd586;
 	}
+    
+.apply_account_text_login_toc{
+	top:90%;
+	position:absolute;
+	width:100%;
+	text-align:center;
+	font-size:134%;
+	font-family: "華康歐陽詢體W5";
+	color:#dcd586;
+	}    
+
 .login{
 	width:100%;
 	}
@@ -339,7 +373,7 @@ div[data-role=page] {
 	color:#dcd586;
 	}
 .login_success_text{
-	margin-top:57%;
+	margin-top:39%;
 	position:absolute;
 	width:100%;
 	text-align:center;
@@ -448,10 +482,22 @@ div[data-role=page] {
 	font-family: "華康歐陽詢體W5";
 	color: #dcd586;
 	}
-.tab_button_text{
-	position: absolute;
-	top: 4%;
+.button_text_phone_num_input{
+position: absolute;
+	margin-top: 4%;
 	width: 50%;
+	text-align: center;
+	font-size: 150%;
+	font-family: "華康歐陽詢體W5";
+	color: #dcd586;
+
+
+}
+
+.tab_button_text{
+	width: 50%;
+	position: absolute;
+	top: 94px; 
 	text-align: center;
 	font-size: 100%;
 	font-family: "華康歐陽詢體W5";
@@ -546,6 +592,10 @@ div[data-role=page] {
 }
 .my-video-icon-img{
 	width:100%;
+}
+
+.my-video-icon-img-phone-input{
+	width:225%;
 }
 .line{
 	width:100%;
@@ -702,8 +752,8 @@ div[data-role=page] {
 }
 .customer_button_text{
 	position:absolute;
-	margin-left:16%;
-	margin-top:4%;
+	margin-left:14%;
+	margin-top:2%;
 	text-align:center;
 	font-size:100%;
 	font-family: "華康歐陽詢體W5";

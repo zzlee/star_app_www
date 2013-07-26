@@ -22,6 +22,7 @@ var fileSelected;
 var myPhotoCropper;
 
 FmMobile.myflag=true;
+FmMobile.check_in_pic;
 
 var templateMgr = null;
 
@@ -161,7 +162,8 @@ urlOfCropped: null, //the URL of the picture that the user crops. (It is normall
 crop: {_x:0, _y:0, _w:1, _h:1},  // _x=x_crop/width_picture; _y=y_crop/height_picture; _w=width_crop/width_picture;  _h=height_crop/height_picture
 },
 thumbnail:{
-url:'img/darth-vader.jpg'
+url:'https://graph.facebook.com/'+localStorage.fb_userID+'/picture/'
+
     
 }
 };
@@ -173,6 +175,7 @@ onBodyLoad: function(){
     FM_LOG("[Init.onDeviceReady]");
     
     document.addEventListener("deviceready", FmMobile.analysis.init, true);
+    document.addEventListener("deviceready", FmMobile.gcm.init, true);
 //    document.addEventListener("deviceready", FmMobile.apn.init, true);
     document.addEventListener("deviceready", FmMobile.init.isFBTokenValid, true);
     
@@ -227,7 +230,7 @@ onResume: function(){
     if(localStorage.fb_userID){
         FmMobile.ajaxNewVideos();
         FmMobile.ajaxNewStoryVideos();
-        FmMobile.apn.getPendingNotification();
+//        FmMobile.apn.getPendingNotification();
         recordUserAction("resumes MiixCard app");
         FmMobile.init.isFBTokenValid();
     }
@@ -434,142 +437,121 @@ FmMobile.submitDooh = function(){
            if(res.message){
            navigator.notification.alert(res.message);
            $.jStorage.set("dooh_pid", null);
-<<<<<<< HEAD
            }else {
-           navigator.notification.alert('大螢幕預約失敗');
-=======
-       }else {
-           navigator.notification.alert('已登上大螢幕');
->>>>>>> jean_android_build130723
+           navigator.notification.alert('已登上大��');
            console.log("[submitDooh]"+JSON.stringify(res));
            }
            });
 };
 
 
+FmMobile.gcm = {
+		//This is from Garbriel
+		//Version: MiixCard_20121227
+		gcmregid: null,
+		senderid: "46997187553",	//project_rId(MiixCard)	
+		//project_rId(gcm_test) = 367333162680
+		
+		init: function(){
+			FM_LOG("[GCM.init]");
+			if(window.plugins){
+				window.plugins.GCM.register(FmMobile.gcm.senderid, "FmMobile.gcm.event", FmMobile.gcm.success, FmMobile.gcm.fail );
+			}else{
+				window.GCM.register(FmMobile.gcm.senderid, "FmMobile.gcm.event", FmMobile.gcm.success, FmMobile.gcm.fail );
+			}
+			
+		},
+		
+		event: function(e){
+			FM_LOG("[GCM.event]");
+			switch( e.event ){
+			  case 'registered':
+				// the definition of the e variable is json return defined in "GCMReceiver.java"
+				// In my case on registered I have EVENT and REGID defined
+				FmMobile.gcm.gcmregid = e.regid;
+				if ( FmMobile.gcm.gcmregid.length > 0 ){
+					FM_LOG("[GCM.Regid: " + e.regid + "]");
+					localStorage.deviceToken = e.regid;
+				}
 
-FmMobile.apn = {
-    
-init: function(){
-    FM_LOG("[APN.init]");
-    FmMobile.pushNotification = window.plugins.pushNotification;
-    FmMobile.apn.registerDevice();
-    FmMobile.apn.getPendingNotification();
-    //FmMobile.apn.getRemoteNotificationStatus();
-    //FmMobile.apn.getDeviceUniqueIdentifier();
-},
-    
-    
-    /* registration on Apple Push Notification servers (via user interaction) & retrieve the token that will be used to push remote notifications to this device. */
-registerDevice: function(){
-    
-    FM_LOG("[APN.registerDevice]");
-    FmMobile.pushNotification.registerDevice({alert:true, badge:true, sound:true}, function(status) {
-                                             
-                                             /*  if successful status is an object that looks like this:
-                                              *  {"type":"7","pushBadge":"1","pushSound":"1","enabled":"1","deviceToken":"blablahblah","pushAlert":"1"}
-                                              */
-                                             FM_LOG('registerDevice status: ' + JSON.stringify(status) );
-                                             if(status && !localStorage.deviceToken){
-                                             localStorage.deviceToken = status.deviceToken;
-                                             }
-                                             });
-},
-    
-    
-    /* it can only retrieve the notification that the user has interacted with while entering the app. Returned params applicationStateActive & applicationLaunchNotification enables you to filter notifications by type. */
-getPendingNotification: function(){
-    FM_LOG("[APN.getPendingNotification]");
-    FmMobile.pushNotification.getPendingNotifications(function(result) {
-                                                      FM_LOG('getPendingNotifications: ' + JSON.stringify(['getPendingNotifications', result]) );
-                                                      //navigator.notification.alert(JSON.stringify(['getPendingNotifications', notifications]));
-                                                      //if(result.notifications.length > 0){
-                                                      FM_LOG("["+result.notifications.length + " Pending Push Notifications.]");
-                                                      FmMobile.apn.setApplicationIconBadgeNumber(0);
-                                                      //}
-                                                      //navigator.notification.alert('You have a new video!');
-                                                      
-                                                      });
-},
-    
-    
-    /* registration check for this device.
-     * {"type":"6","pushBadge":"0","pushSound":"1","enabled":"1","pushAlert":"1"}
-     */
-getRemoteNotificationStatus: function(){
-    FM_LOG("[APN.getRemoteNotificationStatus]");
-    FmMobile.pushNotification.getRemoteNotificationStatus(function(status) {
-                                                          FM_LOG('getRemoteNotificationStatus ' + JSON.stringify(status) );
-                                                          //navigator.notification.alert(JSON.stringify(['getRemoteNotificationStatus', status]));
-                                                          });
-},
-    
-    
-    /* set the application badge number (that can be updated by a remote push, for instance, resetting it to 0 after notifications have been processed). */
-setApplicationIconBadgeNumber: function(badgeNum){
-    FM_LOG("[APN.setApplicationIconBadgeNumber]");
-    FmMobile.pushNotification.setApplicationIconBadgeNumber(badgeNum, function(status) {
-                                                            FM_LOG('setApplicationIconBadgeNumber: ' + JSON.stringify(status) );
-                                                            //navigator.notification.alert(JSON.stringify(['setBadge', status]));
-                                                            });
-},
-    
-    
-    /* clear all notifications from the notification center. */
-cancelAllLocalNotifications: function(){
-    FM_LOG("[APN.cancelAllLocalNotifications]");
-    FmMobile.pushNotification.cancelAllLocalNotifications(function() {
-                                                          //navigator.notification.alert(JSON.stringify(['cancelAllLocalNotifications']));
-                                                          });
-},
-    
-    
-    //DEPRECATED
-    /* retrieve the original device unique id. (@warning As of today, usage is deprecated and requires explicit consent from the user) */
-getDeviceUniqueIdentifier: function(){
-    FM_LOG("[APN.getDeviceUniqueIdentifier]");
-    pushNotification.getDeviceUniqueIdentifier(function(uuid) {
-                                               FM_LOG('getDeviceUniqueIdentifier: ' + uuid);
-                                               });
-},
+				break;
+
+			  case 'message':
+				// the definition of the e variable is json return defined in "GCMIntentService.java"
+				// In my case on registered I have EVENT, MSG and MSGCNT defined
+				FM_LOG("[GCM.message] " + JSON.stringify(e));
+				FmMobile.ajaxNewVideos();
+	            //navigator.notification.alert('You have a video!');
+				break;
+
+			  case 'error':
+				FM_LOG("[GCM.error] " + JSON.stringify(e));
+				break;
+
+			  default:
+				FM_LOG("[GCM.event] Unknown");
+				break;
+		    }
+		},
+		
+		success: function(e){
+			FM_LOG("[GCM.suceess] Register Successfully, waiting for RegId!");
+			FM_LOG("[GCM.suceess] " + JSON.stringify(e));  //If success it returns "OK"
+			
+		},
+		
+		fail: function(e){
+			FM_LOG("[GCM.Fail] Register Fail! " + JSON.stringify(e));
+		},	
 };
+
 
 
 FmMobile.analysis = {
-    
-nativePluginResultHandler: function(result){
-    FM_LOG("[ga.resultHandler] " + result);
-},
-    
-nativePluginErrorHandler: function(error){
-    FM_LOG("[ga.errorHandler] " + error);
-},
-    
-init: function(){
-    FM_LOG("[analysis.init]");
-    
-//        FmMobile.ga = window.plugins.gaPlugin;
-//        FmMobile.ga.init(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler                , "UA-37288251-1", 10); // UA-37288251-1 for Web.
-    
-},
-    
-    
-goingAway: function(){
-//        FmMobile.ga.exit(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler);
-},
-    
-trackEvent: function(category, action, label, value){
-//        FmMobile.ga.trackEvent(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, category, action, label, 1);
-},
-    
-setVariable: function(key, value, index){
-//        FmMobile.ga.setVariable(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, key, value, index);
-},
-    
-trackPage: function(url){
-//        FmMobile.ga.trackPage(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, url);
-},
-};
+	    
+	    nativePluginResultHandler: function(result){
+	        FM_LOG("[analysis.resultHandler] " + result);
+	    },
+	    
+	    nativePluginErrorHandler: function(error){
+	        FM_LOG("[analysis.errorHandler] " + error);
+	    },
+	    
+	    init: function(){
+	        FM_LOG("[analysis.init]");
+	        var gaId = "UA-37288251-4"; 
+	        //UA-37288251-4 : http://www.feltmeng.idv.tw
+	        //UA-37288251-1 : http://www.miix.tv
+	        FmMobile.ga = window.plugins.gaPlugin;
+	        FmMobile.ga.init(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, gaId, 30);
+	    },
+	    
+	    goingAway: function(){
+	    	FM_LOG("[analysis.goingAway]");
+	        FmMobile.ga.exit(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler);
+	    	
+	    },
+	    
+	    trackEvent: function(category, action, label, value){
+	    	FM_LOG("[analysis.trackEvent]");
+	    	FM_LOG("[analysis.trackEvent] category : " + category);
+	    	FM_LOG("[analysis.trackEvent] action : " + action);
+	    	FM_LOG("[analysis.trackEvent] label : " + label);
+	    	FM_LOG("[analysis.trackEvent] value : " + value);
+	        FmMobile.ga.trackEvent(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, category, action, label, 1);
+	    },
+	    
+	    setVariable: function(key, value, index){
+	    	FM_LOG("[analysis.setVariable]");
+	        FmMobile.ga.setVariable(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, key, value, index);
+	    	
+	    },
+	    
+	    trackPage: function(url){
+	    	FM_LOG("[analysis.trackPage] url :" + url);
+	    	FmMobile.ga.trackPage(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, url);
+	    },
+	};
 
 
 FmMobile.authPopup = {
@@ -592,6 +574,7 @@ fbStatusPolling: function(){ //DEPRECATED - used in early implementation to hand
           localStorage.fb_userID = response.data.userID;
           localStorage.fb_accessToken = response.data.accessToken;
           localStorage._id = response.data._id;
+         // localStorage.fb_user_pic=response.data.fb_user_pic;
           sessionStorage.sessionID = response.data.sessionID;
           
           if(localStorage.verified == 'true'){
@@ -651,10 +634,16 @@ onFBConnected: function(){
            FM_LOG("[SignUp with FB]: ");
            if(response.data){
            localStorage._id = response.data._id;
+           //localStorage.fb_user_pic=response.data.fb_user_pic;
            localStorage.fb_accessToken = response.data.accessToken;
             localStorage.verified = (response.data.verified) ? response.data.verified : 'false';
+<<<<<<< HEAD
            
-           //localStorage.verified='true';//此��測試�話認��
+           //localStorage.verified='true';//此��測試�話���
+=======
+           FmMobile.userContent.thumbnail.url='https://graph.facebook.com/'+localStorage.fb_userID+'/picture/';
+           //localStorage.verified='true';//此行為了測試電話認證！
+>>>>>>> origin/ondascreen_v1_0__integration
            FM_LOG("localStorage" + JSON.stringify(localStorage));
            
            // Each time of Login, pull all videos.
@@ -685,6 +674,7 @@ FBLogout: function() {
     delete localStorage.fb_userID;
     delete localStorage.fb_name;
     delete localStorage.fb_accessToken;
+    delete localStorage.fb_user_pic;
     //delete localStorage.verified;
     if(localStorage.email) delete localStorage.email;
     
@@ -714,7 +704,26 @@ sendDeviceToken: function(){
            FM_LOG("[From Server]: " + response.message);
            });
 },
+
+  
+postFbMessage:function(message){
+    var url = 'https://graph.facebook.com/me/feed';
+    var params = {
+        
+    access_token: localStorage.fb_accessToken,
+    message: message,
+    //link:FmMobile.check_in_pic,
+   picture:FmMobile.check_in_pic,
+    //privacy:{'value':'SELF'},
+    
+    };
+    $.post(url,params, function(response){
+           alert("已打卡！！");
+           });
+}
+   
 };
+    
 
 
 FmMobile.bindClickEventToNavBar = function(){
