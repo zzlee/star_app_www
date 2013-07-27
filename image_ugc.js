@@ -87,39 +87,21 @@ ImageUgc = (function(){
 				var reultURI = ugcCanvas.toDataURL('image/png').replace('image/octet-stream');
                 
 				async.series([
-				    function(callback){
-				        //upload result image UGC to server
-				        $.ajax( starServerURL+"/miix/base64_image_ugcs/"+ugcProjectId, {
-		                    type: "PUT",
-		                    data: {
-		                        imgBase64: reultURI,
-		                        ownerId: ugcInfo.ownerId._id,
-		                        ownerFbUserId: ugcInfo.ownerId.fbUserId,
-		                        contentGenre: ugcInfo.contentGenre,
-		                        title: ugcInfo.title,
-		                        customizableObjects: JSON.stringify(customizableObjects),
-		                        time: (new Date()).getTime()
-		                    },
-		                    success: function(data, textStatus, jqXHR ){
-		                        callback(null);
-		                    },
-		                    error: function(jqXHR, textStatus, errorThrown){
-		                        callback("Failed to upload image UGC to server: "+errorThrown);
-		                    }
-		                });
-				    },
                     function(callback){
-				        //upload original image user content file to server
+                        //upload original image user content file to server
                         var options = new FileUploadOptions();
                         options.fileKey = "file";
                         options.fileName = imageUserContentFileName;
                         options.mimeType = "image/jpeg"; //TODO: to have mimeType customizable? 
                         options.chunkedMode = true;
                         
-                        var ImageCustomizableObjectId = null;
-                        for (var i=0;i<customizableObjects.length;i++){
-                            if (customizableObjects[i].type == "image"){
-                                ImageCustomizableObjectId = customizableObjects[i].id;
+                        var templateCustomizableObjects = template.customizableObjects;
+                        var imageCustomizableObjectWidth = null;
+                        var imageCustomizableObjectHeight = null;
+                        for (var i=0;i<templateCustomizableObjects.length;i++){
+                            if (templateCustomizableObjects[i].type == "image"){
+                                imageCustomizableObjectWidth = templateCustomizableObjects[i].width;
+                                imageCustomizableObjectHeight = templateCustomizableObjects[i].height;
                                 break;
                             }
                         }
@@ -132,8 +114,8 @@ ImageUgc = (function(){
                         params.croppedArea_width = userContent.picture.crop._w;
                         params.croppedArea_height = userContent.picture.crop._h;
                         //for server side to zoom the user content image to the same size as original footage image
-                        params.obj_OriginalWidth = customizableObjectDimensions[ImageCustomizableObjectId].width;
-                        params.obj_OriginalHeight = customizableObjectDimensions[ImageCustomizableObjectId].height;
+                        params.obj_OriginalWidth = imageCustomizableObjectWidth;
+                        params.obj_OriginalHeight = imageCustomizableObjectHeight;
                         
                         options.params = params;
                         options.chunkedMode = true;
@@ -161,7 +143,30 @@ ImageUgc = (function(){
                         
                         ft.upload(imageUserContentUri, starServerURL+"/miix/videos/user_content_files", uploadSuccess_cb, uploadFail_cb, options);
 
-                    }
+                    },
+				    function(callback){
+				        //upload result image UGC to server
+				        $.ajax( starServerURL+"/miix/base64_image_ugcs/"+ugcProjectId, {
+		                    type: "PUT",
+		                    data: {
+		                        imgBase64: reultURI,
+		                        ownerId: ugcInfo.ownerId._id,
+		                        ownerFbUserId: ugcInfo.ownerId.fbUserId,
+		                        contentGenre: ugcInfo.contentGenre,
+		                        title: ugcInfo.title,
+		                        customizableObjects: JSON.stringify(customizableObjects),
+		                        time: (new Date()).getTime()
+		                    },
+		                    success: function(data, textStatus, jqXHR ){
+		                        console.log("Successfully upload result image UGC to server.");
+		                        callback(null);
+		                    },
+		                    error: function(jqXHR, textStatus, errorThrown){
+		                        console.log("Failed to upload image UGC to server: "+errorThrown);
+		                        callback("Failed to upload image UGC to server: "+errorThrown);
+		                    }
+		                });
+				    }
 			    ],
 		        function(err, results){
 				    if (cbOfUploadToServer){
