@@ -32,7 +32,10 @@ init: function(){
                 console.log("err="+err);
                 if(!err){
                     alert("success!");
-                }
+                                         }else{
+                                         alert(err);
+                                         }
+
                 $.mobile.changePage("my_ugc.html");
             });
         });
@@ -96,7 +99,10 @@ init: function(){
                                                    // FmMobile.authPopup.postMessage("打卡～～～");
 
 
+                                                    }else{
+                                                    alert(err);
                                                     }
+
                                 
                                                     
                                                     $.mobile.changePage("my_ugc.html");
@@ -137,8 +143,10 @@ init: function(){
                         
                         imageUgc.uploadToServer(ugcProjectId, ugcInfo, function(err){
                                                 console.log("err="+err);
-                        
-                                                if(!err){alert("success!");}
+                                                
+                                                if(!err){alert("success!");}else{
+                                                alert(err);
+                                                }
                                                $.mobile.changePage("my_ugc.html");
                                                 });
                         

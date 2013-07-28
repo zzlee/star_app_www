@@ -21,8 +21,8 @@ FmMobile.template_pic_text_pg = {
             userName = "anonymous";
         }
         
-        
-        
+        $('#template_name_2').html(FmMobile.selectedTemplateName);
+        /*
         if(FmMobile.selectedTemplate=="cultural_and_creative"){
             
             $("#template_name_2").html('').append(templateMgr.getTemplateList()[0].name);
@@ -31,7 +31,7 @@ FmMobile.template_pic_text_pg = {
         }else if(FmMobile.selectedTemplate=="check_in"){
             $("#template_name_2").html('').append(templateMgr.getTemplateList()[2].name);
         }
-        
+        */
         
         var url = $(this).data('url');
         //var templateID = url.split("=")[1];

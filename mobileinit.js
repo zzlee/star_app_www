@@ -4,6 +4,12 @@ var DEBUG = true,
 FM_LOG = (DEBUG) ? function(str){ console.log("\n[FM] "+str); } : function(str){} ;
 
 
+
+
+
+
+
+
 var local = false,
 localhost = "http://localhost:3000",
 remotesite = starServerURL,
@@ -20,6 +26,8 @@ var customizedContent = {};
 var customizableObjects = [];
 var fileSelected;
 var myPhotoCropper;
+
+FmMobile.mycount;
 
 FmMobile.myflag=true;
 FmMobile.check_in_pic;
@@ -123,16 +131,18 @@ $(document).bind("mobileinit", function(){
                  
                  $.mobile.page.prototype.options.addBackBtn = true;
                  
+                 /*
                  TemplateMgr.getInstance(function(err, _templateMgr){
                                          //alert("templatmgr");
                                          if (!err) {
                                          templateMgr = _templateMgr;
+                                         FmMobile.mycount=templateMgr.getTemplateList().length;
                                          }
                                          else {
                                          console.log("Fail to get templateMgr: "+err);
                                          }
                                          });
-                 
+                 */
                  
                  setTimeout(function(){
                             navigator.splashscreen.hide();
@@ -150,6 +160,8 @@ FmMobile.videoWorks = [];
 FmMobile.profile = null;
 FmMobile.ga = null;
 FmMobile.pushNotification = null;
+
+FmMobile.selectedTemplateName=null;
 
 FmMobile.selectedTemplate = null;  //the main template that the user chooses, such as "miix_it", "cultural_and_creative", "mood", or "check_in"
 FmMobile.selectedSubTemplate = null; //the sub-template that the user chooses. It must be "text", "picture", "text_picture", "check_in",or "video"
