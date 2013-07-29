@@ -16,28 +16,28 @@
             "description":"文：限39個中文字",
             "backgroundImageUrl":"test_bg.jpg",
             "customizableObjects":[
-                                   {
-                                   "id":"text0",
-                                   "type":"text",
-                                   "x":"23",
-                                   "y":"44",
-                                   "width":"303",
-                                   "lineHeight":"34",
-                                   "angle":"0",
-                                   "description":"心情文字",
-                                   "maxTextLength":"39"
-                                   },
-                                   {
-                                   "id":"thumbnail",
-                                   "type":"image",
-                                   "x":"35",
-                                   "y":"33",
-                                   "width":"303",
-                                   "height":"303",
-                                   "angle":"0",
-                                   "description":"大頭貼"
-                                   }
-                                   ]
+                {
+                    "id":"text0",
+                    "type":"text",
+                    "x":"40",
+                    "y":"44",
+                    "width":"303",
+                    "lineHeight":"34",
+                    "angle":"0",
+                    "description":"心情文字",
+                    "maxTextLength":"39"
+                },
+                {
+                    "id":"thumbnail0",
+                    "type":"thumbnail",
+                    "x":"100",
+                    "y":"33",
+                    "width":"200",
+                    "height":"200",
+                    "angle":"0",
+                    "description":"大頭貼"
+                }
+            ]
         },
         "picture_only":{
             "representingImageUrlSub":"images/choose_movie.png",
@@ -47,27 +47,27 @@
             "description":"圖：上傳一張照片",
             "backgroundImageUrl":"test_bg.jpg",
             "customizableObjects":[
-                                   {
-                                   "id":"picture0",
-                                   "type":"image",
-                                   "x":"775",
-                                   "y":"22",
-                                   "width":"240",
-                                   "height":"180",
-                                   "angle":"10.36",
-                                   "description":"心情照片"
-                                   },
-                                   {
-                                   "id":"thumbnail",
-                                   "type":"image",
-                                   "x":"35",
-                                   "y":"33",
-                                   "width":"303",
-                                   "height":"303",
-                                   "angle":"0",
-                                   "description":"大頭貼"
-                                   }
-                                   ]
+                {
+                    "id":"picture0",
+                    "type":"image",
+                    "x":"775",
+                    "y":"22",
+                    "width":"240",
+                    "height":"180",
+                    "angle":"10.36",
+                    "description":"心情照片"
+                },
+                {
+                    "id":"thumbnail0",
+                    "type":"thumbnail",
+                    "x":"35",
+                    "y":"33",
+                    "width":"100",
+                    "height":"100",
+                    "angle":"0",
+                    "description":"大頭貼"
+                }
+            ]
         },
         "picture_plus_text":{
             "representingImageUrlSub":"images/choose_movie.png",
@@ -77,38 +77,38 @@
             "description":"文：限24個中文字<br>圖：上傳一張照片",
             "backgroundImageUrl":"test_bg.jpg",
             "customizableObjects":[
-                                   {
-                                   "id":"text0",
-                                   "type":"text",
-                                   "x":"10",
-                                   "y":"40",
-                                   "width":"240",
-                                   "lineHeight":"30",
-                                   "angle":"0",
-                                   "description":"心情文字",
-                                   "maxTextLength":"24"
-                                   },
-                                   {
-                                   "id":"picture0",
-                                   "type":"image",
-                                   "x":"775",
-                                   "y":"22",
-                                   "width":"240",
-                                   "height":"180",
-                                   "angle":"10.36",
-                                   "description":"心情照片"
-                                   },
-                                   {
-                                   "id":"thumbnail",
-                                   "type":"image",
-                                   "x":"300",
-                                   "y":"100",
-                                   "width":"100",
-                                   "height":"100",
-                                   "angle":"0",
-                                   "description":"大頭貼"
-                                   }
-                                   ]
+                {
+                    "id":"text0",
+                    "type":"text",
+                    "x":"10",
+                    "y":"40",
+                    "width":"240",
+                    "lineHeight":"30",
+                    "angle":"0",
+                    "description":"心情文字",
+                    "maxTextLength":"24"
+                },
+                {
+                    "id":"picture0",
+                    "type":"image",
+                    "x":"775",
+                    "y":"22",
+                    "width":"240",
+                    "height":"180",
+                    "angle":"10.36",
+                    "description":"心情照片"
+                },
+                {
+                    "id":"thumbnail0",
+                    "type":"thumbnail",
+                    "x":"300",
+                    "y":"100",
+                    "width":"100",
+                    "height":"100",
+                    "angle":"0",
+                    "description":"大頭貼"
+                }
+            ]
         }
     }
 }

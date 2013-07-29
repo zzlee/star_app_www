@@ -28,10 +28,10 @@
                 {
                     "id":"thumbnail0",
                     "type":"thumbnail",
-                    "x":"35",
+                    "x":"200",
                     "y":"33",
-                    "width":"303",
-                    "height":"34",
+                    "width":"100",
+                    "height":"100",
                     "angle":"0",
                     "description":"大頭貼"
                 }

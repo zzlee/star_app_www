@@ -10,7 +10,6 @@
     "subTemplate":{
         "text_only":{
             "representingImageUrlSub":"images/choose_movie.png",
-
             "selected":"text_only",
             "name":"版型一",
             "outputType":"image",
@@ -31,10 +30,10 @@
                 {
                     "id":"thumbnail0",
                     "type":"thumbnail",
-                    "x":"35",
-                    "y":"33",
-                    "width":"303",
-                    "height":"303",
+                    "x":"200",
+                    "y":"80",
+                    "width":"150",
+                    "height":"150",
                     "angle":"0",
                     "description":"大頭貼"
                 }
@@ -61,10 +60,10 @@
                 {
                     "id":"thumbnail0",
                     "type":"thumbnail",
-                    "x":"35",
-                    "y":"33",
-                    "width":"303",
-                    "height":"303",
+                    "x":"190",
+                    "y":"80",
+                    "width":"150",
+                    "height":"150",
                     "angle":"0",
                     "description":"大頭貼"
                 }
