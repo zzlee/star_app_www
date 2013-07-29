@@ -9,7 +9,7 @@ show: function(){
 },
     
 load: function(event, data){
-    FmMobile.userContent.text="aaa";
+    //FmMobile.userContent.text="aaa";
     
     //FmMobile.bindClickEventToNavBar();
     
@@ -65,7 +65,7 @@ load: function(event, data){
         fileObjectID = event.data.objectID;
         console.log('[buttonClick_cb()] fileObjectID = %s', fileObjectID);
         //alert('fileObjectID = '+fileObjectID );
-        
+        FmMobile.userContent.text=$("#ur_text").val();
         
         var getPhotoFail = function (message) {
             //alert('æ²¡æœ‰é¸åˆ°ç›¸ç‰‡ï¼Œè«‹å†é¸ä¸€æ¬¡ï¼');

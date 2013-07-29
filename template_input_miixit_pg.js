@@ -9,8 +9,8 @@ show: function(){
 },
     
 load: function(event, data){
-    FmMobile.userContent.text="aaa";
-    
+   // FmMobile.userContent.text="aaa";
+    $('#template_name_3').html(FmMobile.selectedTemplateName);
     //FmMobile.bindClickEventToNavBar();
     
     $("#nav-bar").show();
@@ -66,8 +66,9 @@ load: function(event, data){
         console.log('[buttonClick_cb()] fileObjectID = %s', fileObjectID);
         //alert('fileObjectID = '+fileObjectID );
         
+        
         var getPhotoFail = function (message) {
-            //alert('没有選到相片，請再選一次！');
+            //alert('没�到��，�選一次�');
         }
         
         

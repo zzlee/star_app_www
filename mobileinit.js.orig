@@ -4,6 +4,12 @@ var DEBUG = true,
 FM_LOG = (DEBUG) ? function(str){ console.log("\n[FM] "+str); } : function(str){} ;
 
 
+
+
+
+
+
+
 var local = false,
 localhost = "http://localhost:3000",
 remotesite = starServerURL,
@@ -20,7 +26,13 @@ var customizedContent = {};
 var customizableObjects = [];
 var fileSelected;
 var myPhotoCropper;
+<<<<<<< HEAD
+var photoSource; //For Android, source from album or camera
+=======
 
+FmMobile.mycount;
+
+>>>>>>> origin/ondascreen_v1_0__integration
 FmMobile.myflag=true;
 FmMobile.check_in_pic;
 
@@ -123,16 +135,18 @@ $(document).bind("mobileinit", function(){
                  
                  $.mobile.page.prototype.options.addBackBtn = true;
                  
+                 /*
                  TemplateMgr.getInstance(function(err, _templateMgr){
                                          //alert("templatmgr");
                                          if (!err) {
                                          templateMgr = _templateMgr;
+                                         FmMobile.mycount=templateMgr.getTemplateList().length;
                                          }
                                          else {
                                          console.log("Fail to get templateMgr: "+err);
                                          }
                                          });
-                 
+                 */
                  
                  setTimeout(function(){
                             navigator.splashscreen.hide();
@@ -150,6 +164,8 @@ FmMobile.videoWorks = [];
 FmMobile.profile = null;
 FmMobile.ga = null;
 FmMobile.pushNotification = null;
+
+FmMobile.selectedTemplateName=null;
 
 FmMobile.selectedTemplate = null;  //the main template that the user chooses, such as "miix_it", "cultural_and_creative", "mood", or "check_in"
 FmMobile.selectedSubTemplate = null; //the sub-template that the user chooses. It must be "text", "picture", "text_picture", "check_in",or "video"
@@ -637,13 +653,8 @@ onFBConnected: function(){
            //localStorage.fb_user_pic=response.data.fb_user_pic;
            localStorage.fb_accessToken = response.data.accessToken;
             localStorage.verified = (response.data.verified) ? response.data.verified : 'false';
-<<<<<<< HEAD
-           
-           //localStorage.verified='true';//此��測試�話���
-=======
            FmMobile.userContent.thumbnail.url='https://graph.facebook.com/'+localStorage.fb_userID+'/picture/';
-           //localStorage.verified='true';//此行為了測試電話認證！
->>>>>>> origin/ondascreen_v1_0__integration
+           //localStorage.verified='true';//此��測試�話���
            FM_LOG("localStorage" + JSON.stringify(localStorage));
            
            // Each time of Login, pull all videos.
@@ -706,19 +717,19 @@ sendDeviceToken: function(){
 },
 
   
-postFbMessage:function(message){
+postFbMessage:function(){
     var url = 'https://graph.facebook.com/me/feed';
     var params = {
         
     access_token: localStorage.fb_accessToken,
-    message: message,
+    message: FmMobile.userContent.text,
     //link:FmMobile.check_in_pic,
    picture:FmMobile.check_in_pic,
     //privacy:{'value':'SELF'},
     
     };
     $.post(url,params, function(response){
-           alert("已打卡！！");
+           alert("已拿到");
            });
 }
    

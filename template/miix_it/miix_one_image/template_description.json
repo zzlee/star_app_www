@@ -1,7 +1,7 @@
 {
     "selected":"miix_it",
     "name":"合成",
-    "representingImageUrl":"koala.jpg",
+    "representingImageUrl":"images/choose_movie.png",
     "introdcutionContentUrl":"mood_introdction.html",
     "outputSize":{
         "width":720,
@@ -9,6 +9,7 @@
     },
     "subTemplate":{
         "miix_one_image":{
+            
             "selected":"miix_one_image",
             "name":"一張圖合成影片",
             "outputType":"video",

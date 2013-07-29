@@ -4,6 +4,12 @@ var DEBUG = true,
 FM_LOG = (DEBUG) ? function(str){ console.log("\n[FM] "+str); } : function(str){} ;
 
 
+
+
+
+
+
+
 var local = false,
 localhost = "http://localhost:3000",
 remotesite = starServerURL,
@@ -21,6 +27,8 @@ var customizableObjects = [];
 var fileSelected;
 var myPhotoCropper;
 var photoSource; //For Android, source from album or camera
+FmMobile.mycount;
+
 FmMobile.myflag=true;
 FmMobile.check_in_pic;
 
@@ -118,21 +126,23 @@ $(document).bind("mobileinit", function(){
                  $("#settingTermPg").live("pageshow", FmMobile.settingTermPg.show);
                  $("#settingFaqPg").live("pageinit", FmMobile.settingFaqPg.init);
                  $("#settingFaqPg").live("pageshow", FmMobile.settingFaqPg.show);
-                 $("#template_sub_cultural_Pg").live("pageinit", FmMobile.template_sub_cultural_Pg.init);
-                 $("#template_sub_cultural_Pg").live("pageshow", FmMobile.template_sub_cultural_Pg.show);
+                 $("#template_sub_cultural_Pg").live("pageinit", FmMobile.template_sub_cultural_Pg.init);	//deprecated
+                 $("#template_sub_cultural_Pg").live("pageshow", FmMobile.template_sub_cultural_Pg.show);	//deprecated
                  
                  $.mobile.page.prototype.options.addBackBtn = true;
                  
+                 /*
                  TemplateMgr.getInstance(function(err, _templateMgr){
                                          //alert("templatmgr");
                                          if (!err) {
                                          templateMgr = _templateMgr;
+                                         FmMobile.mycount=templateMgr.getTemplateList().length;
                                          }
                                          else {
                                          console.log("Fail to get templateMgr: "+err);
                                          }
                                          });
-                 
+                 */
                  
                  setTimeout(function(){
                             navigator.splashscreen.hide();
@@ -150,6 +160,8 @@ FmMobile.videoWorks = [];
 FmMobile.profile = null;
 FmMobile.ga = null;
 FmMobile.pushNotification = null;
+
+FmMobile.selectedTemplateName=null;
 
 FmMobile.selectedTemplate = null;  //the main template that the user chooses, such as "miix_it", "cultural_and_creative", "mood", or "check_in"
 FmMobile.selectedSubTemplate = null; //the sub-template that the user chooses. It must be "text", "picture", "text_picture", "check_in",or "video"
@@ -701,12 +713,12 @@ sendDeviceToken: function(){
 },
 
   
-postFbMessage:function(message){
+postFbMessage:function(){
     var url = 'https://graph.facebook.com/me/feed';
     var params = {
         
     access_token: localStorage.fb_accessToken,
-    message: message,
+    message: FmMobile.userContent.text,
     //link:FmMobile.check_in_pic,
    picture:FmMobile.check_in_pic,
     //privacy:{'value':'SELF'},

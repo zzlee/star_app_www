@@ -1,7 +1,7 @@
 {
     "selected":"check_in",
     "name":"打卡",
-    "representingImageUrl":"koala.jpg",
+    "representingImageUrl":"images/choose_movie.png",
     "introdcutionContentUrl":"mood_introdction.html",
     "outputSize":{
         "width":720,

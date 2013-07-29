@@ -28,14 +28,17 @@ FmMobile.template_pic_pg = {
                               $.mobile.changePage("template-main_template.html");
                               });
         
+        $('#template_name_2').html(FmMobile.selectedTemplateName);
+        
+        /*
         if(FmMobile.selectedTemplate=="cultural_and_creative"){
-            
-            $("#template_name_2").html('').append(templateMgr.getTemplateList()[0].name);
+                        $("#template_name_3").html('').append(templateMgr.getTemplateList()[0].name);
         }else if(FmMobile.selectedTemplate=="mood"){
-            $("#template_name_2").html('').append(templateMgr.getTemplateList()[1].name);
+            $("#template_name_3").html('').append(templateMgr.getTemplateList()[1].name);
         }else if(FmMobile.selectedTemplate=="miix_it"){
-             $("#template_name_2").html('').append(templateMgr.getTemplateList()[3].name);
+             $("#template_name_3").html('').append(templateMgr.getTemplateList()[3].name);
         }
+         */
 
         
         
