@@ -20,7 +20,7 @@ var customizedContent = {};
 var customizableObjects = [];
 var fileSelected;
 var myPhotoCropper;
-
+var photoSource; //For Android, source from album or camera
 FmMobile.myflag=true;
 FmMobile.check_in_pic;
 

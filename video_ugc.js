@@ -53,8 +53,13 @@ VideoUgc = (function(){
                         var imageUri = userContent.picture.urlOfOriginal;
                         var options = new FileUploadOptions();
                         options.fileKey = "file";
-                        options.fileName = imageUri.substr(imageUri.lastIndexOf('/')+1);
-                        options.mimeType = "image/jpeg"; //TODO: to have mimeType customizable? 
+                        if(photoSource == "album"){	//For Android
+                        	options.fileName = imageUri.substr(imageUri.lastIndexOf('/')+1) + ".jpg";
+                        	photoSource = " ";  //reset the photoSource
+                        }else{
+                        	options.fileName = imageUri.substr(imageUri.lastIndexOf('/')+1);
+                        }
+                        options.mimeType = "image/jpeg"; //TODO: to have mimeType customizable?
                         options.chunkedMode = true;
                         
                         fileSelected = options.fileName;
@@ -74,6 +79,7 @@ VideoUgc = (function(){
                         
                         options.params = params;
                         options.chunkedMode = true;
+                        
                         
                         var ft = new FileTransfer();
                         
@@ -99,7 +105,7 @@ VideoUgc = (function(){
                         ft.upload(imageUri, starServerURL+"/miix/videos/user_content_files", uploadSuccess_cb, uploadFail_cb, options);
 					},
 					function(callback){
-					    //ask server to render the Miix vidoe
+					    //ask server to render the Miix video
 						/*
 						var userContentDescription = {};
 						userContentDescription.projectID = ugcProjectId;
@@ -175,7 +181,6 @@ VideoUgc = (function(){
 			                width: customizableObjectsXml[i].getElementsByTagName("original_width")[0].childNodes[0].nodeValue,
 			                height: customizableObjectsXml[i].getElementsByTagName("original_height")[0].childNodes[0].nodeValue 
 			            };
-			            
 			            customizableObjects[i]={
 			            	ID: objID,
 			            	format: objFormat,
