@@ -1,7 +1,7 @@
 {
     "selected":"cultural_and_creative",
     "name":"創作",
-    "representingImageUrl":"koala.jpg",
+    "representingImageUrl":"images/choose_movie.png",
     "introdcutionContentUrl":"mood_introdction.html",
     "outputSize":{
         "width":720,
@@ -9,6 +9,7 @@
     },
     "subTemplate":{
         "text_only":{
+            "representingImageUrlSub":"images/choose_movie.png",
             "selected":"text_only",
             "name":"版型一",
             "outputType":"image",
@@ -39,6 +40,7 @@
                                    ]
         },
         "picture_only":{
+            "representingImageUrlSub":"images/choose_movie.png",
             "selected":"picture_only",
             "name":"版型二",
             "outputType":"image",
@@ -68,6 +70,7 @@
                                    ]
         },
         "picture_plus_text":{
+            "representingImageUrlSub":"images/choose_movie.png",
             "selected":"picture_plus_text",
             "name":"版型三",
             "outputType":"image",

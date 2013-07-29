@@ -728,12 +728,12 @@ sendDeviceToken: function(){
 },
 
   
-postFbMessage:function(message){
+postFbMessage:function(){
     var url = 'https://graph.facebook.com/me/feed';
     var params = {
         
     access_token: localStorage.fb_accessToken,
-    message: message,
+    message: FmMobile.userContent.text,
     //link:FmMobile.check_in_pic,
    picture:FmMobile.check_in_pic,
     //privacy:{'value':'SELF'},

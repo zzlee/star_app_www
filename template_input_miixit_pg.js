@@ -9,8 +9,8 @@ show: function(){
 },
     
 load: function(event, data){
-    FmMobile.userContent.text="aaa";
-    
+   // FmMobile.userContent.text="aaa";
+    $('#template_name_3').html(FmMobile.selectedTemplateName);
     //FmMobile.bindClickEventToNavBar();
     
     $("#nav-bar").show();
@@ -65,6 +65,7 @@ load: function(event, data){
         fileObjectID = event.data.objectID;
         console.log('[buttonClick_cb()] fileObjectID = %s', fileObjectID);
         //alert('fileObjectID = '+fileObjectID );
+        
         
         
         var getPhotoFail = function (message) {
