@@ -11,8 +11,7 @@ ImageUgc = (function(){
 		var context = null;
 		var bgImage = null;
 		var customizableObjects = [];
-		var imageUserContentUri = userContent.picture.urlOfOriginal;
-        var imageUserContentFileName = imageUserContentUri.substr(imageUserContentUri.lastIndexOf('/')+1);
+		
 		
 		var drawChineseText = function( text, x, y, maxWidth, lineHeight, angle) {
 			x = Number(x);
@@ -88,61 +87,71 @@ ImageUgc = (function(){
                 
 				async.series([
                     function(callback){
-                        //upload original image user content file to server
-                        var options = new FileUploadOptions();
-                        options.fileKey = "file";
-                        options.fileName = imageUserContentFileName;
-                        options.mimeType = "image/jpeg"; //TODO: to have mimeType customizable? 
-                        options.chunkedMode = true;
-                        
-                        var templateCustomizableObjects = template.customizableObjects;
-                        var imageCustomizableObjectWidth = null;
-                        var imageCustomizableObjectHeight = null;
-                        for (var i=0;i<templateCustomizableObjects.length;i++){
-                            if (templateCustomizableObjects[i].type == "image"){
-                                imageCustomizableObjectWidth = templateCustomizableObjects[i].width;
-                                imageCustomizableObjectHeight = templateCustomizableObjects[i].height;
-                                break;
+                        //upload original image user content file to server if there is one
+                        var iterator = function(aCustomizableObject, cbOfIterator) {
+                            if ((aCustomizableObject.type=="image") || (aCustomizableObject.type=="video") ) { 
+                                var options = new FileUploadOptions();
+                                options.fileKey = "file";
+                                options.fileName = aCustomizableObject.content;
+                                options.mimeType = "image/jpeg"; //TODO: to have mimeType customizable? 
+                                options.chunkedMode = true;
+                                
+                                var templateCustomizableObjects = template.customizableObjects;
+                                var imageCustomizableObjectWidth = null;
+                                var imageCustomizableObjectHeight = null;
+                                for (var i=0;i<templateCustomizableObjects.length;i++){
+                                    if (templateCustomizableObjects[i].type == "image"){
+                                        imageCustomizableObjectWidth = templateCustomizableObjects[i].width;
+                                        imageCustomizableObjectHeight = templateCustomizableObjects[i].height;
+                                        break;
+                                    }
+                                }
+                                
+                                var params = new Object();
+                                params.projectID = ugcProjectId; //for server side to save user content to specific project folder
+                                //for server side to crop the user content image
+                                params.croppedArea_x = userContent.picture.crop._x;
+                                params.croppedArea_y = userContent.picture.crop._y;
+                                params.croppedArea_width = userContent.picture.crop._w;
+                                params.croppedArea_height = userContent.picture.crop._h;
+                                //for server side to zoom the user content image to the same size as original footage image
+                                params.obj_OriginalWidth = imageCustomizableObjectWidth;
+                                params.obj_OriginalHeight = imageCustomizableObjectHeight;
+                                
+                                options.params = params;
+                                options.chunkedMode = true;
+                                
+                                var ft = new FileTransfer();
+                                
+                                ft.onprogress = function(progressEvent) {
+                                    if (progressEvent.lengthComputable) {
+                                        var uploadPercentage = progressEvent.loaded / progressEvent.total * 100;
+                                        console.log("uploadPercentage=" + uploadPercentage.toString());
+                                    } else {
+                                        console.log("upload some chunk....");
+                                    }
+                                };
+                                
+                                var uploadSuccess_cb = function(r) {
+                                    cbOfIterator(null);
+                                };
+                                
+                                var uploadFail_cb = function(error) {
+                                    console.log("upload error source " + error.source);
+                                    console.log("upload error target " + error.target);
+                                    cbOfIterator("Failed to uplaod user content file to server: "+error.code);
+                                };
+                                
+                                ft.upload(userContent.picture.urlOfOriginal, starServerURL+"/miix/videos/user_content_files", uploadSuccess_cb, uploadFail_cb, options);
+                            }
+                            else {
+                                cbOfIterator(null);
                             }
                         }
+                        async.eachSeries(customizableObjects, iterator, function(errOfEachSeries){
+                            callback(errOfEachSeries);
+                        });
                         
-                        var params = new Object();
-                        params.projectID = ugcProjectId; //for server side to save user content to specific project folder
-                        //for server side to crop the user content image
-                        params.croppedArea_x = userContent.picture.crop._x;
-                        params.croppedArea_y = userContent.picture.crop._y;
-                        params.croppedArea_width = userContent.picture.crop._w;
-                        params.croppedArea_height = userContent.picture.crop._h;
-                        //for server side to zoom the user content image to the same size as original footage image
-                        params.obj_OriginalWidth = imageCustomizableObjectWidth;
-                        params.obj_OriginalHeight = imageCustomizableObjectHeight;
-                        
-                        options.params = params;
-                        options.chunkedMode = true;
-                        
-                        var ft = new FileTransfer();
-                        
-                        ft.onprogress = function(progressEvent) {
-                            if (progressEvent.lengthComputable) {
-                                var uploadPercentage = progressEvent.loaded / progressEvent.total * 100;
-                                console.log("uploadPercentage=" + uploadPercentage.toString());
-                            } else {
-                                console.log("upload some chunk....");
-                            }
-                        };
-                        
-                        var uploadSuccess_cb = function(r) {
-                            callback(null);
-                        };
-                        
-                        var uploadFail_cb = function(error) {
-                            console.log("upload error source " + error.source);
-                            console.log("upload error target " + error.target);
-                            callback("Failed to uplaod user content file to server: "+error.code);
-                        };
-                        
-                        ft.upload(imageUserContentUri, starServerURL+"/miix/videos/user_content_files", uploadSuccess_cb, uploadFail_cb, options);
-
                     },
 				    function(callback){
 				        //upload result image UGC to server
@@ -183,6 +192,8 @@ ImageUgc = (function(){
 			function(callback){
 			    //get templateMgr
 				TemplateMgr.getInstance(function(err, _templateMgr){
+                    var userContentUri = null;
+                    var userContentFileName = null;
 					if (!err) {
 						templateMgr = _templateMgr;
 						template = templateMgr.getSubTemplate(mainTemplateId, subTemplateId);
@@ -196,7 +207,11 @@ ImageUgc = (function(){
 						        customizableObjects[i].content = userContent.text;
 						    }
 						    else if (customizableObjects[i].type == "image"){
-                                customizableObjects[i].content = imageUserContentFileName;
+						        userContentUri = userContent.picture.urlOfOriginal;
+						        if (userContentUri){
+						            userContentFileName = userContentUri.substr(userContentUri.lastIndexOf('/')+1);
+						        }
+                                customizableObjects[i].content = userContentFileName;
                             }
 						}
 						callback(null, obj);
