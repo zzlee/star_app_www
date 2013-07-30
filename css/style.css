@@ -21,22 +21,30 @@ body{
 }
 
 @font-face {
-	font-family:"華康歐陽詢體W5";
-    src: url("../font/歐陽詢體w5.ttc");
+    font-family:"ouyang";
+    /*src: url("../font/ouyang.ttc");*/
+    text-shadow: none;
 }
 
 .text{
 	font-size:200%;
 	color: #dcd586;
-	font-family:"華康歐陽詢體W5";
+	font-family:"ouyang";
+    text-shadow: none;
 }
 
 /* Header ------------------------------------------------------------*/
 
 .header {
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
 	display:table;
-	background: #000000; /* Old browsers */
+	width: 100%;
+	height: 8.69%;
+	position:fixed;
+	color:#dcd586;
+	behavior: url(/pie/PIE.htc);
+    z-index: 1;
+    background: #000000; /* Old browsers */
 	background: -moz-linear-gradient(left,  #000000 0%, #970018 50%, #000000 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#000000), color-stop(50%,#970018), color-stop(100%,#000000)); /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(left,  #000000 0%,#970018 50%,#000000 100%); /* Chrome10+,Safari5.1+ */
@@ -44,20 +52,15 @@ body{
 	background: -ms-linear-gradient(left,  #000000 0%,#970018 50%,#000000 100%); /* IE10+ */
 	background: linear-gradient(to right,  #000000 0%,#970018 50%,#000000 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000',GradientType=1 ); /* IE6-9 */
-
-	width: 100%;
-	height: 8.69%;
-	position:fixed;
-	color:#dcd586;
-	behavior: url(/pie/PIE.htc);
-    z-index: 1;
 }
 .header-text{
 	display: table-cell;
 	vertical-align: middle;
 	text-align: center;
 	color: #dcd586;
-	font-size: 200%;
+	font-size: 180%;
+    text-shadow: none;
+    padding-top: 1%;
 }
 .back-img{
 	float:left;
@@ -65,9 +68,19 @@ body{
 	vertical-align:middle;
 	margin:auto;
 	left:5%;
-    top:0;
+    margin-top:2.5%;
     bottom: 0;  
+    width:10%;
 }
+.header_bg{
+	width:100%;
+	position:fixed;
+	top:6.3%;
+	z-index:2;
+    }
+.header_bg_img{
+	width:100%;}
+
 
 /* Page ------------------------------------------------------------*/
 #page {
@@ -102,25 +115,26 @@ div[data-role=page] {
 #fixedBackground {
 	width: 100%;
 	padding: 0px;
-	background-image: url(../images/bg.png);
+
 	background-size: 100% 100%;
 	top: 10%;
 	position: fixed;
 	min-height: 72.84%;
 }
 .container{
-	background-image: url(../images/bg.png);
+	/*background-image: url(../images/bg.png);*/
 	background-size:100% 100%;
 	background-repeat:no-repeat;
-	margin-top:15%;
+	margin-top:18%;
 	width: 100%;
 	padding: 0px;
 	min-height: 72.84%;
     padding-bottom: 37%;
     z-index: 0;
+    display:block !improtant;
 }
 .login_toc_container{
-	background-image: url(../images/bg.png);
+	/*background-image: url(../images/bg.png);*/
 	background-size:100% 100%;
 	background-repeat:no-repeat;
 	top:10%;
@@ -167,13 +181,14 @@ div[data-role=page] {
 
 /* Nav-bar(footer) ------------------------------------------------------------*/
 #nav-bar {
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
 	color:#dcd586;
 	font-size:175%;
 	width: 100%;
 	height:18.47%;
 	position:fixed;
 	bottom: 0;
+    text-shadow: none;
 	z-index: 1;
 }
 .nav-bar-background1{
@@ -255,14 +270,15 @@ div[data-role=page] {
 }
 #nav-bar img
 {
-	height: 100%
+	height: 90%
 }
 .menu-text{
-	padding:5%;
+	padding: 4% 5% 5% 3%;
 	font-size:60%;
 	width:100%;
 	bottom:2.5%;
 	position:absolute;
+    text-shadow: none;
 	}
 	
 /* Login ------------------------------------------------------------*/
@@ -285,7 +301,8 @@ div[data-role=page] {
 	overflow:auto;
 	height:78.5%;
 	font-size: 120%;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
+    text-shadow: none;
 	color: #000;
 	line-height: 150%;
 	overflow: auto;
@@ -301,9 +318,10 @@ padding:5% 5%;
 	overflow:auto;
 	height:65.5%;
 	font-size: 120%;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
+    text-shadow: none;
 	color: #000;
-	line-height: 150%;
+	line-height: 120%;
 	overflow: auto;
 	background-image:url(../images/border_bg.png);
 }
@@ -324,8 +342,9 @@ padding:5% 5%;
 	position:absolute;
 	width:100%;
 	text-align:center;
-	font-size:150%;
-	font-family: "華康歐陽詢體W5";
+	font-size:120%;
+	font-family:"ouyang";
+    text-shadow: none;
 	color:#dcd586;
 	}
     
@@ -335,7 +354,8 @@ padding:5% 5%;
 	width:100%;
 	text-align:center;
 	font-size:134%;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
+    text-shadow: none;
 	color:#dcd586;
 	}    
 
@@ -353,23 +373,28 @@ padding:5% 5%;
 	position:absolute;
 }
 .facebook_login_text{
-	margin-top:68.5%;
+	top:61%;
 	position:absolute;
 	width:100%;
 	text-align:center;
-	font-size:150%;
-	font-family: "華康歐陽詢體W5";
+	font-size:120%;
+	font-family:"ouyang";
+    text-shadow: none;
 	color:#dcd586;
+    z-index:1;
 	}
 .facebook_login_button{
-	margin-top:90%;
-	width:100%;}
+	top:60%;
+	width:100%;
+    position:absolute;
+    }
 .success_text{
 	z-index:1;
-	font-size:150%;
+	font-size:120%;
 	margin-top:50%;
 	text-align:center;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
+    text-shadow: none;
 	color:#dcd586;
 	}
 .login_success_text{
@@ -377,8 +402,9 @@ padding:5% 5%;
 	position:absolute;
 	width:100%;
 	text-align:center;
-	font-size:150%;
-	font-family: "華康歐陽詢體W5";
+	font-size:120%;
+	font-family:"ouyang";
+    text-shadow: none;
 	color:#dcd586;
 	}
 .login_success_button{
@@ -395,10 +421,13 @@ padding:5% 5%;
 	padding-top: 5%;
 	width: 100%;
 	font-size: 185%;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
+    text-shadow: none;
 	color: #dcd586;
 	padding-bottom:3%;
-	;text-align: center;
+	text-align: center;
+    text-shadow: none;
+    padding-left:3%;
 	}
 .content-movie{
 	background-image:url(../images/big_frame.png);
@@ -415,9 +444,9 @@ padding:5% 5%;
     bottom: 0;
     left: 0;
     right: 0;
-	width:90%;
+	width:95%;
 	margin-top:3.5%;
-	margin-left:3.5%;
+	margin-left:3%;
 }
 
 .create-movie-icon {
@@ -432,7 +461,7 @@ padding:5% 5%;
 }
 .template_label{
 	width:100%;
-
+    /*margin-top: 5%;*/
 	}
 .label-img{
 	width:100%;
@@ -443,15 +472,18 @@ padding:5% 5%;
 	width:100%;
 	text-align:center;
 	font-size:150%;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
+    text-shadow: none;
 	color:#dcd586;
+    margin-top: 0.8%;
 	}
 .template_instruction{
 	margin-top: 5%;
 	margin-left:6%;
 	width: 100%;
-	font-size: 185%;
-	font-family: "華康歐陽詢體W5";
+	font-size: 125%;
+	font-family:"ouyang";
+    text-shadow: none;
 	color: #dcd586;
 	line-height: 125%;
 	padding-bottom:2%;
@@ -460,86 +492,97 @@ padding:5% 5%;
 	margin-top: 5%;
 	margin-left: 12%;
 	width: 100%;
-	font-size: 150%;
-	font-family: "華康歐陽詢體W5";
+	font-size: 120%;
+	font-family:"ouyang";
+    text-shadow: none;
 	color: #dcd586;
 	line-height: 125%;
 	padding-bottom: 2%;
 }
 .text_input_bg{
-	border:20px solid transparent;
+	border:10px solid transparent;
 	height:40%;
-	margin:5%;
+	margin:8%;
 	border-image:url(../images/text_input_border.png) 30 30 round;
 	width:80%;
 	}
 .button_text{
 	position: absolute;
+	margin-top: 3.8%;
+	width: 50%;
+	text-align: center;
+	font-size: 120%;
+	font-family:"ouyang";
+    text-shadow: none;
+	color: #dcd586;
+	}
+
+.button_text_phone_num_input{
+    position: absolute;
 	margin-top: 4%;
 	width: 50%;
 	text-align: center;
 	font-size: 120%;
-	font-family: "華康歐陽詢體W5";
-	color: #dcd586;
-	}
-.button_text_phone_num_input{
-position: absolute;
-	margin-top: 4%;
-	width: 50%;
-	text-align: center;
-	font-size: 150%;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
+    text-shadow: none;
 	color: #dcd586;
 
 
 }
-
 .tab_button_text{
-	width: 50%;
 	position: absolute;
-	top: 94px; 
+	padding-top: 9.5%;
+	width: 50%;
 	text-align: center;
 	font-size: 100%;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
 	color: #dcd586;
+    text-shadow: none;
 	}
+
 .template_introduce{
-	padding:5% 5%;
-	margin:5%;
-	position:absolute;
-	border:15px solid transparent;
-	border-image:url(../images/border.png) 30 30 round;
-	overflow:auto;
-	height:78.5%;
-	font-size: 120%;
-	font-family: "華康歐陽詢體W5";
-	color: #000;
-	line-height: 150%;
-	overflow: auto;
-	background-image:url(../images/border_bg.png);
-	z-index:1;
+	padding: 5% 5%;
+    margin: 0% 2.5% 2.5% 2.5%;
+    position: fixed;
+    border: 15px solid
+    transparent;
+    border-image: url(../images/border.png) 30 30 round;
+    overflow: auto;
+    font-size: 120%;
+ 	font-family:"ouyang";
+    color: #000;
+    line-height: 120%;
+    overflow: auto;
+    background-image: url(../images/border_bg.png);
+    z-index: 1;
+    text-shadow: none;
+    top:11%;
+    bottom:18%;
 	}
 .close{
-	padding-left: 85%;
-	padding-top:2.5%;
+	left: 82.5%;
+	top:7%;
 	z-index: 2;
 	position: absolute;
 	size: 20%;
 }
 .style{
-	margin-top: 3%;
+	margin-top: 1%;
 	width: 100%;
 	margin-bottom: 8%;
 	height: auto;
 	}
+    
 .style_dp{
 	padding-top:10%;}
+
 .style_text{
 	text-align: center;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
 	font-size: 120%;
 	color: #dcd586;
-	line-height: 125%;
+	text-shadow: none;
+    /*line-height: 125%;*/
 }
 
 .choose-movie-style{
@@ -553,9 +596,10 @@ position: absolute;
 	position: absolute;
 	width: 50%;
 	text-align: center;
-	font-size: 150%;
-	font-family: "華康歐陽詢體W5";
+	font-size: 120%;
+	font-family:"ouyang";
 	color: #dcd586;
+    text-shadow: none;
 	margin-top:3.5%;
 }
 
@@ -564,9 +608,11 @@ position: absolute;
 	margin-left: 5%;
 	width: 30%;
 	font-size: 120%;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
 	color: #dcd586;
 	height: auto;
+    text-shadow: none;
+    float:left
 }
 	
 .screen_dp{
@@ -574,9 +620,19 @@ position: absolute;
 	margin-top:5%;
 	margin-left:5%;
 	margin-right:5%;
-	font-size: 150%;
-	font-family: "華康歐陽詢體W5";
+	font-size: 125%;
+	font-family:"ouyang";
+    text-shadow: none;
 	color: #dcd586;}
+
+#ur_text{
+    background-color:transparent;
+    border-color:transparent;
+    margin:0;
+    color: #dcd586;
+    width:100%;
+    text-shadow: none;
+    }
 
 /* Photo Upload ------------------------------------------------------------*/
 #process-bar {
@@ -611,10 +667,11 @@ position: absolute;
 	color: #dcd586;
 	font-size: 120%;
 	text-align: right;
-	font-family: "華康歐陽詢體W5";
+    text-shadow: none;
+	font-family:"ouyang";
 	display: inline-block;
 	margin-left: 5%;
-	margin-top:6.5%;
+	margin-top:6%;
 	margin-bottom:2%;
 }
 .my-video-makevideo {
@@ -637,7 +694,7 @@ position: absolute;
 	width: 100%;
 }
 .choose-movie{
-	margin-top: 10%;
+	/*margin-top: 10%;*/
 	width: 49%;
 	/*float: left;*/
 	display: inline-block;
@@ -646,7 +703,7 @@ position: absolute;
 .choose-movie-pic{
 	width: 90%;
 	margin-top:5%;
-	margin-left:5%;
+	margin-left:7.5%;
     display: inline-block;
     position: relative;
 	background-image:url(../images/frame2.png);
@@ -670,10 +727,33 @@ position: absolute;
 	color:#dcd586;
 	padding-top: 4%;
 	padding-bottom: 3%;
-	font-family:"華康歐陽詢體W5";
+	font-family:"ouyang";
+    text-shadow: none;
 	text-align: center;
 	font-size: 100%;
 }
+.buttonlong_text{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    font-size: 125%;
+	font-family:"ouyang";
+    text-shadow: none;
+    color:#dcd586;
+    padding-top: 6%;
+}
+.buttonlong_text_submit{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    font-size: 125%;
+	font-family:"ouyang";
+    text-shadow: none;
+    color:#dcd586;
+    padding-top:6%;
+
+}    
+
 
 /* Orientation------------------------------------------------------------*/
 .orientation{
@@ -692,11 +772,12 @@ position: absolute;
 
 }
 .text_img{
-	margin-top:28%;
+	top: 25%;
 	width:100%;
+    position: absolute;
 }
 .page_icon_img{
-	padding-top:5%;
+	top: 92%;
 	width:10%;
 	left:0;
 	right:0;
@@ -715,32 +796,38 @@ position: absolute;
 	height: 100%;
 }
 .orientation_text{
-	margin-top:5%;
+	top: 85%;
 	width:100%;
 	text-align:center;
 	font-size:150%;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
+    text-shadow: none;
 	color:#dcd586;
+    text-shadow: none;
+    position: absolute;
 	}
 /* Setting------------------------------------------------------------*/
 .setting-content{
-	padding:5% 5%;
-	margin:5%;
-	position:absolute;
-	border:15px solid transparent;
-	border-image:url(../images/border.png) 30 30 round;
-	overflow:auto;
-	height:78.5%;
+	margin-left: 2.5%;
+	margin-right: 2.5%;
+	position: absolute;
+	border: 15px solid transparent;
+	border-image: url(../images/border.png) 30 30 round;
+	overflow: auto;
 	font-size: 120%;
-	font-family: "華康歐陽詢體W5";
+	text-shadow: none;
+	font-family: "ouyang";
 	color: #000;
 	line-height: 150%;
 	overflow: auto;
-	background-image:url(../images/border_bg.png);
-    padding-bottom: 25%;
-    z-index: 0;
+	background-image: url(../images/border_bg.png);
+	z-index: 0;
+	width: 85%;
+    top:11%;
+    bottom:21%;
+}
 
-	}	
+
 .time{
 	font-size:80%;
 }
@@ -752,12 +839,50 @@ position: absolute;
 }
 .customer_button_text{
 	position:absolute;
-	margin-left:14%;
-	margin-top:2%;
+	margin-left:15%;
+	margin-top:3%;
 	text-align:center;
 	font-size:100%;
-	font-family: "華康歐陽詢體W5";
-	color: #dcd586;}
+    text-shadow: none;
+	font-family:"ouyang";
+	color: #dcd586;
+    }
+.setting_list{
+    background:none;
+    font-size:100%;
+    text-shadow: none;
+	font-family:"ouyang";
+    list-style-type:none;
+    color: #000;;
+    text-decoration:none;
+    line-height: 250%;
+}
+#settingList{
+    background:none;
+    text-shadow: none;
+	font-family:"ouyang";
+	color: #dcd586;
+    list-style-type:none;
+}
+
+    
+#settingList li{
+    font-size:100%;
+    text-shadow: none;
+	font-family:"ouyang";
+	color: #000 !important;
+}
+    
+.setting{
+    color: #dcd586;}
+.form{
+    padding-left:5%;
+    padding-top:5%;
+    padding-right:5%;
+    }
+#select{
+    width:100%;}
+
 /* Background------------------------------------------------------------*/
 .round{
 	border:15px solid transparent;

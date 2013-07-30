@@ -32,9 +32,7 @@ $(document).bind("mobileinit", function(){
     // $.mobile.ns = "fm";
     $.mobile.allowCrossDomainPages = true;
     $.mobile.pushStateEnabled = true;
-    
-    //$.mobile.page.prototype.options.addBackBtn = true;
-    
+        
     /* pageinit executed after pagebeforecreate */
     $("#indexPg").live("pageinit", FmMobile.indexPg.init);
     $("#indexPg").live("pagebeforeshow", FmMobile.indexPg.beforeshow);
@@ -58,7 +56,6 @@ $(document).bind("mobileinit", function(){
     $("#customerQuestionPg").live("pageinit", FmMobile.customerQuestionPg.init);
     $("#loginTocPg").live("pageinit", FmMobile.loginTocPg.init);
     $("#loginTocPg").live("pageshow", FmMobile.loginTocPg.show);
-    
     $("#fbLoginPg").live("pageinit", FmMobile.fbLoginPg.init);
     $("#fbLoginPg").live("pageshow", FmMobile.fbLoginPg.show);
     $("#verificationPg").live("pageinit", FmMobile.verificationPg.init);
@@ -77,42 +74,22 @@ $(document).bind("mobileinit", function(){
     $("#template_previewPg").live("pageshow", FmMobile.template_previewPg.show);
     $("#template_input_textPg").live("pageinit", FmMobile.template_input_textPg.init);
     $("#template_input_textPg").live("pageshow", FmMobile.template_input_textPg.show);
-      
-        
-        $("#template_pic_pg").live("pageinit", FmMobile.template_pic_pg.load);
+    $("#template_pic_pg").live("pageinit", FmMobile.template_pic_pg.load);
     $("#template_pic_pg").live("pageshow", FmMobile.template_pic_pg .show);
-    
-    
     $("#template_checkinPg").live("pageinit", FmMobile.template_checkinPg.init);
     $("#template_checkinPg").live("pageshow", FmMobile.template_checkinPg.show);
-    
-    
     $("#template_input_miixit").live("pageinit", FmMobile.template_input_miixit.load);
     $("#template_input_miixit").live("pageshow", FmMobile.template_input_miixit.show);
-    
-    
-    $("#template_miixitPg").live("pageinit", FmMobile.template_miixitPg.init);
-    $("#template_miixitPg").live("pageshow", FmMobile.template_miixitPg.show);
     $("#template_pic_text_pg").live("pageinit", FmMobile.template_pic_text_pg.load);
     $("#template_pic_text_pg").live("pageshow", FmMobile.template_pic_text_pg.show);
     $("#imageTestPg").live("pageinit", FmMobile.imageTestPg.init);
     $("#imageTestPg").live("pageshow", FmMobile.imageTestPg.show);
-    
     $("#cellphoneLoginPg").live("pageinit", FmMobile.cellphoneLoginPg.init);
     $("#cellphoneLoginPg").live("pageshow", FmMobile.cellphoneLoginPg.show);
-    
     $("#fbLoginSuccessPg").live("pageinit", FmMobile.fbLoginSuccessPg.init);
     $("#fbLoginSuccessPg").live("pageshow", FmMobile.fbLoginSuccessPg.show);
-    
     $("#template_input_checkin").live("pageinit", FmMobile.template_input_checkin.load);
     $("#template_input_checkin").live("pageshow", FmMobile.template_input_checkin.show);
-    
-    
-    
-    
-    
-    $.mobile.page.prototype.options.addBackBtn = true;
-    
     $("#settingTocPg").live("pageinit", FmMobile.settingTocPg.init);
     $("#settingTocPg").live("pageshow", FmMobile.settingTocPg.show);
     $("#settingTermPg").live("pageinit", FmMobile.settingTermPg.init);
@@ -121,11 +98,10 @@ $(document).bind("mobileinit", function(){
     $("#settingFaqPg").live("pageshow", FmMobile.settingFaqPg.show);
     
     $.mobile.page.prototype.options.addBackBtn = true;
-    
-    
-    setTimeout(function(){
-               navigator.splashscreen.hide();
-               },3000);
+
+    setTimeout(function() {
+        navigator.splashscreen.hide();
+    }, 3000);
     
     
     FM_LOG("<----------------- LOAD JQM and INIT ----------------->");
