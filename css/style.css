@@ -21,22 +21,22 @@ body{
 }
 
 @font-face {
-	font-family:"華康歐陽詢體W5";
-    src: url("../font/歐陽詢體w5.TTC");
+    font-family:"ouyang";
+    /*src: url("../font/ouyang.ttc");*/
     text-shadow: none;
 }
 
 .text{
 	font-size:200%;
 	color: #dcd586;
-	font-family:"華康歐陽詢體W5";
+	font-family:"ouyang";
     text-shadow: none;
 }
 
 /* Header ------------------------------------------------------------*/
 
 .header {
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
 	display:table;
 	width: 100%;
 	height: 8.69%;
@@ -181,7 +181,7 @@ div[data-role=page] {
 
 /* Nav-bar(footer) ------------------------------------------------------------*/
 #nav-bar {
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
 	color:#dcd586;
 	font-size:175%;
 	width: 100%;
@@ -270,7 +270,7 @@ div[data-role=page] {
 }
 #nav-bar img
 {
-	height: 100%
+	height: 90%
 }
 .menu-text{
 	padding: 4% 5% 5% 3%;
@@ -301,7 +301,7 @@ div[data-role=page] {
 	overflow:auto;
 	height:78.5%;
 	font-size: 120%;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
     text-shadow: none;
 	color: #000;
 	line-height: 150%;
@@ -318,7 +318,7 @@ padding:5% 5%;
 	overflow:auto;
 	height:65.5%;
 	font-size: 120%;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
     text-shadow: none;
 	color: #000;
 	line-height: 120%;
@@ -343,7 +343,7 @@ padding:5% 5%;
 	width:100%;
 	text-align:center;
 	font-size:120%;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
     text-shadow: none;
 	color:#dcd586;
 	}
@@ -354,7 +354,7 @@ padding:5% 5%;
 	width:100%;
 	text-align:center;
 	font-size:134%;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
     text-shadow: none;
 	color:#dcd586;
 	}    
@@ -373,24 +373,27 @@ padding:5% 5%;
 	position:absolute;
 }
 .facebook_login_text{
-	margin-top:70%;
+	top:61%;
 	position:absolute;
 	width:100%;
 	text-align:center;
 	font-size:120%;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
     text-shadow: none;
 	color:#dcd586;
+    z-index:1;
 	}
 .facebook_login_button{
-	margin-top:90%;
-	width:100%;}
+	top:60%;
+	width:100%;
+    position:absolute;
+    }
 .success_text{
 	z-index:1;
 	font-size:120%;
 	margin-top:50%;
 	text-align:center;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
     text-shadow: none;
 	color:#dcd586;
 	}
@@ -400,7 +403,7 @@ padding:5% 5%;
 	width:100%;
 	text-align:center;
 	font-size:120%;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
     text-shadow: none;
 	color:#dcd586;
 	}
@@ -418,7 +421,7 @@ padding:5% 5%;
 	padding-top: 5%;
 	width: 100%;
 	font-size: 185%;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
     text-shadow: none;
 	color: #dcd586;
 	padding-bottom:3%;
@@ -469,7 +472,7 @@ padding:5% 5%;
 	width:100%;
 	text-align:center;
 	font-size:150%;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
     text-shadow: none;
 	color:#dcd586;
     margin-top: 0.8%;
@@ -479,7 +482,7 @@ padding:5% 5%;
 	margin-left:6%;
 	width: 100%;
 	font-size: 125%;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
     text-shadow: none;
 	color: #dcd586;
 	line-height: 125%;
@@ -490,7 +493,7 @@ padding:5% 5%;
 	margin-left: 12%;
 	width: 100%;
 	font-size: 120%;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
     text-shadow: none;
 	color: #dcd586;
 	line-height: 125%;
@@ -509,7 +512,7 @@ padding:5% 5%;
 	width: 50%;
 	text-align: center;
 	font-size: 120%;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
     text-shadow: none;
 	color: #dcd586;
 	}
@@ -520,7 +523,7 @@ padding:5% 5%;
 	width: 50%;
 	text-align: center;
 	font-size: 120%;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
     text-shadow: none;
 	color: #dcd586;
 
@@ -532,7 +535,7 @@ padding:5% 5%;
 	width: 50%;
 	text-align: center;
 	font-size: 100%;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
 	color: #dcd586;
     text-shadow: none;
 	}
@@ -545,19 +548,20 @@ padding:5% 5%;
     transparent;
     border-image: url(../images/border.png) 30 30 round;
     overflow: auto;
-    height: 53%;
     font-size: 120%;
-    font-family: "華康歐陽詢體W5";
+ 	font-family:"ouyang";
     color: #000;
     line-height: 120%;
     overflow: auto;
     background-image: url(../images/border_bg.png);
     z-index: 1;
     text-shadow: none;
+    top:11%;
+    bottom:18%;
 	}
 .close{
-	padding-left: 82.5%;
-	padding-top:2%;
+	left: 82.5%;
+	top:7%;
 	z-index: 2;
 	position: absolute;
 	size: 20%;
@@ -574,7 +578,7 @@ padding:5% 5%;
 
 .style_text{
 	text-align: center;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
 	font-size: 120%;
 	color: #dcd586;
 	text-shadow: none;
@@ -593,7 +597,7 @@ padding:5% 5%;
 	width: 50%;
 	text-align: center;
 	font-size: 120%;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
 	color: #dcd586;
     text-shadow: none;
 	margin-top:3.5%;
@@ -604,7 +608,7 @@ padding:5% 5%;
 	margin-left: 5%;
 	width: 30%;
 	font-size: 120%;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
 	color: #dcd586;
 	height: auto;
     text-shadow: none;
@@ -617,7 +621,7 @@ padding:5% 5%;
 	margin-left:5%;
 	margin-right:5%;
 	font-size: 125%;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
     text-shadow: none;
 	color: #dcd586;}
 
@@ -664,7 +668,7 @@ padding:5% 5%;
 	font-size: 120%;
 	text-align: right;
     text-shadow: none;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
 	display: inline-block;
 	margin-left: 5%;
 	margin-top:6%;
@@ -723,7 +727,7 @@ padding:5% 5%;
 	color:#dcd586;
 	padding-top: 4%;
 	padding-bottom: 3%;
-	font-family:"華康歐陽詢體W5";
+	font-family:"ouyang";
     text-shadow: none;
 	text-align: center;
 	font-size: 100%;
@@ -733,7 +737,7 @@ padding:5% 5%;
     width: 100%;
     text-align: center;
     font-size: 125%;
-    font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
     text-shadow: none;
     color:#dcd586;
     padding-top: 6%;
@@ -743,7 +747,7 @@ padding:5% 5%;
     width: 100%;
     text-align: center;
     font-size: 125%;
-    font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
     text-shadow: none;
     color:#dcd586;
     padding-top:6%;
@@ -768,11 +772,12 @@ padding:5% 5%;
 
 }
 .text_img{
-	margin-top:48%;
+	top: 25%;
 	width:100%;
+    position: absolute;
 }
 .page_icon_img{
-	padding-top:8%;
+	top: 92%;
 	width:10%;
 	left:0;
 	right:0;
@@ -791,34 +796,38 @@ padding:5% 5%;
 	height: 100%;
 }
 .orientation_text{
-	margin-top:8%;
+	top: 85%;
 	width:100%;
 	text-align:center;
 	font-size:150%;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
     text-shadow: none;
 	color:#dcd586;
     text-shadow: none;
+    position: absolute;
 	}
 /* Setting------------------------------------------------------------*/
 .setting-content{
-	padding:5% 5%;
-	margin:2.5%;
-	position:absolute;
-	border:15px solid transparent;
-	border-image:url(../images/border.png) 30 30 round;
-	overflow:auto;
-	height:52%;
+	margin-left: 2.5%;
+	margin-right: 2.5%;
+	position: absolute;
+	border: 15px solid transparent;
+	border-image: url(../images/border.png) 30 30 round;
+	overflow: auto;
 	font-size: 120%;
-    text-shadow: none;
-	font-family: "華康歐陽詢體W5";
-	color: #000;;
+	text-shadow: none;
+	font-family: "ouyang";
+	color: #000;
 	line-height: 150%;
 	overflow: auto;
-	background-image:url(../images/border_bg.png);
-    z-index: 0;
-    width:75%;
-	}	
+	background-image: url(../images/border_bg.png);
+	z-index: 0;
+	width: 85%;
+    top:11%;
+    bottom:21%;
+}
+
+
 .time{
 	font-size:80%;
 }
@@ -835,28 +844,44 @@ padding:5% 5%;
 	text-align:center;
 	font-size:100%;
     text-shadow: none;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
 	color: #dcd586;
     }
 .setting_list{
     background:none;
     font-size:100%;
     text-shadow: none;
-	font-family: "華康歐陽詢體W5";
+	font-family:"ouyang";
+    list-style-type:none;
+    color: #000;;
+    text-decoration:none;
+    line-height: 250%;
 }
 #settingList{
     background:none;
+    text-shadow: none;
+	font-family:"ouyang";
+	color: #dcd586;
+    list-style-type:none;
+}
+
+    
+#settingList li{
     font-size:100%;
     text-shadow: none;
-	font-family: "華康歐陽詢體W5";
-	color: #dcd586;
-    width: 100%;
+	font-family:"ouyang";
+	color: #000 !important;
 }
+    
 .setting{
     color: #dcd586;}
 .form{
-    width:100%;
+    padding-left:5%;
+    padding-top:5%;
+    padding-right:5%;
     }
+#select{
+    width:100%;}
 
 /* Background------------------------------------------------------------*/
 .round{
