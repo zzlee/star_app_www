@@ -10,6 +10,8 @@ ImageUgc = (function(){
 		var ugcCanvas = null;
 		var context = null;
 		var bgImage = null;
+		var customizableObjects = [];
+		
 		
 		var drawChineseText = function( text, x, y, maxWidth, lineHeight, angle) {
 			x = Number(x);
@@ -83,41 +85,135 @@ ImageUgc = (function(){
 			uploadToServer:function(ugcProjectId, ugcInfo, cbOfUploadToServer){
 				var reultURI = ugcCanvas.toDataURL('image/png').replace('image/octet-stream');
                 
-				 
-                $.ajax( starServerURL+"/miix/base64_image_ugcs/"+ugcProjectId, {
-					type: "PUT",
-                    data: {
-                        imgBase64: reultURI,
-                        ownerId: ugcInfo.ownerId._id,
-                        ownerFbUserId: ugcInfo.ownerId.fbUserId,
-                        contentGenre: ugcInfo.contentGenre,
-                        title: ugcInfo.title,
-                        time: (new Date()).getTime()
+				async.series([
+                    function(callback){
+                        //upload original image user content file to server if there is one
+                        var iterator = function(aCustomizableObject, cbOfIterator) {
+                            if ((aCustomizableObject.type=="image") || (aCustomizableObject.type=="video") ) { 
+                                var options = new FileUploadOptions();
+                                options.fileKey = "file";
+                                options.fileName = aCustomizableObject.content;
+                                options.mimeType = "image/jpeg"; //TODO: to have mimeType customizable? 
+                                options.chunkedMode = true;
+                                
+                                var templateCustomizableObjects = template.customizableObjects;
+                                var imageCustomizableObjectWidth = null;
+                                var imageCustomizableObjectHeight = null;
+                                for (var i=0;i<templateCustomizableObjects.length;i++){
+                                    if (templateCustomizableObjects[i].type == "image"){
+                                        imageCustomizableObjectWidth = templateCustomizableObjects[i].width;
+                                        imageCustomizableObjectHeight = templateCustomizableObjects[i].height;
+                                        break;
+                                    }
+                                }
+                                
+                                var params = new Object();
+                                params.projectID = ugcProjectId; //for server side to save user content to specific project folder
+                                //for server side to crop the user content image
+                                params.croppedArea_x = userContent.picture.crop._x;
+                                params.croppedArea_y = userContent.picture.crop._y;
+                                params.croppedArea_width = userContent.picture.crop._w;
+                                params.croppedArea_height = userContent.picture.crop._h;
+                                //for server side to zoom the user content image to the same size as original footage image
+                                params.obj_OriginalWidth = imageCustomizableObjectWidth;
+                                params.obj_OriginalHeight = imageCustomizableObjectHeight;
+                                
+                                options.params = params;
+                                options.chunkedMode = true;
+                                
+                                var ft = new FileTransfer();
+                                
+                                ft.onprogress = function(progressEvent) {
+                                    if (progressEvent.lengthComputable) {
+                                        var uploadPercentage = progressEvent.loaded / progressEvent.total * 100;
+                                        console.log("uploadPercentage=" + uploadPercentage.toString());
+                                    } else {
+                                        console.log("upload some chunk....");
+                                    }
+                                };
+                                
+                                var uploadSuccess_cb = function(r) {
+                                    cbOfIterator(null);
+                                };
+                                
+                                var uploadFail_cb = function(error) {
+                                    console.log("upload error source " + error.source);
+                                    console.log("upload error target " + error.target);
+                                    cbOfIterator("Failed to uplaod user content file to server: "+error.code);
+                                };
+                                
+                                ft.upload(userContent.picture.urlOfOriginal, starServerURL+"/miix/videos/user_content_files", uploadSuccess_cb, uploadFail_cb, options);
+                            }
+                            else {
+                                cbOfIterator(null);
+                            }
+                        }
+                        async.eachSeries(customizableObjects, iterator, function(errOfEachSeries){
+                            callback(errOfEachSeries);
+                        });
+                        
                     },
-                    success: function(data, textStatus, jqXHR ){
-						if (cbOfUploadToServer){
-                     //  FmMobile.check_in_pic=arryVideo[0].Url.s3;
-                       // FmMobile.authPopup.postMessage("打卡～～～");
-							cbOfUploadToServer(null, data);
-                       console.log(data);
-                       }
-					},
-					error: function(jqXHR, textStatus, errorThrown){
-						if (cbOfUploadToServer){
-							cbOfUploadToServer(errorThrown, null);
-						}
-					}
-                });
+				    function(callback){
+				        //upload result image UGC to server
+				        $.ajax( starServerURL+"/miix/base64_image_ugcs/"+ugcProjectId, {
+		                    type: "PUT",
+		                    data: {
+		                        imgBase64: reultURI,
+		                        ownerId: ugcInfo.ownerId._id,
+		                        ownerFbUserId: ugcInfo.ownerId.fbUserId,
+		                        contentGenre: ugcInfo.contentGenre,
+		                        title: ugcInfo.title,
+		                        customizableObjects: JSON.stringify(customizableObjects),
+		                        time: (new Date()).getTime()
+		                    },
+		                    success: function(data, textStatus, jqXHR ){
+		                        console.log("Successfully upload result image UGC to server.");
+		                        callback(null);
+		                    },
+		                    error: function(jqXHR, textStatus, errorThrown){
+		                        console.log("Failed to upload image UGC to server: "+errorThrown);
+		                        callback("Failed to upload image UGC to server: "+errorThrown);
+		                    }
+		                });
+				    }
+			    ],
+		        function(err, results){
+				    if (cbOfUploadToServer){
+                        cbOfUploadToServer(err, results);
+                    }
+		        });
+				
+                
 			}
+			//==end of public services of ImageUgc==
 		};
 		
 		async.series([
 			function(callback){
-			//get templateMgr
+			    //get templateMgr
 				TemplateMgr.getInstance(function(err, _templateMgr){
+                    var userContentUri = null;
+                    var userContentFileName = null;
 					if (!err) {
 						templateMgr = _templateMgr;
 						template = templateMgr.getSubTemplate(mainTemplateId, subTemplateId);
+						var templateCustomizableObjects = template.customizableObjects;
+						for (var i=0;i<templateCustomizableObjects.length;i++){
+						    customizableObjects[i] = {
+						            id: templateCustomizableObjects[i].id,
+						            type: templateCustomizableObjects[i].type
+						    };
+						    if (customizableObjects[i].type == "text"){
+						        customizableObjects[i].content = userContent.text;
+						    }
+						    else if (customizableObjects[i].type == "image"){
+						        userContentUri = userContent.picture.urlOfOriginal;
+						        if (userContentUri){
+						            userContentFileName = userContentUri.substr(userContentUri.lastIndexOf('/')+1);
+						        }
+                                customizableObjects[i].content = userContentFileName;
+                            }
+						}
 						callback(null, obj);
 					}
 					else {
@@ -148,20 +244,20 @@ ImageUgc = (function(){
 				};
 			},
 			function(callback){
-				//draw all the customizable objects
+			    var imageUrl = null;
 				var iteratorDrawCustomizalbeObjects = function(aCustomizableObject, cbOfIterator){
 					if (aCustomizableObject.type == "image"){
-						var imageUrl = null;
-						if (aCustomizableObject.id == "thumbnail"){
-							imageUrl = userContent.thumbnail.url;
-						}
-						else {
-							imageUrl = userContent.picture.urlOfCropped;
-						}
+						imageUrl = userContent.picture.urlOfCropped;
 						drawImage(imageUrl, aCustomizableObject.x, aCustomizableObject.y, aCustomizableObject.width, aCustomizableObject.height, aCustomizableObject.angle, function(errOfDrawImage){
 							cbOfIterator(errOfDrawImage);
 						});
 					}
+					else if (aCustomizableObject.type == "thumbnail"){
+                        imageUrl = userContent.thumbnail.url;
+                        drawImage(imageUrl, aCustomizableObject.x, aCustomizableObject.y, aCustomizableObject.width, aCustomizableObject.height, aCustomizableObject.angle, function(errOfDrawImage){
+                            cbOfIterator(errOfDrawImage);
+                        });
+                    }
 					else if (aCustomizableObject.type == "text"){
 						drawChineseText( userContent.text, aCustomizableObject.x, aCustomizableObject.y, aCustomizableObject.width, aCustomizableObject.lineHeight, aCustomizableObject.angle);
 						cbOfIterator(null);

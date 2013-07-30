@@ -8,11 +8,8 @@
         "height":480
     },
     "subTemplate":{
-        
-        
         "picture_plus_text":{
             "representingImageUrlSub":"images/choose_movie.png",
-
             "selected":"picture_plus_text",
             "name":"版型三",
             "outputType":"image",
@@ -41,8 +38,8 @@
                     "description":"心情照片"
                 },
                 {
-                    "id":"thumbnail",
-                    "type":"image",
+                    "id":"thumbnail0",
+                    "type":"thumbnail",
                     "x":"300",
                     "y":"100",
                     "width":"100",
