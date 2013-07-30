@@ -270,15 +270,17 @@ FmMobile.myUgcPg = {
 
             switch(tmpIDArray[0]){
                 case "copyUrl":
-                	/**iOS Plugin */
-//                  window.clipboardPluginCopy("https://www.youtube.com/watch?feature=player_embedded&v=" + tmpIDArray[1], function() { alert("已�製到�貼�} , function(e){alert(e);});
-                	/** Android Plugin */
-                	window.clipboardManagerCopy(
+                	if(device.platform == "iOS"){
+                		/**iOS Plugin */
+                		window.clipboardPluginCopy("https://www.youtube.com/watch?feature=player_embedded&v=" + tmpIDArray[1], function() { alert("已複製到剪貼簿")} , function(e){alert(e);});
+                	}else if(device.platform == "Android"){
+                		/** Android Plugin */
+                		window.clipboardManagerCopy(
                 			"https://www.youtube.com/watch?feature=player_embedded&v=" + tmpIDArray[1],
                 			function(r){alert("Url is copyied")},
                 			function(e){alert(e)}
                 		);
-                	
+                	}
                     break;
                 case "shareFb":
                 	//If you success to upload the photo, server will post your render photo to Facebook.
@@ -286,14 +288,17 @@ FmMobile.myUgcPg = {
                     break;
                 case "copyUrlS3":
                     console.log("S3 URL " + tmpIDArray[1]);
-                    /** iOS Plugin */
-//                    window.clipboardPluginCopy("https://s3.amazonaws.com/miix_content/user_project/" + tmpIDArray[1] + "/" + tmpIDArray[1] + ".png", function() { alert("已�製到�貼�} , function(e){alert(e);});
-                    /** Android Plugin */
-                	window.clipboardManagerCopy(
+                    if(device.platform == "iOS"){
+                    	/** iOS Plugin */
+                    	window.clipboardPluginCopy("https://s3.amazonaws.com/miix_content/user_project/" + tmpIDArray[1] + "/" + tmpIDArray[1] + ".png", function() { alert("已複製到剪貼簿")} , function(e){alert(e);});
+                    }else if(device.platform == "Android"){
+                    	/** Android Plugin */
+                    	window.clipboardManagerCopy(
                 			"https://s3.amazonaws.com/miix_content/user_project/" + tmpIDArray[1] + "/" + tmpIDArray[1] + ".png",
                 			function(r){alert("Url is copyied.")},
                 			function(e){alert(e)}
                 		);
+                    }
                     break;
                 case "error":
                 	alert("Your Url is not available.");
