@@ -50,7 +50,6 @@ $(document).bind("mobileinit", function(){
                  $("#orie_1").live("pageshow", FmMobile.orientationPg.show);
                  $('div[id^="orie"]').live("swipeleft ", FmMobile.orientationPg.swipeleft);
                  $('div[id^="orie"]').live("swiperight", FmMobile.orientationPg.swiperight);
-                 //	$("#myUgcPg").live("pagebeforecreate", FmMobile.myUgcPg.loadMyVideo);
                  $("#myUgcPg").live("pageinit", FmMobile.myUgcPg.init);
                  $("#myUgcPg").live("pageshow", FmMobile.myUgcPg.show);
                  $("#myUgcPg").live("pageloadlivevideo", FmMobile.myUgcPg.loadMyVideo);
@@ -65,7 +64,6 @@ $(document).bind("mobileinit", function(){
                  $("#customerQuestionPg").live("pageinit", FmMobile.customerQuestionPg.init);
                  $("#loginTocPg").live("pageinit", FmMobile.loginTocPg.init);
                  $("#loginTocPg").live("pageshow", FmMobile.loginTocPg.show);
-                 
                  $("#fbLoginPg").live("pageinit", FmMobile.fbLoginPg.init);
                  $("#fbLoginPg").live("pageshow", FmMobile.fbLoginPg.show);
                  $("#verificationPg").live("pageinit", FmMobile.verificationPg.init);
@@ -84,53 +82,35 @@ $(document).bind("mobileinit", function(){
                  $("#template_previewPg").live("pageshow", FmMobile.template_previewPg.show);
                  $("#template_input_textPg").live("pageinit", FmMobile.template_input_textPg.init);
                  $("#template_input_textPg").live("pageshow", FmMobile.template_input_textPg.show);
-               
-                 
                  $("#template_pic_pg").live("pageinit", FmMobile.template_pic_pg.load);
                  $("#template_pic_pg").live("pageshow", FmMobile.template_pic_pg .show);
-                 
-                 
                  $("#template_checkinPg").live("pageinit", FmMobile.template_checkinPg.init);
                  $("#template_checkinPg").live("pageshow", FmMobile.template_checkinPg.show);
-                 
-                 
                  $("#template_input_miixit").live("pageinit", FmMobile.template_input_miixit.load);
                  $("#template_input_miixit").live("pageshow", FmMobile.template_input_miixit.show);
-
-                 
-                 $("#template_miixitPg").live("pageinit", FmMobile.template_miixitPg.init);
-                 $("#template_miixitPg").live("pageshow", FmMobile.template_miixitPg.show);
+                 //$("#template_miixitPg").live("pageinit", FmMobile.template_miixitPg.init);
+                 //$("#template_miixitPg").live("pageshow", FmMobile.template_miixitPg.show);
                  $("#template_pic_text_pg").live("pageinit", FmMobile.template_pic_text_pg.load);
                  $("#template_pic_text_pg").live("pageshow", FmMobile.template_pic_text_pg.show);
                  $("#imageTestPg").live("pageinit", FmMobile.imageTestPg.init);
                  $("#imageTestPg").live("pageshow", FmMobile.imageTestPg.show);
-                 
                  $("#cellphoneLoginPg").live("pageinit", FmMobile.cellphoneLoginPg.init);
                  $("#cellphoneLoginPg").live("pageshow", FmMobile.cellphoneLoginPg.show);
-                 
                  $("#fbLoginSuccessPg").live("pageinit", FmMobile.fbLoginSuccessPg.init);
                  $("#fbLoginSuccessPg").live("pageshow", FmMobile.fbLoginSuccessPg.show);
-                 
                  $("#template_input_checkin").live("pageinit", FmMobile.template_input_checkin.load);
                  $("#template_input_checkin").live("pageshow", FmMobile.template_input_checkin.show);
-                 
-                 
-                 
-                 
-                 
-                 $.mobile.page.prototype.options.addBackBtn = true;
-                 
                  $("#settingTocPg").live("pageinit", FmMobile.settingTocPg.init);
                  $("#settingTocPg").live("pageshow", FmMobile.settingTocPg.show);
                  $("#settingTermPg").live("pageinit", FmMobile.settingTermPg.init);
                  $("#settingTermPg").live("pageshow", FmMobile.settingTermPg.show);
                  $("#settingFaqPg").live("pageinit", FmMobile.settingFaqPg.init);
                  $("#settingFaqPg").live("pageshow", FmMobile.settingFaqPg.show);
-                 $("#template_sub_cultural_Pg").live("pageinit", FmMobile.template_sub_cultural_Pg.init);
-                 $("#template_sub_cultural_Pg").live("pageshow", FmMobile.template_sub_cultural_Pg.show);
+                // $("#template_sub_cultural_Pg").live("pageinit", FmMobile.template_sub_cultural_Pg.init);
+                 //$("#template_sub_cultural_Pg").live("pageshow", FmMobile.template_sub_cultural_Pg.show);
                  
                  $.mobile.page.prototype.options.addBackBtn = true;
-                 
+                  $.mobile.page.prototype.options.addBackBtn = true;
                  /*
                  TemplateMgr.getInstance(function(err, _templateMgr){
                                          //alert("templatmgr");
