@@ -3,13 +3,6 @@ var FmMobile = window.FmMobile || {};
 var DEBUG = true,
 FM_LOG = (DEBUG) ? function(str){ console.log("\n[FM] "+str); } : function(str){} ;
 
-
-
-
-
-
-
-
 var local = false,
 localhost = "http://localhost:3000",
 remotesite = starServerURL,
@@ -35,121 +28,109 @@ FmMobile.check_in_pic;
 var templateMgr = null;
 
 $(document).bind("mobileinit", function(){
-                 // Initialization Code here.
-                 // $.mobile.ns = "fm";
-                 $.mobile.allowCrossDomainPages = true;
-                 $.mobile.pushStateEnabled = true;
-                 
-                 //$.mobile.page.prototype.options.addBackBtn = true;
-                 
-                 /* pageinit executed after pagebeforecreate */
-                 $("#indexPg").live("pageinit", FmMobile.indexPg.init);
-                 $("#indexPg").live("pagebeforeshow", FmMobile.indexPg.beforeshow);
-                 $("#indexPg").live("pageshow", FmMobile.indexPg.show);
-                 $("#orie_1").live("pagebeforeshow", FmMobile.orientationPg.init);
-                 $("#orie_1").live("pageshow", FmMobile.orientationPg.show);
-                 $('div[id^="orie"]').live("swipeleft ", FmMobile.orientationPg.swipeleft);
-                 $('div[id^="orie"]').live("swiperight", FmMobile.orientationPg.swiperight);
-                 //	$("#myUgcPg").live("pagebeforecreate", FmMobile.myUgcPg.loadMyVideo);
-                 $("#myUgcPg").live("pageinit", FmMobile.myUgcPg.init);
-                 $("#myUgcPg").live("pageshow", FmMobile.myUgcPg.show);
-                 $("#myUgcPg").live("pageloadlivevideo", FmMobile.myUgcPg.loadMyVideo);
-                 $("#screenPg").live("pageinit", FmMobile.screenPg.init);
-                 $("#screenPg").live("pageshow", FmMobile.screenPg.show);
-                 $("#screenPg").live("pageloadvideo", FmMobile.screenPg.loadVideo);
-                 $("#setting_MainPg").live("pageinit", FmMobile.setting_MainPg.init);
-                 $("#setting_MainPg").live("pageshow", FmMobile.setting_MainPg.show);
-                 $("#tocPg").live("pageshow", FmMobile.tocPg.show);
-                 $("#tocPg").live("pageinit", FmMobile.tocPg.init);
-                 $("#customerQuestionPg").live("pageshow", FmMobile.customerQuestionPg.show);
-                 $("#customerQuestionPg").live("pageinit", FmMobile.customerQuestionPg.init);
-                 $("#loginTocPg").live("pageinit", FmMobile.loginTocPg.init);
-                 $("#loginTocPg").live("pageshow", FmMobile.loginTocPg.show);
-                 
-                 $("#fbLoginPg").live("pageinit", FmMobile.fbLoginPg.init);
-                 $("#fbLoginPg").live("pageshow", FmMobile.fbLoginPg.show);
-                 $("#verificationPg").live("pageinit", FmMobile.verificationPg.init);
-                 $("#verificationPg").live("pageshow", FmMobile.verificationPg.show);
-                 $("#phoneNumInputPg").live("pageinit", FmMobile.phoneNumInputPg.init);
-                 $("#phoneNumInputPg").live("pageshow", FmMobile.phoneNumInputPg.show);
-                 $("#codeInputPg").live("pageinit", FmMobile.codeInputPg.init);
-                 $("#codeInputPg").live("pageshow", FmMobile.codeInputPg.show);
-                 $("#photoCropperPg").live("pageinit", FmMobile.photoCropperPg.load);
-                 $("#photoCropperPg").live("pageshow", FmMobile.photoCropperPg.show);
-                 $("#template_mainTemplatePg").live("pageinit", FmMobile.template_mainTemplatePg.init);
-                 $("#template_mainTemplatePg").live("pageshow", FmMobile.template_mainTemplatePg.show);
-                 $("#template_subTemplatePg").live("pageinit", FmMobile.template_subTemplatePg.init);
-                 $("#template_subTemplatePg").live("pageshow", FmMobile.template_subTemplatePg.show);
-                 $("#template_previewPg").live("pageinit", FmMobile.template_previewPg.init);
-                 $("#template_previewPg").live("pageshow", FmMobile.template_previewPg.show);
-                 $("#template_input_textPg").live("pageinit", FmMobile.template_input_textPg.init);
-                 $("#template_input_textPg").live("pageshow", FmMobile.template_input_textPg.show);
-               
-                 
-                 $("#template_pic_pg").live("pageinit", FmMobile.template_pic_pg.load);
-                 $("#template_pic_pg").live("pageshow", FmMobile.template_pic_pg .show);
-                 
-                 
-                 $("#template_checkinPg").live("pageinit", FmMobile.template_checkinPg.init);
-                 $("#template_checkinPg").live("pageshow", FmMobile.template_checkinPg.show);
-                 
-                 
-                 $("#template_input_miixit").live("pageinit", FmMobile.template_input_miixit.load);
-                 $("#template_input_miixit").live("pageshow", FmMobile.template_input_miixit.show);
+    // Initialization Code here.
+    // $.mobile.ns = "fm";
+    $.mobile.allowCrossDomainPages = true;
+    $.mobile.pushStateEnabled = true;
+    
+    //$.mobile.page.prototype.options.addBackBtn = true;
+    
+    /* pageinit executed after pagebeforecreate */
+    $("#indexPg").live("pageinit", FmMobile.indexPg.init);
+    $("#indexPg").live("pagebeforeshow", FmMobile.indexPg.beforeshow);
+    $("#indexPg").live("pageshow", FmMobile.indexPg.show);
+    $("#orie_1").live("pagebeforeshow", FmMobile.orientationPg.init);
+    $("#orie_1").live("pageshow", FmMobile.orientationPg.show);
+    $('div[id^="orie"]').live("swipeleft ", FmMobile.orientationPg.swipeleft);
+    $('div[id^="orie"]').live("swiperight", FmMobile.orientationPg.swiperight);
+    //	$("#myUgcPg").live("pagebeforecreate", FmMobile.myUgcPg.loadMyVideo);
+    $("#myUgcPg").live("pageinit", FmMobile.myUgcPg.init);
+    $("#myUgcPg").live("pageshow", FmMobile.myUgcPg.show);
+    $("#myUgcPg").live("pageloadlivevideo", FmMobile.myUgcPg.loadMyVideo);
+    $("#screenPg").live("pageinit", FmMobile.screenPg.init);
+    $("#screenPg").live("pageshow", FmMobile.screenPg.show);
+    $("#screenPg").live("pageloadvideo", FmMobile.screenPg.loadVideo);
+    $("#setting_MainPg").live("pageinit", FmMobile.setting_MainPg.init);
+    $("#setting_MainPg").live("pageshow", FmMobile.setting_MainPg.show);
+    $("#tocPg").live("pageshow", FmMobile.tocPg.show);
+    $("#tocPg").live("pageinit", FmMobile.tocPg.init);
+    $("#customerQuestionPg").live("pageshow", FmMobile.customerQuestionPg.show);
+    $("#customerQuestionPg").live("pageinit", FmMobile.customerQuestionPg.init);
+    $("#loginTocPg").live("pageinit", FmMobile.loginTocPg.init);
+    $("#loginTocPg").live("pageshow", FmMobile.loginTocPg.show);
+    
+    $("#fbLoginPg").live("pageinit", FmMobile.fbLoginPg.init);
+    $("#fbLoginPg").live("pageshow", FmMobile.fbLoginPg.show);
+    $("#verificationPg").live("pageinit", FmMobile.verificationPg.init);
+    $("#verificationPg").live("pageshow", FmMobile.verificationPg.show);
+    $("#phoneNumInputPg").live("pageinit", FmMobile.phoneNumInputPg.init);
+    $("#phoneNumInputPg").live("pageshow", FmMobile.phoneNumInputPg.show);
+    $("#codeInputPg").live("pageinit", FmMobile.codeInputPg.init);
+    $("#codeInputPg").live("pageshow", FmMobile.codeInputPg.show);
+    $("#photoCropperPg").live("pageinit", FmMobile.photoCropperPg.load);
+    $("#photoCropperPg").live("pageshow", FmMobile.photoCropperPg.show);
+    $("#template_mainTemplatePg").live("pageinit", FmMobile.template_mainTemplatePg.init);
+    $("#template_mainTemplatePg").live("pageshow", FmMobile.template_mainTemplatePg.show);
+    $("#template_subTemplatePg").live("pageinit", FmMobile.template_subTemplatePg.init);
+    $("#template_subTemplatePg").live("pageshow", FmMobile.template_subTemplatePg.show);
+    $("#template_previewPg").live("pageinit", FmMobile.template_previewPg.init);
+    $("#template_previewPg").live("pageshow", FmMobile.template_previewPg.show);
+    $("#template_input_textPg").live("pageinit", FmMobile.template_input_textPg.init);
+    $("#template_input_textPg").live("pageshow", FmMobile.template_input_textPg.show);
+      
+        
+        $("#template_pic_pg").live("pageinit", FmMobile.template_pic_pg.load);
+    $("#template_pic_pg").live("pageshow", FmMobile.template_pic_pg .show);
+    
+    
+    $("#template_checkinPg").live("pageinit", FmMobile.template_checkinPg.init);
+    $("#template_checkinPg").live("pageshow", FmMobile.template_checkinPg.show);
+    
+    
+    $("#template_input_miixit").live("pageinit", FmMobile.template_input_miixit.load);
+    $("#template_input_miixit").live("pageshow", FmMobile.template_input_miixit.show);
+    
+    
+    $("#template_miixitPg").live("pageinit", FmMobile.template_miixitPg.init);
+    $("#template_miixitPg").live("pageshow", FmMobile.template_miixitPg.show);
+    $("#template_pic_text_pg").live("pageinit", FmMobile.template_pic_text_pg.load);
+    $("#template_pic_text_pg").live("pageshow", FmMobile.template_pic_text_pg.show);
+    $("#imageTestPg").live("pageinit", FmMobile.imageTestPg.init);
+    $("#imageTestPg").live("pageshow", FmMobile.imageTestPg.show);
+    
+    $("#cellphoneLoginPg").live("pageinit", FmMobile.cellphoneLoginPg.init);
+    $("#cellphoneLoginPg").live("pageshow", FmMobile.cellphoneLoginPg.show);
+    
+    $("#fbLoginSuccessPg").live("pageinit", FmMobile.fbLoginSuccessPg.init);
+    $("#fbLoginSuccessPg").live("pageshow", FmMobile.fbLoginSuccessPg.show);
+    
+    $("#template_input_checkin").live("pageinit", FmMobile.template_input_checkin.load);
+    $("#template_input_checkin").live("pageshow", FmMobile.template_input_checkin.show);
+    
+    
+    
+    
+    
+    $.mobile.page.prototype.options.addBackBtn = true;
+    
+    $("#settingTocPg").live("pageinit", FmMobile.settingTocPg.init);
+    $("#settingTocPg").live("pageshow", FmMobile.settingTocPg.show);
+    $("#settingTermPg").live("pageinit", FmMobile.settingTermPg.init);
+    $("#settingTermPg").live("pageshow", FmMobile.settingTermPg.show);
+    $("#settingFaqPg").live("pageinit", FmMobile.settingFaqPg.init);
+    $("#settingFaqPg").live("pageshow", FmMobile.settingFaqPg.show);
+    
+    $.mobile.page.prototype.options.addBackBtn = true;
+    
+    
+    setTimeout(function(){
+               navigator.splashscreen.hide();
+               },3000);
+    
+    
+    FM_LOG("<----------------- LOAD JQM and INIT ----------------->");
 
-                 
-                 $("#template_miixitPg").live("pageinit", FmMobile.template_miixitPg.init);
-                 $("#template_miixitPg").live("pageshow", FmMobile.template_miixitPg.show);
-                 $("#template_pic_text_pg").live("pageinit", FmMobile.template_pic_text_pg.load);
-                 $("#template_pic_text_pg").live("pageshow", FmMobile.template_pic_text_pg.show);
-                 $("#imageTestPg").live("pageinit", FmMobile.imageTestPg.init);
-                 $("#imageTestPg").live("pageshow", FmMobile.imageTestPg.show);
-                 
-                 $("#cellphoneLoginPg").live("pageinit", FmMobile.cellphoneLoginPg.init);
-                 $("#cellphoneLoginPg").live("pageshow", FmMobile.cellphoneLoginPg.show);
-                 
-                 $("#fbLoginSuccessPg").live("pageinit", FmMobile.fbLoginSuccessPg.init);
-                 $("#fbLoginSuccessPg").live("pageshow", FmMobile.fbLoginSuccessPg.show);
-                 
-                 $("#template_input_checkin").live("pageinit", FmMobile.template_input_checkin.load);
-                 $("#template_input_checkin").live("pageshow", FmMobile.template_input_checkin.show);
-                 
-                 
-                 
-                 
-                 
-                 $.mobile.page.prototype.options.addBackBtn = true;
-                 
-                 $("#settingTocPg").live("pageinit", FmMobile.settingTocPg.init);
-                 $("#settingTocPg").live("pageshow", FmMobile.settingTocPg.show);
-                 $("#settingTermPg").live("pageinit", FmMobile.settingTermPg.init);
-                 $("#settingTermPg").live("pageshow", FmMobile.settingTermPg.show);
-                 $("#settingFaqPg").live("pageinit", FmMobile.settingFaqPg.init);
-                 $("#settingFaqPg").live("pageshow", FmMobile.settingFaqPg.show);
-                 
-                 $.mobile.page.prototype.options.addBackBtn = true;
-                 
-                 /*
-                 TemplateMgr.getInstance(function(err, _templateMgr){
-                                         //alert("templatmgr");
-                                         if (!err) {
-                                         templateMgr = _templateMgr;
-                                         FmMobile.mycount=templateMgr.getTemplateList().length;
-                                         }
-                                         else {
-                                         console.log("Fail to get templateMgr: "+err);
-                                         }
-                                         });
-                 */
-                 
-                 setTimeout(function(){
-                            navigator.splashscreen.hide();
-                            },3000);
-                 
-                 
-                 FM_LOG("<----------------- LOAD JQM and INIT ----------------->");
-                 
-                 });
+});
 
 
 
@@ -159,23 +140,38 @@ FmMobile.profile = null;
 FmMobile.ga = null;
 FmMobile.pushNotification = null;
 
-FmMobile.selectedTemplateName=null;
+FmMobile.selectedTemplateName = null;
 
-FmMobile.selectedTemplate = null;  //the main template that the user chooses, such as "miix_it", "cultural_and_creative", "mood", or "check_in"
-FmMobile.selectedSubTemplate = null; //the sub-template that the user chooses. It must be "text", "picture", "text_picture", "check_in",or "video"
+FmMobile.selectedTemplate = null; // the main template that the user chooses,
+                                    // such as "miix_it",
+                                    // "cultural_and_creative", "mood", or
+                                    // "check_in"
+FmMobile.selectedSubTemplate = null; // the sub-template that the user
+                                        // chooses. It must be "text",
+                                        // "picture", "text_picture",
+                                        // "check_in",or "video"
 FmMobile.userContent = {
-text: null,
-picture: {
-urlOfOriginal: null, //the URL of the original picture that the user chooses
-urlOfCropped: null, //the URL of the picture that the user crops. (It is normally a base64 string got from canvas.toDataURL() )
-    //url:null,
-crop: {_x:0, _y:0, _w:1, _h:1},  // _x=x_crop/width_picture; _y=y_crop/height_picture; _w=width_crop/width_picture;  _h=height_crop/height_picture
-},
-thumbnail:{
-url:'https://graph.facebook.com/'+localStorage.fb_userID+'/picture/'
+    text : null,
+    picture : {
+        urlOfOriginal : null, // the URL of the original picture that the user
+                                // chooses
+        urlOfCropped : null, // the URL of the picture that the user crops.
+                                // (It is normally a base64 string got from
+                                // canvas.toDataURL() )
+        // url:null,
+        crop : {
+            _x : 0,
+            _y : 0,
+            _w : 1,
+            _h : 1
+        }, // _x=x_crop/width_picture; _y=y_crop/height_picture;
+            // _w=width_crop/width_picture; _h=height_crop/height_picture
+    },
+    thumbnail : {
+        url : 'https://graph.facebook.com/' + localStorage.fb_userID
+                + '/picture/'
 
-    
-}
+    }
 };
 
 FmMobile.init = {
@@ -280,7 +276,7 @@ isFBTokenValid: function(){
 },
 };
 
-
+//DEPRECATED
 FmMobile.addProcessingWork = function(pid){
     
     var url = remotesite + "/miix/videos/miix_videos";
@@ -303,7 +299,7 @@ FmMobile.addProcessingWork = function(pid){
            });
 };
 
-
+//DEPRECATED
 FmMobile.ajaxNewVideos = function(){
     FM_LOG("[ajaxNewVideos]");
     var videoWorks = ($.jStorage.get("videoWorks")) ? $.jStorage.get("videoWorks") : [];
@@ -367,6 +363,7 @@ FmMobile.ajaxNewVideos = function(){
     }
 };
 
+//DEPRECATED
 FmMobile.ajaxNewStoryVideos = function(){
     
     FM_LOG("[ajaxNewStoryVideos]");
@@ -456,89 +453,111 @@ FmMobile.submitDooh = function(){
 
 
 FmMobile.apn = {
-    
-init: function(){
-    FM_LOG("[APN.init]");
-    FmMobile.pushNotification = window.plugins.pushNotification;
-    FmMobile.apn.registerDevice();
-    FmMobile.apn.getPendingNotification();
-    //FmMobile.apn.getRemoteNotificationStatus();
-    //FmMobile.apn.getDeviceUniqueIdentifier();
-},
-    
-    
-    /* registration on Apple Push Notification servers (via user interaction) & retrieve the token that will be used to push remote notifications to this device. */
-registerDevice: function(){
-    
-    FM_LOG("[APN.registerDevice]");
-    FmMobile.pushNotification.registerDevice({alert:true, badge:true, sound:true}, function(status) {
-                                             
-                                             /*  if successful status is an object that looks like this:
-                                              *  {"type":"7","pushBadge":"1","pushSound":"1","enabled":"1","deviceToken":"blablahblah","pushAlert":"1"}
-                                              */
-                                             FM_LOG('registerDevice status: ' + JSON.stringify(status) );
-                                             if(status && !localStorage.deviceToken){
-                                             localStorage.deviceToken = status.deviceToken;
-                                             }
-                                             });
-},
-    
-    
-    /* it can only retrieve the notification that the user has interacted with while entering the app. Returned params applicationStateActive & applicationLaunchNotification enables you to filter notifications by type. */
-getPendingNotification: function(){
-    FM_LOG("[APN.getPendingNotification]");
-    FmMobile.pushNotification.getPendingNotifications(function(result) {
-                                                      FM_LOG('getPendingNotifications: ' + JSON.stringify(['getPendingNotifications', result]) );
-                                                      //navigator.notification.alert(JSON.stringify(['getPendingNotifications', notifications]));
-                                                      //if(result.notifications.length > 0){
-                                                      FM_LOG("["+result.notifications.length + " Pending Push Notifications.]");
-                                                      FmMobile.apn.setApplicationIconBadgeNumber(0);
-                                                      //}
-                                                      //navigator.notification.alert('You have a new video!');
-                                                      
-                                                      });
-},
-    
-    
-    /* registration check for this device.
+
+    init : function() {
+        FM_LOG("[APN.init]");
+        FmMobile.pushNotification = window.plugins.pushNotification;
+        FmMobile.apn.registerDevice();
+        FmMobile.apn.getPendingNotification();
+        // FmMobile.apn.getRemoteNotificationStatus();
+        // FmMobile.apn.getDeviceUniqueIdentifier();
+    },
+
+    /*
+     * registration on Apple Push Notification servers (via user interaction) &
+     * retrieve the token that will be used to push remote notifications to this
+     * device.
+     */
+    registerDevice : function() {
+
+        FM_LOG("[APN.registerDevice]");
+        FmMobile.pushNotification.registerDevice({
+            alert : true,
+            badge : true,
+            sound : true
+        }, function(status) {
+
+            /*
+             * if successful status is an object that looks like this:
+             * {"type":"7","pushBadge":"1","pushSound":"1","enabled":"1","deviceToken":"blablahblah","pushAlert":"1"}
+             */
+            FM_LOG('registerDevice status: ' + JSON.stringify(status));
+            if (status && !localStorage.deviceToken) {
+                localStorage.deviceToken = status.deviceToken;
+            }
+        });
+    },
+
+    /*
+     * it can only retrieve the notification that the user has interacted with
+     * while entering the app. Returned params applicationStateActive &
+     * applicationLaunchNotification enables you to filter notifications by
+     * type.
+     */
+    getPendingNotification : function() {
+        FM_LOG("[APN.getPendingNotification]");
+        FmMobile.pushNotification.getPendingNotifications(function(result) {
+            FM_LOG('getPendingNotifications: '
+                    + JSON.stringify([ 'getPendingNotifications', result ]));
+            // navigator.notification.alert(JSON.stringify(['getPendingNotifications',
+            // notifications]));
+            // if(result.notifications.length > 0){
+            FM_LOG("[" + result.notifications.length
+                    + " Pending Push Notifications.]");
+            FmMobile.apn.setApplicationIconBadgeNumber(0);
+            // }
+            // navigator.notification.alert('You have a new video!');
+
+        });
+    },
+
+    /*
+     * registration check for this device.
      * {"type":"6","pushBadge":"0","pushSound":"1","enabled":"1","pushAlert":"1"}
      */
-getRemoteNotificationStatus: function(){
-    FM_LOG("[APN.getRemoteNotificationStatus]");
-    FmMobile.pushNotification.getRemoteNotificationStatus(function(status) {
-                                                          FM_LOG('getRemoteNotificationStatus ' + JSON.stringify(status) );
-                                                          //navigator.notification.alert(JSON.stringify(['getRemoteNotificationStatus', status]));
-                                                          });
-},
-    
-    
-    /* set the application badge number (that can be updated by a remote push, for instance, resetting it to 0 after notifications have been processed). */
-setApplicationIconBadgeNumber: function(badgeNum){
-    FM_LOG("[APN.setApplicationIconBadgeNumber]");
-    FmMobile.pushNotification.setApplicationIconBadgeNumber(badgeNum, function(status) {
-                                                            FM_LOG('setApplicationIconBadgeNumber: ' + JSON.stringify(status) );
-                                                            //navigator.notification.alert(JSON.stringify(['setBadge', status]));
-                                                            });
-},
-    
-    
+    getRemoteNotificationStatus : function() {
+        FM_LOG("[APN.getRemoteNotificationStatus]");
+        FmMobile.pushNotification.getRemoteNotificationStatus(function(status) {
+            FM_LOG('getRemoteNotificationStatus ' + JSON.stringify(status));
+            // navigator.notification.alert(JSON.stringify(['getRemoteNotificationStatus',
+            // status]));
+        });
+    },
+
+    /*
+     * set the application badge number (that can be updated by a remote push,
+     * for instance, resetting it to 0 after notifications have been processed).
+     */
+    setApplicationIconBadgeNumber : function(badgeNum) {
+        FM_LOG("[APN.setApplicationIconBadgeNumber]");
+        FmMobile.pushNotification.setApplicationIconBadgeNumber(badgeNum,
+                function(status) {
+                    FM_LOG('setApplicationIconBadgeNumber: '
+                            + JSON.stringify(status));
+                    // navigator.notification.alert(JSON.stringify(['setBadge',
+                    // status]));
+                });
+    },
+
     /* clear all notifications from the notification center. */
-cancelAllLocalNotifications: function(){
-    FM_LOG("[APN.cancelAllLocalNotifications]");
-    FmMobile.pushNotification.cancelAllLocalNotifications(function() {
-                                                          //navigator.notification.alert(JSON.stringify(['cancelAllLocalNotifications']));
-                                                          });
-},
-    
-    
-    //DEPRECATED
-    /* retrieve the original device unique id. (@warning As of today, usage is deprecated and requires explicit consent from the user) */
-getDeviceUniqueIdentifier: function(){
-    FM_LOG("[APN.getDeviceUniqueIdentifier]");
-    pushNotification.getDeviceUniqueIdentifier(function(uuid) {
-                                               FM_LOG('getDeviceUniqueIdentifier: ' + uuid);
-                                               });
-},
+    cancelAllLocalNotifications : function() {
+        FM_LOG("[APN.cancelAllLocalNotifications]");
+        FmMobile.pushNotification.cancelAllLocalNotifications(function() {
+            // navigator.notification.alert(JSON.stringify(['cancelAllLocalNotifications']));
+        });
+    },
+
+    // DEPRECATED
+    /*
+     * retrieve the original device unique id. (@warning As of today, usage is
+     * deprecated and requires explicit consent from the user)
+     */
+    getDeviceUniqueIdentifier : function() {
+        FM_LOG("[APN.getDeviceUniqueIdentifier]");
+        pushNotification.getDeviceUniqueIdentifier(function(uuid) {
+            FM_LOG('getDeviceUniqueIdentifier: ' + uuid);
+        });
+    },
 };
 
 
@@ -706,7 +725,8 @@ FBLogout: function() {
     $.mobile.changePage("fb_login.html");
     
 },
-    
+  
+//DEPRECATED (not called bye anyone)
 sendDeviceToken: function(){
     FM_LOG("[sendDeviceToken] ");
     var url = domain + "/members/device_tokens";
