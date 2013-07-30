@@ -26,13 +26,9 @@ var customizedContent = {};
 var customizableObjects = [];
 var fileSelected;
 var myPhotoCropper;
-<<<<<<< HEAD
 var photoSource; //For Android, source from album or camera
-=======
-
 FmMobile.mycount;
 
->>>>>>> origin/ondascreen_v1_0__integration
 FmMobile.myflag=true;
 FmMobile.check_in_pic;
 
@@ -130,8 +126,11 @@ $(document).bind("mobileinit", function(){
                  $("#settingTermPg").live("pageshow", FmMobile.settingTermPg.show);
                  $("#settingFaqPg").live("pageinit", FmMobile.settingFaqPg.init);
                  $("#settingFaqPg").live("pageshow", FmMobile.settingFaqPg.show);
-                 $("#template_sub_cultural_Pg").live("pageinit", FmMobile.template_sub_cultural_Pg.init);
-                 $("#template_sub_cultural_Pg").live("pageshow", FmMobile.template_sub_cultural_Pg.show);
+<<<<<<< HEAD
+                 $("#template_sub_cultural_Pg").live("pageinit", FmMobile.template_sub_cultural_Pg.init);	//deprecated
+                 $("#template_sub_cultural_Pg").live("pageshow", FmMobile.template_sub_cultural_Pg.show);	//deprecated
+=======
+>>>>>>> 145d1baa7232cc5a688f26daa4ad7c9b19cc3b7a
                  
                  $.mobile.page.prototype.options.addBackBtn = true;
                  

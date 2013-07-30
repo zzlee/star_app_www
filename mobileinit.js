@@ -126,8 +126,6 @@ $(document).bind("mobileinit", function(){
                  $("#settingTermPg").live("pageshow", FmMobile.settingTermPg.show);
                  $("#settingFaqPg").live("pageinit", FmMobile.settingFaqPg.init);
                  $("#settingFaqPg").live("pageshow", FmMobile.settingFaqPg.show);
-                 $("#template_sub_cultural_Pg").live("pageinit", FmMobile.template_sub_cultural_Pg.init);	//deprecated
-                 $("#template_sub_cultural_Pg").live("pageshow", FmMobile.template_sub_cultural_Pg.show);	//deprecated
                  
                  $.mobile.page.prototype.options.addBackBtn = true;
                  
@@ -725,7 +723,7 @@ postFbMessage:function(){
     
     };
     $.post(url,params, function(response){
-           alert("已拿到");
+           alert("已拿);
            });
 }
    
