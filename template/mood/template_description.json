@@ -10,7 +10,6 @@
     "subTemplate":{
         "text_only":{
             "representingImageUrlSub":"images/choose_movie.png",
-
             "selected":"text_only",
             "name":"版型一",
             "outputType":"image",
@@ -29,12 +28,12 @@
                     "maxTextLength":"39"
                 },
                 {
-                    "id":"thumbnail",
-                    "type":"image",
-                    "x":"35",
-                    "y":"33",
-                    "width":"303",
-                    "height":"303",
+                    "id":"thumbnail0",
+                    "type":"thumbnail",
+                    "x":"200",
+                    "y":"80",
+                    "width":"150",
+                    "height":"150",
                     "angle":"0",
                     "description":"大頭貼"
                 }
@@ -49,22 +48,22 @@
             "backgroundImageUrl":"test_bg.jpg",
             "customizableObjects":[
                 {
-                                   "id":"picture0",
-                                   "type":"image",
-                                   "x":"775",
-                                   "y":"22",
-                                   "width":"240",
-                                   "height":"180",
-                                   "angle":"10.36",
-                                   "description":"心情照片"
+                    "id":"picture0",
+                    "type":"image",
+                    "x":"775",
+                    "y":"22",
+                    "width":"240",
+                    "height":"180",
+                    "angle":"10.36",
+                    "description":"心情照片"
                 },
                 {
-                    "id":"thumbnail",
-                    "type":"image",
-                    "x":"35",
-                    "y":"33",
-                    "width":"303",
-                    "height":"303",
+                    "id":"thumbnail0",
+                    "type":"thumbnail",
+                    "x":"190",
+                    "y":"80",
+                    "width":"150",
+                    "height":"150",
                     "angle":"0",
                     "description":"大頭貼"
                 }
@@ -100,8 +99,8 @@
                     "description":"心情照片"
                 },
                 {
-                    "id":"thumbnail",
-                    "type":"image",
+                    "id":"thumbnail0",
+                    "type":"thumbnail",
                     "x":"300",
                     "y":"100",
                     "width":"100",

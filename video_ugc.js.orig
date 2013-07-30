@@ -53,6 +53,7 @@ VideoUgc = (function(){
 					    //upload original image user content file to server
                         var options = new FileUploadOptions();
                         options.fileKey = "file";
+<<<<<<< HEAD
                         if(photoSource == "album"){	//For Android
                         	options.fileName = imageUri.substr(imageUri.lastIndexOf('/')+1) + ".jpg";
                         	photoSource = " ";  //reset the photoSource
@@ -60,6 +61,10 @@ VideoUgc = (function(){
                         	options.fileName = imageUri.substr(imageUri.lastIndexOf('/')+1);
                         }
                         options.mimeType = "image/jpeg"; //TODO: to have mimeType customizable?
+=======
+                        options.fileName = imageFileName;
+                        options.mimeType = "image/jpeg"; //TODO: to have mimeType customizable? 
+>>>>>>> ondascreen_v1_0_build130729
                         options.chunkedMode = true;
                         
                         var ImageCustomizableObjectId = null;
