@@ -3,13 +3,6 @@ var FmMobile = window.FmMobile || {};
 var DEBUG = true,
 FM_LOG = (DEBUG) ? function(str){ console.log("\n[FM] "+str); } : function(str){} ;
 
-
-
-
-
-
-
-
 var local = false,
 localhost = "http://localhost:3000",
 remotesite = starServerURL,
@@ -185,7 +178,7 @@ FmMobile.init = {
 onBodyLoad: function(){
     
     FM_LOG("[Init.onDeviceReady]");
-    
+    document.addEventListener("deviceready", FmMobile.initScript.init, true);
     document.addEventListener("deviceready", FmMobile.analysis.init, true);
     document.addEventListener("deviceready", FmMobile.gcm.init, true);
 //    document.addEventListener("deviceready", FmMobile.apn.init, true);
@@ -283,6 +276,41 @@ isFBTokenValid: function(){
 },
 };
 
+
+FmMobile.initScript = {
+	
+	
+
+	
+	init: function(){
+		if(FmMobile.initScript.isAndroid){
+			$("script").attr("src", "lib/android/cordova-2.2.0.js").appendTo("head");		//import cordova
+			$("script").attr("src", "lib/android/clipboardmanager.js").appendTo("head");	//import clipboard plugin
+			$("script").attr("src", "lib/android/ChildBrowser.js").appendTo("head");		//import external browser plugin
+			$("script").attr("src", "lib/android/GAPlugin.js").appendTo("head");			//import google analytics plugin
+			$("script").attr("src", "lib/android/GCMPlugin.js").appendTo("head");			//import google cluoud messging plugin
+		}else if(FmMobile.initScript.isiOS){
+			$("script").attr("src", "lib/ios/cordova-2.2.0.js").appendTo("head");			//import cordova
+			$("script").attr("src", "lib/ios/clipboardPlugin.js").appendTo("head");			//import clipboard plugin
+			$("script").attr("src", "lib/ios/ChildBrowser.js").appendTo("head");			//import external browser plugin
+			$("script").attr("src", "lib/ios/Pushnotification.js").appendTo("head");		//import push service plugin
+			$("script").attr("src", "lib/ios/GAPlugin.js").appendTo("head");				//import google analytics plugin
+			
+		}
+	},
+	
+	isAndroid: function(){
+		return device.platform == "Android";
+	},
+	
+	
+	isiOS: function(){
+		return device.platform == "iOS";
+		
+	},
+	
+
+};
 
 FmMobile.addProcessingWork = function(pid){
     
@@ -492,7 +520,7 @@ FmMobile.gcm = {
 				// the definition of the e variable is json return defined in "GCMIntentService.java"
 				// In my case on registered I have EVENT, MSG and MSGCNT defined
 				FM_LOG("[GCM.message] " + JSON.stringify(e));
-				FmMobile.ajaxNewVideos();
+//				FmMobile.ajaxNewVideos();
 	            //navigator.notification.alert('You have a video!');
 				break;
 
