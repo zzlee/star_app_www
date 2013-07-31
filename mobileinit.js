@@ -459,7 +459,7 @@ FmMobile.gcm = {
 		//This is from Garbriel
 		//Version: MiixCard_20121227
 		gcmregid: null,
-		senderid: "46997187553",	//project_rId(MiixCard)	
+		senderid: "701982981612",	//project_rId(MiixCard)	
 		//project_rId(gcm_test) = 367333162680
 		
 		init: function(){
