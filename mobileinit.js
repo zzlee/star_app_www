@@ -723,7 +723,7 @@ postFbMessage:function(){
     
     };
     $.post(url,params, function(response){
-           alert("已拿);
+           alert("已拿到");
            });
 }
    

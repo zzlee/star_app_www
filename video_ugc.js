@@ -46,19 +46,20 @@ VideoUgc = (function(){
 			 */
 			askServerToGenerate: function(userContent, ugcInfo, cbOfAskServerToGenerate){
 				ugcProjectId = mainTemplateId +'-'+ ugcInfo.ownerId._id +'-'+ (new Date()).toISOString().replace(/[-:.]/g, "");
-                var imageUri = userContent.picture.urlOfOriginal;
-                var imageFileName = imageUri.substr(imageUri.lastIndexOf('/')+1);
+				var imageUri = userContent.picture.urlOfOriginal;
+                if(photoSource == "album"){	//For Android
+                	var imageFileName = imageUri.substr(imageUri.lastIndexOf('/')+1) + ".jpg";
+                	photoSource = " ";  //reset the photoSource
+                }else{
+                	var imageFileName = imageUri.substr(imageUri.lastIndexOf('/')+1);
+                }
 				async.series([
 					function(callback){
 					    //upload original image user content file to server
                         var options = new FileUploadOptions();
                         options.fileKey = "file";
-                        if(photoSource == "album"){	//For Android
-                        	options.fileName = imageUri.substr(imageUri.lastIndexOf('/')+1) + ".jpg";
-                        	photoSource = " ";  //reset the photoSource
-                        }else{
-                        	options.fileName = imageUri.substr(imageUri.lastIndexOf('/')+1);
-                        }
+//                       	options.fileName = imageUri.substr(imageUri.lastIndexOf('/')+1);
+                       	options.fileName = imageFileName;
                         options.mimeType = "image/jpeg"; //TODO: to have mimeType customizable?
                         options.chunkedMode = true;
                         
