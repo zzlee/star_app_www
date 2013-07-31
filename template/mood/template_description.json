@@ -14,15 +14,15 @@
             "name":"版型一",
             "outputType":"image",
             "description":"文：限39個中文字",
-            "backgroundImageUrl":"test_bg.jpg",
+            "backgroundImageUrl":"mood_text.png",
             "customizableObjects":[
                 {
                     "id":"text0",
                     "type":"text",
-                    "x":"23",
-                    "y":"44",
-                    "width":"303",
-                    "lineHeight":"34",
+                    "x":"665",
+                    "y":"76",
+                    "width":"470",
+                    "lineHeight":"68",
                     "angle":"0",
                     "description":"心情文字",
                     "maxTextLength":"39"
@@ -30,14 +30,17 @@
                 {
                     "id":"thumbnail0",
                     "type":"thumbnail",
-                    "x":"200",
-                    "y":"80",
-                    "width":"150",
-                    "height":"150",
-                    "angle":"0",
-                    "description":"大頭貼"
-                }
-            ]
+                    "x":"1236",
+                    "y":"43",
+                    "width":"157",
+                    "height":"162",
+                    "angle":"5",
+                    "description":"大頭貼",
+                   "fb_x":"1422",
+                   "fb_y":"160",
+                   "fb_angle":"0",
+                   "fb_color":"#603913"
+                                   }            ]
         },
         "picture_only":{
             "representingImageUrlSub":"images/choose_movie.png",
@@ -45,27 +48,30 @@
             "name":"版型二",
             "outputType":"image",
             "description":"圖：上傳一張照片",
-            "backgroundImageUrl":"test_bg.jpg",
+            "backgroundImageUrl":"mood_pic.png",
             "customizableObjects":[
                 {
                     "id":"picture0",
                     "type":"image",
-                    "x":"775",
-                    "y":"22",
-                    "width":"240",
-                    "height":"180",
-                    "angle":"10.36",
+                    "x":"795",
+                    "y":"20",
+                    "width":"332",
+                    "height":"218",
+                    "angle":"0",
                     "description":"心情照片"
                 },
-                {
-                    "id":"thumbnail0",
-                    "type":"thumbnail",
-                    "x":"190",
-                    "y":"80",
-                    "width":"150",
-                    "height":"150",
-                    "angle":"0",
-                    "description":"大頭貼"
+                                   {"id":"thumbnail0",
+                                   "type":"thumbnail",
+                                   "x":"1385",
+                                   "y":"49",
+                                   "width":"150",
+                                   "height":"162",
+                                   "angle":"5",
+                                   "description":"大頭貼",
+                                   "fb_x":"1195",
+                                   "fb_y":"160",
+                                   "fb_angle":"0",
+                                   "fb_color":"#603913"
                 }
             ]
         },
@@ -75,38 +81,42 @@
             "name":"版型三",
             "outputType":"image",
             "description":"文：限24個中文字<br>圖：上傳一張照片",
-            "backgroundImageUrl":"test_bg.jpg",
+            "backgroundImageUrl":"mood_text_and_pic.png",
             "customizableObjects":[
                 {
-                    "id":"text0",
-                    "type":"text",
-                    "x":"10",
-                    "y":"40",
-                    "width":"240",
-                    "lineHeight":"30",
-                    "angle":"0",
-                    "description":"心情文字",
-                    "maxTextLength":"24"
+                                   "id":"text0",
+                                   "type":"text",
+                                   "x":"1033",
+                                   "y":"85",
+                                   "width":"289",
+                                   "lineHeight":"68",
+                                   "angle":"0",
+                                   "description":"心情文字",
+                                   "maxTextLength":"39"
                 },
                 {
                     "id":"picture0",
                     "type":"image",
-                    "x":"775",
+                    "x":"669",
                     "y":"22",
-                    "width":"240",
-                    "height":"180",
-                    "angle":"10.36",
+                    "width":"332",
+                    "height":"218",
+                    "angle":"0",
                     "description":"心情照片"
                 },
                 {
-                    "id":"thumbnail0",
-                    "type":"thumbnail",
-                    "x":"300",
-                    "y":"100",
-                    "width":"100",
-                    "height":"100",
-                    "angle":"0",
-                    "description":"大頭貼"
+                                   "id":"thumbnail0",
+                                   "type":"thumbnail",
+                                   "x":"1385",
+                                   "y":"50",
+                                   "width":"157",
+                                   "height":"162",
+                                   "angle":"5",
+                                   "description":"大頭貼",
+                                   "fb_x":"1558",
+                                   "fb_y":"160",
+                                   "fb_angle":"0",
+                                   "fb_color":"#603913"
                 }
             ]
         }

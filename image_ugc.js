@@ -13,7 +13,7 @@ ImageUgc = (function(){
 		var customizableObjects = [];
 		
 		
-		var drawChineseText = function( text, x, y, maxWidth, lineHeight, angle) {
+		var drawChineseText = function( text, x, y, maxWidth, lineHeight, angle,fontColor) {
 			x = Number(x);
 			y = Number(y);
 			maxWidth = Number(maxWidth);
@@ -28,12 +28,13 @@ ImageUgc = (function(){
 			context.save();
             context.translate(x,y);
             context.rotate(angle*Math.PI/180);
-            context.font = '30px 華康歐陽詢體W5';
+            context.font = '36px 華康歐陽詢體W5';
 		
 			for(var n = 0; n < words.length; n++) {
 				var testLine = line + words[n];
 				var metrics = context.measureText(testLine);
 				var testWidth = metrics.width;
+            
 				if (testWidth > maxWidth && n > 0) {
 					context.fillText(line, cursorX, cursorY);
 					line = words[n];
@@ -42,9 +43,12 @@ ImageUgc = (function(){
 				else {
 					line = testLine;
 				}
-			}
-			context.fillText(line, cursorX, cursorY);
-			context.restore();
+			 context.fillStyle = fontColor;
+
+            }
+           			context.fillText(line, cursorX, cursorY);
+			
+            context.restore();
 		};
 		
 		var drawImage = function(imageUrl, x, y, width, height, angle, cbOfDrawImage){
@@ -246,7 +250,12 @@ ImageUgc = (function(){
 			function(callback){
 			    var imageUrl = null;
 				var iteratorDrawCustomizalbeObjects = function(aCustomizableObject, cbOfIterator){
-					if (aCustomizableObject.type == "image"){
+                      /*
+                      if(aCustomizableObject.type == "shit"){
+                      alert("shit!");
+                      }
+                    
+                      else*/ if (aCustomizableObject.type == "image"){
 						imageUrl = userContent.picture.urlOfCropped;
 						drawImage(imageUrl, aCustomizableObject.x, aCustomizableObject.y, aCustomizableObject.width, aCustomizableObject.height, aCustomizableObject.angle, function(errOfDrawImage){
 							cbOfIterator(errOfDrawImage);
@@ -254,12 +263,18 @@ ImageUgc = (function(){
 					}
 					else if (aCustomizableObject.type == "thumbnail"){
                         imageUrl = userContent.thumbnail.url;
+                      if(aCustomizableObject.x2){
+                      drawImage(imageUrl, aCustomizableObject.x2, aCustomizableObject.y2, aCustomizableObject.width, aCustomizableObject.height, aCustomizableObject.angle, function(errOfDrawImage){
+                                cbOfIterator(errOfDrawImage);
+                                });
+                      }
+                      drawChineseText( localStorage.fb_name, aCustomizableObject.fb_x, aCustomizableObject.fb_y, aCustomizableObject.width, aCustomizableObject.lineHeight, aCustomizableObject.fb_angle,aCustomizableObject.fb_color);
                         drawImage(imageUrl, aCustomizableObject.x, aCustomizableObject.y, aCustomizableObject.width, aCustomizableObject.height, aCustomizableObject.angle, function(errOfDrawImage){
                             cbOfIterator(errOfDrawImage);
                         });
                     }
 					else if (aCustomizableObject.type == "text"){
-						drawChineseText( userContent.text, aCustomizableObject.x, aCustomizableObject.y, aCustomizableObject.width, aCustomizableObject.lineHeight, aCustomizableObject.angle);
+						drawChineseText( userContent.text, aCustomizableObject.x, aCustomizableObject.y, aCustomizableObject.width, aCustomizableObject.lineHeight, aCustomizableObject.angle,aCustomizableObject.text_color);
 						cbOfIterator(null);
 					}
 				};

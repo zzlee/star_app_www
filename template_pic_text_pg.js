@@ -169,7 +169,7 @@ FmMobile.template_pic_text_pg = {
         
         
         
-        var text_limit=24;
+        var text_limit=33;
         $("#ur_text").focusout(function(){
                                
                                if($("#ur_text").val().length>text_limit){

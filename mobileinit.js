@@ -645,6 +645,8 @@ onFBConnected: function(){
            localStorage.fb_accessToken = response.data.accessToken;
             localStorage.verified = (response.data.verified) ? response.data.verified : 'false';
            FmMobile.userContent.thumbnail.url='https://graph.facebook.com/'+localStorage.fb_userID+'/picture/';
+           
+           FmMobile.userContent.fb_name=localStorage.fb_name;
            //localStorage.verified='true';//此行為了測試電話認證！
            FM_LOG("localStorage" + JSON.stringify(localStorage));
            
