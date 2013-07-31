@@ -482,15 +482,34 @@ FmMobile.gcm = {
 				if ( FmMobile.gcm.gcmregid.length > 0 ){
 					FM_LOG("[GCM.Regid: " + e.regid + "]");
 					localStorage.deviceToken = e.regid;
+					var url = remotesite + "/members/" + localStorage._id + "/device_tokens";
+					var data = { 
+							"userID": localStorage._id, 
+							"deviceToken": localStorage.deviceToken
+							};
+					FM_LOG(JSON.stringify(data));
+			        $.ajax({
+			        	type: 'PUT',
+			               url: url,
+			               data: data,
+			               success: function(response){
+			                   if(response){
+			                	   FM_LOG("[updated Device Token] scucess");	   
+			                    }else{
+			                       console.log("[error]");
+			                   }
+			               }
+			        });
 				}
 
+				
 				break;
 
 			  case 'message':
 				// the definition of the e variable is json return defined in "GCMIntentService.java"
 				// In my case on registered I have EVENT, MSG and MSGCNT defined
 				FM_LOG("[GCM.message] " + JSON.stringify(e));
-				FmMobile.ajaxNewVideos();
+//				FmMobile.ajaxNewVideos();
 	            //navigator.notification.alert('You have a video!');
 				break;
 
