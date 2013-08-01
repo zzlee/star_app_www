@@ -186,8 +186,8 @@ onBodyLoad: function(){
     }else if(device.platform == "iOS"){
     	document.addEventListener("deviceready", FmMobile.apn.init, true);
     	document.addEventListener("push-notification", function(event){
-    		FmMobile.ajaxNewVideos();
-    		FmMobile.ajaxNewStoryVideos();
+//    		FmMobile.ajaxNewVideos();
+//    		FmMobile.ajaxNewStoryVideos();
     		FM_LOG("push-notification:");
     		console.dir(event);
     		//navigator.notification.alert(JSON.stringify(['push-notification!', event]));
@@ -239,8 +239,8 @@ onBodyLoad: function(){
 onResume: function(){
     FM_LOG("[Init.onResume]");
     if(localStorage.fb_userID){
-        FmMobile.ajaxNewVideos();
-        FmMobile.ajaxNewStoryVideos();
+//        FmMobile.ajaxNewVideos();
+//        FmMobile.ajaxNewStoryVideos();
         if(device.platform == "iOS"){
         	FmMobile.apn.getPendingNotification();
 //        	recordUserAction("resumes MiixCard app");
@@ -251,7 +251,7 @@ onResume: function(){
     
 onPause: function(){
     if(localStorage.fb_userID){
-        recordUserAction("pauses MiixCard app");
+//        recordUserAction("pauses MiixCard app");
     }
 },
     
@@ -284,7 +284,7 @@ isFBTokenValid: function(){
 },
 };
 
-
+//deprecated
 FmMobile.addProcessingWork = function(pid){
     
     var url = remotesite + "/miix/videos/miix_videos";
@@ -310,108 +310,13 @@ FmMobile.addProcessingWork = function(pid){
 
 FmMobile.ajaxNewVideos = function(){
     FM_LOG("[ajaxNewVideos]");
-    var videoWorks = ($.jStorage.get("videoWorks")) ? $.jStorage.get("videoWorks") : [];
-    var processingWorks = ($.jStorage.get("processingWorks")) ? $.jStorage.get("processingWorks") : {};
-    var url = domain + "/miix/videos/new_videos";
-    var after = -1;
     
-    if(!$.isEmptyObject(processingWorks) || $.isEmptyObject(videoWorks)){
-        for(var pid in processingWorks){
-            if( processingWorks[pid] > after)
-                after = processingWorks[pid];
-        }
-        if(after == -1)
-            after = 0;
-        
-        var query = {
-            "_id": localStorage._id,
-            "accessToken": localStorage.fb_accessToken,
-            "userID": localStorage.fb_userID,
-            "timestamp": Date.now(),
-            "after": after,
-            "genre": 'miix'
-        };
-        
-        // Query if Processing Videos exists .
-        $.get(url, query, function(res){
-              
-              if(res.videoWorks){
-              var newVideos = res.videoWorks;
-              
-              if(newVideos.length > 0){
-              FM_LOG("[New videoWorks Available]: " + JSON.stringify(newVideos) );
-              
-              //var length = videoWorks.length;
-              
-              for(var i=newVideos.length-1; i > -1; i--){
-              //Add new video into videoWorks storage, remove it in processingWorks storage if completed video.
-              //if(newVideos[i].fb_id){
-              videoWorks.unshift(newVideos[i]);
-              if(processingWorks[newVideos[i].projectId])
-              delete processingWorks[newVideos[i].projectId];
-              
-              videoListAdapter.updateDummy(newVideos[i].projectId, newVideos[i]);
-              //}
-              }
-              
-              $.jStorage.set("videoWorks", videoWorks);
-              $.jStorage.set("processingWorks", processingWorks);
-              
-              }else{
-              FM_LOG("[New Videos are not ready yet!]");
-              }
-              
-              }else{
-              FM_LOG("Server Response Error!");
-              }
-              });
-        
-    }else{
-        FM_LOG("[No More Processing Video!]");
-    }
 };
 
 FmMobile.ajaxNewStoryVideos = function(){
     
     FM_LOG("[ajaxNewStoryVideos]");
-    var streetVideos = ($.jStorage.get("streetVideos")) ? $.jStorage.get("streetVideos") : [];
-    var after = -1;
-    var url = remotesite + "/miix/videos/new_videos";
-    
-    if(!$.isEmptyObject(streetVideos)){
-        after = new Date(streetVideos[0].createdOn).getTime(); // First - Newest
-        after += 1;
-    }else{
-        after = 0;
-    }
-    
-    var query = {
-        "_id": localStorage._id,
-        "accessToken": localStorage.fb_accessToken,
-        "userID": localStorage.fb_userID,
-        "timestamp": Date.now(),
-        "after": after,
-        "genre": 'miix_story'
-    };
-    
-    $.get(url, query, function(res){
-          
-          if(res.videoWorks && res.videoWorks.length > 0){
-          
-          var newStreeVideos = res.videoWorks;
-          
-          streetVideos = newStreeVideos.concat(streetVideos);
-          FM_LOG("[StoryVideos] " + JSON.stringify(streetVideos));
-          $.jStorage.set("streetVideos", streetVideos);
-          
-          }else{
-          if(res.error)
-          FM_LOG("[ajaxNewStoryVideos] error: " + res.error);
-          else
-          FM_LOG("[No New StreetVideo]");
-          }
-          });
-    
+   
 };
 
 
@@ -460,8 +365,6 @@ FmMobile.submitDooh = function(){
 
 /** Google Push Service */
 FmMobile.gcm = {
-		//This is from Garbriel
-		//Version: MiixCard_20121227
 		gcmregid: null,
 		senderid: "701982981612",	//project_rId(MiixCard)	
 		//project_rId(gcm_test) = 367333162680
@@ -486,25 +389,27 @@ FmMobile.gcm = {
 				if ( FmMobile.gcm.gcmregid.length > 0 ){
 					FM_LOG("[GCM.Regid: " + e.regid + "]");
 					localStorage.deviceToken = e.regid;
-					var url = remotesite + "/members/" + localStorage._id + "/device_tokens";
-					var data = { 
+					
+					if(localStorage._id){	//if exsits updated device token
+						var url = remotesite + "/members/" + localStorage._id + "/device_tokens";
+						var data = { 
 							"userID": localStorage._id,
 							"platform": device.platform,
 							"deviceToken": localStorage.deviceToken
 							};
-					FM_LOG(JSON.stringify(data));
-			        $.ajax({
-			        	type: 'PUT',
-			               url: url,
-			               data: data,
-			               success: function(response){
+						FM_LOG(JSON.stringify(data));
+						$.ajax({
+							type: 'PUT',
+							url: url,
+							data: data,
+							success: function(response){
 			                   if(response.message){
 			                	   FM_LOG("[DeviceToken] from Server : " + response.message);	   
 			                   }
 			               }
-			        });
+						});
+					}
 				}
-
 				
 				break;
 
@@ -513,7 +418,7 @@ FmMobile.gcm = {
 				// In my case on registered I have EVENT, MSG and MSGCNT defined
 				FM_LOG("[GCM.message] " + JSON.stringify(e));
 //				FmMobile.ajaxNewVideos();
-	            navigator.notification.alert('You have a video!');
+//	            navigator.notification.alert('You have a video!');
 				break;
 
 			  case 'error':
@@ -620,7 +525,9 @@ FmMobile.apn = {
 };
 
 
-/** Google Analytics */
+/** Google Analytics
+ *  Platform : Android and iOS 
+ * */
 FmMobile.analysis = {
 	    
 	    nativePluginResultHandler: function(result){
@@ -756,8 +663,8 @@ onFBConnected: function(){
            FM_LOG("localStorage" + JSON.stringify(localStorage));
            
            // Each time of Login, pull all videos.
-           FmMobile.ajaxNewVideos();
-           FmMobile.ajaxNewStoryVideos();
+//           FmMobile.ajaxNewVideos();
+//           FmMobile.ajaxNewStoryVideos();
            
            if(localStorage.verified == 'true'){
            $.mobile.changePage("template-main_template.html");
@@ -795,7 +702,8 @@ FBLogout: function() {
     $.mobile.changePage("fb_login.html");
     
 },
-    
+
+//deprecated
 sendDeviceToken: function(){
     FM_LOG("[sendDeviceToken] ");
     var url = domain + "/members/device_tokens";
@@ -827,7 +735,7 @@ postFbMessage:function(){
     
     };
     $.post(url,params, function(response){
-           alert("已拿);
+           alert("已拿到");
            });
 }
    

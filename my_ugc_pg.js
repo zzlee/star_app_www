@@ -1,6 +1,7 @@
 FmMobile.myUgcPg = {
     PAGE_ID: "myUgcPg",
     myVideos: null,
+    myLivevideos: null,
     
     init: function(){
         FM_LOG("[myUgcPg] pageinit");
@@ -29,8 +30,7 @@ FmMobile.myUgcPg = {
                           FmMobile.myUgcPg.myVideos.push(data);
                               
                         });
-                          FmMobile.myUgcPg.loadLiveVideo(FmMobile.myUgcPg.myVideos, "video");
-//                        FmMobile.myUgcPg.test(FmMobile.myUgcPg.myVideos);
+                          FmMobile.myUgcPg.loadVideo(FmMobile.myUgcPg.myVideos, "video");
                     }else{
                        console.log("[error] : " + response.error);
                    }
@@ -38,21 +38,25 @@ FmMobile.myUgcPg = {
         });
 
         
+        //TODO:load live video with ajax
+
+     
         
     },
     
     show: function(){
         FM_LOG("[myUgcPg] pageshow");
         $("#btnMiixMovie").click(function(){
-             FmMobile.myUgcPg.loadLiveVideo(FmMobile.myUgcPg.myVideos, "video");
+             FmMobile.myUgcPg.loadVideo(FmMobile.myUgcPg.myVideos, "video");
          
          });
         $("#btnLiveMovie").click(function(){
-             FmMobile.myUgcPg.loadLiveVideo(FmMobile.myUgcPg.myVideos, "live");
+             FmMobile.myUgcPg.loadVideo(FmMobile.myUgcPg.myVideos, "live");
+//             TODO : FmMobile.myUgcPg.loadVideo(FmMobile.myUgcPg.myLiveVideos, "live");
          
          });
         
-        FmMobile.myUgcPg.loadLiveVideo(FmMobile.myUgcPg.myVideos, "video");
+        FmMobile.myUgcPg.loadVideo(FmMobile.myUgcPg.myVideos, "video");
     },
     
     test: function(arry){
@@ -60,8 +64,8 @@ FmMobile.myUgcPg = {
         console.log(arry[i]);
     },
     
-    loadLiveVideo: function(arryVideo, type){
-        FM_LOG("[myUgcPg] loadLiveVideo");
+    loadVideo: function(arryVideo, type){
+        FM_LOG("[myUgcPg] loadVideo");
         console.log('[Type] : ' + type);
         var parent = $("#my-video-list");
         

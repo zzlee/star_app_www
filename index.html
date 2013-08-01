@@ -78,6 +78,8 @@
         		document.write('<script src="./lib/android/ChildBrowser.js"><\/script>');
         		document.write('<script src="./lib/android/GAPlugin.js"><\/script>');
         		document.write('<script src="./lib/android/GCMPlugin.js"><\/script>');
+        		//Android Debugger
+        		document.write('<script src="http://jsconsole.com/remote.js?AEB05999-F5F1-44A8-B2A8-54F1BFB355E4">'+ '<\/script>');
         	}else if((navigator.userAgent.indexOf("iPhone") != -1) || (navigator.userAgent.indexOf("iPad") != -1) || (navigator.userAgent.indexOf("iPod") != -1)){
      	 	    document.write('<script src="/lib/ios/cordova-2.2.0.js"><\/script>');
      	 	  	document.write('<script src="/lib/ios/clipboardPlugin.js"><\/script>');
@@ -86,7 +88,6 @@
      	 		document.write('<script src="/lib/ios/GAPlugin.js"><\/script>');
      	 	}
         </script>
-	<script src="http://jsconsole.com/remote.js?5298C87B-DC27-4CB4-B4A6-7081AA74112D"></script>
     </head>
     <body onload="FmMobile.init.onBodyLoad();">
         <div data-role="page" id="indexPg" class="fm_page" style='background-image: url("./images/bg/fb_login_bg.png");'>
