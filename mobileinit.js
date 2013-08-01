@@ -3,13 +3,6 @@ var FmMobile = window.FmMobile || {};
 var DEBUG = true,
 FM_LOG = (DEBUG) ? function(str){ console.log("\n[FM] "+str); } : function(str){} ;
 
-
-
-
-
-
-
-
 var local = false,
 localhost = "http://localhost:3000",
 remotesite = starServerURL,
@@ -184,22 +177,30 @@ onBodyLoad: function(){
     
     FM_LOG("[Init.onDeviceReady]");
     
-    document.addEventListener("deviceready", FmMobile.analysis.init, true);
-    document.addEventListener("deviceready", FmMobile.gcm.init, true);
-//    document.addEventListener("deviceready", FmMobile.apn.init, true);
-    document.addEventListener("deviceready", FmMobile.init.isFBTokenValid, true);
     
+    
+    
+    if(device.platform == "Android"){
+    	
+    	document.addEventListener("deviceready", FmMobile.gcm.init, true);	
+    }else if(device.platform == "iOS"){
+    	document.addEventListener("deviceready", FmMobile.apn.init, true);
+    	document.addEventListener("push-notification", function(event){
+    		FmMobile.ajaxNewVideos();
+    		FmMobile.ajaxNewStoryVideos();
+    		FM_LOG("push-notification:");
+    		console.dir(event);
+    		//navigator.notification.alert(JSON.stringify(['push-notification!', event]));
+    		navigator.notification.alert('You have a new video!');
+    		//alert(event);
+    	});
+    }
+    
+    document.addEventListener("deviceready", FmMobile.analysis.init, true);
+    document.addEventListener("deviceready", FmMobile.init.isFBTokenValid, true);
     document.addEventListener("resume", FmMobile.init.onResume, false);
     document.addEventListener("pause", FmMobile.init.onPause, false);
-//        document.addEventListener("push-notification", function(event){
-//            FmMobile.ajaxNewVideos();
-//            FmMobile.ajaxNewStoryVideos();
-//            FM_LOG("push-notification:");
-//            console.dir(event);
-//            //navigator.notification.alert(JSON.stringify(['push-notification!', event]));
-//            navigator.notification.alert('You have a new video!');
-//            //alert(event);
-//        });
+
     
     //TODO:
     //document.addEventListener("touchmove", function(e){ e.preventDefault(); }, true);
@@ -240,8 +241,10 @@ onResume: function(){
     if(localStorage.fb_userID){
         FmMobile.ajaxNewVideos();
         FmMobile.ajaxNewStoryVideos();
-//        FmMobile.apn.getPendingNotification();
-        recordUserAction("resumes MiixCard app");
+        if(device.platform == "iOS"){
+        	FmMobile.apn.getPendingNotification();
+//        	recordUserAction("resumes MiixCard app");
+        }
         FmMobile.init.isFBTokenValid();
     }
 },
@@ -455,6 +458,7 @@ FmMobile.submitDooh = function(){
 };
 
 
+/** Google Push Service */
 FmMobile.gcm = {
 		//This is from Garbriel
 		//Version: MiixCard_20121227
@@ -509,7 +513,7 @@ FmMobile.gcm = {
 				// In my case on registered I have EVENT, MSG and MSGCNT defined
 				FM_LOG("[GCM.message] " + JSON.stringify(e));
 //				FmMobile.ajaxNewVideos();
-	            //navigator.notification.alert('You have a video!');
+	            navigator.notification.alert('You have a video!');
 				break;
 
 			  case 'error':
@@ -533,8 +537,90 @@ FmMobile.gcm = {
 		},	
 };
 
+/** Apple Push Notifcation */
+FmMobile.apn = {
+		init: function(){
+		    FM_LOG("[APN.init]");
+		    FmMobile.pushNotification = window.plugins.pushNotification;
+		    FmMobile.apn.registerDevice();
+		    FmMobile.apn.getPendingNotification();
+		    FmMobile.apn.getRemoteNotificationStatus();
+		    FmMobile.apn.getDeviceUniqueIdentifier();
+		},
+		    
+		    
+		/* registration on Apple Push Notification servers (via user interaction) & retrieve the token that will be used to push remote notifications to this device. */
+		registerDevice: function(){
+		    FM_LOG("[APN.registerDevice]");
+		    FmMobile.pushNotification.registerDevice({alert:true, badge:true, sound:true}, function(status) {
+		    	/*  if successful status is an object that looks like this:
+		    	 *  {"type":"7","pushBadge":"1","pushSound":"1","enabled":"1","deviceToken":"blablahblah","pushAlert":"1"}
+		    	 */
+		    	FM_LOG('registerDevice status: ' + JSON.stringify(status) );
+		    	if(status && !localStorage.deviceToken){
+		    		localStorage.deviceToken = status.deviceToken;
+		    	}
+		    });
+		},
+		    
+	    /* it can only retrieve the notification that the user has interacted with while entering the app. Returned params applicationStateActive & applicationLaunchNotification enables you to filter notifications by type. */
+		getPendingNotification: function(){
+		    FM_LOG("[APN.getPendingNotification]");
+		    FmMobile.pushNotification.getPendingNotifications(function(result) {
+		    	FM_LOG('getPendingNotifications: ' + JSON.stringify(['getPendingNotifications', result]) );
+		    	//navigator.notification.alert(JSON.stringify(['getPendingNotifications', notifications]));
+		    	//if(result.notifications.length > 0){
+		    	FM_LOG("["+result.notifications.length + " Pending Push Notifications.]");
+		    	FmMobile.apn.setApplicationIconBadgeNumber(0);
+		    	//}
+		    	//navigator.notification.alert('You have a new video!');
+		                                                      
+		    });
+		},
+		    
+	    /* registration check for this device.
+	     * {"type":"6","pushBadge":"0","pushSound":"1","enabled":"1","pushAlert":"1"}
+	     */
+		getRemoteNotificationStatus: function(){
+		    FM_LOG("[APN.getRemoteNotificationStatus]");
+		    FmMobile.pushNotification.getRemoteNotificationStatus(function(status) {
+		                                                          FM_LOG('getRemoteNotificationStatus ' + JSON.stringify(status) );
+		                                                          //navigator.notification.alert(JSON.stringify(['getRemoteNotificationStatus', status]));
+		                                                          });
+		},
+		    
+		    
+	    /* set the application badge number (that can be updated by a remote push, for instance, resetting it to 0 after notifications have been processed). */
+		setApplicationIconBadgeNumber: function(badgeNum){
+		    FM_LOG("[APN.setApplicationIconBadgeNumber]");
+		    FmMobile.pushNotification.setApplicationIconBadgeNumber(badgeNum, function(status) {
+		                                                            FM_LOG('setApplicationIconBadgeNumber: ' + JSON.stringify(status) );
+		                                                            //navigator.notification.alert(JSON.stringify(['setBadge', status]));
+		                                                            });
+		},
+		    
+		    
+	    /* clear all notifications from the notification center. */
+		cancelAllLocalNotifications: function(){
+		    FM_LOG("[APN.cancelAllLocalNotifications]");
+		    FmMobile.pushNotification.cancelAllLocalNotifications(function() {
+		    	//navigator.notification.alert(JSON.stringify(['cancelAllLocalNotifications']));
+		    });
+		},
+		    
+		    
+		    //DEPRECATED
+		    /* retrieve the original device unique id. (@warning As of today, usage is deprecated and requires explicit consent from the user) */
+		getDeviceUniqueIdentifier: function(){
+		    FM_LOG("[APN.getDeviceUniqueIdentifier]");
+		    pushNotification.getDeviceUniqueIdentifier(function(uuid) {
+		                                               FM_LOG('getDeviceUniqueIdentifier: ' + uuid);
+		                                               });
+		},
+};
 
 
+/** Google Analytics */
 FmMobile.analysis = {
 	    
 	    nativePluginResultHandler: function(result){
@@ -547,11 +633,11 @@ FmMobile.analysis = {
 	    
 	    init: function(){
 	        FM_LOG("[analysis.init]");
-	        var gaId = "UA-37288251-4"; 
+	        var gaId = "UA-37288251-1"; 
 	        //UA-37288251-4 : http://www.feltmeng.idv.tw
 	        //UA-37288251-1 : http://www.miix.tv
 	        FmMobile.ga = window.plugins.gaPlugin;
-	        FmMobile.ga.init(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, gaId, 30);
+	        FmMobile.ga.init(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, gaId, 10);
 	    },
 	    
 	    goingAway: function(){
@@ -741,7 +827,7 @@ postFbMessage:function(){
     
     };
     $.post(url,params, function(response){
-           alert("已拿到");
+           alert("已拿);
            });
 }
    
