@@ -484,7 +484,8 @@ FmMobile.gcm = {
 					localStorage.deviceToken = e.regid;
 					var url = remotesite + "/members/" + localStorage._id + "/device_tokens";
 					var data = { 
-							"userID": localStorage._id, 
+							"userID": localStorage._id,
+							"platform": device.platform,
 							"deviceToken": localStorage.deviceToken
 							};
 					FM_LOG(JSON.stringify(data));
@@ -493,10 +494,8 @@ FmMobile.gcm = {
 			               url: url,
 			               data: data,
 			               success: function(response){
-			                   if(response){
-			                	   FM_LOG("[updated Device Token] scucess");	   
-			                    }else{
-			                       console.log("[error]");
+			                   if(response.message){
+			                	   FM_LOG("[DeviceToken] from Server : " + response.message);	   
 			                   }
 			               }
 			        });
