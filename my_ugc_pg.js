@@ -233,6 +233,9 @@ test: function(arry){
                     break;
                 case "imgError":
                 case "imgS3":
+                                          
+                                          FmMobile.srcForMyUgcViewer=this.src;
+                  $.mobile.changePage('cropper_test.html');
                     console.log("you chosse the error item or the image");
                     break;
                 default:

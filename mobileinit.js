@@ -27,8 +27,10 @@ var customizableObjects = [];
 var fileSelected;
 var myPhotoCropper;
 
+FmMobile.or_pic_height;
+FmMobile.or_pic_width;
 FmMobile.mycount;
-
+FmMobile.srcForMyUgcViewer;
 FmMobile.myflag=true;
 FmMobile.check_in_pic;
 
@@ -43,6 +45,26 @@ $(document).bind("mobileinit", function(){
                  //$.mobile.page.prototype.options.addBackBtn = true;
                  
                  /* pageinit executed after pagebeforecreate */
+                 $("#cropperTestPg").live("pageinit", FmMobile.cropperTestPg.load);
+                 $("#cropperTestPg").live("pageshow", FmMobile.cropperTestPg.show);
+                 
+                 $("#ohohshit").live('click',function(){
+                                     alert("humm....");
+                                     });
+                 $("map > #mapAreaBack").live("click",FmMobile.orientationPg.swiperight);
+                 $("map > #mapAreaNext").live("click",FmMobile.orientationPg.swipeleft);
+                   
+                                  /*
+                 $('#mapArea').live('pagebeforeshow',function(){
+                                alert("no");
+                                      //var change_css = ($('body').width());
+                                     
+                                      //alert(change_css);
+                                      });
+
+                 */
+                 
+                 
                  $("#indexPg").live("pageinit", FmMobile.indexPg.init);
                  $("#indexPg").live("pagebeforeshow", FmMobile.indexPg.beforeshow);
                  $("#indexPg").live("pageshow", FmMobile.indexPg.show);
@@ -50,6 +72,11 @@ $(document).bind("mobileinit", function(){
                  $("#orie_1").live("pageshow", FmMobile.orientationPg.show);
                  $('div[id^="orie"]').live("swipeleft ", FmMobile.orientationPg.swipeleft);
                  $('div[id^="orie"]').live("swiperight", FmMobile.orientationPg.swiperight);
+                 $('div[id^="orie"]').live("pageshow", function(){
+                                          // alert(FmMobile.or_pic_height);
+        $('#mapAreaBack').attr("coords","0,"+((FmMobile.or_pic_height)*0.5)+","+((FmMobile.or_pic_height)*0.25)+'"');
+$('#mapAreaNext').attr("coords","'"+FmMobile.or_pic_width+","+((FmMobile.or_pic_height)*0.5)+","+((FmMobile.or_pic_height)*0.25)+'"');
+                                           });
                  $("#myUgcPg").live("pageinit", FmMobile.myUgcPg.init);
                  $("#myUgcPg").live("pageshow", FmMobile.myUgcPg.show);
                  $("#myUgcPg").live("pageloadlivevideo", FmMobile.myUgcPg.loadMyVideo);
@@ -109,6 +136,11 @@ $(document).bind("mobileinit", function(){
                 // $("#template_sub_cultural_Pg").live("pageinit", FmMobile.template_sub_cultural_Pg.init);
                  //$("#template_sub_cultural_Pg").live("pageshow", FmMobile.template_sub_cultural_Pg.show);
                  
+                 
+                 
+
+               
+                                 
                  $.mobile.page.prototype.options.addBackBtn = true;
                   $.mobile.page.prototype.options.addBackBtn = true;
                  /*
