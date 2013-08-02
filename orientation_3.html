@@ -49,13 +49,16 @@
 	<div class="orientation_container" data-role="content">
         
 
-<div class="text_container"><img class="text_img" src="images/orientation-pic.png"></div>
+<div class="text_container"><img  id="or_pic" usemap="#planetmap" class="text_img" src="images/orientation-pic.png"></div>
 <div class="orientation_text">徵選</div>
 <div class="text_container"><img class="page_icon_img" src="images/next.png"></div>
 
         
 	<!-- /navbar -->
-
+        <map   name="planetmap">
+            <area id="mapAreaBack" shape="circle" coords="0,0,100" href="javascript:void(0)" >
+                <area id="mapAreaNext" shape="circle" coords="0,100,100" href="javascript:void(0)">
+                    </map>
 </div>
 </body>
 </html>

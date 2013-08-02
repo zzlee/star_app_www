@@ -36,11 +36,28 @@ FmMobile.orientationPg = {
     init: function(){
         FmMobile.orientationPg.idx = 1;
         $('#nav-bar').hide();
+        //$('#mapArea').attr("coords","0,0,100,100");
+        //var or_pic_width = ($('#or_pic').width());
+       // var or_pic_height = ($('#or_pic').height());
+        //alert(or_pic_width);
+        //alert(or_pic_height);
 
         
     },
         
     show: function(){
+        var or_pic_height = ($('#or_pic').height());
+        var or_pic_width = ($('#or_pic').width());
+        
+        FmMobile.or_pic_height=or_pic_height;
+        FmMobile.or_pic_width=or_pic_width;
+        //var map_height= (FmMobile.or_pic_height)*0.5;
+         //var map_height_2= (FmMobile.or_pic_height)*0.25;
+        //$('#mapAreaBack').attr("coords","0,"+map_height+","+map_height_2+'"');
+        //$('#mapAreaNext').attr("coords","'"+FmMobile.or_pic_width+","+map_height+","+map_height_2+'"');
+
+
+       // alert(or_pic_height);
         //FmMobile.analysis.trackPage("/orientationPg");
         //FmMobile.push.registerDevice();
     },
