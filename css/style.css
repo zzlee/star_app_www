@@ -438,6 +438,15 @@ padding:5% 5%;
 	margin-left: 5%;
 	position:relative;
 }
+.content-movie-long{
+	background-image:url(../images/big_frame_long.png);
+	background-repeat:no-repeat;
+	background-size:100%;
+	width: 90%;
+	margin-top: 5%;
+	margin-left: 5%;
+	position:relative;
+}
 .content-movie-img{
     position:absolute;
 	top: 0;
@@ -446,6 +455,16 @@ padding:5% 5%;
     right: 0;
 	width:95%;
 	margin-top:3.5%;
+	margin-left:3%;
+}
+.content-movie-img-long{
+    position:absolute;
+	top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+	width:95%;
+	margin-top:14%;
 	margin-left:3%;
 }
 
@@ -713,6 +732,9 @@ padding:5% 5%;
 .movie-pic-dummy{
 	padding-top: 60%; /* 16:9 aspect ratio */
 }
+.movie-pic-dummy-long{
+	padding-top: 20%; /* 16:2.4 aspect ratio */
+}
 .movie-pic-img{
 	position:absolute;
 	top: 0;
@@ -753,7 +775,11 @@ padding:5% 5%;
     padding-top:6%;
 
 }    
-
+hr{
+	border:none;
+	border-top:1px solid #8c6239;
+	height:0;
+}
 
 /* Orientation------------------------------------------------------------*/
 .orientation{
@@ -839,7 +865,7 @@ padding:5% 5%;
 }
 .customer_button_text{
 	position:absolute;
-	margin-left:15%;
+	margin-left:18%;
 	margin-top:3%;
 	text-align:center;
 	font-size:100%;
