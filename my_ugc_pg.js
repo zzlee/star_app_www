@@ -30,7 +30,7 @@ FmMobile.myUgcPg = {
                           FmMobile.myUgcPg.myContents.push(data);
                               
                         });
-                          FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myContents, "content");
+                          FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myContents);
 
                     }else{
                        console.log("[error] : " + response.error);
@@ -49,7 +49,6 @@ FmMobile.myUgcPg = {
          
          });
         $("#btnLiveMovie").click(function(){
-//             FmMobile.myUgcPg.loadLiveVideo(FmMobile.myUgcPg.myContents, "live");
              //API : /miix/members/:memberId/live_contents
              FmMobile.myUgcPg.myLiveContents = new Array();
              var urlLiveContents = remotesite + "/miix/members/" + localStorage._id + "/live_contents";
@@ -70,7 +69,7 @@ FmMobile.myUgcPg = {
                                    FmMobile.myUgcPg.myLiveContents.push(data);
                                    
                                 });
-                                FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myLiveContents, "live");
+                                FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myLiveContents);
                             }else{
                                 console.log("[error] : " + response.error);
                             }
@@ -79,9 +78,9 @@ FmMobile.myUgcPg = {
             FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myLiveContents);
          
          });
-        if(FmMobile.myUgcPg.myContents != null){
+//        if(FmMobile.myUgcPg.myContents != null){
             FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myContents);
-        }
+//        }
     },
     
 test: function(arry){
@@ -134,15 +133,10 @@ test: function(arry){
                                                           src: "images/facebook.png"
                                                           });
                         this.shareFbDiv.appendTo(info);
-//                        if(type == "video"){
-                            this.numberDiv = $("<div>").attr({class: "my-video-number"});
-                            this.numberDiv.html("NO." + arryVideo[i].No);
-                            this.numberDiv.appendTo(info);
-                            info.appendTo(widget);
-//                        }else if(type == "live"){
-//                            info.appendTo(widget);
-//                        }
-                        
+                        this.numberDiv = $("<div>").attr({class: "my-video-number"});
+                        this.numberDiv.html("NO." + arryContents[i].No);
+                        this.numberDiv.appendTo(info);
+                        info.appendTo(widget);
 
                     }else{
                         this.videoThumbnail = $("<img>").attr({
@@ -151,8 +145,6 @@ test: function(arry){
                                                               class: "content-movie-img"
                                                               });
                         this.videoThumbnail.appendTo(widget);
-//                        console.log("[myUgcPg] no youtube url");
-//                        continue;
                     }
                     widget.appendTo(parent);
                     break;
@@ -161,10 +153,8 @@ test: function(arry){
                         //Get the image's name
                         var projectId = arryContents[i].ProjectId;
                         console.log("s3 :" + arryContents[i].Url.s3);
-                                            var s3Url = arryContents[i].Url.s3;
-//                        console.log(i + " s3ImageName : " + s3ImageName);
+                        var s3Url = arryContents[i].Url.s3;
                         this.imageThumbnail = $("<img>").attr({
-                                                              //set image's name to id
                                                               id: "imgS3_" +projectId,
                                                               src: s3Url,
                                                               class: "content-movie-img"
@@ -189,8 +179,6 @@ test: function(arry){
                         this.numberDiv.html("NO." + arryContents[i].No);
                         this.numberDiv.appendTo(info);
                         info.appendTo(widget);
-
-
 
                         widget.appendTo(parent);
                     break;
