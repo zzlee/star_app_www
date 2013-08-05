@@ -249,13 +249,44 @@ test: function(arry){
         $('#my-video-info>img').click(function(){
             var imgID = this.id;        //
             var tmpIDArray = this.id.split('_');
+                                      
+                                      
+                                      
+                                      /** template naming
+                                       * copyUrlS3_template-xxxxxxx-xxxxxxxx
+                                       * type:
+                                       * 		mood-xxxxxxx
+                                       * 		check_in-xxxxxxxx
+                                       * 		cultural_and_creative-xxxxxxx
+                                       *
+                                       * */
+                                           
             //            for(var i = 0; i < tmpIDArray.length; i++)
             //                console.log("id.split[" + i + "] :" + tmpIDArray[i]);
 
-            if(tmpIDArray.length > 2)
-            tmpIDArray[0] = tmpIDArray[1] + "_" + tmpIDArray[2] + "_" + tmpIDArray[3];
+           // if(tmpIDArray.length > 2)
+             // tmpIDArray[0] = tmpIDArray[1] + "_" + tmpIDArray[2] + "_" + tmpIDArray[3];
 
             console.log("tmpIdArray[0] :" + tmpIDArray[0]);
+                                      
+                                      
+                                      if(tmpIDArray.length == 2){
+                                      //For youtube and mood
+                                      tmpIDArray[1] = tmpIDArray[1];
+                                      }else if(tmpIDArray.length == 3){
+                                      //For check_in
+                                      tmpIDArray[1] = tmpIDArray[1] + "_" + tmpIDArray[2];
+                                      }else if(tmpIDArray.length == 4){
+                                      //For cultural_and_creative
+                                      tmpIDArray[1] = tmpIDArray[1] + "_" + tmpIDArray[2] + "_" + tmpIDArray[3];
+                                      }else if(tmpIDArray.length == 8){
+                                      tmpIDArray[1] = tmpIDArray[1] + "_" + tmpIDArray[2] + "_" + tmpIDArray[3]+ "_" + tmpIDArray[4]+ "_" + tmpIDArray[5]+ "_" + tmpIDArray[6]+ "_" + tmpIDArray[7];
+                                      
+                                      }else{
+                                      //Type is wrong.
+                                      tmpIDarray[0] = "error";
+                                      }
+
 
             switch(tmpIDArray[0]){
                 case "copyUrl":
@@ -264,6 +295,18 @@ test: function(arry){
                     break;
                 case "shareFb":
                     alert("share to FB");
+                                      if(tmpIDArray.length==2){
+                                      FmMobile.shareFbType="video";
+                                      FmMobile.srcForMyUgcViewer="http://img.youtube.com/vi/"+tmpIDArray[1]+"/mqdefault.jpg";
+                                       FmMobile.youtubeVideoUrl="http://www.youtube.com/embed/" +tmpIDArray[1] + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1";
+                                      $.mobile.changePage('facebook_share.html');
+                                      }else{
+                                      FmMobile.shareFbType="image";
+
+                                      FmMobile.srcForMyUgcViewer=tmpIDArray[1];
+                                      $.mobile.changePage('facebook_share.html');
+                                      }
+
                     break;
                 case "copyUrlS3":
                     console.log("S3 URL " + tmpIDArray[1]);

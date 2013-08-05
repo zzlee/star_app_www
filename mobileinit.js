@@ -27,6 +27,9 @@ var customizableObjects = [];
 var fileSelected;
 var myPhotoCropper;
 
+FmMobile.shareFbType;
+FmMobile.youtubeVideoUrl;
+FmMobile.youtubeShareFbImg;
 FmMobile.or_pic_height;
 FmMobile.or_pic_width;
 FmMobile.mycount;
@@ -133,6 +136,8 @@ $('#mapAreaNext').attr("coords","'"+FmMobile.or_pic_width+","+((FmMobile.or_pic_
                  $("#settingTermPg").live("pageshow", FmMobile.settingTermPg.show);
                  $("#settingFaqPg").live("pageinit", FmMobile.settingFaqPg.init);
                  $("#settingFaqPg").live("pageshow", FmMobile.settingFaqPg.show);
+                 $("#facebookSharePg").live("pageinit", FmMobile.facebookSharePg.init);
+                 $("#facebookSharePg").live("pageshow", FmMobile.facebookSharePg.show);
                 // $("#template_sub_cultural_Pg").live("pageinit", FmMobile.template_sub_cultural_Pg.init);
                  //$("#template_sub_cultural_Pg").live("pageshow", FmMobile.template_sub_cultural_Pg.show);
                  
@@ -748,15 +753,31 @@ postFbMessage:function(){
         
     access_token: localStorage.fb_accessToken,
     message: FmMobile.userContent.text,
-    //link:FmMobile.check_in_pic,
-   picture:FmMobile.check_in_pic,
+    link:FmMobile.srcForMyUgcViewer,
+   //picture:FmMobile.srcForMyUgcViewer,
     //privacy:{'value':'SELF'},
     
     };
     $.post(url,params, function(response){
            alert("已打卡！！");
            });
-}
+},
+    
+postFbVideoMessage:function(){
+    var url = 'https://graph.facebook.com/me/feed';
+    var params = {
+        
+    access_token: localStorage.fb_accessToken,
+    message: FmMobile.userContent.text,
+    link:FmMobile.youtubeVideoUrl,
+        //picture:FmMobile.srcForMyUgcViewer,
+        //privacy:{'value':'SELF'},
+        
+    };
+    $.post(url,params, function(response){
+           alert("已打卡！！");
+           });
+},
    
 };
     
