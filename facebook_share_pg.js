@@ -7,7 +7,7 @@ show: function(){
 },
     
 init: function(){
-    
+    //test
             $("#nav-bar").show();
             $('#youtubePlay').hide();
             $('#shareFbPhoto').hide();
