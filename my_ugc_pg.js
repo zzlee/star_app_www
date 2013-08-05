@@ -1,16 +1,16 @@
 FmMobile.myUgcPg = {
     PAGE_ID: "myUgcPg",
-    myVideos: null,
-    
+
+    myContents: null,
+    myLiveContents: null,
+
     init: function(){
         FM_LOG("[myUgcPg] pageinit");
         $('#nav-bar').show();
         
-
         var url = starServerURL + "/miix/members/" + localStorage._id + "/ugcs";
-        FmMobile.myUgcPg.myVideos = new Array();
-        //screen_pg.js
-        //Everytime reload the data from our Server.
+        
+                FmMobile.myUgcPg.myContents = new Array();
 
         $.ajax({
                url: url,
@@ -22,19 +22,16 @@ FmMobile.myUgcPg = {
                               Title : item.title,
                               ProjectId: item.projectId,
                               Genre: item.genre,
-//                              Youtube : item.url.youtube,
-                              //if column no data then send " "
-//                              Youtube : item.url.youtube,
-//                              S3 : item.url.s3,
-                              Url : item.url,
+                             Url : item.url,
                               No: item.no,
                               
                           }
-                          FmMobile.myUgcPg.myVideos.push(data);
+                                FmMobile.myUgcPg.myContents.push(data);
                               
                         });
-                          FmMobile.myUgcPg.loadLiveVideo(FmMobile.myUgcPg.myVideos, "video");
-//                        FmMobile.myUgcPg.test(FmMobile.myUgcPg.myVideos);
+                    FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myContents);
+
+
                     }else{
                        console.log("[error] : " + response.error);
                    }
@@ -48,15 +45,42 @@ FmMobile.myUgcPg = {
     show: function(){
         FM_LOG("[myUgcPg] pageshow");
         $("#btnMiixMovie").click(function(){
-             FmMobile.myUgcPg.loadLiveVideo(FmMobile.myUgcPg.myVideos, "video");
-         
+                                 FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myContents);
+
          });
         $("#btnLiveMovie").click(function(){
-             FmMobile.myUgcPg.loadLiveVideo(FmMobile.myUgcPg.myVideos, "live");
-         
+                                 //API : /miix/members/:memberId/live_contents
+                                 FmMobile.myUgcPg.myLiveContents = new Array();
+                                 var urlLiveContents = remotesite + "/miix/members/" + localStorage._id + "/live_contents";
+                                 //return Genre,ProjectId,Title, Url(youtube);
+                                 $.ajax({
+                                        url: urlLiveContents,
+                                        dataType: 'json',
+                                        success: function(response){
+                                        if(response){
+                                        $.each(response, function(i, item){
+                                               var data ={
+                                               Title : item.title,
+                                               ProjectId: item.projectId,
+                                               Genre: item.genre,
+                                               Url : item.url,
+                                               
+                                               }
+                                               FmMobile.myUgcPg.myLiveContents.push(data);
+                                               
+                                               });
+                        FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myLiveContents);
+                                        }else{
+                                        console.log("[error] : " + response.error);
+                                        }
+                                        }
+                                        });
+                                 FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myLiveContents);
+
          });
         
-        FmMobile.myUgcPg.loadLiveVideo(FmMobile.myUgcPg.myVideos, "video");
+            FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myContents);
+
     },
     
 test: function(arry){
@@ -64,32 +88,33 @@ test: function(arry){
         console.log(arry[i]);
 },
     
-    loadLiveVideo: function(arryVideo, type){
-        FM_LOG("[myUgcPg] loadLiveVideo");
-        console.log('[Type] : ' + type);
+   loadContents: function(arryContents){
+    FM_LOG("[myUgcPg] loadContents");
+
         var parent = $("#my-video-list");
         
-       //FmMobile.check_in_pic=arryVideo[0].Url.s3;
-//FmMobile.authPopup.postFbMessage("打卡～～～");
-        
-        //remove all tags in my-video-list
+       
         parent.html("");
-        FmMobile.myUgcPg.test(arryVideo);
+    FmMobile.myUgcPg.test(arryContents);
 
         /** Set data to List */
-        for(var i = 0; i< arryVideo.length; i++){
-            var widget = $("<div>").attr({id: arryVideo[i].ProjectId, class: "content-movie"});
-            var dummyDiv = $("<div>").attr({class: "movie-pic-dummy"});
+    for(var i = 0; i< arryContents.length; i++){
+        var widget = $("<div>").attr({id: arryContents[i].ProjectId, class: "content-movie"});
+
+    var dummyDiv = $("<div>").attr({class: "movie-pic-dummy"});
             //For item info ex. Copy Youtube'url, Share on FB and # of video/image
             var info = $("<div>").attr({id: "my-video-info"});
             
             dummyDiv.appendTo(widget);
-            switch(arryVideo[i].Genre){
+                    switch(arryContents[i].Genre){
                 case "miix":
-                    if(typeof(arryVideo[i].Url) != "undefined"){
-                        var ytVideoID = (arryVideo[i].Url.youtube).split('/').pop();
-                        console.log(i + " ytVideoID :" + ytVideoID + ", No. " + arryVideo[i].No);
-                        this.videoThumbnail = $("<img>").attr({
+                   
+                        
+                            if(typeof(arryContents[i].Url) != "undefined"){
+                                var ytVideoID = (arryContents[i].Url.youtube).split('/').pop();
+                                console.log(i + " ytVideoID :" + ytVideoID + ", No. " + arryContents[i].No);
+
+                            this.videoThumbnail = $("<img>").attr({
                                                               id: 'imgYouTube_'+ytVideoID,
                                                               src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
                                                               class: "content-movie-img"
@@ -109,35 +134,31 @@ test: function(arry){
                                                           src: "images/facebook.png"
                                                           });
                         this.shareFbDiv.appendTo(info);
-                        if(type == "video"){
-                            this.numberDiv = $("<div>").attr({class: "my-video-number"});
-                            this.numberDiv.html("NO." + arryVideo[i].No);
-                            this.numberDiv.appendTo(info);
-                            info.appendTo(widget);
-                        }else if(type == "live"){
-                            info.appendTo(widget);
-                        }
-                        
+                                                
 
-                    }else{
+                                this.numberDiv = $("<div>").attr({class: "my-video-number"});
+                                this.numberDiv.html("NO." + arryContents[i].No);
+                                this.numberDiv.appendTo(info);
+                                info.appendTo(widget);
+
+                            }else{
                         this.videoThumbnail = $("<img>").attr({
                                                               id: 'imgError_' + i,
                                                               src: "images/choose_movie.png",
                                                               class: "content-movie-img"
                                                               });
                         this.videoThumbnail.appendTo(widget);
-//                        console.log("[myUgcPg] no youtube url");
-//                        continue;
+
                     }
                     widget.appendTo(parent);
                     break;
                 case "miix_image":
-//                    if(arrVideo[i].Url.s3){
-                        //Get the image's name
-                        var projectId = arryVideo[i].ProjectId;
-                        console.log("s3 :" + arryVideo[i].Url.s3);
-                                            var s3Url = arryVideo[i].Url.s3;
-//                        console.log(i + " s3ImageName : " + s3ImageName);
+
+                            
+                            var projectId = arryContents[i].ProjectId;
+                            console.log("s3 :" + arryContents[i].Url.s3);
+                            var s3Url = arryContents[i].Url.s3;
+
                         this.imageThumbnail = $("<img>").attr({
                                                               //set image's name to id
                                                               id: "imgS3_" +projectId,
@@ -160,19 +181,52 @@ test: function(arry){
                                                           });
                         this.shareFbDiv.appendTo(info);
                     
-                        if(type == "video"){
+                        
                             this.numberDiv = $("<div>").attr({class: "my-video-number"});
-                            this.numberDiv.html("NO." + arryVideo[i].No);
+                            this.numberDiv.html("NO." + arryContents[i].No);
                             this.numberDiv.appendTo(info);
                             info.appendTo(widget);
-                        }else if(type == "live"){
-                            info.appendTo(widget);
-                        }
-//                    }else{
-//                        console.log("[myUgcPg] no S3 url");
-//                    }
+
                         widget.appendTo(parent);
                     break;
+                    
+                        case "miix_story":
+                            if(typeof(arryContents[i].Url) != "undefined"){
+                                var ytVideoID = (arryContents[i].Url.youtube).split('/').pop();
+                                console.log(i + " ytVideoID :" + ytVideoID + ", No. " + arryContents[i].No);
+                                this.videoThumbnail = $("<img>").attr({
+                                                                      id: 'imgYouTube_'+ytVideoID,
+                                                                      src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
+                                                                      class: "content-movie-img"
+                                                                      });
+                                this.videoThumbnail.appendTo(widget);
+                                
+                                this.shareYoutubeDiv = $("<img>").attr({
+                                                                       id: "copyUrl_" + ytVideoID,
+                                                                       class: "share",
+                                                                       src: "images/youtube.png"
+                                                                       });
+                                this.shareYoutubeDiv.appendTo(info);
+                                
+                                this.shareFbDiv = $("<img>").attr({
+                                                                  id: "shareFb_" + ytVideoID,
+                                                                  class: "share",
+                                                                  src: "images/facebook.png"
+                                                                  });
+                                this.shareFbDiv.appendTo(info);
+                                info.appendTo(widget);
+                                
+                            }else{
+                                this.videoThumbnail = $("<img>").attr({
+                                                                      id: 'imgError_' + i,
+                                                                      src: "images/choose_movie.png",
+                                                                      class: "content-movie-img"
+                                                                      });
+                                this.videoThumbnail.appendTo(widget);
+                            }
+                            widget.appendTo(parent);
+                            break;
+
                 default :
                     console.log("Eroor : no Genre");
             }
@@ -261,11 +315,7 @@ test: function(arry){
                                        *
                                        * */
                                            
-            //            for(var i = 0; i < tmpIDArray.length; i++)
-            //                console.log("id.split[" + i + "] :" + tmpIDArray[i]);
-
-           // if(tmpIDArray.length > 2)
-             // tmpIDArray[0] = tmpIDArray[1] + "_" + tmpIDArray[2] + "_" + tmpIDArray[3];
+          
 
             console.log("tmpIdArray[0] :" + tmpIDArray[0]);
                                       
@@ -281,8 +331,7 @@ test: function(arry){
                                       tmpIDArray[1] = tmpIDArray[1] + "_" + tmpIDArray[2] + "_" + tmpIDArray[3];
                                       }else if(tmpIDArray.length == 8){
                                       tmpIDArray[1] = tmpIDArray[1] + "_" + tmpIDArray[2] + "_" + tmpIDArray[3]+ "_" + tmpIDArray[4]+ "_" + tmpIDArray[5]+ "_" + tmpIDArray[6]+ "_" + tmpIDArray[7];
-                                      
-                                      }else{
+                                    }else{
                                       //Type is wrong.
                                       tmpIDarray[0] = "error";
                                       }
