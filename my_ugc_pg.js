@@ -100,8 +100,11 @@ test: function(arry){
 
         /** Set data to List */
         for(var i = 0; i< arryContents.length; i++){
-            var widget = $("<div>").attr({id: arryContents[i].ProjectId, class: "content-movie"});
-
+            if(type == "content"){
+                var widget = $("<div>").attr({id: arryContents[i].ProjectId, class: "content-movie"});
+            }else if(type == "live"){
+                var widget = $("<div>").attr({id: arryContents[i].ProjectId, class: "content-movie", style: "margin-top:20%;"});
+            }
             var dummyDiv = $("<div>").attr({class: "movie-pic-dummy"});
             //For item info ex. Copy Youtube'url, Share on FB and # of video/image
             var info = $("<div>").attr({id: "my-video-info"});
@@ -117,7 +120,8 @@ test: function(arry){
                         this.videoThumbnail = $("<img>").attr({
                                                               id: 'imgYouTube_'+ytVideoID,
                                                               src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
-                                                              class: "content-movie-img"
+                                                              class: "content-movie-img",
+                                                              style: "height: 90%;"  //fixed the image of height
                                                               });
                         this.videoThumbnail.appendTo(widget);
                         
