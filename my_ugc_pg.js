@@ -29,7 +29,7 @@ FmMobile.myUgcPg = {
                                 FmMobile.myUgcPg.myContents.push(data);
                               
                         });
-                    FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myContents);
+                    FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myContents, "content");
 
 
                     }else{
@@ -45,7 +45,7 @@ FmMobile.myUgcPg = {
     show: function(){
         FM_LOG("[myUgcPg] pageshow");
         $("#btnMiixMovie").click(function(){
-                                 FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myContents);
+                                 FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myContents, "content");
 
          });
         $("#btnLiveMovie").click(function(){
@@ -69,17 +69,18 @@ FmMobile.myUgcPg = {
                                                FmMobile.myUgcPg.myLiveContents.push(data);
                                                
                                                });
-                        FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myLiveContents);
+                        FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myLiveContents, "live");
                                         }else{
                                         console.log("[error] : " + response.error);
                                         }
                                         }
                                         });
-                                 FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myLiveContents);
+//                                 FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myLiveContents);
+
 
          });
         
-            FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myContents);
+//            FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myContents, "content");
 
     },
     
@@ -88,33 +89,32 @@ test: function(arry){
         console.log(arry[i]);
 },
     
-   loadContents: function(arryContents){
-    FM_LOG("[myUgcPg] loadContents");
+    loadContents: function(arryContents, type){
+        FM_LOG("[myUgcPg] loadContents");
+        FM_LOG("[type] " + type);
 
         var parent = $("#my-video-list");
-        
-       
         parent.html("");
-    FmMobile.myUgcPg.test(arryContents);
+        
+        FmMobile.myUgcPg.test(arryContents);
 
         /** Set data to List */
-    for(var i = 0; i< arryContents.length; i++){
-        var widget = $("<div>").attr({id: arryContents[i].ProjectId, class: "content-movie"});
+        for(var i = 0; i< arryContents.length; i++){
+            var widget = $("<div>").attr({id: arryContents[i].ProjectId, class: "content-movie"});
 
-    var dummyDiv = $("<div>").attr({class: "movie-pic-dummy"});
+            var dummyDiv = $("<div>").attr({class: "movie-pic-dummy"});
             //For item info ex. Copy Youtube'url, Share on FB and # of video/image
             var info = $("<div>").attr({id: "my-video-info"});
             
             dummyDiv.appendTo(widget);
-                    switch(arryContents[i].Genre){
+            switch(arryContents[i].Genre){
                 case "miix":
-                   
+                case "miix_story":
+                    if(typeof(arryContents[i].Url) != "undefined"){
+                        var ytVideoID = (arryContents[i].Url.youtube).split('/').pop();
+                        console.log(i + " ytVideoID :" + ytVideoID + ", No. " + arryContents[i].No);
                         
-                            if(typeof(arryContents[i].Url) != "undefined"){
-                                var ytVideoID = (arryContents[i].Url.youtube).split('/').pop();
-                                console.log(i + " ytVideoID :" + ytVideoID + ", No. " + arryContents[i].No);
-
-                            this.videoThumbnail = $("<img>").attr({
+                        this.videoThumbnail = $("<img>").attr({
                                                               id: 'imgYouTube_'+ytVideoID,
                                                               src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
                                                               class: "content-movie-img"
@@ -134,14 +134,15 @@ test: function(arry){
                                                           src: "images/facebook.png"
                                                           });
                         this.shareFbDiv.appendTo(info);
-                                                
-
+                        if(type == "content"){
                                 this.numberDiv = $("<div>").attr({class: "my-video-number"});
                                 this.numberDiv.html("NO." + arryContents[i].No);
                                 this.numberDiv.appendTo(info);
                                 info.appendTo(widget);
-
-                            }else{
+                        }else if(type =="live"){
+                            info.appendTo(widget);
+                        }
+                    }else{
                         this.videoThumbnail = $("<img>").attr({
                                                               id: 'imgError_' + i,
                                                               src: "images/choose_movie.png",
@@ -153,104 +154,49 @@ test: function(arry){
                     widget.appendTo(parent);
                     break;
                 case "miix_image":
-
-                            
-                            var projectId = arryContents[i].ProjectId;
-                            console.log("s3 :" + arryContents[i].Url.s3);
-                            var s3Url = arryContents[i].Url.s3;
-
+                case "miix_image_live_photo":
+                    var projectId = arryContents[i].ProjectId;
+                    console.log("s3 :" + arryContents[i].Url.s3);
+                    if(type == "content"){
+                        var s3Url = arryContents[i].Url.s3;
                         this.imageThumbnail = $("<img>").attr({
-                                                              //set image's name to id
                                                               id: "imgS3_" +projectId,
                                                               src: s3Url,
                                                               class: "content-movie-img"
                                                               });
-                        this.imageThumbnail.appendTo(widget);
-                    
-                        this.shareYoutubeDiv = $("<img>").attr({
-                                                               id: "copyUrlS3_" + projectId,
-                                                               class: "share",
-                                                               src: "images/youtube.png"
-                                                               });
-                        this.shareYoutubeDiv.appendTo(info);
-                        
-                        this.shareFbDiv = $("<img>").attr({
-                                                          id: "shareFb_" + s3Url,
-                                                          class: "share",
-                                                          src: "images/facebook.png"
-                                                          });
-                        this.shareFbDiv.appendTo(info);
-                    
-                        
-                            this.numberDiv = $("<div>").attr({class: "my-video-number"});
-                            this.numberDiv.html("NO." + arryContents[i].No);
-                            this.numberDiv.appendTo(info);
-                            info.appendTo(widget);
-
-                        widget.appendTo(parent);
-                    break;
-                case "miix_story":
-                    if(typeof(arryContents[i].Url) != "undefined"){
-                        var ytVideoID = (arryContents[i].Url.youtube).split('/').pop();
-                        console.log(i + " ytVideoID :" + ytVideoID + ", No. " + arryContents[i].No);
-                        this.videoThumbnail = $("<img>").attr({
-                                                              id: 'imgYouTube_'+ytVideoID,
-                                                              src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
-                                                              class: "content-movie-img"
+                    }else if(type == "live"){
+                        var s3Url = "https://s3.amazonaws.com/miix_content" + arryContents[i].Url.s3;
+                        this.imageThumbnail = $("<img>").attr({
+                                                              id: "imgS3_" +projectId,
+                                                              src: s3Url,
+                                                              class: "content-movie-img",
+                                                              style: "height: 90%;"  //fixed the image of height
                                                               });
-                        this.videoThumbnail.appendTo(widget);
-                        
-                        this.shareYoutubeDiv = $("<img>").attr({
-                                                               id: "copyUrl_" + ytVideoID,
-                                                               class: "share",
-                                                               src: "images/youtube.png"
-                                                               });
-                        this.shareYoutubeDiv.appendTo(info);
-                        
-                        this.shareFbDiv = $("<img>").attr({
-                                                          id: "shareFb_" + ytVideoID,
-                                                          class: "share",
-                                                          src: "images/facebook.png"
-                                                          });
-                        this.shareFbDiv.appendTo(info);
-                        info.appendTo(widget);
-                        
-                    }else{
-                        this.videoThumbnail = $("<img>").attr({
-                                                              id: 'imgError_' + i,
-                                                              src: "images/choose_movie.png",
-                                                              class: "content-movie-img"
-                                                              });
-                        this.videoThumbnail.appendTo(widget);
                     }
-                    widget.appendTo(parent);
-                    break;
-                case "miix_image_live_photo":
-                    var projectId = arryContents[i].ProjectId;
-                    console.log("s3 :" + arryContents[i].Url.s3);
-                    var s3Url = arryContents[i].Url.s3;
-                    this.imageThumbnail = $("<img>").attr({
-                                                          id: "imgS3_" +projectId,
-                                                          src: "https://s3.amazonaws.com/miix_content" + s3Url,
-                                                          class: "content-movie-img"
-                                                          });
                     this.imageThumbnail.appendTo(widget);
-                    
                     this.shareYoutubeDiv = $("<img>").attr({
                                                            id: "copyUrlS3_" + projectId,
                                                            class: "share",
                                                            src: "images/youtube.png"
                                                            });
                     this.shareYoutubeDiv.appendTo(info);
-                    
+                        
                     this.shareFbDiv = $("<img>").attr({
                                                       id: "shareFb_" + projectId,
                                                       class: "share",
                                                       src: "images/facebook.png"
                                                       });
                     this.shareFbDiv.appendTo(info);
-                    info.appendTo(widget);
                     
+                    if(type == "content"){
+                        this.numberDiv = $("<div>").attr({class: "my-video-number"});
+                        this.numberDiv.html("NO." + arryContents[i].No);
+                        this.numberDiv.appendTo(info);
+                        info.appendTo(widget);
+                    }else if(type == "live"){
+                        info.appendTo(widget);
+                    }
+
                     widget.appendTo(parent);
                     break;
 
