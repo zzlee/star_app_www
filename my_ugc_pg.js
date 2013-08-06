@@ -189,43 +189,70 @@ test: function(arry){
 
                         widget.appendTo(parent);
                     break;
+                case "miix_story":
+                    if(typeof(arryContents[i].Url) != "undefined"){
+                        var ytVideoID = (arryContents[i].Url.youtube).split('/').pop();
+                        console.log(i + " ytVideoID :" + ytVideoID + ", No. " + arryContents[i].No);
+                        this.videoThumbnail = $("<img>").attr({
+                                                              id: 'imgYouTube_'+ytVideoID,
+                                                              src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
+                                                              class: "content-movie-img"
+                                                              });
+                        this.videoThumbnail.appendTo(widget);
+                        
+                        this.shareYoutubeDiv = $("<img>").attr({
+                                                               id: "copyUrl_" + ytVideoID,
+                                                               class: "share",
+                                                               src: "images/youtube.png"
+                                                               });
+                        this.shareYoutubeDiv.appendTo(info);
+                        
+                        this.shareFbDiv = $("<img>").attr({
+                                                          id: "shareFb_" + ytVideoID,
+                                                          class: "share",
+                                                          src: "images/facebook.png"
+                                                          });
+                        this.shareFbDiv.appendTo(info);
+                        info.appendTo(widget);
+                        
+                    }else{
+                        this.videoThumbnail = $("<img>").attr({
+                                                              id: 'imgError_' + i,
+                                                              src: "images/choose_movie.png",
+                                                              class: "content-movie-img"
+                                                              });
+                        this.videoThumbnail.appendTo(widget);
+                    }
+                    widget.appendTo(parent);
+                    break;
+                case "miix_image_live_photo":
+                    var projectId = arryContents[i].ProjectId;
+                    console.log("s3 :" + arryContents[i].Url.s3);
+                    var s3Url = arryContents[i].Url.s3;
+                    this.imageThumbnail = $("<img>").attr({
+                                                          id: "imgS3_" +projectId,
+                                                          src: "https://s3.amazonaws.com/miix_content" + s3Url,
+                                                          class: "content-movie-img"
+                                                          });
+                    this.imageThumbnail.appendTo(widget);
                     
-                        case "miix_story":
-                            if(typeof(arryContents[i].Url) != "undefined"){
-                                var ytVideoID = (arryContents[i].Url.youtube).split('/').pop();
-                                console.log(i + " ytVideoID :" + ytVideoID + ", No. " + arryContents[i].No);
-                                this.videoThumbnail = $("<img>").attr({
-                                                                      id: 'imgYouTube_'+ytVideoID,
-                                                                      src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
-                                                                      class: "content-movie-img"
-                                                                      });
-                                this.videoThumbnail.appendTo(widget);
-                                
-                                this.shareYoutubeDiv = $("<img>").attr({
-                                                                       id: "copyUrl_" + ytVideoID,
-                                                                       class: "share",
-                                                                       src: "images/youtube.png"
-                                                                       });
-                                this.shareYoutubeDiv.appendTo(info);
-                                
-                                this.shareFbDiv = $("<img>").attr({
-                                                                  id: "shareFb_" + ytVideoID,
-                                                                  class: "share",
-                                                                  src: "images/facebook.png"
-                                                                  });
-                                this.shareFbDiv.appendTo(info);
-                                info.appendTo(widget);
-                                
-                            }else{
-                                this.videoThumbnail = $("<img>").attr({
-                                                                      id: 'imgError_' + i,
-                                                                      src: "images/choose_movie.png",
-                                                                      class: "content-movie-img"
-                                                                      });
-                                this.videoThumbnail.appendTo(widget);
-                            }
-                            widget.appendTo(parent);
-                            break;
+                    this.shareYoutubeDiv = $("<img>").attr({
+                                                           id: "copyUrlS3_" + projectId,
+                                                           class: "share",
+                                                           src: "images/youtube.png"
+                                                           });
+                    this.shareYoutubeDiv.appendTo(info);
+                    
+                    this.shareFbDiv = $("<img>").attr({
+                                                      id: "shareFb_" + projectId,
+                                                      class: "share",
+                                                      src: "images/facebook.png"
+                                                      });
+                    this.shareFbDiv.appendTo(info);
+                    info.appendTo(widget);
+                    
+                    widget.appendTo(parent);
+                    break;
 
                 default :
                     console.log("Eroor : no Genre");
