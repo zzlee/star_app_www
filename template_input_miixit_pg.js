@@ -67,9 +67,8 @@ load: function(event, data){
         //alert('fileObjectID = '+fileObjectID );
         
         
-        
         var getPhotoFail = function (message) {
-            //alert('没有選到相片，請再選一次！');
+            //alert('没�到��，�選一次�');
         }
         
         
@@ -77,8 +76,8 @@ load: function(event, data){
             
             fileSelectedURI = imageURI;
             
-            if ( device.version > "6") {
-                
+            if ( (device.version > "6") && (device.platform == "iOS") ) {
+                FM_LOG("subsampling");
                 //Here is the workaround for iOS 6.0 and 6.0.1 subsampling issue (when drawing from a more-than-2M jpg to canvas)
                 var tempImg = new Image();
                 tempImg.src = imageURI;
@@ -94,26 +93,31 @@ load: function(event, data){
                 };
                 
                 
-            }
-            else {
+            }else if(device.platform == "Android"){
+           		fileProcessedForCropperURI = imageURI;
+                $.mobile.changePage("template-photo_cropper.html");
+
+            }else{
+            	
                 fileProcessedForCropperURI = imageURI;
                 $.mobile.changePage("template-photo_cropper.html");
                 
             }
-            
-            console.log("version="+device.version);
+            console.log("os = " + device.platform);
+            console.log("version= "+device.version);
             
         }
         
         if ( event.data.PhotoSource == "album" ) {
+        	if(device.platform == "Android")
+        		photoSource = "album";
             navigator.camera.getPicture(gotoPhotoCropper, getPhotoFail,{
                                         quality: 50,
                                         destinationType: navigator.camera.DestinationType.FILE_URI,
                                         sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
                                         });
             FmMobile.analysis.trackEvent("Button", "Click", "Album", 21);
-        }
-        else {
+        }else {
             navigator.camera.getPicture(gotoPhotoCropper, getPhotoFail,{
                                         quality: 50,
                                         destinationType: navigator.camera.DestinationType.FILE_URI,

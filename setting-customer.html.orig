@@ -66,7 +66,11 @@
           <option value="publish">刊登問題</option>
           <option value="others">其他問題</option>
          </select><br> 
+<<<<<<< HEAD
          影片代碼<br> <input type="text" id="input_id" style="width:100%"><br>
+=======
+         影片代碼<br> <input type="password" id="input_id"></input><br>
+>>>>>>> origin/crossplatform_for_ios
          問題敘述<br>
          <textarea id="question_text" style="width:100%"></textarea>
          </div>

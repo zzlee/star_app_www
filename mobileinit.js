@@ -26,7 +26,7 @@ var customizedContent = {};
 var customizableObjects = [];
 var fileSelected;
 var myPhotoCropper;
-
+var photoSource; //For Android, source from album or camera
 FmMobile.shareFbType;
 FmMobile.youtubeVideoUrl;
 FmMobile.youtubeShareFbImg;
@@ -82,7 +82,7 @@ $('#mapAreaNext').attr("coords","'"+FmMobile.or_pic_width+","+((FmMobile.or_pic_
                                            });
                  $("#myUgcPg").live("pageinit", FmMobile.myUgcPg.init);
                  $("#myUgcPg").live("pageshow", FmMobile.myUgcPg.show);
-                 $("#myUgcPg").live("pageloadlivevideo", FmMobile.myUgcPg.loadMyVideo);
+//                 $("#myUgcPg").live("pageloadlivevideo", FmMobile.myUgcPg.loadMyVideo);  //Deprecated
                  $("#screenPg").live("pageinit", FmMobile.screenPg.init);
                  $("#screenPg").live("pageshow", FmMobile.screenPg.show);
                  $("#screenPg").live("pageloadvideo", FmMobile.screenPg.loadVideo);
@@ -204,6 +204,7 @@ onBodyLoad: function(){
     FM_LOG("[Init.onDeviceReady]");
     
     document.addEventListener("deviceready", FmMobile.analysis.init, true);
+    document.addEventListener("deviceready", FmMobile.gcm.init, true);
     document.addEventListener("deviceready", FmMobile.apn.init, true);
     document.addEventListener("deviceready", FmMobile.init.isFBTokenValid, true);
     
@@ -256,17 +257,19 @@ onBodyLoad: function(){
 onResume: function(){
     FM_LOG("[Init.onResume]");
     if(localStorage.fb_userID){
-        FmMobile.ajaxNewVideos();
-        FmMobile.ajaxNewStoryVideos();
-        FmMobile.apn.getPendingNotification();
-        recordUserAction("resumes MiixCard app");
+//      FmMobile.ajaxNewVideos();
+//      FmMobile.ajaxNewStoryVideos();
+      if(device.platform == "iPhone"){
+      	FmMobile.apn.getPendingNotification();
+//      	recordUserAction("resumes MiixCard app");
+      }
         FmMobile.init.isFBTokenValid();
     }
 },
     
 onPause: function(){
     if(localStorage.fb_userID){
-        recordUserAction("pauses MiixCard app");
+//        recordUserAction("pauses MiixCard app");
     }
 },
     
@@ -299,7 +302,7 @@ isFBTokenValid: function(){
 },
 };
 
-
+//deprecated
 FmMobile.addProcessingWork = function(pid){
     
     var url = remotesite + "/miix/videos/miix_videos";
@@ -535,17 +538,100 @@ FmMobile.submitDooh = function(){
            });
 };
 
+/** Google Push Service */
+FmMobile.gcm = {
+		gcmregid: null,
+		senderid: "701982981612",	//project_rId(MiixCard)	
+		//project_rId(gcm_test) = 367333162680
+		
+		init: function(){
+			FM_LOG("[GCM.init]");
+			if(device.platform == "Android"){
+				if(window.plugins){
+					window.plugins.GCM.register(FmMobile.gcm.senderid, "FmMobile.gcm.event", FmMobile.gcm.success, FmMobile.gcm.fail );
+				}else{
+					window.GCM.register(FmMobile.gcm.senderid, "FmMobile.gcm.event", FmMobile.gcm.success, FmMobile.gcm.fail );
+				}
+			}
+			
+		},
+		
+		event: function(e){
+			FM_LOG("[GCM.event]");
+			switch( e.event ){
+			  case 'registered':
+				// the definition of the e variable is json return defined in "GCMReceiver.java"
+				// In my case on registered I have EVENT and REGID defined
+				FmMobile.gcm.gcmregid = e.regid;
+				if ( FmMobile.gcm.gcmregid.length > 0 ){
+					FM_LOG("[GCM.Regid: " + e.regid + "]");
+					localStorage.deviceToken = e.regid;
+					
+					if(localStorage._id){	//if exsits updated device token
+						var url = remotesite + "/members/" + localStorage._id + "/device_tokens";
+						var data = { 
+							"userID": localStorage._id,
+							"platform": device.platform,
+							"deviceToken": localStorage.deviceToken
+							};
+						FM_LOG(JSON.stringify(data));
+						$.ajax({
+							type: 'PUT',
+							url: url,
+							data: data,
+							success: function(response){
+			                   if(response.message){
+			                	   FM_LOG("[DeviceToken] from Server : " + response.message);	   
+			                   }
+			               }
+						});
+					}
+				}
+				
+				break;
+
+			  case 'message':
+				// the definition of the e variable is json return defined in "GCMIntentService.java"
+				// In my case on registered I have EVENT, MSG and MSGCNT defined
+				FM_LOG("[GCM.message] " + JSON.stringify(e));
+//				FmMobile.ajaxNewVideos();
+//	            navigator.notification.alert('You have a video!');
+				break;
+
+			  case 'error':
+				FM_LOG("[GCM.error] " + JSON.stringify(e));
+				break;
+
+			  default:
+				FM_LOG("[GCM.event] Unknown");
+				break;
+		    }
+		},
+		
+		success: function(e){
+			FM_LOG("[GCM.suceess] Register Successfully, waiting for RegId!");
+			FM_LOG("[GCM.suceess] " + JSON.stringify(e));  //If success it returns "OK"
+			
+		},
+		
+		fail: function(e){
+			FM_LOG("[GCM.Fail] Register Fail! " + JSON.stringify(e));
+		},	
+};
 
 
+/** Apple Push Notification */
 FmMobile.apn = {
     
 init: function(){
     FM_LOG("[APN.init]");
-    FmMobile.pushNotification = window.plugins.pushNotification;
-    FmMobile.apn.registerDevice();
-    FmMobile.apn.getPendingNotification();
-    //FmMobile.apn.getRemoteNotificationStatus();
-    //FmMobile.apn.getDeviceUniqueIdentifier();
+    if(device.platform == "iPhone"){
+    	FmMobile.pushNotification = window.plugins.pushNotification;
+    	FmMobile.apn.registerDevice();
+    	FmMobile.apn.getPendingNotification();
+    	//FmMobile.apn.getRemoteNotificationStatus();
+    	//FmMobile.apn.getDeviceUniqueIdentifier();
+    }
 },
     
     
@@ -624,41 +710,56 @@ getDeviceUniqueIdentifier: function(){
 };
 
 
+
+/** Google Analytics
+ *  Platform : Android and iOS 
+ * */
 FmMobile.analysis = {
-    
-nativePluginResultHandler: function(result){
-    FM_LOG("[ga.resultHandler] " + result);
-},
-    
-nativePluginErrorHandler: function(error){
-    FM_LOG("[ga.errorHandler] " + error);
-},
-    
-init: function(){
-    FM_LOG("[analysis.init]");
-    
-    FmMobile.ga = window.plugins.gaPlugin;
-    FmMobile.ga.init(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler                , "UA-37288251-1", 10); // UA-37288251-1 for Web.
-    
-},
-    
-    
-goingAway: function(){
-    FmMobile.ga.exit(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler);
-},
-    
-trackEvent: function(category, action, label, value){
-    FmMobile.ga.trackEvent(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, category, action, label, 1);
-},
-    
-setVariable: function(key, value, index){
-    FmMobile.ga.setVariable(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, key, value, index);
-},
-    
-trackPage: function(url){
-    FmMobile.ga.trackPage(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, url);
-},
-};
+	    
+	    nativePluginResultHandler: function(result){
+	        FM_LOG("[analysis.resultHandler] " + result);
+	    },
+	    
+	    nativePluginErrorHandler: function(error){
+	        FM_LOG("[analysis.errorHandler] " + error);
+	    },
+	    
+	    init: function(){
+	        FM_LOG("[analysis.init]");
+	        var gaId = "UA-37288251-1"; 
+	        //UA-37288251-4 : http://www.feltmeng.idv.tw
+	        //UA-37288251-1 : http://www.miix.tv
+	        FmMobile.ga = window.plugins.gaPlugin;
+	        FmMobile.ga.init(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, gaId, 10);
+	    },
+	    
+	    goingAway: function(){
+	    	FM_LOG("[analysis.goingAway]");
+	        FmMobile.ga.exit(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler);
+	    	
+	    },
+	    
+	    trackEvent: function(category, action, label, value){
+	    	FM_LOG("[analysis.trackEvent]");
+	    	FM_LOG("[analysis.trackEvent] category : " + category);
+	    	FM_LOG("[analysis.trackEvent] action : " + action);
+	    	FM_LOG("[analysis.trackEvent] label : " + label);
+	    	FM_LOG("[analysis.trackEvent] value : " + value);
+	        FmMobile.ga.trackEvent(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, category, action, label, 1);
+	    },
+	    
+	    setVariable: function(key, value, index){
+	    	FM_LOG("[analysis.setVariable]");
+	        FmMobile.ga.setVariable(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, key, value, index);
+	    	
+	    },
+	    
+	    trackPage: function(url){
+	    	FM_LOG("[analysis.trackPage] url :" + url);
+	    	FmMobile.ga.trackPage(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, url);
+	    },
+	};
+
 
 
 FmMobile.authPopup = {
@@ -790,7 +891,7 @@ FBLogout: function() {
     $.mobile.changePage("fb_login.html");
     
 },
-    
+//deprecated
 sendDeviceToken: function(){
     FM_LOG("[sendDeviceToken] ");
     var url = domain + "/members/device_tokens";

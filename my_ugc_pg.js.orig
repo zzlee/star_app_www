@@ -1,10 +1,15 @@
 FmMobile.myUgcPg = {
     PAGE_ID: "myUgcPg",
-    myLivevideos: null,
+<<<<<<< HEAD
 
     myContents: null,
     myLiveContents: null,
     Type: null,
+=======
+    myVideos: null,
+    myLivevideos: null,
+    
+>>>>>>> origin/crossplatform_for_ios
     init: function(){
         FM_LOG("[myUgcPg] pageinit");
         $('#nav-bar').show();
@@ -26,6 +31,7 @@ FmMobile.myUgcPg = {
                    if(response){
                    $.each(response, function(i, item){
                           var data ={
+<<<<<<< HEAD
                           Title : item.title,
                           ProjectId: item.projectId,
                           Genre: item.genre,
@@ -40,19 +46,40 @@ FmMobile.myUgcPg = {
                            FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myContents, "content");
                    }else{
                    console.log("[error] : " + response.error);
+=======
+                              Title : item.title,
+                              ProjectId: item.projectId,
+                              Genre: item.genre,
+                              Url : item.url,
+                              No: item.no,
+                              
+                          }
+                          FmMobile.myUgcPg.myVideos.push(data);
+                              
+                        });
+                          FmMobile.myUgcPg.loadVideo(FmMobile.myUgcPg.myVideos, "video");
+                    }else{
+                       console.log("[error] : " + response.error);
+>>>>>>> origin/crossplatform_for_ios
                    }
                    }
                    });
 
+<<<<<<< HEAD
         }
+=======
+        
         //TODO:load live video with ajax
 
      
+        
+>>>>>>> origin/crossplatform_for_ios
     },
     
     show: function(){
         FM_LOG("[myUgcPg] pageshow");
         $("#btnMiixMovie").click(function(){
+<<<<<<< HEAD
                                  $("#btnMiixMovie > img").attr({src: "images/tab-active.png"});
                                  $("#btnLiveMovie > img").attr({src: "images/tab.png"});
             FmMobile.myUgcPg.Type = "content";
@@ -93,6 +120,18 @@ FmMobile.myUgcPg = {
         
 //            FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myContents, "content");
 
+=======
+             FmMobile.myUgcPg.loadVideo(FmMobile.myUgcPg.myVideos, "video");
+         
+         });
+        $("#btnLiveMovie").click(function(){
+             FmMobile.myUgcPg.loadVideo(FmMobile.myUgcPg.myVideos, "live");
+//             TODO : FmMobile.myUgcPg.loadVideo(FmMobile.myUgcPg.myLiveVideos, "live");
+         
+         });
+        
+        FmMobile.myUgcPg.loadVideo(FmMobile.myUgcPg.myVideos, "video");
+>>>>>>> origin/crossplatform_for_ios
     },
     
     test: function(arry){
@@ -100,6 +139,7 @@ FmMobile.myUgcPg = {
         console.log(arry[i]);
     },
     
+<<<<<<< HEAD
     loadContents: function(arryContents, type){
         FM_LOG("[myUgcPg] loadContents");
         FM_LOG("[type] " + type);
@@ -108,6 +148,19 @@ FmMobile.myUgcPg = {
         parent.html("");
         
         FmMobile.myUgcPg.test(arryContents);
+=======
+    loadVideo: function(arryVideo, type){
+        FM_LOG("[myUgcPg] loadVideo");
+        console.log('[Type] : ' + type);
+        var parent = $("#my-video-list");
+        
+       //FmMobile.check_in_pic=arryVideo[0].Url.s3;
+//FmMobile.authPopup.postFbMessage("�卡～��);
+        
+        //remove all tags in my-video-list
+        parent.html("");
+//        FmMobile.myUgcPg.test(arryVideo);
+>>>>>>> origin/crossplatform_for_ios
 
         /** Set data to List */
         for(var i = 0; i< arryContents.length; i++){
@@ -123,12 +176,19 @@ FmMobile.myUgcPg = {
             dummyDiv.appendTo(widget);
             switch(arryContents[i].Genre){
                 case "miix":
+<<<<<<< HEAD
                 case "miix_story":
                     if(typeof(arryContents[i].Url) != "undefined"){
                         var ytVideoID = (arryContents[i].Url.youtube).split('/').pop();
                         console.log(i + " ytVideoID :" + ytVideoID + ", No. " + arryContents[i].No);
                         if(type == "content"){
                             this.videoThumbnail = $("<img>").attr({
+=======
+                    if(typeof(arryVideo[i].Url) != "undefined"){
+                        var ytVideoID = (arryVideo[i].Url.youtube).split('/').pop();
+//                        console.log(i + " ytVideoID :" + ytVideoID + ", No. " + arryVideo[i].No);
+                        this.videoThumbnail = $("<img>").attr({
+>>>>>>> origin/crossplatform_for_ios
                                                               id: 'imgYouTube_'+ytVideoID,
                                                               src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
                                                               class: "content-movie-img"
@@ -176,11 +236,20 @@ FmMobile.myUgcPg = {
                     widget.appendTo(parent);
                     break;
                 case "miix_image":
+<<<<<<< HEAD
                 case "miix_image_live_photo":
                     var projectId = arryContents[i].ProjectId;
                     console.log("s3 :" + arryContents[i].Url.s3);
                     if(type == "content"){
                         var s3Url = arryContents[i].Url.s3;
+=======
+//                    if(arrVideo[i].Url.s3){
+                        //Get the image's name
+                        var projectId = arryVideo[i].ProjectId;
+//                        console.log("s3 :" + arryVideo[i].Url.s3);
+                                            var s3Url = arryVideo[i].Url.s3;
+//                        console.log(i + " s3ImageName : " + s3ImageName);
+>>>>>>> origin/crossplatform_for_ios
                         this.imageThumbnail = $("<img>").attr({
                                                               id: "imgS3_" +projectId,
                                                               src: s3Url,
@@ -301,6 +370,7 @@ FmMobile.myUgcPg = {
             var imgID = this.id;        
 //            console.log("imgID :" + imgID);
             var tmpIDArray = this.id.split('_');
+<<<<<<< HEAD
                                       
             /** template naming
             * copyUrlS3_template-xxxxxxx-xxxxxxxx
@@ -310,6 +380,10 @@ FmMobile.myUgcPg = {
             * 		cultural_and_creative-xxxxxxx
             *
             * */
+          
+
+            console.log("tmpIdArray[0] :" + tmpIDArray[0]);
+                                      
                                       
             if(tmpIDArray.length == 2){
                 //For youtube and mood
@@ -327,6 +401,32 @@ FmMobile.myUgcPg = {
                 tmpIDarray[0] = "error";
             }
 
+=======
+//            for(var i = 0; i < tmpIDArray.length; i++)
+//            	console.log("id.split[" + i + "] :" + tmpIDArray[i]);
+
+            /** template naming 
+             * copyUrlS3_template-xxxxxxx-xxxxxxxx
+             * type:
+             * 		mood-xxxxxxx
+             * 		check_in-xxxxxxxx
+             * 		cultural_and_creative-xxxxxxx
+             * 
+             * */
+            if(tmpIDArray.length == 2){
+            	//For youtube and mood
+            	tmpIDArray[1] = tmpIDArray[1];         	
+            }else if(tmpIDArray.length == 3){
+            	//For check_in
+            	tmpIDArray[1] = tmpIDArray[1] + "_" + tmpIDArray[2];
+            }else if(tmpIDArray.length == 4){
+            	//For cultural_and_creative
+            	tmpIDArray[1] = tmpIDArray[1] + "_" + tmpIDArray[2] + "_" + tmpIDArray[3];
+            }else{
+            	//Type is wrong.
+            	tmpIDarray[0] = "error";
+            }
+>>>>>>> origin/crossplatform_for_ios
 
             switch(tmpIDArray[0]){
                 case "copyUrl":
@@ -343,11 +443,16 @@ FmMobile.myUgcPg = {
                 	}
                     break;
                 case "shareFb":
+<<<<<<< HEAD
                     FmMobile.shareFbType="video";
                     FmMobile.srcForMyUgcViewer="http://img.youtube.com/vi/"+tmpIDArray[1]+"/mqdefault.jpg";
                     FmMobile.youtubeVideoUrl="http://www.youtube.com/embed/" +tmpIDArray[1] + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1";
                     $.mobile.changePage('facebook_share.html');
                    
+=======
+                	//If you success to upload the photo, server will post your render photo to Facebook.
+                    alert("share to FB");
+>>>>>>> origin/crossplatform_for_ios
                     break;
                 case "shareImgFb":
                     FmMobile.shareFbType="image";
@@ -361,21 +466,25 @@ FmMobile.myUgcPg = {
                     break;            
                 case "copyUrlS3":
                     console.log("S3 URL " + tmpIDArray[1]);
+<<<<<<< HEAD
                     var s3Url = "https://s3.amazonaws.com/miix_content/user_project/" + tmpIDArray[1] + "/" + tmpIDArray[1];
-                    if(FmMobile.myUgcPg.Type == "content"){
+                    if(FmMobile.myUgcPg.Type == "content")
                         window.clipboardPluginCopy(s3Url + ".png", function() { alert("已複製到剪貼簿")} , function(e){alert(e);});
-                    }
-                    else if(FmMobile.myUgcPg.Type == "live"){
-                    	if(device.platform == "iPhone"){
-                    		window.clipboardPluginCopy(s3Url + ".jpg", function() { alert("已複製到剪貼簿")} , function(e){alert(e);});             
-                    	}else if(device.platform == "Android"){
-                    		window.clipboardManagerCopy(
+                    else if(FmMobile.myUgcPg.Type == "live")
+                        window.clipboardPluginCopy(s3Url + ".jpg", function() { alert("已複製到剪貼簿")} , function(e){alert(e);});             
+=======
+                    if(device.platform == "iPhone"){
+                    	/** iOS Plugin */
+                    	window.clipboardPluginCopy("https://s3.amazonaws.com/miix_content/user_project/" + tmpIDArray[1] + "/" + tmpIDArray[1] + ".png", function() { alert("已複製到剪貼簿")} , function(e){alert(e);});
+                    }else if(device.platform == "Android"){
+                    	/** Android Plugin */
+                    	window.clipboardManagerCopy(
                 			"https://s3.amazonaws.com/miix_content/user_project/" + tmpIDArray[1] + "/" + tmpIDArray[1] + ".png",
                 			function(r){alert("Url is copyied.")},
                 			function(e){alert(e)}
-                    		);
-                    	}
+                		);
                     }
+>>>>>>> origin/crossplatform_for_ios
                     break;
                 case "error":
                 	alert("Your Url is not available.");
