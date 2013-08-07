@@ -321,8 +321,71 @@ FmMobile.addProcessingWork = function(pid){
            $.jStorage.set("processingWorks", processingWorks);
            });
 };
+FmMobile.ajaxContents = function(){
+    FM_LOG("[ajaxContents]");
+    
+    var url = starServerURL + "/miix/members/" + localStorage._id + "/ugcs";
+//    FmMobile.myUgcPg.myContents = new Array();
+    var myContents = new Array();
+    
+    $.ajax({
+           url: url,
+           dataType: 'json',
+           success: function(response){
+               if(response){
+                   $.each(response, function(i, item){
+                      var data ={
+                          Title : item.title,
+                          ProjectId: item.projectId,
+                          Genre: item.genre,
+                          Url : item.url,
+                          No: item.no,
+                      }
+                    myContents.push(data);
+                          console.log("[contentData] " + data);
+                    });
+               }else{
+                   console.log("[error] : " + response.error);
+               }
+           }
+   });
+    
+    return myContents;
 
+};
 
+FmMobile.ajaxLiveContents = function(){
+    FM_LOG("[ajaxLiveContents]");
+    
+    //API : /miix/members/:memberId/live_contents
+    myLiveContents = new Array();
+    var urlLiveContents = remotesite + "/miix/members/" + localStorage._id + "/live_contents";
+    //return Genre,ProjectId,Title, Url(youtube);
+    $.ajax({
+           url: urlLiveContents,
+           dataType: 'json',
+           success: function(response){
+                       if(response){
+                           $.each(response, function(i, item){
+                              var data ={
+                                  Title : item.title,
+                                  ProjectId: item.projectId,
+                                  Genre: item.genre,
+                                  Url : item.url,
+                              }
+                              myLiveContents.push(data);
+                                  console.log("[liveData] " + data);
+                              });
+                       }else{
+                           console.log("[error] : " + response.error);
+                       }
+                   }
+   });
+    
+    return myLiveContents;
+
+};
+//Deprecated
 FmMobile.ajaxNewVideos = function(){
     FM_LOG("[ajaxNewVideos]");
     var videoWorks = ($.jStorage.get("videoWorks")) ? $.jStorage.get("videoWorks") : [];
@@ -385,7 +448,7 @@ FmMobile.ajaxNewVideos = function(){
         FM_LOG("[No More Processing Video!]");
     }
 };
-
+//Deprecated
 FmMobile.ajaxNewStoryVideos = function(){
     
     FM_LOG("[ajaxNewStoryVideos]");
