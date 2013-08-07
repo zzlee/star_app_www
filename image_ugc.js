@@ -9,66 +9,8 @@ ImageUgc = (function(){
         var template = null;
         var ugcCanvas = null;
         var context = null;
-        var bgImage = null;
         var customizableObjects = [];
         
-        
-        var drawChineseText = function( text, x, y, maxWidth, lineHeight, angle,fontColor) {
-            x = Number(x);
-            y = Number(y);
-            maxWidth = Number(maxWidth);
-            lineHeight = Number(lineHeight);
-            angle = Number(angle);
-            
-            var cursorX = 0;
-            var cursorY = 0;
-            var words = text; //In Chinese, a character is a word.
-            var line = '';
-            
-            context.save();
-            context.translate(x,y);
-            context.rotate(angle*Math.PI/180);
-            context.font = '36px 華康歐陽詢體W5';
-        
-            for(var n = 0; n < words.length; n++) {
-                var testLine = line + words[n];
-                var metrics = context.measureText(testLine);
-                var testWidth = metrics.width;
-            
-                if (testWidth > maxWidth && n > 0) {
-                    context.fillText(line, cursorX, cursorY);
-                    line = words[n];
-                    cursorY += lineHeight;
-                }
-                else {
-                    line = testLine;
-                }
-             context.fillStyle = fontColor;
-
-            }
-                    context.fillText(line, cursorX, cursorY);
-            
-            context.restore();
-        };
-        
-        var drawImage = function(imageUrl, x, y, width, height, angle, cbOfDrawImage){
-            var objImage = new Image();
-            objImage.src = imageUrl;
-            objImage.onload = function(){
-                context.save();
-                context.translate(x,y);
-                context.rotate(angle*Math.PI/180);
-                context.drawImage(objImage, 0, 0, width, height);
-                context.restore();
-                cbOfDrawImage(null);
-            };
-            objImage.onerror = function(){
-                cbOfDrawImage("Failed to load the image "+imageUrl);
-            };
-            objImage.onabort = function(){
-                cbOfDrawImage("Failed to load the image "+imageUrl+" (aborted)");
-            };
-        };
 
         var obj = {
             //==public services of ImageUgc==
@@ -221,12 +163,13 @@ ImageUgc = (function(){
                         callback(null, obj);
                     }
                     else {
-                        callback('Failed to get TemplateMgr instance', null);
+                        callback('Failed to get TemplateMgr instance :'+err, null);
                     }
                 });
             },
             function(callback){
                 //initiate canvas related variables
+                var bgImage = null;
                 ugcCanvas = document.createElement('canvas');
                 ugcCanvas.setAttribute("id","ugcCanvas");
                 
@@ -248,33 +191,31 @@ ImageUgc = (function(){
                 };
             },
             function(callback){
+                //draw the customizable objects
                 var imageUrl = null;
                 var iteratorDrawCustomizalbeObjects = function(aCustomizableObject, cbOfIterator){
-                      /*
-                      if(aCustomizableObject.type == "shit"){
-                      alert("shit!");
-                      }
-                    
-                      else*/ if (aCustomizableObject.type == "image"){
+                    if (aCustomizableObject.type == "image"){
                         imageUrl = userContent.picture.urlOfCropped;
-                        drawImage(imageUrl, aCustomizableObject.x, aCustomizableObject.y, aCustomizableObject.width, aCustomizableObject.height, aCustomizableObject.angle, function(errOfDrawImage){
+                        ugcUtility.drawImage( context, imageUrl, aCustomizableObject.x, aCustomizableObject.y, aCustomizableObject.width, aCustomizableObject.height, aCustomizableObject.angle, function(errOfDrawImage){
                             cbOfIterator(errOfDrawImage);
                         });
                     }
                     else if (aCustomizableObject.type == "thumbnail"){
                         imageUrl = userContent.thumbnail.url;
-                      if(aCustomizableObject.x2){
-                      drawImage(imageUrl, aCustomizableObject.x2, aCustomizableObject.y2, aCustomizableObject.width, aCustomizableObject.height, aCustomizableObject.angle, function(errOfDrawImage){
-                                cbOfIterator(errOfDrawImage);
+                        ugcUtility.drawChineseText( context, localStorage.fb_name, aCustomizableObject.fb_x, aCustomizableObject.fb_y, aCustomizableObject.width, aCustomizableObject.lineHeight, aCustomizableObject.fb_angle,aCustomizableObject.fb_color);
+                        ugcUtility.drawImage( context, imageUrl, aCustomizableObject.x, aCustomizableObject.y, aCustomizableObject.width, aCustomizableObject.height, aCustomizableObject.angle, function(errOfDrawImage){
+                            if(aCustomizableObject.x2){
+                                ugcUtility.drawImage(context, imageUrl, aCustomizableObject.x2, aCustomizableObject.y2, aCustomizableObject.width, aCustomizableObject.height, aCustomizableObject.angle, function(errOfDrawImage){
+                                    cbOfIterator(errOfDrawImage);
                                 });
-                      }
-                      drawChineseText( localStorage.fb_name, aCustomizableObject.fb_x, aCustomizableObject.fb_y, aCustomizableObject.width, aCustomizableObject.lineHeight, aCustomizableObject.fb_angle,aCustomizableObject.fb_color);
-                        drawImage(imageUrl, aCustomizableObject.x, aCustomizableObject.y, aCustomizableObject.width, aCustomizableObject.height, aCustomizableObject.angle, function(errOfDrawImage){
-                            cbOfIterator(errOfDrawImage);
+                            }
+                            else {
+                                cbOfIterator(errOfDrawImage);
+                            }
                         });
                     }
                     else if (aCustomizableObject.type == "text"){
-                        drawChineseText( userContent.text, aCustomizableObject.x, aCustomizableObject.y, aCustomizableObject.width, aCustomizableObject.lineHeight, aCustomizableObject.angle,aCustomizableObject.text_color);
+                        ugcUtility.drawChineseText( context, userContent.text, aCustomizableObject.x, aCustomizableObject.y, aCustomizableObject.width, aCustomizableObject.lineHeight, aCustomizableObject.angle,aCustomizableObject.text_color);
                         cbOfIterator(null);
                     }
                 };
@@ -293,7 +234,7 @@ ImageUgc = (function(){
                 cb_constructor(null, obj);
             }
             else {
-                cb_constructor('Failed to initiate an ImageUgc object', null);
+                cb_constructor('Failed to initiate an ImageUgc object: '+err, null);
             }
         });
 

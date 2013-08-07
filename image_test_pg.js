@@ -1,7 +1,5 @@
 FmMobile.imageTestPg = {
 
-    PAGE_ID: "imageTestPg",
- 
     init: function(){
         
  
@@ -115,7 +113,7 @@ FmMobile.imageTestPg = {
 
 
         
-        /*
+        
         //== imageUgc test ==
         FmMobile.userContent.text = "很多人習慣在手機充電時講電話，這樣的動作千萬得小心";
         FmMobile.userContent.picture.urlOfCropped = 'img/Koala.jpg';
@@ -123,6 +121,7 @@ FmMobile.imageTestPg = {
         
         var imageUgc = null;
         ImageUgc.getInstance('mood', 'picture_plus_text', FmMobile.userContent, function(err, _imageUgc){
+            console.log('err='+err);
         	if (!err){
         		imageUgc = _imageUgc;
         		$("#canvasImg").attr("src", imageUgc.getImageUrl() );
@@ -143,12 +142,10 @@ FmMobile.imageTestPg = {
         	imageUgc.uploadToServer(ugcProjectId, ugcInfo, function(err){
         		console.log("err="+err);
         	});
-        }); */
+        }); 
     	
-    	
+    	/*
         //== videoUgc test ==
-        
-        
         var videoUgc = null;
         VideoUgc.getInstance('miix_it', 'miix_one_image', function(err, _videoUgc){
         	if (!err){
@@ -181,7 +178,7 @@ FmMobile.imageTestPg = {
                 sourceType: navigator.camera.PictureSourceType.CAMERA
             });
         	
-}); 
+        }); */
 
 
 
