@@ -274,7 +274,7 @@ FmMobile.myUgcPg = {
 
             switch(tmpIDArray[0]){
                 case "copyUrl":
-                	if(device.platform == "iOS"){
+                	if(device.platform == "iPhone"){
                 		/**iOS Plugin */
                 		window.clipboardPluginCopy("https://www.youtube.com/watch?feature=player_embedded&v=" + tmpIDArray[1], function() { alert("已複製到剪貼簿")} , function(e){alert(e);});
                 	}else if(device.platform == "Android"){
@@ -292,7 +292,7 @@ FmMobile.myUgcPg = {
                     break;
                 case "copyUrlS3":
                     console.log("S3 URL " + tmpIDArray[1]);
-                    if(device.platform == "iOS"){
+                    if(device.platform == "iPhone"){
                     	/** iOS Plugin */
                     	window.clipboardPluginCopy("https://s3.amazonaws.com/miix_content/user_project/" + tmpIDArray[1] + "/" + tmpIDArray[1] + ".png", function() { alert("已複製到剪貼簿")} , function(e){alert(e);});
                     }else if(device.platform == "Android"){
