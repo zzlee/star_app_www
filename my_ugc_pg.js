@@ -11,6 +11,7 @@ FmMobile.myUgcPg = {
         var url = starServerURL + "/miix/members/" + localStorage._id + "/ugcs";
         //    FmMobile.myUgcPg.myContents = new Array();
         if(FmMobile.myUgcPg.Type == "live"){
+            FmMobile.myUgcPg.Type = "";
             $("#btnLiveMovie >img").attr({src: "images/tab-active.png"});
             $("#btnMiixMovie >img").attr({src: "images/tab.png"});
             FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myLiveContents, "live");
