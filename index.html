@@ -5,12 +5,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="./css/jquery-ui.css"/> 
         <link rel="stylesheet" href="./css/jquery.mobile-1.2.0.css"/>
+        
+        <!-- PLATFORM DEPENDENCY LIBS -->
+        <script src="./lib/platform/cordova-2.2.0.js" type="text/javascript" charset="utf-8"></script>
+        <script src="./lib/platform/GAPlugin.js"></script>
+        <script src="./lib/platform/ChildBrowser.js"></script>
+        
         <!-- CUSTOM INITIALIZATION CODE -->
-
         <script src="./lib/jquery-1.8.2.min.js"></script>
         <script src="./lib/jquery-ui.js"></script>
-        <!-- <script src="./lib/android/ChildBrowser.js"></script> -->
-       
         <script src="./lib/json2.js"></script>
         <script src="./lib/jstorage.min.js"></script>
         <script src="./lib/kinetic-v4.0.5.min.js"></script>
@@ -23,6 +26,7 @@
         <!--<script src="./lib/clipboardPlugin.js"></script> iOS plugin -->
         <script src="./lib/async.js"></script>
         <script src="./lib/CanvasText-0.4.1.js"></script>
+        <script src="./lib/GCMPlugin.js"></script>
         <!-- CUSTOM INITIALIZATION CODE -->
         <script src="common.js"></script>
         <script src="mobileinit.js"></script>
@@ -67,27 +71,10 @@
         <script src="template-sub_cultural_pg.js"></script><!-- DEPRECATED -->
         <script src="simple_analytics.js"></script> <!-- DEPRECATED -->
         <script src="./lib/jquery.mobile-1.2.0.js"></script>
-        <!--<script src="./lib/android/clipboardmanager.js"></script>
-        <script src="./lib/android/GCMPlugin.js"></script> -->
+        <!--<script src="./lib/android/clipboardmanager.js"></script> -->
+        
         <link rel="stylesheet" href="./css/style.css">
-                 <!--  <script src="./lib/android/cordova-2.2.0.js" type="text/javascript" charset="utf-8"></script>-->
-        <script type="text/javascript">
-        	if (navigator.userAgent.indexOf("Android") != -1) {
-        		document.write('<script src="./lib/android/cordova-2.2.0.js"><\/script>');
-        		document.write('<script src="./lib/android/clipboardmanager.js"><\/script>');
-        		document.write('<script src="./lib/android/ChildBrowser.js"><\/script>');
-        		document.write('<script src="./lib/android/GAPlugin.js"><\/script>');
-        		document.write('<script src="./lib/android/GCMPlugin.js"><\/script>');
-        		//Android Debugger
-        		document.write('<script src="http://jsconsole.com/remote.js?AEB05999-F5F1-44A8-B2A8-54F1BFB355E4">'+ '<\/script>');
-        	}else if((navigator.userAgent.indexOf("iPhone") != -1) || (navigator.userAgent.indexOf("iPad") != -1) || (navigator.userAgent.indexOf("iPod") != -1)){
-     	 	    document.write('<script src="/lib/ios/cordova-2.2.0.js"><\/script>');
-     	 	  	document.write('<script src="/lib/ios/clipboardPlugin.js"><\/script>');
-     	 		document.write('<script src="/lib/ios/ChildBrowser.js"><\/script>');
-     	 		document.write('<script src="/lib/ios/Pushnotification.js"><\/script>');
-     	 		document.write('<script src="/lib/ios/GAPlugin.js"><\/script>');
-     	 	}
-        </script>
+
     </head>
     <body onload="FmMobile.init.onBodyLoad();">
         <div data-role="page" id="indexPg" class="fm_page" style='background-image: url("./images/bg/fb_login_bg.png");'>

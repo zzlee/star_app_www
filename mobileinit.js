@@ -176,30 +176,24 @@ FmMobile.init = {
 onBodyLoad: function(){
     
     FM_LOG("[Init.onDeviceReady]");
-    
-    
-    
-    
-    if(device.platform == "Android"){
-    	
-    	document.addEventListener("deviceready", FmMobile.gcm.init, true);	
-    }else if(device.platform == "iOS"){
-    	document.addEventListener("deviceready", FmMobile.apn.init, true);
-    	document.addEventListener("push-notification", function(event){
-//    		FmMobile.ajaxNewVideos();
-//    		FmMobile.ajaxNewStoryVideos();
-    		FM_LOG("push-notification:");
-    		console.dir(event);
-    		//navigator.notification.alert(JSON.stringify(['push-notification!', event]));
-    		navigator.notification.alert('You have a new video!');
-    		//alert(event);
-    	});
-    }
-    
     document.addEventListener("deviceready", FmMobile.analysis.init, true);
     document.addEventListener("deviceready", FmMobile.init.isFBTokenValid, true);
     document.addEventListener("resume", FmMobile.init.onResume, false);
-    document.addEventListener("pause", FmMobile.init.onPause, false);
+    document.addEventListener("pause", FmMobile.init.onPause, false); 
+    	
+    document.addEventListener("deviceready", FmMobile.gcm.init, true);	
+    document.addEventListener("deviceready", FmMobile.apn.init, true);
+    document.addEventListener("push-notification", function(event){
+//  		FmMobile.ajaxNewVideos();
+//    		FmMobile.ajaxNewStoryVideos();
+    	FM_LOG("push-notification:");
+    	console.dir(event);
+    	//navigator.notification.alert(JSON.stringify(['push-notification!', event]));
+    	navigator.notification.alert('You have a new video!');
+    	//alert(event);
+    });
+    
+
 
     
     //TODO:
@@ -241,7 +235,7 @@ onResume: function(){
     if(localStorage.fb_userID){
 //        FmMobile.ajaxNewVideos();
 //        FmMobile.ajaxNewStoryVideos();
-        if(device.platform == "iOS"){
+        if(device.platform == "iPhone"){
         	FmMobile.apn.getPendingNotification();
 //        	recordUserAction("resumes MiixCard app");
         }
@@ -371,10 +365,12 @@ FmMobile.gcm = {
 		
 		init: function(){
 			FM_LOG("[GCM.init]");
-			if(window.plugins){
-				window.plugins.GCM.register(FmMobile.gcm.senderid, "FmMobile.gcm.event", FmMobile.gcm.success, FmMobile.gcm.fail );
-			}else{
-				window.GCM.register(FmMobile.gcm.senderid, "FmMobile.gcm.event", FmMobile.gcm.success, FmMobile.gcm.fail );
+			if(device.platform == "Android"){
+				if(window.plugins){
+					window.plugins.GCM.register(FmMobile.gcm.senderid, "FmMobile.gcm.event", FmMobile.gcm.success, FmMobile.gcm.fail );
+				}else{
+					window.GCM.register(FmMobile.gcm.senderid, "FmMobile.gcm.event", FmMobile.gcm.success, FmMobile.gcm.fail );
+				}
 			}
 			
 		},
@@ -446,11 +442,13 @@ FmMobile.gcm = {
 FmMobile.apn = {
 		init: function(){
 		    FM_LOG("[APN.init]");
-		    FmMobile.pushNotification = window.plugins.pushNotification;
-		    FmMobile.apn.registerDevice();
-		    FmMobile.apn.getPendingNotification();
-		    FmMobile.apn.getRemoteNotificationStatus();
-		    FmMobile.apn.getDeviceUniqueIdentifier();
+		    if(device.platform == "iPhone"){
+		    	FmMobile.pushNotification = window.plugins.pushNotification;
+		    	FmMobile.apn.registerDevice();
+		    	FmMobile.apn.getPendingNotification();
+		    	FmMobile.apn.getRemoteNotificationStatus();
+		    	FmMobile.apn.getDeviceUniqueIdentifier();
+		    }
 		},
 		    
 		    
