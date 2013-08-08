@@ -5,8 +5,11 @@ ImageUgc = (function(){
     function constructor(mainTemplateId, subTemplateId, userContent, cb_constructor){
         
         //object's private members		
+        var DOOH_ID = "taipei_arena";
         var templateMgr = null;
         var template = null;
+        var doohPreviewTemplate = null;
+        var doohPreview = null;
         var ugcCanvas = null;
         var context = null;
         var customizableObjects = [];
@@ -15,10 +18,17 @@ ImageUgc = (function(){
         var obj = {
             //==public services of ImageUgc==
             /**
-             * Get the url of this image UGC
+             * Get the URL of this image UGC
              */
             getImageUrl: function(){
                 return ugcCanvas.toDataURL('image/png');
+            },
+            
+            /**
+             * Get the URL of the DOOH preview of this image UGC
+             */
+            getDoohPreviewImageUrl: function(){
+                return doohPreview.getPreviewImageUrl();  
             },
             
             /**
@@ -53,7 +63,7 @@ ImageUgc = (function(){
                                     }
                                 }
                                 
-                                var params = new Object();
+                                var params = {};
                                 params.projectID = ugcProjectId; //for server side to save user content to specific project folder
                                 //for server side to crop the user content image
                                 params.croppedArea_x = userContent.picture.crop._x;
@@ -93,7 +103,7 @@ ImageUgc = (function(){
                             else {
                                 cbOfIterator(null);
                             }
-                        }
+                        };
                         async.eachSeries(customizableObjects, iterator, function(errOfEachSeries){
                             callback(errOfEachSeries);
                         });
@@ -143,6 +153,7 @@ ImageUgc = (function(){
                     if (!err) {
                         templateMgr = _templateMgr;
                         template = templateMgr.getSubTemplate(mainTemplateId, subTemplateId);
+                        doohPreviewTemplate = templateMgr.getDoohPreviewTemplate(mainTemplateId, subTemplateId, DOOH_ID);
                         var templateCustomizableObjects = template.customizableObjects;
                         for (var i=0;i<templateCustomizableObjects.length;i++){
                             customizableObjects[i] = {
@@ -227,6 +238,26 @@ ImageUgc = (function(){
                         callback('Failed to draw the customizable objects: '+err);
                     }
                 });
+            },
+            function(callback){
+                //create DOOH preview
+                if (doohPreviewTemplate){
+                    var ugcBgImageUrl = templateMgr.getTemplateFolderPath()+'/'+mainTemplateId+'/'+subTemplateId+'/'+doohPreviewTemplate.backgroundImageUrl;
+                    var customizableObjects = doohPreviewTemplate.customizableObjects;
+                    DoohPreview.getInstance(DOOH_ID, ugcBgImageUrl, customizableObjects, userContent, function(errOfGetInstance, _doohPreview){
+                        if (!errOfGetInstance){
+                            doohPreview = _doohPreview;
+                            callback(null);
+                        }
+                        else {
+                            callback('Failed to create DOOH preview instance: '+errOfGetInstance);
+                        }
+                        
+                    });
+                }
+                else {
+                    callback('Failed to get DOOH preview template');
+                }
             }
         ],
         function(err, results){

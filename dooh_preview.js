@@ -28,13 +28,16 @@ DoohPreview = (function(){
             var q = quadrilateral;
             var width = Math.sqrt( (q.x_ur-q.x_ul)*(q.x_ur-q.x_ul)+(q.y_ur-q.y_ul)*(q.y_ur-q.y_ul) );
             var height = Math.sqrt( (q.x_ll-q.x_ul)*(q.x_ll-q.x_ul)+(q.y_ll-q.y_ul)*(q.y_ll-q.y_ul) );
-            var angle = Math.atan( (q.y_ur-q.y_ul)/(q.x_ur-q.x_ul) );
+            var angle = Math.atan( (q.y_ur-q.y_ul)/(q.x_ur-q.x_ul) )/Math.PI*180;
             ugcUtility.drawImage(context, imageUrl, q.x_ul, q.y_ul, width, height, angle, cbOfDrawQuadrilateralImage);
         };
         
         
         var obj = {
             //==public services of DoohPreview==
+            /**
+             * Get the URL of DOOH preview image
+             */
             getPreviewImageUrl: function() {
                 return doohPreviewCanvas.toDataURL('image/png');
             }
@@ -42,8 +45,8 @@ DoohPreview = (function(){
         
         async.series([
             function(callback){
-                //read DOOH preview info
-                
+                //TODO: read DOOH preview info
+                callback(null);
             },
             function(callback){
                 //initiate canvas related variables
@@ -56,6 +59,7 @@ DoohPreview = (function(){
                 bgImage = new Image();
                 bgImage.src = ugcBgImageUrl;
                 bgImage.onload = function(){
+                    console.log("bgImage.width="+bgImage.width+"  bgImage.height="+bgImage.height);
                     doohPreviewCanvas.width = bgImage.width;
                     doohPreviewCanvas.height = bgImage.height;
                     context.drawImage(bgImage,0,0);
@@ -108,7 +112,7 @@ DoohPreview = (function(){
             },
             function(callback){
                 //draw the fence 
-                
+                callback(null);
             }
         ],
         function(err, results){
@@ -123,9 +127,19 @@ DoohPreview = (function(){
     
     
     return {
-        getInstance: function(mainTemplateId, subTemplateId, userContent, got_cb){
-                constructor(mainTemplateId, subTemplateId, userContent, function(err, _uInstance){
-                    got_cb(err, _uInstance);
+        /**
+         * Get an instance of DoohPreview
+         * 
+         * @param doohId
+         * @param ugcBgImageUrl
+         * @param customizableObjects
+         * @param userContent
+         * @param cbOfgetInstance
+         * @returns
+         */
+        getInstance: function(doohId, ugcBgImageUrl, customizableObjects, userContent, cbOfgetInstance){
+                constructor(doohId, ugcBgImageUrl, customizableObjects, userContent, function(err, _uInstance){
+                    cbOfgetInstance(err, _uInstance);
                 });
         }
     };

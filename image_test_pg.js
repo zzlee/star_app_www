@@ -124,7 +124,7 @@ FmMobile.imageTestPg = {
             console.log('err='+err);
         	if (!err){
         		imageUgc = _imageUgc;
-        		$("#canvasImg").attr("src", imageUgc.getImageUrl() );
+        		$("#canvasImg").attr("src", imageUgc.getDoohPreviewImageUrl() );
         	}
         });
         
