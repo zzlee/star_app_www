@@ -111,16 +111,51 @@ FmMobile.myUgcPg = {
 
         /** Set data to List */
         for(var i = 0; i< arryContents.length; i++){
-            if(type == "content"){
-                var widget = $("<div>").attr({id: arryContents[i].ProjectId, class: "content-movie"});
-            }else if(type == "live"){
-                var widget = $("<div>").attr({id: arryContents[i].ProjectId, class: "content-movie", style: "margin-top:20%;"});
-            }
-            var dummyDiv = $("<div>").attr({class: "movie-pic-dummy"});
-            //For item info ex. Copy Youtube'url, Share on FB and # of video/image
-            var info = $("<div>").attr({id: "my-video-info"});
             
-            dummyDiv.appendTo(widget);
+            var dummyDivPreview = $("<div>").attr({class: "movie-pic-dummy"});
+            var dummyDiv = $("<div>").attr({class: "movie-pic-dummy"});
+            var dummyDivLong = $("<div>").attr({class:"movie-pic-dummy-long"});
+            //For item info ex. Copy Youtube'url, Share on FB and # of video/image
+            var infoPreview = $("<div>").attr({id:"my-content-info"});
+            var info = $("<div>").attr({id: "my-content-info"});
+            
+            if(type == "content"){
+                var widgetPreview = $("<div>").attr({id: "preview_" + arryContents[i].ProjectId, class: "content-movie"});
+                dummyDivPreview.appendTo(widgetPreview);
+                this.previewThumbnail = $("<img>").attr({
+                                                        id: 'imgPreview_' + i,
+                                                        src: "images/choose_movie.png",
+                                                        class: "content-movie-img"
+                                                        });
+                this.previewThumbnail.appendTo(widgetPreview);
+                
+                var ytVideoID = i;
+                this.shareYoutubeDiv = $("<img>").attr({
+                                                       id: "copyUrl_" + ytVideoID,
+                                                       class: "share",
+                                                       src: "images/youtube.png"
+                                                       });
+                this.shareYoutubeDiv.appendTo(infoPreview);
+                
+                this.shareFbDiv = $("<img>").attr({
+                                                  id: "shareFb_" + ytVideoID,
+                                                  class: "share",
+                                                  src: "images/facebook.png"
+                                                  });
+                this.shareFbDiv.appendTo(infoPreview);
+                
+                this.numberDiv = $("<div>").attr({class: "my-video-number"});
+                this.numberDiv.html("NO." + arryContents[i].No);
+                this.numberDiv.appendTo(infoPreview);
+                
+                infoPreview.appendTo(widgetPreview);
+                widgetPreview.appendTo(parent);
+                
+                
+                
+            }
+            
+            
             switch(arryContents[i].Genre){
                 case "miix":
                 case "miix_story":
@@ -128,12 +163,16 @@ FmMobile.myUgcPg = {
                         var ytVideoID = (arryContents[i].Url.youtube).split('/').pop();
                         console.log(i + " ytVideoID :" + ytVideoID + ", No. " + arryContents[i].No);
                         if(type == "content"){
+                            var widget = $("<div>").attr({id: arryContents[i].ProjectId, class: "content-movie"});
+                            dummyDiv.appendTo(widget);
                             this.videoThumbnail = $("<img>").attr({
                                                               id: 'imgYouTube_'+ytVideoID,
                                                               src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
                                                               class: "content-movie-img"
                                                               });
                         }else if(type == "live"){
+                            var widget = $("<div>").attr({id: arryContents[i].ProjectId, class: "content-movie", style: "margin-top:20%;"});
+                            dummyDiv.appendTo(widget);
                             this.videoThumbnail = $("<img>").attr({
                                                                   id: 'imgYouTube_'+ytVideoID,
                                                                   src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
@@ -161,27 +200,43 @@ FmMobile.myUgcPg = {
                                 this.numberDiv.html("NO." + arryContents[i].No);
                                 this.numberDiv.appendTo(info);
                                 info.appendTo(widget);
+                            widget.appendTo(parent);
+                            parent.append("<hr>");
                         }else if(type =="live"){
                             info.appendTo(widget);
+                            widget.appendTo(parent);
+                            
                         }
                     }else{
-
+                        this.videoThumbnail = $("<img>").attr({
+                                                              id: 'imgError_' + i,
+                                                              src: "images/choose_movie.png",
+                                                              class: "content-movie-img"
+                                                              });
+                        this.videoThumbnail.appendTo(widget);
+                        widget.appendTo(parent);
 
                     }
-                    widget.appendTo(parent);
+                    
+
                     break;
                 case "miix_image":
                 case "miix_image_live_photo":
                     var projectId = arryContents[i].ProjectId;
                     console.log("s3 :" + arryContents[i].Url.s3);
                     if(type == "content"){
+                        var widget = $("<div>").attr({id: arryContents[i].ProjectId, class: "content-movie-long"});
+                        dummyDivLong.appendTo(widget);
+                        
                         var s3Url = arryContents[i].Url.s3;
                         this.imageThumbnail = $("<img>").attr({
                                                               id: "imgS3_" +projectId,
                                                               src: s3Url,
-                                                              class: "content-movie-img"
+                                                              class: "content-movie-img-long"
                                                               });
                     }else if(type == "live"){
+                        var widget = $("<div>").attr({id: arryContents[i].ProjectId, class: "content-movie", style: "margin-top:20%;"});
+                        dummyDiv.appendTo(widget);
                         var s3Url = "https://s3.amazonaws.com/miix_content" + arryContents[i].Url.s3;
                         this.imageThumbnail = $("<img>").attr({
                                                               id: "imgS3_" +projectId,
@@ -210,11 +265,12 @@ FmMobile.myUgcPg = {
                         this.numberDiv.html("NO." + arryContents[i].No);
                         this.numberDiv.appendTo(info);
                         info.appendTo(widget);
+                        widget.appendTo(parent);
+                        parent.append("<hr>");
                     }else if(type == "live"){
                         info.appendTo(widget);
+                        widget.appendTo(parent);
                     }
-
-                    widget.appendTo(parent);
                     break;
 
                 default :
@@ -292,7 +348,7 @@ FmMobile.myUgcPg = {
         });
         
         /** Copy youtube url and share to FB */
-        $('#my-video-info>img').click(function(){
+        $('#my-content-info>img').click(function(){
             var imgID = this.id;        
 //            console.log("imgID :" + imgID);
             var tmpIDArray = this.id.split('_');
@@ -358,17 +414,16 @@ FmMobile.myUgcPg = {
                     console.log("S3 URL " + tmpIDArray[1]);
                     var s3Url = "https://s3.amazonaws.com/miix_content/user_project/" + tmpIDArray[1] + "/" + tmpIDArray[1];
                     if(FmMobile.myUgcPg.Type == "content"){
-                        window.clipboardPluginCopy(s3Url + ".png", function() { alert("已複製到剪貼簿")} , function(e){alert(e);});
-                    }
-                    else if(FmMobile.myUgcPg.Type == "live"){
+                        if(device.platform == "iPhone"){
+                            window.clipboardPluginCopy(s3Url + ".png", function() { alert("已複製到剪貼簿")} , function(e){alert(e);});
+                        }else if(device.platform == "Android"){
+                            window.clipboardManagerCopy(s3Url+ ".jpg", function(r){alert("Url is copyied.")}, function(e){alert(e)});
+                        }
+                    }else if(FmMobile.myUgcPg.Type == "live"){
                     	if(device.platform == "iPhone"){
-                    		window.clipboardPluginCopy(s3Url + ".jpg", function() { alert("已複製到剪貼簿")} , function(e){alert(e);});             
+                    		window.clipboardPluginCopy(s3Url + ".jpg", function(){ alert("已複製到剪貼簿")} , function(e){alert(e);});             
                     	}else if(device.platform == "Android"){
-                    		window.clipboardManagerCopy(
-                			"https://s3.amazonaws.com/miix_content/user_project/" + tmpIDArray[1] + "/" + tmpIDArray[1] + ".png",
-                			function(r){alert("Url is copyied.")},
-                			function(e){alert(e)}
-                    		);
+                    		window.clipboardManagerCopy(s3Url+ ".jpg", function(r){alert("Url is copyied.")}, function(e){alert(e)});
                     	}
                     }
                     break;
