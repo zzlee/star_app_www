@@ -13,7 +13,7 @@ init: function(){
             $('#shareFbPhoto').hide();
 
         if(FmMobile.shareFbType=="video"){
-            $('#youtubePlay').attr({src:FmMobile.youtubeVideoUrl});
+            $('#youtubePlay').attr({src:FmMobile.youtubeVideoUrl, style: "height: 90%;"});
             $('#youtubePlay').show();
         }else if(FmMobile.shareFbType=="image"){
             if(FmMobile.myUgcPg.Type == "live"){

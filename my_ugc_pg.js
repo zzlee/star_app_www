@@ -165,12 +165,7 @@ FmMobile.myUgcPg = {
                             info.appendTo(widget);
                         }
                     }else{
-                        this.videoThumbnail = $("<img>").attr({
-                                                              id: 'imgError_' + i,
-                                                              src: "images/choose_movie.png",
-                                                              class: "content-movie-img"
-                                                              });
-                        this.videoThumbnail.appendTo(widget);
+
 
                     }
                     widget.appendTo(parent);
@@ -236,7 +231,7 @@ FmMobile.myUgcPg = {
     ClickEvent: function(){
         /**  Video play  */
         FM_LOG("[myUgcPg.ClickEvent]");
-        $('#my-video-list>div>img').tap(function(){
+        $('#my-video-list>div>img').click(function(){
 //            console.log("click" + this);
                                      
                                           
