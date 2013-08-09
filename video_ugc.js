@@ -47,7 +47,12 @@ VideoUgc = (function(){
             askServerToGenerate: function(userContent, ugcInfo, cbOfAskServerToGenerate){
                 ugcProjectId = mainTemplateId +'-'+ ugcInfo.ownerId._id +'-'+ (new Date()).toISOString().replace(/[-:.]/g, "");
                 var imageUri = userContent.picture.urlOfOriginal;
-                var imageFileName = imageUri.substr(imageUri.lastIndexOf('/')+1);
+                if ( userContent.picture.urlOfOriginalIsFromAndroidAlbum){ //for photo from Android album 
+                    var imageFileName = imageUri.substr(imageUri.lastIndexOf('/')+1) + ".jpg";
+                }
+                else {
+                    var imageFileName = imageUri.substr(imageUri.lastIndexOf('/')+1);
+                }
                 async.series([
                     function(callback){
                         //upload original image user content file to server

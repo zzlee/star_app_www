@@ -5,23 +5,30 @@
         <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no;"> 
         <link rel="stylesheet" href="./css/jquery-ui.css"/> 
         <link rel="stylesheet" href="./css/jquery.mobile-1.2.0.css"/>
+        
+        <!-- PLATFORM DEPENDENCY LIBS -->
+        <script src="./lib/platform/cordova-2.2.0.js" type="text/javascript" charset="utf-8"></script>
+        <script src="./lib/platform/GAPlugin.js"></script>
+        <script src="./lib/platform/ChildBrowser.js"></script>
+        
         <!-- CUSTOM INITIALIZATION CODE -->
-        <script src="./lib/cordova-2.2.0.js" type="text/javascript" charset="utf-8"></script>
         <script src="./lib/jquery-1.8.2.min.js"></script>
         <script src="./lib/jquery-ui.js"></script>
-        <script src="./lib/ChildBrowser.js"></script>
         <script src="./lib/json2.js"></script>
         <script src="./lib/jstorage.min.js"></script>
         <script src="./lib/kinetic-v4.0.5.min.js"></script>
         <script src="./lib/lufylegend-1.6.1.js"></script>
-        <script src="./lib/GAPlugin.js"></script>
-        <script src="./lib/PushNotification.js"></script>
         <script src="./lib/exif.js"></script>
         <script src="./lib/binaryajax.js"></script>
         <script src="./lib/quojs-2.3.1/quo.js"></script>
-        <script src="./lib/clipboardPlugin.js"></script>
         <script src="./lib/async.js"></script>
         <script src="./lib/CanvasText-0.4.1.js"></script>
+        <!-- IPHONE LIBS -->
+        <script src="./lib/PushNotification.js"></script>
+        <script src="./lib/clipboardPlugin.js"></script>
+        <!-- ANDROID LIBS -->
+        <script src="./lib/GCMPlugin.js"></script>
+        <script src="./lib/clipboardmanager.js"></script>
         <!-- CUSTOM INITIALIZATION CODE -->
         <script src="common.js"></script>
         <script src="mobileinit.js"></script>
@@ -69,7 +76,9 @@
             <script src="facebook_share_pg.js"></script>
 
         <script src="simple_analytics.js"></script> <!-- DEPRECATED -->
-        <script src="./lib/jquery.mobile-1.2.0.js"></script> 
+        <script src="./lib/jquery.mobile-1.2.0.js"></script>
+        
+        
         <link rel="stylesheet" href="./css/style.css">
             
             

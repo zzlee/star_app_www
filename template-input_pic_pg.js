@@ -78,7 +78,7 @@ FmMobile.template_pic_pg = {
                 
                 fileSelectedURI = imageURI;
                 
-                if ( device.version > "6") {
+                if ( (device.version > "6") && (device.platform == "iPhone")) {
                     
                     //Here is the workaround for iOS 6.0 and 6.0.1 subsampling issue (when drawing from a more-than-2M jpg to canvas)
                     var tempImg = new Image();

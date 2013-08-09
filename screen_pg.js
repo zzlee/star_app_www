@@ -11,20 +11,154 @@ FmMobile.screenPg = {
     PAGE_ID: "screenPg",
     highLightVideos: null,
     
+    highLightContent:null,
+    init: function(){
+        FM_LOG("[screenPg] pageinit");
+        $('#nav-bar').show();
+        
+        //Get the the video from our server.
+        var url = starServerURL + "/miix/ugc_hightlights";
+        FmMobile.screenPg.highLightContent = new Array();
+        
+        //json transfer array
+        //it's async
+        $.ajax({
+               url: url,
+               dataType: 'json',
+               success: function(response){
+                               if(response){
+                                   $.each(response, function(i, item){
+                                          var data ={
+                                              OwnerId: item.ownerId,
+                                              Name: item.fb_userName,
+                                              Genre: item.genre,
+                                              Url : item.url,
+                              
+                                  }
+                              FmMobile.screenPg.highLightContent.push(data);
+                              });
+        //               FmMobile.screenPg.loadVideo(FmMobile.screenPg.highLightVideos, "highlight");
+                            FmMobile.screenPg.loadHighLightContent(FmMobile.screenPg.highLightContent);
+                       }else{
+                           console.log("[error] : " + response.error);
+                       }
+                   }
+               });
+        
+        
+        
+    },
     show: function(){
         FM_LOG("[screenPg] pageshow");
         FmMobile.analysis.trackPage("/screenPg");
         $("#btnHighLights").click(function(){
-            FmMobile.screenPg.loadVideo(FmMobile.screenPg.highLightVideos, "highlight");
+            $("#btnHighLights > img").attr({src: "images/tab-active.png"});
+            $("#btnArena > img").attr({src: "images/tab.png"});
+//            FmMobile.screenPg.loadVideo(FmMobile.screenPg.highLightVideos, "highlight");
+            FmMobile.screenPg.loadHighLightContent(FmMobile.screenPg.highLightContent);
         });
         
         $("#btnArena").click(function(){
-            FmMobile.screenPg.loadVideo(FmMobile.screenPg.highLightVideos, "arena");
+            $("#btnHighLights > img").attr({src: "images/tab.png"});
+            $("#btnArena > img").attr({src: "images/tab-active.png"});
+//            FmMobile.screenPg.loadVideo(FmMobile.screenPg.highLightVideos, "arena");
         });
         
-        FmMobile.screenPg.loadVideo(FmMobile.screenPg.highLightVideos, "highlight");
+//        FmMobile.screenPg.loadVideo(FmMobile.screenPg.highLightVideos, "highlight");
+//        FmMobile.screenPg.loadHighLightContent(FmMobile.screenPg.highLightContent);
     },
     
+    loadHighLightContent: function(arryHighlight){
+        FM_LOG("[screenPg]loadHighLightContent");
+        var parent = $("#my-video-list");
+        parent.html("");
+        
+        //improve efficency
+        var arryLen = arryHighlight.length;
+        
+        for(var i = 0; i < arryLen; i++){
+            console.log("userId" + arryHighlight[i].OwnerId.userID);
+            var widget = $("<div>").attr({id: arryHighlight[i].OwnerId.userID + "_" + i, class: "content-movie"});
+            var dummyDiv = $("<div>").attr({class: "movie-pic-dummy"});
+            var infoDiv = $("<div>").attr({id: "ownerid-info"});
+            var ownerPhotoUrl = 'https://graph.facebook.com/' + arryHighlight[i].OwnerId.userID + '/picture/';
+            dummyDiv.appendTo(widget);
+            switch(arryHighlight[i].Genre){
+                case "miix_story":
+                case "miix":
+                    if(typeof(arryHighlight[i].Url) != "undefined"){
+                        var ytVideoID = (arryHighlight[i].Url.youtube).split('/').pop();
+                        console.log("youtubeID " + ytVideoID);
+                        //set youtube
+                        this.videoThumbnail = $("<img>").attr({
+                                                              id: 'imgYouTube_'+ytVideoID,
+                                                              src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
+                                                              class: "content-movie-img"
+                                                              });
+                        this.videoThumbnail.appendTo(widget);
+                        //set the owner'photo
+                        this.ownerPhoto = $("<img>").attr({
+                                                               id: "OwnerId_" + i + "_" + arryHighlight[i].OwnerId.userID,
+                                                               class: "share",
+                                                               src: ownerPhotoUrl
+                                                               });
+                        //set the owner's name
+                        this.ownerNameDiv = $("<div>").attr({class: "my-video-number"});
+                        this.ownerNameDiv.html(arryHighlight[i].Name);
+                        this.ownerPhoto.appendTo(infoDiv);
+                        this.ownerNameDiv.appendTo(infoDiv);
+                        infoDiv.appendTo(widget);
+
+                    }else{
+                        this.videoThumbnail = $("<img>").attr({
+                                                              id: 'imgError_' + i,
+                                                              src: "images/choose_movie.png",
+                                                              class: "content-movie-img"
+                                                              });
+                        this.videoThumbnail.appendTo(widget);
+                        
+                    }
+
+                    widget.appendTo(parent);
+                    break;
+                case "miix_image_live_photo":
+
+                        var s3Url = "https://s3.amazonaws.com/miix_content" + arryHighlight[i].Url.s3;
+                        this.imageThumbnail = $("<img>").attr({
+                                                              id: "imgS3_" + i + "-" + arryHighlight[i].userID,
+                                                              src: s3Url,
+                                                              class: "content-movie-img",
+                                                              style: "height: 90%;"  //fixed the image of height
+                                                              });
+                    this.imageThumbnail.appendTo(widget);
+
+                    //set the owner'photo
+                    this.ownerPhoto = $("<img>").attr({
+                                                      id: "OwnerId_" + i + "_" + arryHighlight[i].OwnerId.userID,
+                                                      class: "share",
+                                                      src: ownerPhotoUrl
+                                                      });
+                    //set the owner's name
+                    this.ownerNameDiv = $("<div>").attr({class: "my-video-number"});
+                    this.ownerNameDiv.html(arryHighlight[i].Name);
+                    this.ownerPhoto.appendTo(infoDiv);
+                    this.ownerNameDiv.appendTo(infoDiv);
+                    infoDiv.appendTo(widget);
+            
+                    widget.appendTo(parent);
+                    break;
+
+                default :
+                    console.log("Eroor : no Genre");
+            }
+            
+        }
+        
+        FmMobile.screenPg.clickEvent();
+        
+    },
+    
+    //Deprecated
     loadVideo: function(arryVideo, type){
         FM_LOG("[screenPg]loadVideo");
         
@@ -78,50 +212,7 @@ FmMobile.screenPg = {
         
     },
     
-    init: function(){
-        FM_LOG("[screenPg] pageinit");
-		$('#nav-bar').show();
-        
-        //Get the the video from our server.
-        var url = starServerURL + "/miix/ugc_hightlights";
-        FmMobile.screenPg.highLightVideos = new Array();
-        
-        //json transfer array
-        //it's async
-        $.ajax({
-               url: url,
-               data: (new Date()).getTime(),
-               dataType: 'json',
-               success: function(response){
-                   if(response){
-                       $.each(response, function(i, item){
-                              var data ={
-                                  Title : item.title,
-                                  ProjectId: item.projectId,
-                                  Genre: item.genre,
-                                  Youtube : item.url.youtube,
-                                  PosterId : item.ownerId.userID,
 
-                              }
-                              FmMobile.screenPg.highLightVideos.push(data);
-                      });
-                       FmMobile.screenPg.loadVideo(FmMobile.screenPg.highLightVideos, "highlight"); 
-                   }else{
-                       console.log("[error] : " + response.error);
-                   }
-               }
-        });
-        
-        
-//        //TEST
-//        var showArray = function(arryVideo) {
-//            console.log("length : " + arryVideo.length);
-//            for(var i = 0; i < arryVideo.length; i++)
-//                console.log("[youtube] : " + arryVideo[i].Youtube);
-//            
-//        }
-        
-    },
     
     clickEvent: function(){
         FM_LOG("[screenPg.clickEvent");

@@ -18,12 +18,9 @@ FmMobile.setting_MainPg = {
                                   
             else if (this.id == "itemAboutMiixIt"){
                 $("#contentAboutMiixIt").toggle();
-            }
-                                  else if (this.id == "itemMailUs"){
-                                  $.mobile.changePage("setting-customer.html");
-                                  }
-            
-            else if (this.id == "itemLogout") {
+            }else if (this.id == "itemMailUs"){
+            	$.mobile.changePage("setting-customer.html");
+            }else if (this.id == "itemLogout") {
                 FmMobile.authPopup.FBLogout();
             }
             else if (this.id == "ugcTest") {
