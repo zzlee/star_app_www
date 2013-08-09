@@ -38,8 +38,10 @@ ImageUgc = (function(){
              * @param ugcInfo
              * @param cbOfUploadToServer
              */
-            uploadToServer:function(ugcProjectId, ugcInfo, cbOfUploadToServer){
+            uploadToServer:function(ugcInfo, cbOfUploadToServer){
+                ugcProjectId = mainTemplateId +'-'+ ugcInfo.ownerId._id +'-'+ (new Date()).toISOString().replace(/[-:.]/g, "");
                 var reultURI = ugcCanvas.toDataURL('image/png').replace('image/octet-stream');
+                var doohPreviewResultURI = doohPreview.getPreviewImageUrl().replace('image/octet-stream');
                 
                 async.series([
                     function(callback){
@@ -115,9 +117,10 @@ ImageUgc = (function(){
                             type: "PUT",
                             data: {
                                 imgBase64: reultURI,
+                                imgDoohPreviewBase64: doohPreviewResultURI,
                                 ownerId: ugcInfo.ownerId._id,
                                 ownerFbUserId: ugcInfo.ownerId.fbUserId,
-                                contentGenre: ugcInfo.contentGenre,
+                                contentGenre: mainTemplateId,
                                 title: ugcInfo.title,
                                 customizableObjects: JSON.stringify(customizableObjects),
                                 time: (new Date()).getTime()

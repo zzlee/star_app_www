@@ -49,13 +49,9 @@ FmMobile.template_previewPg = {
             ImageUgc.getInstance(FmMobile.selectedTemplate,
                     FmMobile.selectedSubTemplate, FmMobile.userContent,
                     function(err, _imageUgc) {
-                        console.log(err);
                         if (!err) {
                             imageUgc = _imageUgc;
-                            console.log(err);
-                            $("#show").attr("src", imageUgc.getImageUrl());
-                            console.log(err);
-
+                            $("#show").attr("src", imageUgc.getDoohPreviewImageUrl());
                         } else {
                             console.log(err);
                         }
@@ -67,12 +63,7 @@ FmMobile.template_previewPg = {
                         var mainTemplate = FmMobile.selectedTemplate;
                         var ownerId = localStorage._id; 
                         var ownerFbUserId = localStorage.fb_userID; 
-                        var ugcProjectId = mainTemplate
-                                + '-'
-                                + ownerId
-                                + '-'
-                                + (new Date()).toISOString().replace(/[-:.]/g,
-                                        "");
+                        
                         var ugcInfo = {
                             ownerId : {
                                 _id : ownerId,
@@ -82,7 +73,7 @@ FmMobile.template_previewPg = {
                             title : "today's mood"
                         };
 
-                        imageUgc.uploadToServer(ugcProjectId, ugcInfo,
+                        imageUgc.uploadToServer(ugcInfo,
                                 function(err) {
                                     console.log("err=" + err);
 

@@ -115,22 +115,53 @@ FmMobile.imageTestPg = {
         
         
         //== imageUgc test ==
-        FmMobile.userContent.text = "很多人習慣在手機充電時講電話，這樣的動作千萬得小心";
-        FmMobile.userContent.picture.urlOfCropped = 'img/Koala.jpg';
-        FmMobile.userContent.thumbnail.url = 'img/darth-vader.jpg';
         
-        var imageUgc = null;
-        var doohInfo = null;
-        ImageUgc.getInstance('mood', 'picture_plus_text', FmMobile.userContent, function(err, _imageUgc){
-            console.log('err='+err);
-        	if (!err){
-        		imageUgc = _imageUgc;
-        		$("#canvasImg").attr("src", imageUgc.getDoohPreviewImageUrl() );
-        	}
-        	
-        });
+        
+        
         
         $('#btnTest').click(function(){
+            navigator.camera.getPicture(function(imageURI){
+                //do the work
+                var mainTemplate = "miix_it";
+                var ownerId = '512da133989cfc2403000005'; //Gance's
+                var ownerFbUserId = '100004619173955'; //Gance's
+                var ugcInfo = {
+                        ownerId:{_id:ownerId, fbUserId:ownerFbUserId },
+                        title: "My Miix move!!"
+                };
+                FmMobile.userContent.picture.urlOfOriginal = imageURI;
+                FmMobile.userContent.text = "很多人習慣在手機充電時講電話，這樣的動作千萬得小心";
+                FmMobile.userContent.picture.urlOfCropped = imageURI;
+                FmMobile.userContent.thumbnail.url = 'img/darth-vader.jpg';
+                
+                var imageUgc = null;
+                var doohInfo = null;
+                ImageUgc.getInstance('mood', 'picture_plus_text', FmMobile.userContent, function(err, _imageUgc){
+                    console.log('err='+err);
+                    if (!err){
+                        imageUgc = _imageUgc;
+                        $("#canvasImg").attr("src", imageUgc.getDoohPreviewImageUrl() );
+                        
+                        imageUgc.uploadToServer(ugcInfo, function(err){
+                            console.log("err="+err);
+                        });
+                    }
+                    
+                });
+                
+                
+                
+            }, function(){
+                alert('Failed to sellect file');
+            },{
+                quality: 50,
+                destinationType: navigator.camera.DestinationType.FILE_URI,
+                sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
+            });
+            
+            
+            
+            /*
         	var mainTemplate = "mood";
         	var ownerId = '512da133989cfc2403000005'; //Gance's
         	var ownerFbUserId = '100004619173955'; //Gance's
@@ -143,7 +174,7 @@ FmMobile.imageTestPg = {
         	
         	imageUgc.uploadToServer(ugcProjectId, ugcInfo, function(err){
         		console.log("err="+err);
-        	});
+        	});*/
         }); 
     	
     	/*
