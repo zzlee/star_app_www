@@ -200,7 +200,7 @@ FmMobile.userContent = {
 FmMobile.myContents = null;
 FmMobile.myLiveContents = null;
 //For screen contents
-FmMobile.highlightContents = null;
+FmMobile.highlightContents = [];
 
 FmMobile.init = {
     
@@ -216,8 +216,8 @@ onBodyLoad: function(){
     document.addEventListener("resume", FmMobile.init.onResume, false);
     document.addEventListener("pause", FmMobile.init.onPause, false);
     document.addEventListener("push-notification", function(event){
-                              FmMobile.ajaxNewVideos();
-                              FmMobile.ajaxNewStoryVideos();
+//                              FmMobile.ajaxNewVideos();
+//                              FmMobile.ajaxNewStoryVideos();
                               FM_LOG("push-notification:");
                               console.dir(event);
                               //navigator.notification.alert(JSON.stringify(['push-notification!', event]));
@@ -378,13 +378,11 @@ FmMobile.ajaxLiveContents = function(){
                        if(response){
                            $.each(response, function(i, item){
                               var data ={
-                                  Title : item.title,
                                   ProjectId: item.projectId,
                                   Genre: item.genre,
                                   Url : item.url,
                               }
                               myLiveContents.push(data);
-                                  console.log("[liveData] " + data);
                               });
                        }else{
                            console.log("[error] : " + response.error);
@@ -394,6 +392,7 @@ FmMobile.ajaxLiveContents = function(){
     
 //    return myLiveContents;
     FmMobile.myLiveContents = myLiveContents;
+
 
 };
 
@@ -899,7 +898,7 @@ onFBConnected: function(){
            // $.mobile.changePage("movie_create.html");
            window.plugins.childBrowser.close();
            
-           FmMobile.analysis.setVariable("Facebook_ID", localStorage.fb_userID, 1);
+//           FmMobile.analysis.setVariable("Facebook_ID", localStorage.fb_userID, 1);
            recordUserAction("successfully logs in with FB");
            }
            });
