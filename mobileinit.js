@@ -183,19 +183,24 @@ FmMobile.selectedTemplateName=null;
 FmMobile.selectedTemplate = null;  //the main template that the user chooses, such as "miix_it", "cultural_and_creative", "mood", or "check_in"
 FmMobile.selectedSubTemplate = null; //the sub-template that the user chooses. It must be "text", "picture", "text_picture", "check_in",or "video"
 FmMobile.userContent = {
-text: null,
-picture: {
-urlOfOriginal: null, //the URL of the original picture that the user chooses
-urlOfCropped: null, //the URL of the picture that the user crops. (It is normally a base64 string got from canvas.toDataURL() )
-    //url:null,
-crop: {_x:0, _y:0, _w:1, _h:1},  // _x=x_crop/width_picture; _y=y_crop/height_picture; _w=width_crop/width_picture;  _h=height_crop/height_picture
-},
-thumbnail:{
-url:'https://graph.facebook.com/'+localStorage.fb_userID+'/picture/'
-
+		text: null,
+		picture: {
+			urlOfOriginal: null, //the URL of the original picture that the user chooses
+			urlOfCropped: null, //the URL of the picture that the user crops. (It is normally a base64 string got from canvas.toDataURL() )
+			//url:null,
+			crop: {_x:0, _y:0, _w:1, _h:1},  // _x=x_crop/width_picture; _y=y_crop/height_picture; _w=width_crop/width_picture;  _h=height_crop/height_picture
+		},
+		thumbnail:{
+			url:'https://graph.facebook.com/'+localStorage.fb_userID+'/picture/'
     
-}
+		}
 };
+
+//For my_ugc contents
+FmMobile.myContents = null;
+FmMobile.myLiveContents = null;
+//For screen contents
+FmMobile.highlightContents = null;
 
 FmMobile.init = {
     
@@ -259,6 +264,9 @@ onResume: function(){
     if(localStorage.fb_userID){
 //      FmMobile.ajaxNewVideos();
 //      FmMobile.ajaxNewStoryVideos();
+    	FmMobile.ajaxContents();
+    	FmMobile.ajaxLiveContents();
+    	FmMobile.ajaxHighlightContents();
       if(device.platform == "iPhone"){
       	FmMobile.apn.getPendingNotification();
 //      	recordUserAction("resumes MiixCard app");
@@ -353,7 +361,7 @@ FmMobile.ajaxContents = function(){
            }
    });
     
-    return myContents;
+    FmMobile.myContents = myContents;
 
 };
 
@@ -363,7 +371,6 @@ FmMobile.ajaxLiveContents = function(){
     //API : /miix/members/:memberId/live_contents
     myLiveContents = new Array();
     var urlLiveContents = remotesite + "/miix/members/" + localStorage._id + "/live_contents";
-    //return Genre,ProjectId,Title, Url(youtube);
     $.ajax({
            url: urlLiveContents,
            dataType: 'json',
@@ -385,9 +392,37 @@ FmMobile.ajaxLiveContents = function(){
                    }
    });
     
-    return myLiveContents;
+//    return myLiveContents;
+    FmMobile.myLiveContents = myLiveContents;
 
 };
+
+
+FmMobile.ajaxHighlightContents = function(){
+	FM_LOG("[ajaxHighlightContents]");
+	highlightContents = new Array();
+    $.ajax({
+        	url: url,
+        	dataType: 'json',
+        	success: function(response){
+                        if(response){
+                            $.each(response, function(i, item){
+                                   var data ={
+                                       OwnerId: item.ownerId,
+                                       Name: item.fb_userName,
+                                       Genre: item.genre,
+                                       Url : item.url,
+                       
+                           }
+                           highlightContents.push(data);
+                       });
+                }else{
+                    console.log("[error] : " + response.error);
+                }
+            }
+        });
+    FmMobile.highlightContents = highlightContents;
+},
 //Deprecated
 FmMobile.ajaxNewVideos = function(){
     FM_LOG("[ajaxNewVideos]");
@@ -852,8 +887,8 @@ onFBConnected: function(){
            FM_LOG("localStorage" + JSON.stringify(localStorage));
            
            // Each time of Login, pull all videos.
-           FmMobile.ajaxNewVideos();
-           FmMobile.ajaxNewStoryVideos();
+//           FmMobile.ajaxNewVideos();
+//           FmMobile.ajaxNewStoryVideos();
            
            if(localStorage.verified == 'true'){
            $.mobile.changePage("template-main_template.html");
