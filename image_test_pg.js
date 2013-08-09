@@ -120,12 +120,14 @@ FmMobile.imageTestPg = {
         FmMobile.userContent.thumbnail.url = 'img/darth-vader.jpg';
         
         var imageUgc = null;
+        var doohInfo = null;
         ImageUgc.getInstance('mood', 'picture_plus_text', FmMobile.userContent, function(err, _imageUgc){
             console.log('err='+err);
         	if (!err){
         		imageUgc = _imageUgc;
         		$("#canvasImg").attr("src", imageUgc.getDoohPreviewImageUrl() );
         	}
+        	
         });
         
         $('#btnTest').click(function(){

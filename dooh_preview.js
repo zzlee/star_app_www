@@ -6,6 +6,7 @@ DoohPreview = (function(){
         
         var templateMgr = null;
         var template = null;
+        var doohInfo = null;
         var doohPreviewCanvas = null;
         var context = null;
         
@@ -45,31 +46,39 @@ DoohPreview = (function(){
         
         async.series([
             function(callback){
-                //TODO: read DOOH preview info
-                callback(null);
+                //get DOOH preview info
+                DoohInfo.getInstance(function(errOfGetDoohInfoInstance, _doohInfo){
+                    if (!errOfGetDoohInfoInstance){
+                        doohInfo = _doohInfo;
+                        callback(null);
+                    }
+                    else {
+                        callback('Failed to get DOOH preview info: '+errOfGetDoohInfoInstance);
+                    }
+                });
             },
             function(callback){
                 //initiate canvas related variables
-                var bgImage = null;
                 doohPreviewCanvas = document.createElement('canvas');
                 doohPreviewCanvas.setAttribute("id","doohPreviewCanvas");
                 
                 context = doohPreviewCanvas.getContext('2d');
                 context.webkitImageSmoothingEnabled = true;
+                var bgImage = null;
                 bgImage = new Image();
                 bgImage.src = ugcBgImageUrl;
                 bgImage.onload = function(){
-                    console.log("bgImage.width="+bgImage.width+"  bgImage.height="+bgImage.height);
+                    //console.log("bgImage.width="+bgImage.width+"  bgImage.height="+bgImage.height);
                     doohPreviewCanvas.width = bgImage.width;
                     doohPreviewCanvas.height = bgImage.height;
                     context.drawImage(bgImage,0,0);
                     callback(null);
                 };
                 bgImage.onerror = function(){
-                    callback("Failed to load the background image "+imageUrl);
+                    callback("Failed to load the background image "+ugcBgImageUrl);
                 };
                 bgImage.onabort = function(){
-                    callback("Failed to load the background image "+imageUrl+" (aborted)");
+                    callback("Failed to load the background image "+ugcBgImageUrl+" (aborted)");
                 };
             },
             function(callback){
@@ -111,8 +120,20 @@ DoohPreview = (function(){
                 });
             },
             function(callback){
-                //draw the fence 
-                callback(null);
+                //draw the cover image (such as the fence in Taipei Arena)
+                var coverImage = null;
+                coverImage = new Image();
+                coverImage.src = doohInfo.getPreviewCoverImageUrl(doohId);
+                coverImage.onload = function(){
+                    context.drawImage(coverImage,0,0);
+                    callback(null);
+                };
+                coverImage.onerror = function(){
+                    callback("Failed to load the cover image "+coverImage.src);
+                };
+                coverImage.onabort = function(){
+                    callback("Failed to load the cover image "+coverImage.src+" (aborted)");
+                };
             }
         ],
         function(err, results){

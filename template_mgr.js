@@ -14,7 +14,7 @@ TemplateMgr = (function(){
 			var templateList = null;
 			async.series([
 				function(cb1_series){
-				  //read template_list.json
+                    //read template_list.json
 					var settings = {
 							type: "GET",
 							dataType: "json",
