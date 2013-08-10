@@ -7,12 +7,15 @@ FmMobile.template_subTemplatePg = {
     },
         
     init: function(){
-		$('#nav-bar').show();
+		$('#nav-bar').hide();
+        
         $("#show_intro").show();
         $("#close").click(function(){
                       $("#show_intro").hide();
                           $('#close').hide();
                   });
+        
+        /*
         $('#template_name').html(FmMobile.selectedTemplateName);
         $('#start_sub').html("");
         
@@ -60,5 +63,7 @@ FmMobile.template_subTemplatePg = {
                                                         
                                         }
                             });
+         
+         */
    },
 };
