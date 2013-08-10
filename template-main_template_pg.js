@@ -7,6 +7,7 @@ PAGE_ID: "template_mainTemplatePg",
     },
         
     init: function(){
+        /*
             TemplateMgr.getInstance(function(err, _templateMgr){
             if (!err) {
                     templateMgr = _templateMgr;
@@ -48,6 +49,7 @@ PAGE_ID: "template_mainTemplatePg",
                     console.log("Fail to get templateMgr: "+err);
                 }
             });
+        */
                        
 		$('#nav-bar').show();
         

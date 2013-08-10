@@ -985,16 +985,32 @@ postFbVideoMessage:function(){
 FmMobile.bindClickEventToNavBar = function(){
     $("#nav-bar > div").click(function(){
                               if (this.id == "btnTemplate"){
-                              $.mobile.changePage("template-main_template.html");
+                                  $(this).children("img").attr({src:"images/m1-active.png"});
+                                  $("#btnMyUgc").children("img").attr({src:"images/m2.png"});
+                                  $("#btnScreen").children("img").attr({src:"images/m3.png"});
+                                  $("#btnSetting").children("img").attr({src:"images/m4.png"});
+                                  $.mobile.changePage("template-main_template.html");
                               }
                               else if (this.id == "btnMyUgc") {
+                                  $(this).children("img").attr({src:"images/m2-active.png"});
+                                  $("#btnTemplate").children("img").attr({src:"images/m1.png"});
+                                  $("#btnScreen").children("img").attr({src:"images/m3.png"});
+                                  $("#btnSetting").children("img").attr({src:"images/m4.png"});
                               $.mobile.changePage("my_ugc.html");
                               }
                               else if (this.id == "btnScreen") {
-                              $.mobile.changePage("screen.html");
+                                  $(this).children("img").attr({src:"images/m3-active.png"});
+                                  $("#btnTemplate").children("img").attr({src:"images/m1.png"});
+                                  $("#btnMyUgc").children("img").attr({src:"images/m2.png"});
+                                  $("#btnSetting").children("img").attr({src:"images/m4.png"});
+                                  $.mobile.changePage("screen.html");
                               }
                               else if (this.id == "btnSetting") {
-                              $.mobile.changePage("setting-main.html");
+                                  $(this).children("img").attr({src:"images/m4-active.png"});
+                                  $("#btnTemplate").children("img").attr({src:"images/m1.png"});
+                                  $("#btnMyUgc").children("img").attr({src:"images/m2.png"});
+                                  $("#btnScreen").children("img").attr({src:"images/m3.png"});
+                                  $.mobile.changePage("setting-main.html");
                               }
                               });
 };
