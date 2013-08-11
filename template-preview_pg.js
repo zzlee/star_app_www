@@ -12,10 +12,15 @@ FmMobile.template_previewPg = {
         if (FmMobile.selectedTemplate == 'miix_it') {
 
             var videoUgc;
-            VideoUgc.getInstance('miix_it', 'miix_one_image', function(err,
-                    _videoUgc) {
+            //$.mobile.showPageLoadingMsg();
+            VideoUgc.getInstance('miix_it', 'miix_one_image', FmMobile.userContent, function(err, _videoUgc) {
                 if (!err) {
                     videoUgc = _videoUgc;
+                    $("#show").attr("src", videoUgc.getDoohPreviewImageUrl());
+                    //$.mobile.hidePageLoadingMsg();
+                }
+                else {
+                    console.log(err);
                 }
             });
 
@@ -44,18 +49,18 @@ FmMobile.template_previewPg = {
                                 });
                     });
 
-        } else {
+        } 
+        else {
             var imageUgc;
-            ImageUgc.getInstance(FmMobile.selectedTemplate,
-                    FmMobile.selectedSubTemplate, FmMobile.userContent,
-                    function(err, _imageUgc) {
-                        if (!err) {
-                            imageUgc = _imageUgc;
-                            $("#show").attr("src", imageUgc.getDoohPreviewImageUrl());
-                        } else {
-                            console.log(err);
-                        }
-                    });
+            ImageUgc.getInstance(FmMobile.selectedTemplate, FmMobile.selectedSubTemplate, FmMobile.userContent, function(err, _imageUgc) {
+                if (!err) {
+                    imageUgc = _imageUgc;
+                    $("#show").attr("src", imageUgc.getDoohPreviewImageUrl());
+                } 
+                else {
+                    console.log(err);
+                }
+            });
 
             $('#btnTest').click(
                     function() {
