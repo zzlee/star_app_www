@@ -7,17 +7,30 @@ PAGE_ID: "template_mainTemplatePg",
     },
         
     init: function(){
-        /*
+        
             TemplateMgr.getInstance(function(err, _templateMgr){
             if (!err) {
                     templateMgr = _templateMgr;
-                                    
-                    var parent=$("#booking_list");
+                /* --------- get main template dynamically  --------------*/
+                    var parent=$("#start_mainTemplate");
                     parent.html("");
-                    var temp=$("<div>").attr({class: "template"});
-                    parent.append(temp);
+                                 
+                                        //template_img.appendTo(my_icon);
+                    //var temp=$("<div>").attr({class: "template"});
+                   // parent.append(my_icon);
+                for(var i=0;i<templateMgr.getTemplateList().length;i++){
+                                    var my_icon=$("<div>").attr({class:"my-video-icon"});
+                                    var template_img=$("<img>").attr({id:templateMgr.getTemplateList()[i].id,
+                                                                     class:"choose-script",
+                                                                     src:templateMgr.getTemplateList()[i].representingImageUrl,
+                                                                     title:templateMgr.getTemplateList()[i].topBarImageUrl
+                                                                     });
+                                    
+                                    template_img.appendTo(my_icon);
+                                    my_icon.appendTo(parent);
 
-
+                   }
+                  /*
                     for(var i=0;i<templateMgr.getTemplateList().length;i++){
                             var mainTemplate = $("<div>").attr({id:templateMgr.getTemplateList()[i].id,class: "choose-movie", title:templateMgr.getTemplateList()[i].name});
                             var templatePic = $("<div>").attr({class: "choose-movie-pic"});
@@ -33,23 +46,29 @@ PAGE_ID: "template_mainTemplatePg",
                             templateName.appendTo(mainTemplate);
                             mainTemplate.appendTo(parent);
                         }
-                                    
-                            $("#booking_list > div").click(function(){
+                   */
+                         
+                            $("#start_mainTemplate > div >img ").click(function(){
                                       
-                                     FmMobile.selectedTemplateName=this.title;
+                                     FmMobile.selectedTemplateBarImg=this.title;
                                      FmMobile.selectedTemplate=this.id;
-                                                 
-                                        if(FmMobile.selectedTemplate=='check_in'){
+                                       if(FmMobile.selectedTemplate=='miix_it'){
+                                                           $.mobile.changePage("template-sub-miixit.html");            
+                                                                       }
+                                        else if(FmMobile.selectedTemplate=='check_in'){
                                             $.mobile.changePage("template-sub-checkin.html");
                                         }else{
                                             $.mobile.changePage("template-sub_template.html");
                                         }
                                 });
-                }else{
+                          
+                
+                  /* --------- ends of get main template dynamically  --------------*/               
+                    }else{
                     console.log("Fail to get templateMgr: "+err);
                 }
             });
-        */
+        
                        
 		$('#nav-bar').show();
         

@@ -28,7 +28,9 @@ FmMobile.template_pic_pg = {
                               $.mobile.changePage("template-main_template.html");
                               });
         
-        $('#template_name_2').html(FmMobile.selectedTemplateName);
+        
+       $('#template_top_img_pic').attr({src:FmMobile.selectedTemplateBarImg});        
+        //$('#template_name_2').html(FmMobile.selectedTemplateName);
         
         /*
         if(FmMobile.selectedTemplate=="cultural_and_creative"){

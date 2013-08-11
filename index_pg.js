@@ -23,7 +23,7 @@ FmMobile.indexPg = {
     show: function(){
         FM_LOG("[indexPg.show]");
         //recordUserAction("starts MiixCard app", true);
-        /*
+        
         
         if(localStorage.fb_userID && localStorage.verified=='true'){
             $.mobile.changePage("template-main_template.html");
@@ -31,15 +31,21 @@ FmMobile.indexPg = {
         else {
             $.mobile.changePage("orientation_1.html");
         }
-         */
+         
+         
 
          
          
         
        
         
-        $.mobile.changePage("template-sub_template.html");
-        //$.mobile.changePage("image_test.html");
+        //$.mobile.changePage("template-sub_template.html");
+        //$.mobile.changePage("template_input_checkin.html");
+       // $.mobile.changePage("template-sub-miixit.html");
+        // $.mobile.changePage("template_input_miixit.html");
+        //$.mobile.changePage("template-input_text_pic.html");
+
+        
     },
         
     beforeshow: function(){

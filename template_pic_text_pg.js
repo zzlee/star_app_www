@@ -20,8 +20,8 @@ FmMobile.template_pic_text_pg = {
         else {
             userName = "anonymous";
         }
-        
-        $('#template_name_2').html(FmMobile.selectedTemplateName);
+        $('#template_top_img_text_pic').attr({src:FmMobile.selectedTemplateBarImg});
+       // $('#template_name_2').html(FmMobile.selectedTemplateName);
         /*
         if(FmMobile.selectedTemplate=="cultural_and_creative"){
             

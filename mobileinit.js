@@ -118,8 +118,8 @@ $('#mapAreaNext').attr("coords","'"+FmMobile.or_pic_width+","+((FmMobile.or_pic_
                  $("#template_checkinPg").live("pageshow", FmMobile.template_checkinPg.show);
                  $("#template_input_miixit").live("pageinit", FmMobile.template_input_miixit.load);
                  $("#template_input_miixit").live("pageshow", FmMobile.template_input_miixit.show);
-                 //$("#template_miixitPg").live("pageinit", FmMobile.template_miixitPg.init);
-                 //$("#template_miixitPg").live("pageshow", FmMobile.template_miixitPg.show);
+                 $("#template_miixitPg").live("pageinit", FmMobile.template_miixitPg.init);
+                 $("#template_miixitPg").live("pageshow", FmMobile.template_miixitPg.show);
                  $("#template_pic_text_pg").live("pageinit", FmMobile.template_pic_text_pg.load);
                  $("#template_pic_text_pg").live("pageshow", FmMobile.template_pic_text_pg.show);
                  $("#imageTestPg").live("pageinit", FmMobile.imageTestPg.init);
@@ -178,7 +178,7 @@ FmMobile.profile = null;
 FmMobile.ga = null;
 FmMobile.pushNotification = null;
 
-FmMobile.selectedTemplateName=null;
+FmMobile.selectedTemplateBarImg=null;
 
 FmMobile.selectedTemplate = null;  //the main template that the user chooses, such as "miix_it", "cultural_and_creative", "mood", or "check_in"
 FmMobile.selectedSubTemplate = null; //the sub-template that the user chooses. It must be "text", "picture", "text_picture", "check_in",or "video"

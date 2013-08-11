@@ -9,13 +9,7 @@ show: function(){
 init: function(){
     $("#nav-bar").show();
     
-    if(FmMobile.selectedTemplate=="cultural_and_creative"){
-        
-        $("#template_name_2").html('').append(templateMgr.getTemplateList()[0].name);
-    }else if(FmMobile.selectedTemplate=="mood"){
-        $("#template_name_2").html('').append(templateMgr.getTemplateList()[1].name);
-    }
-    
+    $('#template_top_img_text').attr({src:FmMobile.selectedTemplateBarImg});    
     
     $("#back_main").click(function(){
                           $.mobile.changePage("template-main_template.html");

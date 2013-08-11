@@ -1,7 +1,7 @@
 {
     "selected":"check_in",
     "name":"打卡",
-    "representingImageUrl":"images/choose_movie.png",
+    "representingImageUrl":"images/script03.png",
     "introdcutionContentUrl":"mood_introdction.html",
     "outputSize":{
         "width":720,

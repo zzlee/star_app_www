@@ -7,7 +7,7 @@ FmMobile.template_subTemplatePg = {
     },
         
     init: function(){
-		$('#nav-bar').hide();
+		$('#nav-bar').show();
         
         $("#show_intro").show();
         $("#close").click(function(){
@@ -15,12 +15,58 @@ FmMobile.template_subTemplatePg = {
                           $('#close').hide();
                   });
         
-        /*
-        $('#template_name').html(FmMobile.selectedTemplateName);
-        $('#start_sub').html("");
         
-        var start=$("#start_sub");
-         
+        $('#template_top_img').attr({src:FmMobile.selectedTemplateBarImg});
+        $('#start_subTemplate').html("");
+        
+        var start=$("#start_subTemplate");
+        
+        
+        
+        
+        
+        
+        for(var i=0;i<templateMgr.getSubTemplateList(FmMobile.selectedTemplate).length;i++){
+            var mainStyle = $("<div>").attr({class: "style"});
+            var sub_number= $("<div>").attr({class: "buttonlong_text"});
+            var sub__button_img = $("<img>").attr({class:"label-img",
+                                                   src:"images/button_long2.png",
+                                                   id:templateMgr.getSubTemplateList(FmMobile.selectedTemplate)[i].id
+                                                  });
+            var sub_img = $("<img>").attr({class:"style-img",
+                                           src:templateMgr.getSubTemplateList(FmMobile.selectedTemplate)[i].representingImageUrlSub});
+            var sub_des = $("<div>").attr({class:"style_text"});
+            
+            sub_number.appendTo(mainStyle);
+            sub__button_img.appendTo(mainStyle);
+            sub_img.appendTo(mainStyle);
+            sub_des.appendTo(mainStyle);
+            mainStyle.appendTo(start);
+            
+            sub_number.html(templateMgr.getSubTemplateList(FmMobile.selectedTemplate)[i].name);
+            sub_des.html(templateMgr.getSubTemplateList(FmMobile.selectedTemplate)[i].description);
+            
+
+
+        }
+        
+        $("#start_subTemplate > div > img").click(function(){
+                                          if(this.id=='text_only'){
+                                          FmMobile.selectedSubTemplate=this.id;
+                                          $.mobile.changePage("template-input_text.html");
+                                          }else if(this.id=='picture_only'){
+                                          FmMobile.selectedSubTemplate=this.id;
+                                          $.mobile.changePage("template-input_pic.html");
+                                          }else if(this.id=='picture_plus_text'){
+                                          FmMobile.selectedSubTemplate=this.id;
+                                          $.mobile.changePage("template-input_text_pic.html");
+                                          }else if(this.id=='miix_one_image'){
+                                          FmMobile.selectedSubTemplate=this.id;
+                                          $.mobile.changePage("template_input_miixit.html");
+                                          
+                                          }
+                                          });
+         /*
         for(var i=0;i<templateMgr.getSubTemplateList(FmMobile.selectedTemplate).length;i++){
             
                 var mainStyle = $("<div>").attr({class: "style"});
@@ -47,22 +93,7 @@ FmMobile.template_subTemplatePg = {
                 styleText.html(templateMgr.getSubTemplateList(FmMobile.selectedTemplate)[i].description);
         }
         
-                $("#start_sub > div > div ~ div").click(function(){
-                                        if(this.id=='text_only'){
-                                             FmMobile.selectedSubTemplate=this.id;
-                                             $.mobile.changePage("template-input_text.html");
-                                        }else if(this.id=='picture_only'){
-                                             FmMobile.selectedSubTemplate=this.id;
-                                             $.mobile.changePage("template-input_pic.html");
-                                        }else if(this.id=='picture_plus_text'){
-                                             FmMobile.selectedSubTemplate=this.id;
-                                             $.mobile.changePage("template-input_text_pic.html");
-                                        }else if(this.id=='miix_one_image'){
-                                            FmMobile.selectedSubTemplate=this.id;
-                                            $.mobile.changePage("template_input_miixit.html");
-                                                        
-                                        }
-                            });
+                
          
          */
    },

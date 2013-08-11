@@ -1,49 +1,61 @@
 {
     "selected":"mood",
     "name":"心情",
-    "representingImageUrl":"images/choose_movie.png",
+    "topBarImageUrl":"images/mood.png",
+    "representingImageUrl":"images/script02.png",
     "introdcutionContentUrl":"mood_introdction.html",
     "outputSize":{
         "width":720,
         "height":480
     },
     "subTemplate":{
-        "text_only":{
-            "representingImageUrlSub":"images/choose_movie.png",
-            "selected":"text_only",
+        "picture_plus_text":{
+            "representingImageUrlSub":"images/mood_01.png",
+            "selected":"picture_plus_text",
             "name":"版型一",
             "outputType":"image",
-            "description":"文：限39個中文字",
-            "backgroundImageUrl":"mood_text.png",
+            "description":"文：限24個中文字<br>圖：上傳一張照片",
+            "backgroundImageUrl":"mood_text_and_pic.png",
             "customizableObjects":[
-                {
-                    "id":"text0",
-                    "type":"text",
-                    "x":"665",
-                    "y":"76",
-                    "width":"470",
-                    "lineHeight":"68",
-                    "angle":"0",
-                    "description":"心情文字",
-                    "maxTextLength":"39"
-                },
-                {
-                    "id":"thumbnail0",
-                    "type":"thumbnail",
-                    "x":"1236",
-                    "y":"43",
-                    "width":"157",
-                    "height":"162",
-                    "angle":"5",
-                    "description":"大頭貼",
-                   "fb_x":"1422",
-                   "fb_y":"160",
-                   "fb_angle":"0",
-                   "fb_color":"#603913"
-                                   }            ]
+                                   {
+                                   "id":"text0",
+                                   "type":"text",
+                                   "x":"1033",
+                                   "y":"85",
+                                   "width":"289",
+                                   "lineHeight":"68",
+                                   "angle":"0",
+                                   "description":"心情文字",
+                                   "maxTextLength":"39"
+                                   },
+                                   {
+                                   "id":"picture0",
+                                   "type":"image",
+                                   "x":"669",
+                                   "y":"22",
+                                   "width":"332",
+                                   "height":"218",
+                                   "angle":"0",
+                                   "description":"心情照片"
+                                   },
+                                   {
+                                   "id":"thumbnail0",
+                                   "type":"thumbnail",
+                                   "x":"1385",
+                                   "y":"50",
+                                   "width":"157",
+                                   "height":"162",
+                                   "angle":"5",
+                                   "description":"大頭貼",
+                                   "fb_x":"1558",
+                                   "fb_y":"160",
+                                   "fb_angle":"0",
+                                   "fb_color":"#603913"
+                                   }
+                                   ]
         },
         "picture_only":{
-            "representingImageUrlSub":"images/choose_movie.png",
+            "representingImageUrlSub":"images/mood_02.png",
             "selected":"picture_only",
             "name":"版型二",
             "outputType":"image",
@@ -75,50 +87,40 @@
                 }
             ]
         },
-        "picture_plus_text":{
-            "representingImageUrlSub":"images/choose_movie.png",
-            "selected":"picture_plus_text",
+        "text_only":{
+            "representingImageUrlSub":"images/mood_03.png",
+            "selected":"text_only",
             "name":"版型三",
             "outputType":"image",
-            "description":"文：限24個中文字<br>圖：上傳一張照片",
-            "backgroundImageUrl":"mood_text_and_pic.png",
+            "description":"文：限39個中文字",
+            "backgroundImageUrl":"mood_text.png",
             "customizableObjects":[
-                {
+                                   {
                                    "id":"text0",
                                    "type":"text",
-                                   "x":"1033",
-                                   "y":"85",
-                                   "width":"289",
+                                   "x":"665",
+                                   "y":"76",
+                                   "width":"470",
                                    "lineHeight":"68",
                                    "angle":"0",
                                    "description":"心情文字",
                                    "maxTextLength":"39"
-                },
-                {
-                    "id":"picture0",
-                    "type":"image",
-                    "x":"669",
-                    "y":"22",
-                    "width":"332",
-                    "height":"218",
-                    "angle":"0",
-                    "description":"心情照片"
-                },
-                {
+                                   },
+                                   {
                                    "id":"thumbnail0",
                                    "type":"thumbnail",
-                                   "x":"1385",
-                                   "y":"50",
+                                   "x":"1236",
+                                   "y":"43",
                                    "width":"157",
                                    "height":"162",
                                    "angle":"5",
                                    "description":"大頭貼",
-                                   "fb_x":"1558",
+                                   "fb_x":"1422",
                                    "fb_y":"160",
                                    "fb_angle":"0",
                                    "fb_color":"#603913"
-                }
-            ]
+                                   }            ]
         }
+       
     }
 }
