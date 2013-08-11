@@ -229,7 +229,7 @@ ImageUgc = (function(){
                         });
                     }
                     else if (aCustomizableObject.type == "text"){
-                        ugcUtility.drawChineseText( context, userContent.text, aCustomizableObject.x, aCustomizableObject.y, aCustomizableObject.width, aCustomizableObject.lineHeight, aCustomizableObject.angle,aCustomizableObject.text_color);
+                        ugcUtility.drawChineseText( context, userContent.text, aCustomizableObject.x, aCustomizableObject.y, aCustomizableObject.width, aCustomizableObject.lineHeight, aCustomizableObject.angle,aCustomizableObject.fontColor);
                         cbOfIterator(null);
                     }
                 };
