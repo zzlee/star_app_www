@@ -13,8 +13,8 @@ FmMobile.myUgcPg = {
         //    FmMobile.myUgcPg.myContents = new Array();
         if(FmMobile.myUgcPg.Type == "live"){
             FmMobile.myUgcPg.Type = "";
-            $("#btnLiveMovie >img").attr({src: "images/tab-active.png"});
-            $("#btnMiixMovie >img").attr({src: "images/tab.png"});
+            $("#btnLiveMovie >img").attr({src: "images/tab_live_active.png"});
+            $("#btnMiixMovie >img").attr({src: "images/tab_ugc.png"});
             FmMobile.myUgcPg.loadLiveContents(FmMobile.myUgcPg.myLiveContents);
         }else{
             FmMobile.myUgcPg.myContents = new Array();
@@ -32,7 +32,6 @@ FmMobile.myUgcPg = {
                           No: item.no,
                           }
                           FmMobile.myUgcPg.myContents.push(data);
-    //                      console.log("[contentData] " + data);
                           });
                            FmMobile.myUgcPg.Type = "content";
                            //        FmMobile.myUgcPg.myContents = FmMobile.ajaxContents();
@@ -44,7 +43,7 @@ FmMobile.myUgcPg = {
                    });
 
         }
-        //TODO:load live video with ajax
+
 
      
     },
@@ -52,16 +51,16 @@ FmMobile.myUgcPg = {
     show: function(){
         FM_LOG("[myUgcPg] pageshow");
         $("#btnMiixMovie").click(function(){
-        	$("#btnMiixMovie > img").attr({src: "images/tab-active.png"});
-            $("#btnLiveMovie > img").attr({src: "images/tab.png"});
+        	$("#btnMiixMovie > img").attr({src: "images/tab_ugc_active.png"});
+            $("#btnLiveMovie > img").attr({src: "images/tab_live.png"});
             FmMobile.myUgcPg.Type = "content";
 //            FmMobile.myUgcPg.myContents = FmMobile.ajaxContents();            
             FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myContents);
 
          });
         $("#btnLiveMovie").click(function(){
-            $("#btnLiveMovie >img").attr({src: "images/tab-active.png"});
-            $("#btnMiixMovie >img").attr({src: "images/tab.png"});
+            $("#btnLiveMovie >img").attr({src: "images/tab_live_active.png"});
+            $("#btnMiixMovie >img").attr({src: "images/tab_ugc.png"});
              
             //API : /miix/members/:memberId/live_contents
             FmMobile.myUgcPg.myLiveContents = new Array();
@@ -88,7 +87,7 @@ FmMobile.myUgcPg = {
                    
 
             });
-    });
+        });
         
         
 //            FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myContents, "content");
@@ -250,10 +249,6 @@ FmMobile.myUgcPg = {
                                                   });
                 this.shareFbDiv.appendTo(infoPreview);
                 
-                this.numberDiv = $("<div>").attr({class: "my-video-number"});
-                this.numberDiv.html("NO." + number);
-                this.numberDiv.appendTo(infoPreview);
-                
                 infoPreview.appendTo(widgetPreview);
                 widgetPreview.appendTo(parent);
             }else{
@@ -299,7 +294,7 @@ FmMobile.myUgcPg = {
                         this.shareFbDiv.appendTo(info);
 
                         this.numberDiv = $("<div>").attr({class: "my-video-number"});
-                        this.numberDiv.html("NO." + number);
+                        this.numberDiv.html("試鏡編號：" + number);
                         this.numberDiv.appendTo(info);
                         info.appendTo(widget);
                         widget.appendTo(parent);
@@ -316,7 +311,7 @@ FmMobile.myUgcPg = {
                         widget.appendTo(parent);
                         
                     }
-                    parent.append("<hr>");
+//                    parent.append("<hr>");
                     
                     break;
                 case "miix_image":
@@ -347,7 +342,7 @@ FmMobile.myUgcPg = {
                         this.shareFbDiv.appendTo(info);
 
                         this.numberDiv = $("<div>").attr({class: "my-video-number"});
-                        this.numberDiv.html("NO." + number);
+                        this.numberDiv.html("試鏡編號：" + number);
                         this.numberDiv.appendTo(info);
                         info.appendTo(widget);
                         widget.appendTo(parent);
@@ -363,16 +358,15 @@ FmMobile.myUgcPg = {
                                                               });
 
                         widget.appendTo(parent);
-//                        parent.append("<hr>");
+
                     }
-                    parent.append("<hr>");
+//                    parent.append("<hr>");
                     break;
                     
                 default :
                     console.log("Eroor : no Genre");
             }//End of Switch
-            
-//            parent.append("<hr>");
+            parent.append("<hr>");
             
         }//End of Loop
         
