@@ -51,7 +51,7 @@ FmMobile.template_pic_text_pg = {
         
         
         $("#back_main").click(function(){
-                              $.mobile.changePage("template-main_template.html");
+                              $.mobile.changePage("template-sub_template.html");
                               });
         
         var buttonClick_cb = function(event, ui) {

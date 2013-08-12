@@ -12,7 +12,7 @@ init: function(){
     $('#template_top_img_text').attr({src:FmMobile.selectedTemplateBarImg});    
     
     $("#back_main").click(function(){
-                          $.mobile.changePage("template-main_template.html");
+                          $.mobile.changePage("template-sub_template.html");
                           });
     
     $("#go_preview").click(function(){

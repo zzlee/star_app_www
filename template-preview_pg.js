@@ -8,7 +8,28 @@ FmMobile.template_previewPg = {
 
     init : function() {
         $("#nav-bar").show();
+        /* 判斷按上一步要回哪一頁 */
+        if(FmMobile.selectedSubTemplate=='text_only'){
+            $('#cancelBtnToCropper').click(function(){
+                                  $.mobile.changePage("template-input_text.html");
+                                  });
 
+        }else{
+        $('#cancelBtnToCropper').click(function(){
+                     $.mobile.changePage("template-photo_cropper.html");         
+                  });
+        }
+        /* ends of 判斷按上一步要回哪一頁 */
+
+        
+        /* preview page title bar text 影片根其他不一樣*/
+        if(FmMobile.selectedTemplate == 'miix_it'){
+            $('.header-text').html("劇照模擬預覽");
+        }else{
+        }
+       /* ends of preview page title bar text 影片根其他不一樣*/
+        
+        
         if (FmMobile.selectedTemplate == 'miix_it') {
 
             var videoUgc;

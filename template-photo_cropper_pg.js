@@ -75,7 +75,9 @@ FmMobile.photoCropperPg = {
                 $.mobile.changePage("template-input_text_pic.html");
             } else if (FmMobile.selectedSubTemplate == "check_in") {
                 $.mobile.changePage("template-input_text_pic.html");
-            }
+          }else if (FmMobile.selectedSubTemplate == "miix_one_image") {
+          $.mobile.changePage("template_input_miixit.html");
+          }
         });
 
     },

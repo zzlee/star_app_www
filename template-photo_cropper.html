@@ -45,18 +45,21 @@
 <body> 
 
 <div data-role="page" id="photoCropperPg">
-    <!--
+    
 	<div class="header">
         <p class="header-text">移動和縮放</p>
     </div>
        <div class=header_bg><img class="header_bg_img" src="images/header_bg1.png"></img>
        </div>
-     -->
-	<div class="container" data-role="content">
+     
+	<div class="container_withheader" data-role="content">
         <div class="content-movie">
             <div class="movie-pic-dummy"></div>
             <canvas id="photoZoom" class="content-movie-img"></canvas>
             <!-- <img class="content-movie-img" src="images/movie_pic.png"></img> -->
+        </div>
+        <div class="template_instruction">
+圖片調整,可移動或縮放
         </div>
         <div class="my-video-icon">
         <div class="button_text">上一步</div>
@@ -68,24 +71,6 @@
    
     
 </div>
-    <div id="nav-bar" class="nav-bar-background3">
-        <div id="btnTemplate" class="ui-menu-inactive">
-            <img class="menu-img" src="images/m1-active.png">
-                <div class="menu-text">主題模板</div>
-                </div>
-        <div id="btnMyUgc" class="ui-menu-inactive">
-            <img class="menu-img" src="images/m2.png">
-                <div class="menu-text">我的影片</div>
-                </div>
-        <div id="btnScreen" class="ui-menu-inactive">
-            <img class="menu-img" src="images/m3.png">
-                <div class="menu-text">大螢幕</div>
-                </div>
-        <div id="btnSetting" class="ui-menu-active">
-            <img class="menu-img" src="images/m4.png">
-                <div class="menu-text">設定</div>
-                </div>
-    </div>
     
 </body>
 </html>
