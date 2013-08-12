@@ -128,7 +128,7 @@ $('#mapAreaNext').attr("coords","'"+FmMobile.or_pic_width+","+((FmMobile.or_pic_
                  $("#cellphoneLoginPg").live("pageshow", FmMobile.cellphoneLoginPg.show);
                  $("#fbLoginSuccessPg").live("pageinit", FmMobile.fbLoginSuccessPg.init);
                  $("#fbLoginSuccessPg").live("pageshow", FmMobile.fbLoginSuccessPg.show);
-                 $("#template_input_checkin").live("pageinit", FmMobile.template_input_checkin.load);
+                 $("#template_input_checkin").live("pageinit", FmMobile.template_input_checkin.init);
                  $("#template_input_checkin").live("pageshow", FmMobile.template_input_checkin.show);
                  $("#settingTocPg").live("pageinit", FmMobile.settingTocPg.init);
                  $("#settingTocPg").live("pageshow", FmMobile.settingTocPg.show);
