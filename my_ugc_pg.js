@@ -275,7 +275,7 @@ FmMobile.myUgcPg = {
                 case "miix":
                     if(typeof(arryContents[i].Url) != "undefined"){
                         var ytVideoID = (arryContents[i].Url.youtube).split('/').pop();
-                        var widget = $("<div>").attr({id: projectId, class: "content-movie"});
+                        var widget = $("<div>").attr({id: projectId, class: "content-movie", style: "margin-bottom: 26%;margin-top: 18%;"});
                         dummyDiv.appendTo(widget);
                         this.videoThumbnail = $("<img>").attr({
                                                               id: 'imgYouTube_'+ytVideoID,
@@ -306,7 +306,7 @@ FmMobile.myUgcPg = {
                         widget.appendTo(parent);
 
                     }else{
-                        var widget = $("<div>").attr({id: projectId, class: "content-movie"});
+                        var widget = $("<div>").attr({id: projectId, class: "content-movie", style: "margin-top: 18%;"});
                         dummyDiv.appendTo(widget);
                         this.videoThumbnail = $("<img>").attr({
                                                               id: 'imgError_' + i,
