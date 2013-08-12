@@ -1,71 +1,74 @@
 {
     "taipei_arena":{
         "text_only":{
-            "representingImageUrlSub":"images/choose_movie.png",
-            "selected":"text_only",
-            "name":"版型一",
-            "outputType":"image",
-            "description":"文：限39個中文字",
-            "backgroundImageUrl":"mood_text.png",
+            "backgroundImageUrl":"taipei_arena-mood_text.jpg",
             "customizableObjects":[
                 {
                     "id":"text0",
                     "type":"text",
-                    "x":"665",
-                    "y":"76",
-                    "width":"470",
+                    "x":"265",
+                    "y":"265",
+                    "width":"296",
                     "lineHeight":"68",
                     "angle":"0",
-                    "description":"心情文字",
-                    "maxTextLength":"39"
+                    "font":"36pt AdobeFanHeitiStd-Bold"
                 },
                 {
                     "id":"thumbnail0",
                     "type":"thumbnail",
-                    "x":"1236",
-                    "y":"43",
-                    "width":"157",
-                    "height":"162",
-                    "angle":"5",
-                    "description":"大頭貼",
-                    "fb_x":"1422",
-                    "fb_y":"160",
+                    "quadrilateral":{
+                        "x_ul":"804",
+                        "y_ul":"236",
+                        "x_ur":"950",
+                        "y_ur":"249",
+                        "x_ll":"786",
+                        "y_ll":"393",
+                        "x_lr":"932",
+                        "y_lr":"405"
+                    },
+                    "fb_x":"1002",
+                    "fb_y":"346",
                     "fb_angle":"0",
-                    "fb_color":"#603913"
+                    "fb_color":"#603913",
+                    "fb_font":"36pt AdobeFanHeitiStd-Bold"
                 }
             ]
         },
         "picture_only":{
-            "representingImageUrlSub":"images/choose_movie.png",
-            "selected":"picture_only",
-            "name":"版型二",
-            "outputType":"image",
-            "description":"圖：上傳一張照片",
-            "backgroundImageUrl":"mood_pic.png",
+            "backgroundImageUrl":"taipei_arena-mood_pic.jpg",
             "customizableObjects":[
                 {
                     "id":"picture0",
                     "type":"image",
-                    "x":"795",
-                    "y":"20",
-                    "width":"332",
-                    "height":"218",
-                    "angle":"0",
-                    "description":"心情照片"
+                    "quadrilateral":{
+                        "x_ul":"352",
+                        "y_ul":"216",
+                        "x_ur":"683",
+                        "y_ur":"210",
+                        "x_ll":"351",
+                        "y_ll":"445",
+                        "x_lr":"681",
+                        "y_lr":"451"
+                    }
                 },
                 {
                     "id":"thumbnail0",
                     "type":"thumbnail",
-                    "x":"1385",
-                    "y":"49",
-                    "width":"150",
-                    "height":"162",
-                    "angle":"5",
-                    "description":"大頭貼",
-                    "fb_x":"1195",
-                    "fb_y":"160",
+                    "quadrilateral":{
+                        "x_ul":"948",
+                        "y_ul":"246",
+                        "x_ur":"1098",
+                        "y_ur":"261",
+                        "x_ll":"931",
+                        "y_ll":"403",
+                        "x_lr":"1076",
+                        "y_lr":"413"
+                    },
+                    "fb_x":"768",
+                    "fb_y":"339",
                     "fb_angle":"0",
-                    "fb_color":"#603913"
+                    "fb_color":"#603913",
+                    "fb_font":"36pt AdobeFanHeitiStd-Bold"
                 }
             ]
         },

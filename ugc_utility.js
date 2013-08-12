@@ -1,6 +1,6 @@
 var ugcUtility = {};
 
-ugcUtility.drawChineseText = function(context, text, x, y, maxWidth, lineHeight, angle,fontColor) {
+ugcUtility.drawChineseText = function(context, text, x, y, maxWidth, lineHeight, angle, fontColor, font) {
     x = Number(x);
     y = Number(y);
     maxWidth = Number(maxWidth);
@@ -15,8 +15,13 @@ ugcUtility.drawChineseText = function(context, text, x, y, maxWidth, lineHeight,
     context.save();
     context.translate(x,y);
     context.rotate(angle*Math.PI/180);
-    context.font = '36px 華康歐陽詢體W5';
-
+    if (font){
+        context.font = font; 
+    }
+    else {
+        context.font = '36px 華康歐陽詢體W5';
+    }
+    
     for(var n = 0; n < words.length; n++) {
         var testLine = line + words[n];
         var metrics = context.measureText(testLine);
@@ -33,10 +38,10 @@ ugcUtility.drawChineseText = function(context, text, x, y, maxWidth, lineHeight,
         else {
             line = testLine;
         }
-     context.fillStyle = fontColor;
+        context.fillStyle = fontColor;
 
     }
-            context.fillText(line, cursorX, cursorY);
+    context.fillText(line, cursorX, cursorY);
     
     context.restore();
 };

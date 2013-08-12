@@ -229,7 +229,7 @@ ImageUgc = (function(){
                         });
                     }
                     else if (aCustomizableObject.type == "text"){
-                        ugcUtility.drawChineseText( context, userContent.text, aCustomizableObject.x, aCustomizableObject.y, aCustomizableObject.width, aCustomizableObject.lineHeight, aCustomizableObject.angle,aCustomizableObject.text_color);
+                        ugcUtility.drawChineseText( context, userContent.text, aCustomizableObject.x, aCustomizableObject.y, aCustomizableObject.width, aCustomizableObject.lineHeight, aCustomizableObject.angle,aCustomizableObject.fontColor);
                         cbOfIterator(null);
                     }
                 };
@@ -245,9 +245,9 @@ ImageUgc = (function(){
             function(callback){
                 //create DOOH preview
                 if (doohPreviewTemplate){
-                    var ugcBgImageUrl = templateMgr.getTemplateFolderPath()+'/'+mainTemplateId+'/'+subTemplateId+'/'+doohPreviewTemplate.backgroundImageUrl;
+                    var ugcDoohPreviewBgImageUrl = templateMgr.getTemplateFolderPath()+'/'+mainTemplateId+'/'+subTemplateId+'/'+doohPreviewTemplate.backgroundImageUrl;
                     var customizableObjects = doohPreviewTemplate.customizableObjects;
-                    DoohPreview.getInstance(DOOH_ID, ugcBgImageUrl, customizableObjects, userContent, function(errOfGetInstance, _doohPreview){
+                    DoohPreview.getInstance(DOOH_ID, ugcDoohPreviewBgImageUrl, customizableObjects, userContent, function(errOfGetInstance, _doohPreview){
                         if (!errOfGetInstance){
                             doohPreview = _doohPreview;
                             callback(null);

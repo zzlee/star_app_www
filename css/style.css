@@ -26,6 +26,12 @@ body{
     text-shadow: none;
 }
 
+@font-face {
+    font-family:"AdobeFanHeitiStd-Bold";
+    /*src: url("../font/AdobeFanHeitiStd-Bold.otf");*/
+    text-shadow: none;
+}
+
 .text{
 	font-size:200%;
 	color: #dcd586;
