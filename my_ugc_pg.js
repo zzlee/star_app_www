@@ -43,6 +43,8 @@ FmMobile.myUgcPg = {
                    }
                    });
 
+
+
         }
 
 
@@ -52,17 +54,18 @@ FmMobile.myUgcPg = {
     show: function(){
         FM_LOG("[myUgcPg] pageshow");
         $("#btnMiixMovie").click(function(){
-        	$("#btnMiixMovie > img").attr({src: "images/tab_ugc_active.png"});
-            $("#btnLiveMovie > img").attr({src: "images/tab_live.png"});
+                                 alert('miix click');
+        	$("#btnMiixMovie>img").attr({src: "images/tab_ugc_active.png"});
+            $("#btnLiveMovie>img").attr({src: "images/tab_live.png"});
             FmMobile.myUgcPg.Type = "content";
 //            FmMobile.myUgcPg.myContents = FmMobile.ajaxContents();            
             FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myContents);
 
          });
         $("#btnLiveMovie").click(function(){
-                                 alert('click!!');
-            $("#btnLiveMovie >img").attr({src: "images/tab_live_active.png"});
-            $("#btnMiixMovie >img").attr({src: "images/tab_ugc.png"});
+                                 alert('click');
+            $("#btnLiveMovie>img").attr({src: "images/tab_live_active.png"});
+            $("#btnMiixMovie>img").attr({src: "images/tab_ugc.png"});
              
             //API : /miix/members/:memberId/live_contents
             FmMobile.myUgcPg.myLiveContents = new Array();
@@ -231,7 +234,7 @@ FmMobile.myUgcPg = {
                 dummyDivPreview.appendTo(widgetPreview);
                 var previewUrl = arryContents[i].PreviewUrl;
                 this.previewThumbnail = $("<img>").attr({
-                                                        id: 'imgPreview_' + i,
+                                                        id: 'imgPreview_' + projectId,
                                                         src: previewUrl,
                                                         class: "content-movie-img"
                                                         });
@@ -431,7 +434,7 @@ FmMobile.myUgcPg = {
                     console.log("you chosse the error item or the image");
                     break;
                 case "imgS3":
-                                          
+                case "imgPreview":
                     FmMobile.srcForMyUgcViewer=this.src;
                     $.mobile.changePage('cropper_test.html');
 
