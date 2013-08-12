@@ -190,7 +190,7 @@ ImageUgc = (function(){
                 context = ugcCanvas.getContext('2d');
                 context.webkitImageSmoothingEnabled = true;
                 bgImage = new Image();
-                bgImage.src = templateMgr.getTemplateFolderPath()+'/'+mainTemplateId+'/'+subTemplateId+'/'+template.backgroundImageUrl;
+                bgImage.src = templateMgr.getTemplateFolderPath(mainTemplateId)+mainTemplateId+'/'+subTemplateId+'/'+template.backgroundImageUrl; //TODO: TemplateMgr output cleaner url
                 bgImage.onload = function(){
                     ugcCanvas.width = bgImage.width;
                     ugcCanvas.height = bgImage.height;
@@ -245,7 +245,7 @@ ImageUgc = (function(){
             function(callback){
                 //create DOOH preview
                 if (doohPreviewTemplate){
-                    var ugcDoohPreviewBgImageUrl = templateMgr.getTemplateFolderPath()+'/'+mainTemplateId+'/'+subTemplateId+'/'+doohPreviewTemplate.backgroundImageUrl;
+                    var ugcDoohPreviewBgImageUrl = templateMgr.getTemplateFolderPath(mainTemplateId)+mainTemplateId+'/'+subTemplateId+'/'+doohPreviewTemplate.backgroundImageUrl; //TODO: TemplateMgr output cleaner url
                     var customizableObjects = doohPreviewTemplate.customizableObjects;
                     DoohPreview.getInstance(DOOH_ID, ugcDoohPreviewBgImageUrl, customizableObjects, userContent, function(errOfGetInstance, _doohPreview){
                         if (!errOfGetInstance){
