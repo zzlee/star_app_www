@@ -134,9 +134,10 @@ div[data-role=page] {
 	width: 100%;
 	padding: 0px;
 	min-height: 72.84%;
-    /*padding-bottom: 37%;*/
+    padding-bottom: 37%;
     z-index: 0;
     display:block !improtant;
+
 }
 .container_withheader{
 	background-size:100% 100%;
