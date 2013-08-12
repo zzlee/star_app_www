@@ -70,7 +70,50 @@ FmMobile.template_previewPg = {
                                 });
                     });
 
-        } 
+        }
+        else if(FmMobile.selectedTemplate == 'check_in'){
+            var imageUgc;
+            ImageUgc.getInstance(FmMobile.selectedTemplate, FmMobile.selectedSubTemplate, FmMobile.userContent, function(err, _imageUgc) {
+                                 if (!err) {
+                                 imageUgc = _imageUgc;
+                                 $("#show").attr("src", imageUgc.getDoohPreviewImageUrl());
+                                 }
+                                 else {
+                                 console.log(err);
+                                 }
+                                 });
+            
+            
+            
+            $('#btnTest').click(
+                                function() {
+                                $.mobile.showPageLoadingMsg();
+                                var mainTemplate = FmMobile.selectedTemplate;
+                                var ownerId = localStorage._id;
+                                var ownerFbUserId = localStorage.fb_userID;
+                                
+                                var ugcInfo = {
+                                ownerId : {
+                                _id : ownerId,
+                                fbUserId : ownerFbUserId
+                                },
+                                contentGenre : mainTemplate,
+                                title : "today's mood"
+                                };
+                                
+                                imageUgc.uploadToServer(ugcInfo,
+                                                        function(err) {
+                                                        console.log("err=" + err);
+                                                        
+                                                        if (!err) {
+                                                        //alert("success!");
+                                                        }
+                                                        $.mobile.hidePageLoadingMsg();
+                                                        $.mobile.changePage("my_ugc.html");
+                                                        });
+                                
+                                });
+        }
         else {
             var imageUgc;
             ImageUgc.getInstance(FmMobile.selectedTemplate, FmMobile.selectedSubTemplate, FmMobile.userContent, function(err, _imageUgc) {
@@ -82,6 +125,8 @@ FmMobile.template_previewPg = {
                     console.log(err);
                 }
             });
+            
+            
 
             $('#btnTest').click(
                     function() {

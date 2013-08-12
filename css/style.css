@@ -20,29 +20,24 @@ body{
 
 }
 
-@font-face {
-    font-family:"ouyang";
-    /*src: url("../font/TpldKhangXiDict.otf");*/
-    text-shadow: none;
-}
 
 @font-face {
-    font-family:"AdobeFanHeitiStd-Bold";
-    /*src: url("../font/AdobeFanHeitiStd-Bold.otf");*/
+    font-family:"kaiu";
+    src: url("../font/kaiu.ttf");
     text-shadow: none;
-}
+} 
 
 .text{
 	font-size:200%;
 	color: #dcd586;
-	font-family:"ouyang";
+	font-family:"kaiu";
     text-shadow: none;
 }
 
 /* Header ------------------------------------------------------------*/
 
 .header {
-	font-family:"ouyang";
+	font-family:"kaiu";
 	display:table;
 	width: 100%;
 	height: 8.69%;
@@ -137,7 +132,6 @@ div[data-role=page] {
     padding-bottom: 37%;
     z-index: 0;
     display:block !improtant;
-
 }
 .container_withheader{
 	background-size:100% 100%;
@@ -199,7 +193,7 @@ div[data-role=page] {
 
 /* Nav-bar(footer) ------------------------------------------------------------*/
 #nav-bar {
-	font-family:"ouyang";
+	font-family:"kaiu";
 	color:#dcd586;
 	font-size:175%;
 	width: 100%;
@@ -319,7 +313,7 @@ div[data-role=page] {
 	overflow:auto;
 	height:78.5%;
 	font-size: 120%;
-	font-family:"ouyang";
+	font-family:"kaiu";
     text-shadow: none;
 	color: #000;
 	line-height: 150%;
@@ -336,7 +330,7 @@ padding:5% 5%;
 	overflow:auto;
 	height:65.5%;
 	font-size: 120%;
-	font-family:"ouyang";
+	font-family:"kaiu";
     text-shadow: none;
 	color: #000;
 	line-height: 120%;
@@ -361,7 +355,7 @@ padding:5% 5%;
 	width:100%;
 	text-align:center;
 	font-size:120%;
-	font-family:"ouyang";
+	font-family:"kaiu";
     text-shadow: none;
 	color:#dcd586;
 	}
@@ -372,7 +366,7 @@ padding:5% 5%;
 	width:100%;
 	text-align:center;
 	font-size:134%;
-	font-family:"ouyang";
+	font-family:"kaiu";
     text-shadow: none;
 	color:#dcd586;
 	}    
@@ -396,7 +390,7 @@ padding:5% 5%;
 	width:100%;
 	text-align:center;
 	font-size:120%;
-	font-family:"ouyang";
+	font-family:"kaiu";
     text-shadow: none;
 	color:#dcd586;
     z-index:1;
@@ -411,7 +405,7 @@ padding:5% 5%;
 	font-size:120%;
 	margin-top:50%;
 	text-align:center;
-	font-family:"ouyang";
+	font-family:"kaiu";
     text-shadow: none;
 	color:#dcd586;
 	}
@@ -421,7 +415,7 @@ padding:5% 5%;
 	width:100%;
 	text-align:center;
 	font-size:120%;
-	font-family:"ouyang";
+	font-family:"kaiu";
     text-shadow: none;
 	color:#dcd586;
 	}
@@ -439,7 +433,7 @@ padding:5% 5%;
 	padding-top: 130%;
 	width: 100%;
 	font-size: 120%;
-	font-family:"ouyang";
+	font-family:"kaiu";
     text-shadow: none;
 	color: #dcd586;
 	padding-bottom:3%;
@@ -526,7 +520,7 @@ padding:5% 5%;
 	width:100%;
 	text-align:center;
 	font-size:150%;
-	font-family:"ouyang";
+	font-family:"kaiu";
     text-shadow: none;
 	color:#dcd586;
     margin-top: 0.8%;
@@ -536,7 +530,7 @@ padding:5% 5%;
 	margin-left:6%;
 	width: 100%;
 	font-size: 125%;
-	font-family:"ouyang";
+	font-family:"kaiu";
     text-shadow: none;
 	color: #dcd586;
 	line-height: 125%;
@@ -551,7 +545,7 @@ padding:5% 5%;
 	margin-left: 8%;
 	width: 88%;
 	font-size: 120%;
-	font-family:"ouyang";
+	font-family:"kaiu";
     text-shadow: none;
 	color: #dcd586;
 	line-height: 125%;
@@ -570,7 +564,7 @@ padding:5% 5%;
 	width: 50%;
 	text-align: center;
 	font-size: 120%;
-	font-family:"ouyang";
+	font-family:"kaiu";
     text-shadow: none;
 	color: #dcd586;
 	}
@@ -581,7 +575,7 @@ padding:5% 5%;
 	width: 50%;
 	text-align: center;
 	font-size: 120%;
-	font-family:"ouyang";
+	font-family:"kaiu";
     text-shadow: none;
 	color: #dcd586;
 
@@ -599,7 +593,7 @@ padding:5% 5%;
 	width: 50%;
 	text-align: center;
 	font-size: 100%;
-	font-family:"ouyang";
+	font-family:"kaiu";
 	color: #dcd586;
     text-shadow: none;
 	}
@@ -613,7 +607,7 @@ padding:5% 5%;
     border-image: url(../images/border.png) 30 30 round;
     overflow: auto;
     font-size: 120%;
- 	font-family:"ouyang";
+ 	font-family:"kaiu";
     color: #000;
     line-height: 120%;
     overflow: auto;
@@ -627,7 +621,7 @@ padding:5% 5%;
 	left: 82.5%;
 	top:7%;
 	z-index: 2;
-	position: absolute;
+	position: fixed;
 	size: 20%;
 }
 .style{
@@ -641,7 +635,7 @@ padding:5% 5%;
 
 .style_text{
 	text-align: center;
-	font-family:"ouyang";
+	font-family:"kaiu";
 	font-size: 120%;
 	color: #dcd586;
 	text-shadow: none;
@@ -668,7 +662,7 @@ padding:5% 5%;
 	width: 50%;
 	text-align: center;
 	font-size: 120%;
-	font-family:"ouyang";
+	font-family:"kaiu";
 	color: #dcd586;
     text-shadow: none;
 	margin-top:3.5%;
@@ -679,7 +673,7 @@ padding:5% 5%;
 	margin-left: 7%;
 	width: 40%;
 	font-size: 120%;
-	font-family:"ouyang";
+	font-family:"kaiu";
 	color: #dcd586;
 	height: auto;
     text-shadow: none;
@@ -691,7 +685,7 @@ padding:5% 5%;
 	margin-left:5%;
 	margin-right:5%;
 	font-size: 125%;
-	font-family:"ouyang";
+	font-family:"kaiu";
     text-shadow: none;
 	color: #dcd586;
     }
@@ -704,7 +698,7 @@ padding:5% 5%;
 	padding-top:8%;
     padding-bottom:13%;
 	font-size: 125%;
-	font-family:"ouyang";
+	font-family:"kaiu";
     text-shadow: none;
 	color: #dcd586;
     }
@@ -723,7 +717,7 @@ padding:5% 5%;
 	width: 50%;
 	text-align: center;
 	font-size: 120%;
-	font-family:"ouyang";
+	font-family:"kaiu";
     text-shadow: none;
 	color: #dcd586;
 	}
@@ -767,7 +761,7 @@ padding:5% 5%;
 	font-size: 120%;
 	text-align: right;
     text-shadow: none;
-	font-family:"ouyang";
+	font-family:"kaiu";
 	display: inline-block;
 	margin-right: 6%;
 	margin-top:3%;
@@ -787,7 +781,7 @@ padding:5% 5%;
     margin-left: 5%;
     width: 90%;
     font-size: 120%;
-    font-family: "ouyang";
+    font-family: "kaiu";
     text-shadow: none;
     color:#dcd586;
     line-height: 125%;
@@ -855,7 +849,7 @@ padding:5% 5%;
 	color:#dcd586;
 	padding-top: 4%;
 	padding-bottom: 3%;
-	font-family:"ouyang";
+	font-family:"kaiu";
     text-shadow: none;
 	text-align: center;
 	font-size: 100%;
@@ -865,7 +859,7 @@ padding:5% 5%;
     width: 100%;
     text-align: center;
     font-size: 125%;
-	font-family:"ouyang";
+	font-family:"kaiu";
     text-shadow: none;
     color:#dcd586;
     padding-top: 6%;
@@ -875,7 +869,7 @@ padding:5% 5%;
     width: 100%;
     text-align: center;
     font-size: 125%;
-	font-family:"ouyang";
+	font-family:"kaiu";
     text-shadow: none;
     color:#dcd586;
     padding-top:6%;
@@ -915,9 +909,9 @@ hr{
 
 }
 .text_img{
-	top: 25%;
+	margin-top: 10%;
 	width:100%;
-    position: absolute;
+    /*position: absolute;*/
 }
 .page_icon_img{
 	top: 92%;
@@ -943,7 +937,7 @@ hr{
 	width:100%;
 	text-align:center;
 	font-size:150%;
-	font-family:"ouyang";
+	font-family:"kaiu";
     text-shadow: none;
 	color:#dcd586;
     text-shadow: none;
@@ -959,7 +953,7 @@ hr{
 	overflow: auto;
 	font-size: 120%;
 	text-shadow: none;
-	font-family: "ouyang";
+	font-family: "kaiu";
 	color: #000;
 	line-height: 150%;
 	overflow: auto;
@@ -988,14 +982,14 @@ hr{
 	text-align:center;
 	font-size:100%;
     text-shadow: none;
-	font-family:"ouyang";
+	font-family:"kaiu";
 	color: #dcd586;
     }
 .setting_list{
     background:none;
     font-size:100%;
     text-shadow: none;
-	font-family:"ouyang";
+	font-family:"kaiu";
     list-style-type:none;
     color: #000;;
     text-decoration:none;
@@ -1004,7 +998,7 @@ hr{
 #settingList{
     background:none;
     text-shadow: none;
-	font-family:"ouyang";
+	font-family:"kaiu";
 	color: #dcd586;
     list-style-type:none;
 }
@@ -1013,7 +1007,7 @@ hr{
 #settingList li{
     font-size:100%;
     text-shadow: none;
-	font-family:"ouyang";
+	font-family:"kaiu";
 	color: #000 !important;
 }
     
