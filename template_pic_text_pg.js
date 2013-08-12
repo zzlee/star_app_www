@@ -61,6 +61,8 @@ FmMobile.template_pic_text_pg = {
                 alert("請輸入文字！");
             }else{
                 FmMobile.userContent.text=$("#ur_text").val();
+                // 用textForUgcUtility才能在合成圖作出換行效果
+               // FmMobile.userContent.text=textForUgcUtility;
             
             fileObjectID = event.data.objectID;
             console.log('[buttonClick_cb()] fileObjectID = %s', fileObjectID);
@@ -168,7 +170,7 @@ FmMobile.template_pic_text_pg = {
         
         
         
-        
+       /*
         var text_limit=33;
         $("#ur_text").focusout(function(){
                                
@@ -182,6 +184,7 @@ FmMobile.template_pic_text_pg = {
                                });
         
         $("#ur_text").keyup(function(){
+                             $("#ur_text").val().replace(/\n/g,"</br>");
                             var curLength = $("#ur_text").val().length;
                             if (curLength > text_limit) {
                             var num = $("#ur_text").val().substr(0,text_limit);
@@ -189,8 +192,15 @@ FmMobile.template_pic_text_pg = {
                             alert("超過"+text_limit+"字數限制，多出的字將被移除！");
                             }
                             });
+        */
+        /*
+        var textForUgcUtility;
+        $("#ur_text").bind("keyup",function(){
+                           //<n> is not HTML tag, just for seperate line in drawChineseText.
+                          textForUgcUtility= $("#ur_text").val().replace(/\n/g,"<n>");
+                           });
         
-        
+        */
         
         
         /*

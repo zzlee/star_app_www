@@ -21,6 +21,9 @@ ugcUtility.drawChineseText = function(context, text, x, y, maxWidth, lineHeight,
         var testLine = line + words[n];
         var metrics = context.measureText(testLine);
         var testWidth = metrics.width;
+        
+                   // var changePerLine=testLine.split("<n>");
+        //alert(changePerLine[1]);
     
         if (testWidth > maxWidth && n > 0) {
             context.fillText(line, cursorX, cursorY);
