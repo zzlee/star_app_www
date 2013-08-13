@@ -37,7 +37,7 @@ FmMobile.customerQuestionPg = {
                     }
                }).done(function( result ) {
                        
-                       alert(result);
+                       //alert(result);
                        console.log(result);
                    });
         });
