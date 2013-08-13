@@ -1024,3 +1024,25 @@ FmMobile.bindClickEventToNavBar = function(){
                               }
                               });
 };
+
+FmMobile.Confirm = function(){
+    //Just for FmMobile.showNotification
+    //Do nothing.
+};
+
+FmMobile.showNotification = function(fun){
+    FM_LOG("[showNotification]");
+    var appName = "登大螢幕";
+    
+    switch(fun){
+        case "copyUrl":
+            navigator.notification.confirm("已複製連結", FmMobile.Confirm(), appName, "確定");
+            break;
+        case "error":
+            navigator.notification.confirm("錯誤發生，請通知我們", FmMobile.Confirm(), appName, "確定");
+            break;
+        default:
+            console.log("ShowNotification is not worked");
+    }
+    
+};

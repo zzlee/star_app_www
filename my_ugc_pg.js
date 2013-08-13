@@ -449,7 +449,6 @@ FmMobile.myUgcPg = {
         /** Copy youtube url and share to FB */
         $('#my-content-info>img').click(function(){
             var imgID = this.id;
-            //            console.log("imgID :" + imgID);
             var tmpIDArray = this.id.split('_');
 
             /** template naming
@@ -483,12 +482,15 @@ FmMobile.myUgcPg = {
                 case "copyUrl":
                     if(device.platform == "iPhone"){
                         /**iOS Plugin */
-                        window.clipboardPluginCopy("https://www.youtube.com/watch?feature=player_embedded&v=" + tmpIDArray[1], function() { alert("Url is Copyied.")} , function(e){alert(e);});
+                        window.clipboardPluginCopy("https://www.youtube.com/watch?feature=player_embedded&v=" + tmpIDArray[1],
+                                                   function() {FmMobile.showNotification("copyUrl")},
+                                                   function(e){alert(e);}
+                                                   );
                     }else if(device.platform == "Android"){
                         /** Android Plugin */
                         window.clipboardManagerCopy(
                                         "https://www.youtube.com/watch?feature=player_embedded&v=" + tmpIDArray[1],
-                                        function(r){alert("Url is copyied")},
+                                        function(r){ FmMobile.showNotification("copyUrl")},
                                         function(e){alert(e)}
                                         );
                     }
@@ -519,31 +521,57 @@ FmMobile.myUgcPg = {
                 console.log("S3 URL " + tmpIDArray[1]);
                 if(FmMobile.myUgcPg.Type == "content"){
                     if(device.platform == "iPhone"){
-                        window.clipboardPluginCopy(s3Url + ".png", function() { alert("Url is copyied.")} , function(e){alert(e);});
+                        window.clipboardPluginCopy(s3Url + ".png",
+                                                   function() { FmMobile.showNotification("copyUrl")},
+                                                   function(e){ FmMobile.showNotification("error");
+                                                               console.log('clipboardPlugin error: ' + e);}
+                                                   );
                     }else if(device.platform == "Android"){
-                        window.clipboardManagerCopy(s3Url+ ".png", function(r){alert("Url is copyied.")}, function(e){alert(e)});
+                        window.clipboardManagerCopy(s3Url+ ".png",
+                                                    function(r){ FmMobile.showNotification("copyUrl")},
+                                                    function(e){FmMobile.showNotification("error");
+                                                                console.log('clipboardPlugin error: ' + e);}
+                                                    );
                     }
                 }else if(FmMobile.myUgcPg.Type == "live"){
                     if(device.platform == "iPhone"){
-                        window.clipboardPluginCopy(s3Url + ".jpg", function(){ alert("Url is copyied.")} , function(e){alert(e);});
+                        window.clipboardPluginCopy(s3Url + ".jpg",
+                                                   function(){ FmMobile.showNotification("copyUrl")},
+                                                   function(e){FmMobile.showNotification("error");
+                                                               console.log('clipboardPlugin error: ' + e);}
+                                                   );
                     }else if(device.platform == "Android"){
-                        window.clipboardManagerCopy(s3Url + ".jpg", function(r){alert("Url is copyied.")}, function(e){alert(e)});
+                        window.clipboardManagerCopy(s3Url + ".jpg",
+                                                    function(r){FmMobile.showNotification("copyUrl")},
+                                                    function(e){FmMobile.showNotification("error");
+                                                                console.log('clipboardPlugin error: ' + e);}
+                                                    );
                     }
                 }
                 break;
             case "copyPreUrl":
                 if(device.platform == "iPhone"){
-                    window.clipboardPluginCopy(s3Url + "_dooh_preview.png" , function() { alert("Url is copyied.")} , function(e){alert(e);});
+                    window.clipboardPluginCopy(s3Url + "_dooh_preview.png" ,
+                                               function() { FmMobile.showNotification("copyUrl") },
+                                               function(e){FmMobile.showNotification("error");
+                                                           console.log('clipboardPlugin error: ' + e);}
+                                               );
                 }else if(device.platform == "Android"){
-                    window.clipboardManagerCopy(s3Url + "_dooh_preview.png", function(r){alert("Url is copyied.")}, function(e){alert(e)});
+                    window.clipboardManagerCopy(s3Url + "_dooh_preview.png",
+                                                function(r){FmMobile.showNotification("copyUrl")},
+                                                function(e){FmMobile.showNotification("error");
+                                                            console.log('clipboardPlugin error: ' + e);}
+                                                );
                 }
 
                 break;
             case "error":
-                alert("Your Url is not available.");
+                FmMobile.showNotification("error");
+                console.log("[FmMobile.myUgcPg.ClickEvent] error :" + "Your Url is not available.");
                 break;
             default:
-                alert("You don't touch the button.");
+                FmMobile.showNotification("error");
+                console.log("[FmMobile.myUgcPg.ClickEvent] error :" + "You don't touch the button.");
 
             }//End of Switch
         });//End of Click Function
