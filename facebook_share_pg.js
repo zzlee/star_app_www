@@ -19,7 +19,26 @@ init: function(){
             if(FmMobile.myUgcPg.Type == "live"){
                 $('#shareFbPhoto').attr({src:FmMobile.srcForMyUgcViewer, style: "height: 90%;"});
             }else{
-                $('#shareFbPhoto').attr({src:FmMobile.srcForMyUgcViewer});
+                var checkImgType = FmMobile.srcForMyUgcViewer.split('_');
+                if(checkImgType[checkImgType.length - 1] != "preview.png"){
+                    var shareContent = $("#share_content");
+                    shareContent.html("");
+                    var dummyDivLong = $("<div>").attr({class:"movie-pic-dummy-long"});
+    //                var widget = $("<div>").attr({class: "content-movie-long"});
+                    dummyDivLong.appendTo(shareContent);
+                    
+                    this.imageThumbnail = $("<img>").attr({
+                                                          id: "shareFbPhoto",
+                                                          src: FmMobile.srcForMyUgcViewer,
+                                                          class: "content-movie-img-long"
+                                                          });
+                    
+                    this.imageThumbnail.appendTo(shareContent);
+                }else{
+                    $('#shareFbPhoto').attr({src:FmMobile.srcForMyUgcViewer});
+                }
+
+//                $('#shareFbPhoto').attr({src:FmMobile.srcForMyUgcViewer});
             }
             $('#shareFbPhoto').show();
         }
