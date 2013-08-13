@@ -609,7 +609,7 @@ padding:5% 5%;
 }
 /* by Jean */
 .tab_button{
-    display: inline-block;
+    display: inline-table;
     width: 49%;
     margin-top: 3%;
 }
