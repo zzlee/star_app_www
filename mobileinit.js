@@ -68,8 +68,13 @@ $(document).bind("mobileinit", function(){
                                            $.mobile.changePage("orientation_1.html");
                                            });
                  $('#goVerifyPage').live("click",function(){
-                                 $.mobile.changePage("login_toc.html");
-                                         });
+                                         if(!(localStorage.fb_userID && localStorage.verified=='true'))
+                                         {
+                                         $.mobile.changePage("login_toc.html", {transition: "slide"});
+                                         }
+                                         else {
+                                         $.mobile.changePage("setting-main.html");
+                                         }                                         });
 
                                   /*
                  $('#mapArea').live('pagebeforeshow',function(){
