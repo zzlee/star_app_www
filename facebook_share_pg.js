@@ -4,6 +4,8 @@ PAGE_ID: "facebookSharePg",
 show: function(){
     FmMobile.analysis.trackPage("/facebookSharePg");
     recordUserAction("enters facebookSharePg");
+    
+    
 },
     
 init: function(){
@@ -54,5 +56,9 @@ init: function(){
             
                 $.mobile.changePage('my_ugc.html');
             });
+    
+        $("#back_setting").click(function(){
+            $.mobile.changePage('my_ugc.html');
+        });
    },
 };
