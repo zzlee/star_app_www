@@ -52,15 +52,15 @@ FmMobile.screenPg = {
         FM_LOG("[screenPg] pageshow");
         FmMobile.analysis.trackPage("/screenPg");
         $("#btnHighLights").click(function(){
-            $("#btnHighLights > img").attr({src: "images/tab-active.png"});
-            $("#btnArena > img").attr({src: "images/tab.png"});
+            $("#btnHighLights > img").attr({src: "images/tab_show_active.png"});
+            $("#btnArena > img").attr({src: "images/tab_tanmu.png"});
 //            FmMobile.screenPg.loadVideo(FmMobile.screenPg.highLightVideos, "highlight");
             FmMobile.screenPg.loadHighLightContent(FmMobile.screenPg.highLightContent);
         });
         
         $("#btnArena").click(function(){
-            $("#btnHighLights > img").attr({src: "images/tab.png"});
-            $("#btnArena > img").attr({src: "images/tab-active.png"});
+            $("#btnHighLights > img").attr({src: "images/tab_show.png"});
+            $("#btnArena > img").attr({src: "images/tab_tanmu_active.png"});
 //            FmMobile.screenPg.loadVideo(FmMobile.screenPg.highLightVideos, "arena");
         });
         
@@ -99,11 +99,11 @@ FmMobile.screenPg = {
                         //set the owner'photo
                         this.ownerPhoto = $("<img>").attr({
                                                                id: "OwnerId_" + i + "_" + arryHighlight[i].OwnerId.userID,
-                                                               class: "share",
+                                                               class: "facebook_pic",
                                                                src: ownerPhotoUrl
                                                                });
                         //set the owner's name
-                        this.ownerNameDiv = $("<div>").attr({class: "my-video-number"});
+                        this.ownerNameDiv = $("<div>").attr({class: "facebook_name"});
                         this.ownerNameDiv.html(arryHighlight[i].Name);
                         this.ownerPhoto.appendTo(infoDiv);
                         this.ownerNameDiv.appendTo(infoDiv);

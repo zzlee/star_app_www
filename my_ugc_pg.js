@@ -13,8 +13,8 @@ FmMobile.myUgcPg = {
         //    FmMobile.myUgcPg.myContents = new Array();
         if(FmMobile.myUgcPg.Type == "live"){
             FmMobile.myUgcPg.Type = "";
-            $("#btnLiveMovie >img").attr({src: "images/tab-active.png"});
-            $("#btnMiixMovie >img").attr({src: "images/tab.png"});
+            $("#btnLiveMovie >img").attr({src: "images/tab_live_active.png"});
+            $("#btnMiixMovie >img").attr({src: "images/tab_ugc.png"});
             FmMobile.myUgcPg.loadLiveContents(FmMobile.myUgcPg.myLiveContents);
         }else{
             FmMobile.myUgcPg.myContents = new Array();
@@ -29,10 +29,10 @@ FmMobile.myUgcPg = {
                           ProjectId: item.projectId,
                           Genre: item.genre,
                           Url : item.url,
+                          PreviewUrl: item.doohPreviewUrl,
                           No: item.no,
                           }
                           FmMobile.myUgcPg.myContents.push(data);
-    //                      console.log("[contentData] " + data);
                           });
                            FmMobile.myUgcPg.Type = "content";
                            //        FmMobile.myUgcPg.myContents = FmMobile.ajaxContents();
@@ -43,8 +43,10 @@ FmMobile.myUgcPg = {
                    }
                    });
 
+
+
         }
-        //TODO:load live video with ajax
+
 
      
     },
@@ -52,16 +54,18 @@ FmMobile.myUgcPg = {
     show: function(){
         FM_LOG("[myUgcPg] pageshow");
         $("#btnMiixMovie").click(function(){
-        	$("#btnMiixMovie > img").attr({src: "images/tab-active.png"});
-            $("#btnLiveMovie > img").attr({src: "images/tab.png"});
+                                 alert('miix click');
+        	$("#btnMiixMovie>img").attr({src: "images/tab_ugc_active.png"});
+            $("#btnLiveMovie>img").attr({src: "images/tab_live.png"});
             FmMobile.myUgcPg.Type = "content";
 //            FmMobile.myUgcPg.myContents = FmMobile.ajaxContents();            
             FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myContents);
 
          });
         $("#btnLiveMovie").click(function(){
-            $("#btnLiveMovie >img").attr({src: "images/tab-active.png"});
-            $("#btnMiixMovie >img").attr({src: "images/tab.png"});
+                                 alert('click');
+            $("#btnLiveMovie>img").attr({src: "images/tab_live_active.png"});
+            $("#btnMiixMovie>img").attr({src: "images/tab_ugc.png"});
              
             //API : /miix/members/:memberId/live_contents
             FmMobile.myUgcPg.myLiveContents = new Array();
@@ -88,7 +92,7 @@ FmMobile.myUgcPg = {
                    
 
             });
-    });
+        });
         
         
 //            FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myContents, "content");
@@ -225,34 +229,31 @@ FmMobile.myUgcPg = {
             var number = arryContents[i].No;
             
             //Set Preview
-            if(typeof(arryContents[i].Url) != "undefined"){
+            if(typeof(arryContents[i].PreviewUrl) != "undefined"){
                 var widgetPreview = $("<div>").attr({id: "preview_" + projectId, class: "content-movie"});
                 dummyDivPreview.appendTo(widgetPreview);
+                var previewUrl = arryContents[i].PreviewUrl;
                 this.previewThumbnail = $("<img>").attr({
-                                                        id: 'imgPreview_' + i,
-                                                        src: "images/choose_movie.png",
+                                                        id: 'imgPreview_' + projectId,
+                                                        src: previewUrl,
                                                         class: "content-movie-img"
                                                         });
                 this.previewThumbnail.appendTo(widgetPreview);
                 
                 var ytVideoID = i;
                 this.shareYoutubeDiv = $("<img>").attr({
-                                                       id: "copyUrl_" + ytVideoID,
+                                                       id: "copyPreUrl_" + projectId,
                                                        class: "share",
                                                        src: "images/youtube.png"
                                                        });
                 this.shareYoutubeDiv.appendTo(infoPreview);
                 
                 this.shareFbDiv = $("<img>").attr({
-                                                  id: "shareFb_" + ytVideoID,
+                                                  id: "sharePreFb_" + projectId,
                                                   class: "share",
                                                   src: "images/facebook.png"
                                                   });
                 this.shareFbDiv.appendTo(infoPreview);
-                
-                this.numberDiv = $("<div>").attr({class: "my-video-number"});
-                this.numberDiv.html("NO." + number);
-                this.numberDiv.appendTo(infoPreview);
                 
                 infoPreview.appendTo(widgetPreview);
                 widgetPreview.appendTo(parent);
@@ -274,7 +275,7 @@ FmMobile.myUgcPg = {
                 case "miix":
                     if(typeof(arryContents[i].Url) != "undefined"){
                         var ytVideoID = (arryContents[i].Url.youtube).split('/').pop();
-                        var widget = $("<div>").attr({id: projectId, class: "content-movie"});
+                        var widget = $("<div>").attr({id: projectId, class: "content-movie", style: "margin-bottom: 26%;margin-top: 18%;"});
                         dummyDiv.appendTo(widget);
                         this.videoThumbnail = $("<img>").attr({
                                                               id: 'imgYouTube_'+ytVideoID,
@@ -299,13 +300,13 @@ FmMobile.myUgcPg = {
                         this.shareFbDiv.appendTo(info);
 
                         this.numberDiv = $("<div>").attr({class: "my-video-number"});
-                        this.numberDiv.html("NO." + number);
+                        this.numberDiv.html("試鏡編號：" + number);
                         this.numberDiv.appendTo(info);
                         info.appendTo(widget);
                         widget.appendTo(parent);
 
                     }else{
-                        var widget = $("<div>").attr({id: projectId, class: "content-movie"});
+                        var widget = $("<div>").attr({id: projectId, class: "content-movie", style: "margin-top: 18%;"});
                         dummyDiv.appendTo(widget);
                         this.videoThumbnail = $("<img>").attr({
                                                               id: 'imgError_' + i,
@@ -316,7 +317,7 @@ FmMobile.myUgcPg = {
                         widget.appendTo(parent);
                         
                     }
-                    parent.append("<hr>");
+//                    parent.append("<hr>");
                     
                     break;
                 case "miix_image":
@@ -347,7 +348,7 @@ FmMobile.myUgcPg = {
                         this.shareFbDiv.appendTo(info);
 
                         this.numberDiv = $("<div>").attr({class: "my-video-number"});
-                        this.numberDiv.html("NO." + number);
+                        this.numberDiv.html("試鏡編號：" + number);
                         this.numberDiv.appendTo(info);
                         info.appendTo(widget);
                         widget.appendTo(parent);
@@ -363,16 +364,15 @@ FmMobile.myUgcPg = {
                                                               });
 
                         widget.appendTo(parent);
-//                        parent.append("<hr>");
+
                     }
-                    parent.append("<hr>");
+//                    parent.append("<hr>");
                     break;
                     
                 default :
                     console.log("Eroor : no Genre");
             }//End of Switch
-            
-//            parent.append("<hr>");
+            parent.append("<hr>");
             
         }//End of Loop
         
@@ -434,9 +434,9 @@ FmMobile.myUgcPg = {
                     console.log("you chosse the error item or the image");
                     break;
                 case "imgS3":
-                                          
+                case "imgPreview":
                     FmMobile.srcForMyUgcViewer=this.src;
-                    $.mobile.changePage('cropper_test.html');
+                    $.mobile.changePage('fullPageViewer.html');
 
                     break;
                 default:
@@ -500,6 +500,7 @@ FmMobile.myUgcPg = {
                    
                     break;
                 case "shareImgFb":
+                case "sharePreFb":
                     FmMobile.shareFbType="image";
                     var s3Url4Fb = "https://s3.amazonaws.com/miix_content/user_project/" + tmpIDArray[1] + "/" + tmpIDArray[1];
                     if(FmMobile.myUgcPg.Type == "content"){
@@ -510,6 +511,7 @@ FmMobile.myUgcPg = {
                     $.mobile.changePage('facebook_share.html');
                     break;            
                 case "copyUrlS3":
+                case "copyPreUrl":
                     console.log("S3 URL " + tmpIDArray[1]);
                     var s3Url = "https://s3.amazonaws.com/miix_content/user_project/" + tmpIDArray[1] + "/" + tmpIDArray[1];
                     if(FmMobile.myUgcPg.Type == "content"){

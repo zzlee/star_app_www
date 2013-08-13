@@ -99,6 +99,32 @@ div[data-role=page] {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000',GradientType=1 ); /* IE6-9 */
 }	
 
+
+
+
+/* -------------------- myUGC page photo viewer----------------------------*/
+#fullPageViewerPg {
+	background: #000000; /* Old browsers */
+	background: #000000; /* FF3.6+ */
+	background: #000000; /* Chrome,Safari4+ */
+	background: #000000; /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left,  #000000 0%,#970018 50%,#000000 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left,  #000000 0%,#970018 50%,#000000 100%); /* IE10+ */
+	background: linear-gradient(to right,  #000000 0%,#970018 50%,#000000 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000',GradientType=1 ); /* IE6-9 */
+}	
+
+.content-movie-photoViewer{
+	background-repeat:no-repeat;
+	background-size:100%;
+	margin-top: 45%;
+    position:relative;
+}
+
+/* ------------------------------------------------*/
+
+
+
 /* Splash ------------------------------------------------------------*/
 .signage{
 	width:100%;
@@ -129,7 +155,7 @@ div[data-role=page] {
 	width: 100%;
 	padding: 0px;
 	min-height: 72.84%;
-    /*padding-bottom: 37%;*/
+    padding-bottom: 37%;
     z-index: 0;
     display:block !improtant;
 }
@@ -466,6 +492,7 @@ padding:5% 5%;
 	width: 90%;
 	margin-top: 18%;
 	margin-left: 5%;
+    margin-bottom: 26%;
 	position:relative;
 }
 .content-movie-img{
@@ -475,7 +502,7 @@ padding:5% 5%;
     left: 0;
     right: 0;
 	width:95%;
-	margin-top:6%;
+	margin-top:3%;
 	margin-left:3%;
 }
 .content-movie-img-long{
@@ -579,6 +606,12 @@ padding:5% 5%;
 	color: #dcd586;
 
 
+}
+/* by Jean */
+.tab_button{
+    display: inline-block;
+    width: 49%;
+    margin-top: 3%;
 }
 .tab_button_text{
 	position: absolute;

@@ -15,17 +15,24 @@ FmMobile.template_checkinPg = {
                           $('#close').hide();
                           });
         
+        $('#checkin_text_1').val("在下"+localStorage.fb_name);
+         $('#checkin_text_2').val("各位有請了");
+        
+        
+        /*
         $('#back_main').click(function(){
                   $.mobile.changePage("template-main_template.html");
                               
           });
+        */
         
         
-        
-        $('#next_step').click(function(){
-      FmMobile.selectedSubTemplate=templateMgr.getSubTemplateList("check_in")[1].id;
-
-                              $.mobile.changePage("template_input_checkin.html");
+        $('#checkinPreview').click(function(){
+            var finalTextOfCheckin=$('#checkin_text_1').val()+"\n路經貴寶地\n"+$('#checkin_text_2').val();
+                                //   alert(finalTextOfCheckin);
+      FmMobile.selectedSubTemplate=templateMgr.getSubTemplateList("check_in")[0].id;
+                                   FmMobile.userContent.text=finalTextOfCheckin;
+                             $.mobile.changePage("template-preview.html");
                               
                               });
         /*

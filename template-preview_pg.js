@@ -8,6 +8,15 @@ FmMobile.template_previewPg = {
 
     init : function() {
         $("#nav-bar").show();
+        
+        
+        
+                /*  點下去跳到full screen  */
+        $(".content-movie").click(function(){
+                       $.mobile.changePage("fullPageViewer.html");
+                         });
+        /* ends of 點下去跳到full screen */
+        
         /* 判斷按上一步要回哪一頁 */
         if(FmMobile.selectedSubTemplate=='text_only'){
             $('#cancelBtnToCropper').click(function(){
@@ -26,6 +35,7 @@ FmMobile.template_previewPg = {
         if(FmMobile.selectedTemplate == 'miix_it'){
             $('.header-text').html("劇照模擬預覽");
         }else{
+            $('.template_instruction').html('點擊可放大');
         }
        /* ends of preview page title bar text 影片根其他不一樣*/
         
@@ -70,18 +80,68 @@ FmMobile.template_previewPg = {
                                 });
                     });
 
-        } 
+        }
+        else if(FmMobile.selectedTemplate == 'check_in'){
+            var imageUgc;
+            ImageUgc.getInstance(FmMobile.selectedTemplate, FmMobile.selectedSubTemplate, FmMobile.userContent, function(err, _imageUgc) {
+                                 if (!err) {
+                                 imageUgc = _imageUgc;
+                                 FmMobile.viewerBackFlag='backPreview';
+                                 FmMobile.imgForFullPageViewer=imageUgc.getDoohPreviewImageUrl();
+
+                                 $("#show").attr("src", imageUgc.getDoohPreviewImageUrl());
+                                 }
+                                 else {
+                                 console.log(err);
+                                 }
+                                 });
+            
+            
+            
+            $('#btnTest').click(
+                                function() {
+                                $.mobile.showPageLoadingMsg();
+                                var mainTemplate = FmMobile.selectedTemplate;
+                                var ownerId = localStorage._id;
+                                var ownerFbUserId = localStorage.fb_userID;
+                                
+                                var ugcInfo = {
+                                ownerId : {
+                                _id : ownerId,
+                                fbUserId : ownerFbUserId
+                                },
+                                contentGenre : mainTemplate,
+                                title : "today's mood"
+                                };
+                                
+                                imageUgc.uploadToServer(ugcInfo,
+                                                        function(err) {
+                                                        console.log("err=" + err);
+                                                        
+                                                        if (!err) {
+                                                        //alert("success!");
+                                                        }
+                                                        $.mobile.hidePageLoadingMsg();
+                                                        $.mobile.changePage("my_ugc.html");
+                                                        });
+                                
+                                });
+        }
         else {
             var imageUgc;
             ImageUgc.getInstance(FmMobile.selectedTemplate, FmMobile.selectedSubTemplate, FmMobile.userContent, function(err, _imageUgc) {
                 if (!err) {
                     imageUgc = _imageUgc;
+                                 FmMobile.viewerBackFlag='backPreview';
+                                 FmMobile.imgForFullPageViewer=imageUgc.getDoohPreviewImageUrl();
                     $("#show").attr("src", imageUgc.getDoohPreviewImageUrl());
                 } 
                 else {
                     console.log(err);
                 }
             });
+            
+            
 
             $('#btnTest').click(
                     function() {
