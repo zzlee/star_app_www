@@ -14,7 +14,7 @@
             "selected":"picture_plus_text",
             "name":"版型一",
             "outputType":"image",
-            "description":"文：限24個中文字<br>圖：上傳一張照片",
+            "description":"一張圖 + 24個字",
             "backgroundImageUrl":"design_text_and_pic.png",
             "customizableObjects":[
                                    {
@@ -60,7 +60,7 @@
             "selected":"picture_only",
             "name":"版型二",
             "outputType":"image",
-            "description":"圖：上傳一張照片",
+            "description":"一張圖",
             "backgroundImageUrl":"design_pic.png",
             "customizableObjects":[
                                    {
@@ -95,7 +95,7 @@
             "selected":"text_only",
             "name":"版型三",
             "outputType":"image",
-            "description":"文：限39個中文字",
+            "description":"39個字",
             "backgroundImageUrl":"design_text.png",
             "customizableObjects":[
                                    {

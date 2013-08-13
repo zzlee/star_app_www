@@ -1,7 +1,7 @@
 FmMobile.orientationPg = {
     PAGE_ID: "orie_1",
     idx: 1,
-    max: 5,
+    max: 2,
         
     swipeleft: function(){
         if( ++FmMobile.orientationPg.idx > FmMobile.orientationPg.max){

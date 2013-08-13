@@ -60,7 +60,22 @@ $(document).bind("mobileinit", function(){
                                      });
                  $("map > #mapAreaBack").live("click",FmMobile.orientationPg.swiperight);
                  $("map > #mapAreaNext").live("click",FmMobile.orientationPg.swipeleft);
-                   
+                 
+                 $('#goOrientation2').live("click",function(){
+                                           $.mobile.changePage("orientation_2.html");
+                                           });
+                 $('#goOrientation1').live("click",function(){
+                                           $.mobile.changePage("orientation_1.html");
+                                           });
+                 $('#goVerifyPage').live("click",function(){
+                                         if(!(localStorage.fb_userID && localStorage.verified=='true'))
+                                         {
+                                         $.mobile.changePage("login_toc.html", {transition: "slide"});
+                                         }
+                                         else {
+                                         $.mobile.changePage("setting-main.html");
+                                         }                                         });
+
                                   /*
                  $('#mapArea').live('pagebeforeshow',function(){
                                 alert("no");
