@@ -35,7 +35,7 @@ load: function(){
                           $.mobile.changePage('template-preview.html');
                           
                           }else{
-                          alert("gg");
+                          $.mobile.changePage('my_ugc.html');
                           }
                           });
     
@@ -97,8 +97,17 @@ show: function(){
     };
     
     //image.src = "images/test.jpg";  //for test
+    
+    
+    if(FmMobile.viewerBackFlag=='backPreview'){
+       
+         image.src = FmMobile.imgForFullPageViewer;
+    }else{
+image.src =FmMobile.srcForMyUgcViewer;
+    }
 
-    image.src = FmMobile.imgForFullPageViewer;
+
+   
     
     // FmMobile.userContent.picture.url=fileProcessedForCropperURI;
     
