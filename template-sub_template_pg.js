@@ -9,6 +9,21 @@ FmMobile.template_subTemplatePg = {
     init: function(){
 		$('#nav-bar').show();
         
+        var settings = {
+        type: "GET",
+        dataType: "html",
+            
+        success: function(data, textStatus, jqXHR ){
+            $("#show_intro").html(data);
+                        cb1_series(null);
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+            cb1_series(errorThrown);
+        }
+        };
+        $.ajax("template/"+FmMobile.selectedTemplate+"/template_instruction.html",settings);
+        
+      
         $("#show_intro").show();
         $("#close").click(function(){
                       $("#show_intro").hide();
