@@ -101,6 +101,7 @@ TemplateMgr = (function(){
 		
 		TemplateGroup.prototype.load = function(cbOfLoad){
 			var templateList = null;
+			var _this = this;
 			async.series([
 				function(cb1_series){
                     //read template_list.json
@@ -116,7 +117,7 @@ TemplateMgr = (function(){
 								cb1_series(errorThrown);
 							}						
 					};
-					$.ajax(this.path+'template_list.json',settings);
+					$.ajax(_this.path+'template_list.json',settings);
 				},
 				function(cb2_series){
 					//read template_description.json of each template
@@ -126,15 +127,15 @@ TemplateMgr = (function(){
 								dataType: "json",
 								success: function(data, textStatus, jqXHR ){
 									//console.dir(data);
-									this.templates[aTemplate] = data;
-									this.templates[aTemplate].path = this.path;
+									_this.templates[aTemplate] = data;
+									_this.templates[aTemplate].path = _this.path;
 									cb_each(null);
 								},
 								error: function(jqXHR, textStatus, errorThrown){
 									cb_each(errorThrown);
 								}						
 						};
-						$.ajax(this.path+aTemplate+'/template_description.json',settings);
+						$.ajax(_this.path+aTemplate+'/template_description.json',settings);
 					};
 					async.eachSeries(templateList, iterator, function(err, results){
                         if (!err){
@@ -153,14 +154,14 @@ TemplateMgr = (function(){
                                 dataType: "json",
                                 success: function(data, textStatus, jqXHR ){
                                     //console.dir(data);
-                                    this.doohPreviewTemplates[aTemplate] = data;
+                                    _this.doohPreviewTemplates[aTemplate] = data;
                                     cb_each(null);
                                 },
                                 error: function(jqXHR, textStatus, errorThrown){
                                     cb_each('['+aTemplate+']'+errorThrown);
                                 }                       
                         };
-                        $.ajax(this.path+aTemplate+'/dooh_preview_description.json',settings);
+                        $.ajax(_this.path+aTemplate+'/dooh_preview_description.json',settings);
                     };
                     async.eachSeries(templateList, iterator, function(err, results){
                         if (!err){
@@ -209,8 +210,8 @@ TemplateMgr = (function(){
             },
             function(callback){
                 //merge all templates
-                $.extend(templates, localTemplateGroup.templates, localTemplateGroup.templates);
-                $.extend(doohPreviewTemplates, localTemplateGroup.doohPreviewTemplates, localTemplateGroup.doohPreviewTemplates);
+                $.extend(templates, localTemplateGroup.templates, remoteTemplateGroup.templates);
+                $.extend(doohPreviewTemplates, localTemplateGroup.doohPreviewTemplates, remoteTemplateGroup.doohPreviewTemplates);
                 callback(null);
             }
         ], 
