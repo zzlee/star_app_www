@@ -1,8 +1,8 @@
 {
     "selected":"mood",
     "name":"心情",
-    "topBarImageUrl":"images/mood.png",
-    "representingImageUrl":"images/script02.png",
+    "topBarImageUrl":"template/template_pic/mood.png",
+    "representingImageUrl":"template/template_pic/script02.png",
     "introdcutionContentUrl":"mood_introdction.html",
     "outputSize":{
         "width":720,
@@ -10,7 +10,7 @@
     },
     "subTemplate":{
         "picture_plus_text":{
-            "representingImageUrlSub":"images/mood_01.png",
+            "representingImageUrlSub":"template/template_pic/mood_01.png",
             "selected":"picture_plus_text",
             "name":"版型一",
             "outputType":"image",
@@ -55,7 +55,7 @@
                                    ]
         },
         "picture_only":{
-            "representingImageUrlSub":"images/mood_02.png",
+            "representingImageUrlSub":"template/template_pic/mood_02.png",
             "selected":"picture_only",
             "name":"版型二",
             "outputType":"image",
@@ -88,7 +88,7 @@
             ]
         },
         "text_only":{
-            "representingImageUrlSub":"images/mood_03.png",
+            "representingImageUrlSub":"template/template_pic/mood_03.png",
             "selected":"text_only",
             "name":"版型三",
             "outputType":"image",

@@ -1,8 +1,8 @@
 {
     "selected":"cultural_and_creative",
     "name":"創作",
-    "topBarImageUrl":"images/cultural.png",
-    "representingImageUrl":"images/script01.png",
+    "topBarImageUrl":"template/template_pic/cultural.png",
+    "representingImageUrl":"template/template_pic/script01.png",
     "introdcutionContentUrl":"mood_introdction.html",
     "outputSize":{
         "width":720,
@@ -10,7 +10,7 @@
     },
     "subTemplate":{
         "picture_plus_text":{
-            "representingImageUrlSub":"images/cultural_01.png",
+            "representingImageUrlSub":"template/template_pic/cultural_01.png",
             "selected":"picture_plus_text",
             "name":"版型一",
             "outputType":"image",
@@ -56,7 +56,7 @@
                                    ]
         },
         "picture_only":{
-            "representingImageUrlSub":"images/cultural_02.png",
+            "representingImageUrlSub":"template/template_pic/cultural_02.png",
             "selected":"picture_only",
             "name":"版型二",
             "outputType":"image",
@@ -91,7 +91,7 @@
                                    ]
         },
         "text_only":{
-            "representingImageUrlSub":"images/cultural_03.png",
+            "representingImageUrlSub":"template/template_pic/cultural_03.png",
             "selected":"text_only",
             "name":"版型三",
             "outputType":"image",
