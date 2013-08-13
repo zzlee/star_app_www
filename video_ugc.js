@@ -177,7 +177,7 @@ VideoUgc = (function(){
             function(callback){
                 //get customizable objects info
                 $.ajax({
-                    url: templateMgr.getTemplateFolderPath()+'/'+mainTemplateId+'/'+subTemplateId+'/template_customizable_object_list.xml',
+                    url: templateMgr.getTemplateFolderPath(mainTemplateId)+mainTemplateId+'/'+subTemplateId+'/template_customizable_object_list.xml', //TODO: TemplateMgr output cleaner url
                     dataType: 'xml',
                     success: function(xmlDoc){
                         var customizableObjectsXml = xmlDoc.getElementsByTagName("customizable_object");
@@ -212,7 +212,7 @@ VideoUgc = (function(){
             function(callback){
                 //create DOOH preview
                 if (doohPreviewTemplate){
-                    var ugcDoohPreviewBgImageUrl = templateMgr.getTemplateFolderPath()+'/'+mainTemplateId+'/'+subTemplateId+'/'+doohPreviewTemplate.backgroundImageUrl;
+                    var ugcDoohPreviewBgImageUrl = templateMgr.getTemplateFolderPath(mainTemplateId)+mainTemplateId+'/'+subTemplateId+'/'+doohPreviewTemplate.backgroundImageUrl; //TODO: TemplateMgr output cleaner url
                     var customizableObjects = doohPreviewTemplate.customizableObjects;
                     DoohPreview.getInstance(DOOH_ID, ugcDoohPreviewBgImageUrl, customizableObjects, userContent, function(errOfGetInstance, _doohPreview){
                         if (!errOfGetInstance){
