@@ -38,27 +38,39 @@ FmMobile.authentication = {
         var phoneNum_int = parseInt(phoneNum);
         
         if(isNaN(phoneNum_int) || phoneNum_int < 900000000 || phoneNum_int > 999999999){
+             navigator.notification.alert("號碼錯囉...");
             $("#phoneNum_input").attr("value", "09XXXXXXXX");
             return;
-        }
-           
-        var url = remotesite + "/members/authentication_code",
+        }else if(FmMobile.myflag){
+            var url = remotesite + "/members/authentication_code",
             data = {
-                phoneNum: phoneNum,
-                fb_userID: localStorage.fb_userID,
-                userID: localStorage._id
+            phoneNum: phoneNum,
+            fb_userID: localStorage.fb_userID,
+            userID: localStorage._id
             };
-        
-        $.get(url, data, function(res){
-              alert("test");
-              if(res.message){
+            
+            $.get(url, data, function(res){
+
+                  //alert("test");
+                  if(res.message){
+                  FmMobile.myflag=false;
+                  
                   navigator.notification.alert(res.message);
                   $.mobile.changePage("code_input.html");
-              
-              }else{
-                navigator.notification.alert(res.error);
-              }
-        });
+                  setTimeout(function(){FmMobile.myflag=true},60000);
+                  }else{
+                  navigator.notification.alert(res.error);
+                  }
+                  });
+            
+
+        }else{
+            navigator.notification.alert("請於三分鐘後再發送一次認證碼請求,謝謝！");
+        
+        }
+      //  FmMobile.myflag=false;
+        //setTimeout(function(){FmMobile.myflag=true},60000);
+        
     },
     
     sendCode: function(){
