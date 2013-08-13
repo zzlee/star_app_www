@@ -61,11 +61,17 @@ FmMobile.screenPg = {
         $("#btnArena").click(function(){
             $("#btnHighLights > img").attr({src: "images/tab_show.png"});
             $("#btnArena > img").attr({src: "images/tab_tanmu_active.png"});
+             FmMobile.screenPg.loadArenaContent();
 //            FmMobile.screenPg.loadVideo(FmMobile.screenPg.highLightVideos, "arena");
         });
         
 //        FmMobile.screenPg.loadVideo(FmMobile.screenPg.highLightVideos, "highlight");
 //        FmMobile.screenPg.loadHighLightContent(FmMobile.screenPg.highLightContent);
+    },
+    loadArenaContent: function(){
+        FM_LOG("[screenPg]loadArenaContent");
+        var parent = $("#my-video-list");
+        parent.html("");
     },
     
     loadHighLightContent: function(arryHighlight){
