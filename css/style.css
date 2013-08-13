@@ -467,6 +467,15 @@ padding:5% 5%;
     text-shadow: none;
     padding-left:3%;
 	}
+.content-movie-long{
+	background-image:url(../images/big_frame_long.png);
+	background-repeat:no-repeat;
+	background-size:100%;
+	width: 90%;
+	margin-top: 5%;
+	margin-left: 5%;
+	position:relative;
+}
 .content-movie{
 	background-image:url(../images/big_frame.png);
 	background-repeat:no-repeat;

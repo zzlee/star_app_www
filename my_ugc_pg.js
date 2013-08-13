@@ -51,7 +51,6 @@ FmMobile.myUgcPg = {
     show: function(){
         FM_LOG("[myUgcPg] pageshow");
         $("#btnMiixMovie").click(function(){
-             alert('miix click');
              $("#btnMiixMovie>img").attr({src: "images/tab_ugc_active.png"});
              $("#btnLiveMovie>img").attr({src: "images/tab_live.png"});
              FmMobile.myUgcPg.Type = "content";
@@ -60,7 +59,6 @@ FmMobile.myUgcPg = {
          
          });
         $("#btnLiveMovie").click(function(){
-             alert('click');
              $("#btnLiveMovie>img").attr({src: "images/tab_live_active.png"});
              $("#btnMiixMovie>img").attr({src: "images/tab_ugc.png"});
              
@@ -116,7 +114,11 @@ FmMobile.myUgcPg = {
             var projectId = arryHighlightContents[i].ProjectId;
             console.log("projectId " + projectId);
             var dummyDiv = $("<div>").attr({class: "movie-pic-dummy"});
-            var widget = $("<div>").attr({id: projectId, class: "content-movie", style: "margin-top:20%;"});
+            if(i == 0){
+                var widget = $("<div>").attr({id: projectId, class: "content-movie"});
+            }else{
+               var widget = $("<div>").attr({id: projectId, class: "content-movie", style: "margin-top:20%;"}); 
+            }
             dummyDiv.appendTo(widget);
             
             //For item info ex. Copy Youtube'url, Share on FB and # of video/image
