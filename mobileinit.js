@@ -124,6 +124,12 @@ $('#mapAreaNext').attr("coords","'"+FmMobile.or_pic_width+","+((FmMobile.or_pic_
                  $("#photoCropperPg").live("pageinit", FmMobile.photoCropperPg.load);
                  $("#photoCropperPg").live("pageshow", FmMobile.photoCropperPg.show);
                  
+                 $("#settingAboutPg").live("pageinit", FmMobile.settingAboutPg.init);
+                 $("#settingAboutPg").live("pageshow", FmMobile.settingAboutPg.show);
+                 
+                 $("#fbLogoutPg").live("pageinit", FmMobile.fbLogoutPg.init);
+                 $("#fbLogoutPg").live("pageshow", FmMobile.fbLogoutPg.show);
+                 
                  
                  
                  $("#fullPageViewerPg").live("pageinit", FmMobile.fullPageViewerPg.load);
