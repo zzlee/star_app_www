@@ -55,7 +55,6 @@ init: function(){
 
                         
                            $.mobile.changePage("template-preview.html");
-                           FmMobile.userContent.text=$('#ur_text').val();
                            FmMobile.userContent.picture.urlOfOriginal=null;
                            FmMobile.userContent.picture.crop._x=null;
                            FmMobile.userContent.picture.crop._y=null;
@@ -65,8 +64,11 @@ init: function(){
               
                            
                                               }
+               
                            });
     
+    var textForUgcUtility;
+
     $("#ur_text").bind("blur",function(){
                        textForUgcUtility= $("#ur_text").val().replace(/\n/g,"<n>");
                        FmMobile.userContent.text=textForUgcUtility;
