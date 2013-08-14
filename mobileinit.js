@@ -1062,6 +1062,12 @@ FmMobile.showNotification = function(fun){
         case "error":
             navigator.notification.confirm("錯誤發生，請通知我們", FmMobile.Confirm(), appName, "確定");
             break;
+        case "moreWords":
+            navigator.notification.confirm("超過每行限制字數!", FmMobile.Confirm(), appName, "確定");
+            break;
+        case "moreLines":
+            navigator.notification.confirm("超過3行囉！", FmMobile.Confirm(), appName, "確定");
+            break;
         default:
             console.log("ShowNotification is not worked");
     }

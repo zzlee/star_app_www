@@ -22,6 +22,37 @@ init: function(){
                            if($("#ur_text").val().length==0 ||$("#ur_text").val()==" "){
                            alert("請輸入文字！");
                            }else{
+                           var check_format= FmMobile.userContent.text.split("<n>");
+                           //FmMobile.userContent.text=check_format;
+                           if(check_format.length>3){
+                           FmMobile.showNotification("moreLines");
+                           return false;
+                           //alert("more than 4 lines!");
+                           }
+                           
+                           if(check_format[0].length >13){
+                           
+                           FmMobile.showNotification("moreWords");
+                           return false;
+                           
+                           
+                           }
+                           if(check_format[1] != undefined){
+                           if(check_format[1].length >13 ){
+                           FmMobile.showNotification("moreWords");
+                           return false;
+                           
+                           }
+                           }
+                           
+                           if(check_format[2] != undefined){
+                           if(check_format[2].length >13 ){
+                           FmMobile.showNotification("moreWords");
+                           return false;
+                           
+                           }
+                           }
+
                         
                            $.mobile.changePage("template-preview.html");
                            FmMobile.userContent.text=$('#ur_text').val();
@@ -36,6 +67,18 @@ init: function(){
                                               }
                            });
     
+    $("#ur_text").bind("blur",function(){
+                       textForUgcUtility= $("#ur_text").val().replace(/\n/g,"<n>");
+                       FmMobile.userContent.text=textForUgcUtility;
+                       });
+/*
+    
+    $("#ur_text").keyup(function(){
+                        textForUgcUtility= $("#ur_text").val().replace(/\n/g,"<n>");
+                        FmMobile.userContent.text=textForUgcUtility;
+                        });
+*/
+    /*
   var text_limit=39;
     $("#ur_text").focusout(function(){
                      
@@ -56,6 +99,7 @@ init: function(){
                         alert("超過"+text_limit+"字數限制，多出的字將被移除！");
                         }
    });
+     */
     
     
     
