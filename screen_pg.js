@@ -31,7 +31,7 @@ FmMobile.screenPg = {
             $("#btnHighLights > img").attr({src: "images/tab_show.png"});
             $("#btnArena > img").attr({src: "images/tab_tanmu_active.png"});
              FmMobile.screenPg.loadArenaContent();
-//            FmMobile.screenPg.loadVideo(FmMobile.screenPg.highLightVideos, "arena");
+
         });
         
 //        FmMobile.screenPg.loadVideo(FmMobile.screenPg.highLightVideos, "highlight");
@@ -71,6 +71,31 @@ FmMobile.screenPg = {
         FM_LOG("[screenPg]loadArenaContent");
         var parent = $("#my-video-list");
         parent.html("");
+        
+        
+        //Introduce Nova
+        
+        var intro = $("<div>").attr({id:"intro", class:"tanmu-instraction"});
+        intro.html('台北天幕LED介紹<br><br> 城市之光、台北天幕LED位於台北小巨蛋，顯示面積為100m x 16m，解析度為1743 x 260像素，是台灣最有名的戶外數位媒體。<br><br>'
+            + '台北天幕LED由' + '<a href="http://www.novamedia.com.tw/" target="_blank">諾亞媒體</a>'
+                   + '代理經營。諾亞媒體，數位看板媒體專家。');
+        var introImg_1 = $("<img>").attr({
+                                        src: "images/tanmu01.png",
+                                        class: "tanmu-img"
+                                        });
+        var introImg_2 = $("<img>").attr({
+                                         src: "images/tanmu02.png",
+                                         class: "tanmu-img"
+                                         });
+        var introImg_3 = $("<img>").attr({
+                                         src: "images/tanmu03.png",
+                                         class: "tanmu-img"
+                                         });
+        
+        intro.appendTo(parent);
+        introImg_1.appendTo(parent);
+        introImg_2.appendTo(parent);
+        introImg_3.appendTo(parent);
     },
     
     loadHighLightContent: function(arryHighlight){
