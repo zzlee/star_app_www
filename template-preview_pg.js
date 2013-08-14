@@ -18,12 +18,19 @@ FmMobile.template_previewPg = {
         /* ends of 點下去跳到full screen */
         
         /* 判斷按上一步要回哪一頁 */
-        if(FmMobile.selectedSubTemplate=='text_only'){
+        if(FmMobile.selectedSubTemplate=='text_only' && FmMobile.selectedTemplate != "check_in"){
             $('#cancelBtnToCropper').click(function(){
                                   $.mobile.changePage("template-input_text.html");
                                   });
 
-        }else{
+        }else if(FmMobile.selectedTemplate=="check_in"){
+            $('#cancelBtnToCropper').click(function(){
+                                           $.mobile.changePage("template-sub-checkin.html");
+                                           });
+
+        }
+        
+        else{
         $('#cancelBtnToCropper').click(function(){
                      $.mobile.changePage("template-photo_cropper.html");         
                   });
@@ -119,6 +126,33 @@ FmMobile.template_previewPg = {
                                                         console.log("err=" + err);
                                                         
                                                         if (!err) {
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        if(FmMobile.selectedTemplate=="check_in"){
+                                                        var url = starServerURL + "/miix/members/" + localStorage._id + "/ugcs";
+                                                        
+                                                        $.ajax({
+                                                               url: url,
+                                                               dataType: 'json',
+                                                               success: function(response){
+                                                               if(response){
+                                                               console.log(response[0].url.s3);
+                                                               FmMobile.check_in_pic=response[0].url.s3;
+                                                               FmMobile.authPopup.postCheckinMessage();
+                                                               
+                                                               }else{
+                                                               console.log("[error] : " + response.error);
+                                                               }
+                                                               }
+                                                               });
+                                                        
+                                                        //FmMobile.authPopup.postCheckinMessage();
+                                                        }
+                                                        
                                                         //alert("success!");
                                                         }
                                                         $.mobile.hidePageLoadingMsg();

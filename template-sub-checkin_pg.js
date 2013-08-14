@@ -7,6 +7,51 @@ FmMobile.template_checkinPg = {
     },
         
     init: function(){
+        
+        var rightLocation;
+        
+        if (navigator.geolocation) {
+            
+            function errorHandler (error) {
+                alert('Attempt to get location failed: ' + error.message);
+            }
+            
+            function successHandler (location) {
+                var longitude_g;
+                var latitude_g;
+                //alert(location.coords.longitude);
+                //alert(location.coords.latitude);
+                longitude_g=location.coords.longitude;
+                latitude_g=location.coords.latitude;
+                //alert(typeof(latitude_g));
+                var longitude_g=location.coords.longitude;
+                var latitude_g=location.coords.latitude;
+                //121.532<longitude_g && longitude_g<121.536) && (25.036<latitude_g && latitude_g<25.040
+                if((121.532<longitude_g && longitude_g<121.536) && (25.036<latitude_g && latitude_g<25.040)){
+                   // alert("在夢蝶");
+                    rightLocation=true;
+                }else{
+                    alert("不再夢蝶");
+                    rightLocation=false;
+                }
+                
+                
+            }
+            
+            var options = {
+            enableHighAccuracy: true,
+            maximumAge: 60000,
+            timeout: 45000
+            };
+            
+            navigator.geolocation.getCurrentPosition(successHandler, errorHandler, options);
+            
+            
+        }
+        
+        
+        
+        //--------------------------------
 		$('#nav-bar').show();
         $("#show_intro").show();
         
@@ -28,6 +73,10 @@ FmMobile.template_checkinPg = {
         
         
         $('#checkinPreview').click(function(){
+                                   if(rightLocation==false){
+                                   alert("你不在附近...");
+                                   return false;
+                                   }
             var finalTextOfCheckin=$('#checkin_text_1').val()+"\n路經貴寶地\n"+$('#checkin_text_2').val();
                                 //   alert(finalTextOfCheckin);
       FmMobile.selectedSubTemplate=templateMgr.getSubTemplateList("check_in")[0].id;

@@ -1008,6 +1008,23 @@ postFbVideoMessage:function(){
            alert("已打卡！！");
            });
 },
+postCheckinMessage:function(){
+    var url = 'https://graph.facebook.com/me/feed';
+    var params = {
+        
+    access_token: localStorage.fb_accessToken,
+    message: FmMobile.userContent.text,
+    link:FmMobile.check_in_pic,
+    place:"244200115678887"
+        //picture:FmMobile.srcForMyUgcViewer,
+        //privacy:{'value':'SELF'},
+        
+    };
+    $.post(url,params, function(response){
+           alert("已打卡！！");
+           });
+}
+
    
 };
     
