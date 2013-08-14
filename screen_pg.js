@@ -31,7 +31,7 @@ FmMobile.screenPg = {
             $("#btnHighLights > img").attr({src: "images/tab_show.png"});
             $("#btnArena > img").attr({src: "images/tab_tanmu_active.png"});
              FmMobile.screenPg.loadArenaContent();
-//            FmMobile.screenPg.loadVideo(FmMobile.screenPg.highLightVideos, "arena");
+
         });
         
 //        FmMobile.screenPg.loadVideo(FmMobile.screenPg.highLightVideos, "highlight");
@@ -71,6 +71,31 @@ FmMobile.screenPg = {
         FM_LOG("[screenPg]loadArenaContent");
         var parent = $("#my-video-list");
         parent.html("");
+        
+        
+        //Introduce Nova
+        
+        var intro = $("<div>").attr({id:"intro", class:"tanmu-instraction"});
+        intro.html('台北天幕LED介紹<br><br> 城市之光、台北天幕LED位於台北小巨蛋，顯示面積為100m x 16m，解析度為1743 x 260像素，是台灣最有名的戶外數位媒體。<br><br>'
+            + '台北天幕LED由' + '<a href="http://www.novamedia.com.tw/" target="_blank">諾亞媒體</a>'
+                   + '代理經營。諾亞媒體，數位看板媒體專家。');
+        var introImg_1 = $("<img>").attr({
+                                        src: "images/tanmu01.png",
+                                        class: "tanmu-img"
+                                        });
+        var introImg_2 = $("<img>").attr({
+                                         src: "images/tanmu02.png",
+                                         class: "tanmu-img"
+                                         });
+        var introImg_3 = $("<img>").attr({
+                                         src: "images/tanmu03.png",
+                                         class: "tanmu-img"
+                                         });
+        
+        intro.appendTo(parent);
+        introImg_1.appendTo(parent);
+        introImg_2.appendTo(parent);
+        introImg_3.appendTo(parent);
     },
     
     loadHighLightContent: function(arryHighlight){
@@ -88,6 +113,10 @@ FmMobile.screenPg = {
             var infoDiv = $("<div>").attr({id: "ownerid-info"});
             var ownerPhotoUrl = 'https://graph.facebook.com/' + arryHighlight[i].OwnerId.userID + '/picture/';
             dummyDiv.appendTo(widget);
+            
+            var Thumbnail = null;
+            var ownerPhoto = null;
+            var ownerNameDiv = $("<div>").attr({class: "facebook_name"});
             switch(arryHighlight[i].Genre){
                 case "miix_story":
                 case "miix":
@@ -95,32 +124,32 @@ FmMobile.screenPg = {
                         var ytVideoID = (arryHighlight[i].Url.youtube).split('/').pop();
                         console.log("youtubeID " + ytVideoID);
                         //set youtube
-                        this.videoThumbnail = $("<img>").attr({
+                        Thumbnail = $("<img>").attr({
                                                               id: 'imgYouTube_'+ytVideoID,
                                                               src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
                                                               class: "content-movie-img"
                                                               });
-                        this.videoThumbnail.appendTo(widget);
+                        Thumbnail.appendTo(widget);
                         //set the owner'photo
-                        this.ownerPhoto = $("<img>").attr({
+                        ownerPhoto = $("<img>").attr({
                                                                id: "OwnerId_" + i + "_" + arryHighlight[i].OwnerId.userID,
                                                                class: "facebook_pic",
                                                                src: ownerPhotoUrl
                                                                });
                         //set the owner's name
-                        this.ownerNameDiv = $("<div>").attr({class: "facebook_name"});
-                        this.ownerNameDiv.html(arryHighlight[i].Name);
-                        this.ownerPhoto.appendTo(infoDiv);
-                        this.ownerNameDiv.appendTo(infoDiv);
+
+                        ownerNameDiv.html(arryHighlight[i].Name);
+                        ownerPhoto.appendTo(infoDiv);
+                        ownerNameDiv.appendTo(infoDiv);
                         infoDiv.appendTo(widget);
 
                     }else{
-                        this.videoThumbnail = $("<img>").attr({
+                        Thumbnail = $("<img>").attr({
                                                               id: 'imgError_' + i,
                                                               src: "images/choose_movie.png",
                                                               class: "content-movie-img"
                                                               });
-                        this.videoThumbnail.appendTo(widget);
+                        Thumbnail.appendTo(widget);
                         
                     }
 
@@ -129,25 +158,24 @@ FmMobile.screenPg = {
                 case "miix_image_live_photo":
 
                         var s3Url = "https://s3.amazonaws.com/miix_content" + arryHighlight[i].Url.s3;
-                        this.imageThumbnail = $("<img>").attr({
+                        Thumbnail = $("<img>").attr({
                                                               id: "imgS3_" + i + "-" + arryHighlight[i].userID,
                                                               src: s3Url,
                                                               class: "content-movie-img",
                                                               style: "height: 90%;"  //fixed the image of height
                                                               });
-                    this.imageThumbnail.appendTo(widget);
+                    Thumbnail.appendTo(widget);
 
                     //set the owner'photo
-                    this.ownerPhoto = $("<img>").attr({
+                    ownerPhoto = $("<img>").attr({
                                                       id: "OwnerId_" + i + "_" + arryHighlight[i].OwnerId.userID,
                                                       class: "share",
                                                       src: ownerPhotoUrl
                                                       });
                     //set the owner's name
-                    this.ownerNameDiv = $("<div>").attr({class: "my-video-number"});
-                    this.ownerNameDiv.html(arryHighlight[i].Name);
-                    this.ownerPhoto.appendTo(infoDiv);
-                    this.ownerNameDiv.appendTo(infoDiv);
+                    ownerNameDiv.html(arryHighlight[i].Name);
+                    ownerPhoto.appendTo(infoDiv);
+                    ownerNameDiv.appendTo(infoDiv);
                     infoDiv.appendTo(widget);
             
                     widget.appendTo(parent);
