@@ -9,40 +9,6 @@ FmMobile.myUgcPg = {
         FM_LOG("[myUgcPg] pageinit");
         $('#nav-bar').show();
         
-        var url = starServerURL + "/miix/members/" + localStorage._id + "/ugcs";
-        //    FmMobile.myUgcPg.myContents = new Array();
-        if(FmMobile.myUgcPg.Type == "live"){
-            FmMobile.myUgcPg.Type = "";
-            $("#btnLiveMovie >img").attr({src: "images/tab_live_active.png"});
-            $("#btnMiixMovie >img").attr({src: "images/tab_ugc.png"});
-            FmMobile.myUgcPg.loadLiveContents(FmMobile.myUgcPg.myLiveContents);
-        }else{
-            FmMobile.myUgcPg.myContents = [];
-            
-            $.ajax({
-                   url: url,
-                   dataType: 'json',
-                   success: function(response){
-                               if(response){
-                                   $.each(response, function(i, item){
-                                      var data ={
-                                          ProjectId: item.projectId,
-                                          Genre: item.genre,
-                                          Url : item.url,
-                                          PreviewUrl: item.doohPreviewUrl,
-                                          No: item.no,
-                                      };
-                                      FmMobile.myUgcPg.myContents.push(data);
-                                  });
-                                   FmMobile.myUgcPg.Type = "content";
-                                   FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myContents);
-                               }else{
-                                   console.log("[error] : " + response.error);
-                               }
-                           }
-                   });
-            
-        }
         
         
         
@@ -89,8 +55,42 @@ FmMobile.myUgcPg = {
                 });
          });
         
-        
-        //            FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myContents, "content");
+        //(the code originally in init() )
+        var url = starServerURL + "/miix/members/" + localStorage._id + "/ugcs";
+        //    FmMobile.myUgcPg.myContents = new Array();
+        if(FmMobile.myUgcPg.Type == "live"){
+            FmMobile.myUgcPg.Type = "";
+            $("#btnLiveMovie >img").attr({src: "images/tab_live_active.png"});
+            $("#btnMiixMovie >img").attr({src: "images/tab_ugc.png"});
+            FmMobile.myUgcPg.loadLiveContents(FmMobile.myUgcPg.myLiveContents);
+        }else{
+            FmMobile.myUgcPg.myContents = [];
+            
+            $.ajax({
+                   url: url,
+                   dataType: 'json',
+                   success: function(response){
+                               if(response){
+                                   $.each(response, function(i, item){
+                                      var data ={
+                                          ProjectId: item.projectId,
+                                          Genre: item.genre,
+                                          Url : item.url,
+                                          PreviewUrl: item.doohPreviewUrl,
+                                          No: item.no,
+                                      };
+                                      FmMobile.myUgcPg.myContents.push(data);
+                                   });
+                                   FmMobile.myUgcPg.Type = "content";
+                                   FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myContents);
+                               }else{
+                                   console.log("[error] : " + response.error);
+                               }
+                           }
+                   });
+            
+        }
+
         
     },
         
@@ -209,6 +209,8 @@ FmMobile.myUgcPg = {
         FM_LOG("[myUgcPg] loadContents");
         
         var parent = $("#my-video-list");
+        console.log("parent=");
+        console.dir(parent);
         parent.html("");
         
         FmMobile.myUgcPg.test(arryContents);
