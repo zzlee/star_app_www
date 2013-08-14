@@ -17,11 +17,13 @@ FmMobile.setting_MainPg = {
 			}
                                   
             else if (this.id == "itemAboutMiixIt"){
-                $("#contentAboutMiixIt").toggle();
+                //$("#contentAboutMiixIt").toggle();
+                                  $.mobile.changePage("setting-about.html");
             }else if (this.id == "itemMailUs"){
             	$.mobile.changePage("setting-customer.html");
             }else if (this.id == "itemLogout") {
-                FmMobile.authPopup.FBLogout();
+                                  $.mobile.changePage("fb_logout.html");
+                //FmMobile.authPopup.FBLogout();
             }
             else if (this.id == "ugcTest") {
             	$.mobile.changePage("image_test.html");
@@ -31,8 +33,8 @@ FmMobile.setting_MainPg = {
     },
     
     show: function(){
-        FmMobile.analysis.trackPage("/settingPg");
-        recordUserAction("enters settingPg");
+        FmMobile.analysis.trackPage("/setting_MainPg");
+        recordUserAction("enters setting_MainPg");
     },
 };
 
