@@ -10,11 +10,32 @@ FmMobile.screenPg = {
 
     PAGE_ID: "screenPg",
     highLightVideos: null,
-    
     highLightContent:null,
+    
     init: function(){
         FM_LOG("[screenPg] pageinit");
         $('#nav-bar').show();
+    },
+    
+    show: function(){
+        FM_LOG("[screenPg] pageshow");
+        FmMobile.analysis.trackPage("/screenPg");
+        $("#btnHighLights").click(function(){
+            $("#btnHighLights > img").attr({src: "images/tab_show_active.png"});
+            $("#btnArena > img").attr({src: "images/tab_tanmu.png"});
+//            FmMobile.screenPg.loadVideo(FmMobile.screenPg.highLightVideos, "highlight");
+            FmMobile.screenPg.loadHighLightContent(FmMobile.screenPg.highLightContent);
+        });
+        
+        $("#btnArena").click(function(){
+            $("#btnHighLights > img").attr({src: "images/tab_show.png"});
+            $("#btnArena > img").attr({src: "images/tab_tanmu_active.png"});
+             FmMobile.screenPg.loadArenaContent();
+//            FmMobile.screenPg.loadVideo(FmMobile.screenPg.highLightVideos, "arena");
+        });
+        
+//        FmMobile.screenPg.loadVideo(FmMobile.screenPg.highLightVideos, "highlight");
+//        FmMobile.screenPg.loadHighLightContent(FmMobile.screenPg.highLightContent);
         
         //Get the the video from our server.
         var url = starServerURL + "/miix/ugc_hightlights";
@@ -44,30 +65,8 @@ FmMobile.screenPg = {
                        }
                    }
                });
-        
-        
-        
     },
-    show: function(){
-        FM_LOG("[screenPg] pageshow");
-        FmMobile.analysis.trackPage("/screenPg");
-        $("#btnHighLights").click(function(){
-            $("#btnHighLights > img").attr({src: "images/tab_show_active.png"});
-            $("#btnArena > img").attr({src: "images/tab_tanmu.png"});
-//            FmMobile.screenPg.loadVideo(FmMobile.screenPg.highLightVideos, "highlight");
-            FmMobile.screenPg.loadHighLightContent(FmMobile.screenPg.highLightContent);
-        });
-        
-        $("#btnArena").click(function(){
-            $("#btnHighLights > img").attr({src: "images/tab_show.png"});
-            $("#btnArena > img").attr({src: "images/tab_tanmu_active.png"});
-             FmMobile.screenPg.loadArenaContent();
-//            FmMobile.screenPg.loadVideo(FmMobile.screenPg.highLightVideos, "arena");
-        });
-        
-//        FmMobile.screenPg.loadVideo(FmMobile.screenPg.highLightVideos, "highlight");
-//        FmMobile.screenPg.loadHighLightContent(FmMobile.screenPg.highLightContent);
-    },
+    
     loadArenaContent: function(){
         FM_LOG("[screenPg]loadArenaContent");
         var parent = $("#my-video-list");
