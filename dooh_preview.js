@@ -4,8 +4,6 @@ DoohPreview = (function(){
         
     function constructor(doohId, ugcBgImageUrl, customizableObjects, userContent, cbOfConstructor){
         
-        var templateMgr = null;
-        var template = null;
         var doohInfo = null;
         var doohPreviewCanvas = null;
         var context = null;
@@ -134,6 +132,12 @@ DoohPreview = (function(){
                 coverImage.onabort = function(){
                     callback("Failed to load the cover image "+coverImage.src+" (aborted)");
                 };
+            },
+            function(callback){
+                //resize doohPreviewCanvas
+                ugcUtility.resizeCanvas(doohPreviewCanvas, 0.4, 0.4, function(){
+                    callback(null);
+                });
             }
         ],
         function(err, results){
