@@ -142,6 +142,7 @@ FmMobile.template_previewPg = {
                                                                if(response){
                                                                console.log(response[0].url.s3);
                                                                FmMobile.check_in_pic=response[0].url.s3;
+                                                              FmMobile.shareProjectID= response[0].projectId;
                                                                FmMobile.authPopup.postCheckinMessage();
                                                                
                                                                }else{

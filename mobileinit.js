@@ -27,6 +27,7 @@ var customizableObjects = [];
 var fileSelected;
 var myPhotoCropper;
 
+FmMobile.shareProjectID;
 
 FmMobile.viewerBackFlag;
 FmMobile.imgForFullPageViewer;
@@ -992,6 +993,25 @@ postFbMessage:function(){
     };
     $.post(url,params, function(response){
            alert("已打卡！！");
+           var ugcProjectId=FmMobile.shareProjectID;
+           
+           $.ajax( starServerURL+"/miix/fb_ugcs/"+ugcProjectId, {
+                  type: "PUT",
+                  data: {
+                  fb_postId:response.id
+                  },
+                  success: function(data, textStatus, jqXHR ){
+                  console.log("Successfully upload projectID and FBpost id to server.");
+                  callback(null);
+                  },
+                  error: function(jqXHR, textStatus, errorThrown){
+                  console.log("Failed to upload image UGC to server: "+errorThrown);
+                  callback("Failed to upload image UGC to server: "+errorThrown);
+                  }
+                  
+                  
+                  });
+
            });
 },
     
@@ -1008,6 +1028,26 @@ postFbVideoMessage:function(){
     };
     $.post(url,params, function(response){
            alert("已打卡！！");
+           
+           var ugcProjectId=FmMobile.shareProjectID;
+           
+           $.ajax( starServerURL+"/miix/fb_ugcs/"+ugcProjectId, {
+                  type: "PUT",
+                  data: {
+                  fb_postId:response.id
+                  },
+                  success: function(data, textStatus, jqXHR ){
+                  console.log("Successfully upload result image UGC to server.");
+                  callback("haha");
+                  },
+                  error: function(jqXHR, textStatus, errorThrown){
+                  console.log("Failed to upload image UGC to server: "+errorThrown);
+                  callback("Failed to upload image UGC to server: "+errorThrown);
+                  }
+                  
+                  
+                  });
+
            });
 },
 postCheckinMessage:function(){
@@ -1024,6 +1064,25 @@ postCheckinMessage:function(){
     };
     $.post(url,params, function(response){
            alert("已打卡！！");
+           var ugcProjectId=FmMobile.shareProjectID;
+           
+           $.ajax( starServerURL+"/miix/fb_ugcs/"+ugcProjectId, {
+                  type: "PUT",
+                  data: {
+                  fb_postId:response.id
+                  },
+                  success: function(data, textStatus, jqXHR ){
+                  console.log("Successfully upload result image UGC to server.");
+                  callback("haha");
+                  },
+                  error: function(jqXHR, textStatus, errorThrown){
+                  console.log("Failed to upload image UGC to server: "+errorThrown);
+                  callback("Failed to upload image UGC to server: "+errorThrown);
+                  }
+                  
+                  
+                  });
+
            });
 }
 

@@ -513,6 +513,8 @@ FmMobile.myUgcPg = {
                     }
                     break;
                 case "shareFb":
+                    FmMobile.shareProjectID=this.parentElement.parentElement.id;                   
+                    
                     FmMobile.shareFbType="video";
                     FmMobile.srcForMyUgcViewer="http://img.youtube.com/vi/"+tmpIDArray[1]+"/mqdefault.jpg";
                     FmMobile.youtubeVideoUrl="http://www.youtube.com/embed/" +tmpIDArray[1] + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1";
@@ -521,6 +523,9 @@ FmMobile.myUgcPg = {
                     break;
                 case "shareImgFb":
                     FmMobile.shareFbType="image";
+                                        
+               FmMobile.shareProjectID=tmpIDArray[1];
+
                     if(FmMobile.myUgcPg.Type == "content"){
                         FmMobile.srcForMyUgcViewer= s3Url + ".png";
                     }else if(FmMobile.myUgcPg.Type == "live"){
@@ -529,6 +534,8 @@ FmMobile.myUgcPg = {
                     $.mobile.changePage('facebook_share.html');
                     break;
                 case "sharePreFb":
+                    FmMobile.shareProjectID=tmpIDArray[1];
+                                        
                     FmMobile.shareFbType="image";
                     FmMobile.srcForMyUgcViewer= s3Url + "_dooh_preview.png";
                     $.mobile.changePage('facebook_share.html');
