@@ -293,6 +293,7 @@ FmMobile.myUgcPg = {
                         widget = $("<div>").attr({id: projectId, class: "content-movie", style: "margin-bottom: 26%;margin-top: 18%;"});
                         dummyDiv.appendTo(widget);
                         Thumbnail = $("<img>").attr({
+
                                                               id: 'imgYouTube_'+ytVideoID,
                                                               src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
                                                               class: "content-movie-img"
@@ -413,7 +414,7 @@ FmMobile.myUgcPg = {
 
                 var ytVideoID = tempUrlArray[tempUrlArray.length-2];
                 var videoFrame = $("<iframe>").attr({
-                                                  id: ytVideoID,
+                                                                                                      id: ytVideoID,
                                                   src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
                                                   class: "content-movie-img",
                                                   frameborder: "0"
@@ -452,7 +453,7 @@ FmMobile.myUgcPg = {
             case "imgS3":
             case "imgPreview":
                 FmMobile.srcForMyUgcViewer=this.src;
-                $.mobile.changePage('cropper_test.html');
+                $.mobile.changePage('fullPageViewer.html');
 
                 break;
             default:
@@ -512,6 +513,8 @@ FmMobile.myUgcPg = {
                     }
                     break;
                 case "shareFb":
+                    FmMobile.shareProjectID=this.parentElement.parentElement.id;                   
+                    
                     FmMobile.shareFbType="video";
                     FmMobile.srcForMyUgcViewer="http://img.youtube.com/vi/"+tmpIDArray[1]+"/mqdefault.jpg";
                     FmMobile.youtubeVideoUrl="http://www.youtube.com/embed/" +tmpIDArray[1] + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1";
@@ -520,6 +523,9 @@ FmMobile.myUgcPg = {
                     break;
                 case "shareImgFb":
                     FmMobile.shareFbType="image";
+                                        
+               FmMobile.shareProjectID=tmpIDArray[1];
+
                     if(FmMobile.myUgcPg.Type == "content"){
                         FmMobile.srcForMyUgcViewer= s3Url + ".png";
                     }else if(FmMobile.myUgcPg.Type == "live"){
@@ -528,6 +534,8 @@ FmMobile.myUgcPg = {
                     $.mobile.changePage('facebook_share.html');
                     break;
                 case "sharePreFb":
+                    FmMobile.shareProjectID=tmpIDArray[1];
+                                        
                     FmMobile.shareFbType="image";
                     FmMobile.srcForMyUgcViewer= s3Url + "_dooh_preview.png";
                     $.mobile.changePage('facebook_share.html');

@@ -53,6 +53,9 @@ FmMobile.template_checkinPg = {
         
         //--------------------------------
 		$('#nav-bar').show();
+        
+       
+        
         $("#show_intro").show();
         
         $("#close").click(function(){
@@ -73,6 +76,18 @@ FmMobile.template_checkinPg = {
         
         
         $('#checkinPreview').click(function(){
+                                   
+                                   if($("#checkin_text_2").val().length==0 ||$("#ur_text").val()==" "){
+                                   FmMobile.showNotification("nullText");
+                                   return false;
+                                   }
+                                   
+                                   if($("#checkin_text_1").val().length==0 ||$("#ur_text").val()==" "){
+                                   FmMobile.showNotification("nullText");
+                                   return false;
+                                   }
+                                   
+                                   
                                    if(rightLocation==false){
                                    alert("你不在附近...");
                                    return false;

@@ -57,7 +57,7 @@ FmMobile.template_pic_text_pg = {
         var buttonClick_cb = function(event, ui) {
             console.log('button clicked!');
             if($("#ur_text").val().length==0 ||$("#ur_text").val()==" "){
-                alert("請輸入文字！");
+                FmMobile.showNotification("nullText");
             }else{
                /*
                 for(var i=0;i<check_format.length;i++){

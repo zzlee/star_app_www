@@ -27,6 +27,7 @@ var customizableObjects = [];
 var fileSelected;
 var myPhotoCropper;
 
+FmMobile.shareProjectID;
 
 FmMobile.viewerBackFlag;
 FmMobile.imgForFullPageViewer;
@@ -253,7 +254,9 @@ onBodyLoad: function(){
                               FM_LOG("push-notification:");
                               console.dir(event);
                               //navigator.notification.alert(JSON.stringify(['push-notification!', event]));
-                              navigator.notification.alert('You have a new video!');
+//                              navigator.notification.alert('You have a new video!');
+                              FmMobile.showNotification("newUgc");
+                              
                               //alert(event);
                               });
     
@@ -296,12 +299,15 @@ onResume: function(){
     if(localStorage.fb_userID){
 //      FmMobile.ajaxNewVideos();
 //      FmMobile.ajaxNewStoryVideos();
-    	FmMobile.ajaxContents();
-    	FmMobile.ajaxLiveContents();
-    	FmMobile.ajaxHighlightContents();
+//    	FmMobile.ajaxContents();
+//    	FmMobile.ajaxLiveContents();
+//    	FmMobile.ajaxHighlightContents();
       if(device.platform == "iPhone"){
       	FmMobile.apn.getPendingNotification();
 //      	recordUserAction("resumes MiixCard app");
+          $.mobile.changePage("my_ugc.html");
+      }else if(device.platform == "Android"){
+          
       }
         FmMobile.init.isFBTokenValid();
     }
@@ -661,7 +667,14 @@ FmMobile.gcm = {
 				// In my case on registered I have EVENT, MSG and MSGCNT defined
 				FM_LOG("[GCM.message] " + JSON.stringify(e));
 //				FmMobile.ajaxNewVideos();
+                FmMobile.showNotification("newUgc");
 //	            navigator.notification.alert('You have a video!');
+//                var msg = JSON.stringify(e.message);
+//                switch(msg){
+//                    case "您有一個新影片！":
+//                        $.mobile.changePage("my_ugc.html");
+//                        break;
+//                }//End of Switch
 				break;
 
 			  case 'error':
@@ -701,9 +714,8 @@ FmMobile.apn = {
     },
         
         
-        /* registration on Apple Push Notification servers (via user interaction) & retrieve the token that will be used to push remote notifications to this device. */
+    /* registration on Apple Push Notification servers (via user interaction) & retrieve the token that will be used to push remote notifications to this device. */
     registerDevice: function(){
-        
         FM_LOG("[APN.registerDevice]");
         FmMobile.pushNotification.registerDevice({alert:true, badge:true, sound:true}, function(status) {
                                                  
@@ -711,13 +723,10 @@ FmMobile.apn = {
               *  {"type":"7","pushBadge":"1","pushSound":"1","enabled":"1","deviceToken":"blablahblah","pushAlert":"1"}
               */
              FM_LOG('registerDevice status: ' + JSON.stringify(status) );
-             if (status) {
-                 FM_LOG("APN deviceToken="+status.deviceToken);
-             }
              if(status && !localStorage.deviceToken){
                  localStorage.deviceToken = status.deviceToken;
              }
-         });
+        });
     },
         
         
@@ -725,14 +734,33 @@ FmMobile.apn = {
     getPendingNotification: function(){
         FM_LOG("[APN.getPendingNotification]");
         FmMobile.pushNotification.getPendingNotifications(function(result) {
+//            FM_LOG("[pushNotification] " + JSON.stringify(result));
+              /* result:
+                {"notifications":[{"messageFrom":"Miix.tv","applicationStateActive":"0","applicationLaunchNotification":"0","timestamp":1376554348.356165,"aps":{"alert":"您有一個新影片！","sound":"ping.aiff","badge":1}}]
+               }
+
+               */
             FM_LOG('getPendingNotifications: ' + JSON.stringify(['getPendingNotifications', result]) );
             //navigator.notification.alert(JSON.stringify(['getPendingNotifications', notifications]));
             //if(result.notifications.length > 0){
             FM_LOG("["+result.notifications.length + " Pending Push Notifications.]");
+
+            var arryResult = JSON.parse(result);
+
+            switch(arryResult.notifications[0].aps.alert){
+                case "您有一個新影片！":
+                    FmMobile.myUgcPg.Type = "content";
+                    $.mobile.changePage("my_ugc.html");
+                break;
+                default:
+                    FM_LOG("[getPendingNotifications] error :" + "You don't have this alert.");
+                                                          
+            }
+            arryResult = null;
             FmMobile.apn.setApplicationIconBadgeNumber(0);
             //}
             //navigator.notification.alert('You have a new video!');
-            
+
         });
     },
         
@@ -743,9 +771,9 @@ FmMobile.apn = {
     getRemoteNotificationStatus: function(){
         FM_LOG("[APN.getRemoteNotificationStatus]");
         FmMobile.pushNotification.getRemoteNotificationStatus(function(status) {
-            FM_LOG('getRemoteNotificationStatus ' + JSON.stringify(status) );
-            //navigator.notification.alert(JSON.stringify(['getRemoteNotificationStatus', status]));
-        });
+                                                              FM_LOG('getRemoteNotificationStatus ' + JSON.stringify(status) );
+                                                              //navigator.notification.alert(JSON.stringify(['getRemoteNotificationStatus', status]));
+                                                              });
     },
         
         
@@ -753,9 +781,9 @@ FmMobile.apn = {
     setApplicationIconBadgeNumber: function(badgeNum){
         FM_LOG("[APN.setApplicationIconBadgeNumber]");
         FmMobile.pushNotification.setApplicationIconBadgeNumber(badgeNum, function(status) {
-            FM_LOG('setApplicationIconBadgeNumber: ' + JSON.stringify(status) );
-            //navigator.notification.alert(JSON.stringify(['setBadge', status]));
-        });
+                                                                FM_LOG('setApplicationIconBadgeNumber: ' + JSON.stringify(status) );
+                                                                //navigator.notification.alert(JSON.stringify(['setBadge', status]));
+                                                                });
     },
         
         
@@ -763,8 +791,8 @@ FmMobile.apn = {
     cancelAllLocalNotifications: function(){
         FM_LOG("[APN.cancelAllLocalNotifications]");
         FmMobile.pushNotification.cancelAllLocalNotifications(function() {
-            //navigator.notification.alert(JSON.stringify(['cancelAllLocalNotifications']));
-        });
+                                                              //navigator.notification.alert(JSON.stringify(['cancelAllLocalNotifications']));
+                                                              });
     },
         
         
@@ -773,8 +801,8 @@ FmMobile.apn = {
     getDeviceUniqueIdentifier: function(){
         FM_LOG("[APN.getDeviceUniqueIdentifier]");
         pushNotification.getDeviceUniqueIdentifier(function(uuid) {
-            FM_LOG('getDeviceUniqueIdentifier: ' + uuid);
-        });
+                                                   FM_LOG('getDeviceUniqueIdentifier: ' + uuid);
+                                                   });
     },
 };
 
@@ -876,9 +904,11 @@ init: function(){
     FM_LOG("[authPopup Init]");
     
     //miixcard metadata
-    var client_id = "116813818475773";
-    var redir_url = ["http://www.miix.tv/welcome.html", "https://www.miix.tv/welcome.html"];
+    var client_id = "430008873778732";
+    //var redir_url = ["http://www.miix.tv/welcome.html", "https://www.miix.tv/welcome.html"];
     
+    
+    var redir_url = ["http://www.ondascreen.com"];
     // watasistar metadata
     /*
      var client_id = "243619402408275";
@@ -993,6 +1023,25 @@ postFbMessage:function(){
     };
     $.post(url,params, function(response){
            alert("已打卡！！");
+           var ugcProjectId=FmMobile.shareProjectID;
+           
+           $.ajax( starServerURL+"/miix/fb_ugcs/"+ugcProjectId, {
+                  type: "PUT",
+                  data: {
+                  fb_postId:response.id
+                  },
+                  success: function(data, textStatus, jqXHR ){
+                  console.log("Successfully upload projectID and FBpost id to server.");
+                  callback(null);
+                  },
+                  error: function(jqXHR, textStatus, errorThrown){
+                  console.log("Failed to upload image UGC to server: "+errorThrown);
+                  callback("Failed to upload image UGC to server: "+errorThrown);
+                  }
+                  
+                  
+                  });
+
            });
 },
     
@@ -1009,6 +1058,26 @@ postFbVideoMessage:function(){
     };
     $.post(url,params, function(response){
            alert("已打卡！！");
+           
+           var ugcProjectId=FmMobile.shareProjectID;
+           
+           $.ajax( starServerURL+"/miix/fb_ugcs/"+ugcProjectId, {
+                  type: "PUT",
+                  data: {
+                  fb_postId:response.id
+                  },
+                  success: function(data, textStatus, jqXHR ){
+                  console.log("Successfully upload result image UGC to server.");
+                  callback("haha");
+                  },
+                  error: function(jqXHR, textStatus, errorThrown){
+                  console.log("Failed to upload image UGC to server: "+errorThrown);
+                  callback("Failed to upload image UGC to server: "+errorThrown);
+                  }
+                  
+                  
+                  });
+
            });
 },
 postCheckinMessage:function(){
@@ -1025,6 +1094,25 @@ postCheckinMessage:function(){
     };
     $.post(url,params, function(response){
            alert("已打卡！！");
+           var ugcProjectId=FmMobile.shareProjectID;
+           
+           $.ajax( starServerURL+"/miix/fb_ugcs/"+ugcProjectId, {
+                  type: "PUT",
+                  data: {
+                  fb_postId:response.id
+                  },
+                  success: function(data, textStatus, jqXHR ){
+                  console.log("Successfully upload result image UGC to server.");
+                  callback("haha");
+                  },
+                  error: function(jqXHR, textStatus, errorThrown){
+                  console.log("Failed to upload image UGC to server: "+errorThrown);
+                  callback("Failed to upload image UGC to server: "+errorThrown);
+                  }
+                  
+                  
+                  });
+
            });
 }
 
@@ -1087,6 +1175,15 @@ FmMobile.showNotification = function(fun){
             break;
         case "moreLines":
             navigator.notification.confirm("超過3行囉！", FmMobile.Confirm(), appName, "確定");
+            break;
+        case "nullText":
+            navigator.notification.confirm("請輸入文字！", FmMobile.Confirm(), appName, "確定");
+            break;
+        case "newUgc":
+            navigator.notification.confirm("你有一個新影片！", FmMobile.Confirm(), appName, "確定");
+            break;
+        case "informLiveTime":
+            navigator.notification.confirm("您的投件即將上映！", FmMobile.Confirm(), appName, "確定");
             break;
         default:
             console.log("ShowNotification is not worked");
