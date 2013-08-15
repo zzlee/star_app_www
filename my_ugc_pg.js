@@ -293,6 +293,7 @@ FmMobile.myUgcPg = {
                         widget = $("<div>").attr({id: projectId, class: "content-movie", style: "margin-bottom: 26%;margin-top: 18%;"});
                         dummyDiv.appendTo(widget);
                         Thumbnail = $("<img>").attr({
+
                                                               id: 'imgYouTube_'+ytVideoID,
                                                               src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
                                                               class: "content-movie-img"
@@ -413,7 +414,7 @@ FmMobile.myUgcPg = {
 
                 var ytVideoID = tempUrlArray[tempUrlArray.length-2];
                 var videoFrame = $("<iframe>").attr({
-                                                  id: ytVideoID,
+                                                                                                      id: ytVideoID,
                                                   src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
                                                   class: "content-movie-img",
                                                   frameborder: "0"
@@ -452,7 +453,7 @@ FmMobile.myUgcPg = {
             case "imgS3":
             case "imgPreview":
                 FmMobile.srcForMyUgcViewer=this.src;
-                $.mobile.changePage('cropper_test.html');
+                $.mobile.changePage('fullPageViewer.html');
 
                 break;
             default:

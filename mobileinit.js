@@ -1087,6 +1087,9 @@ FmMobile.showNotification = function(fun){
         case "moreLines":
             navigator.notification.confirm("超過3行囉！", FmMobile.Confirm(), appName, "確定");
             break;
+        case "nullText":
+            navigator.notification.confirm("請輸入文字！", FmMobile.Confirm(), appName, "確定");
+            break;
         default:
             console.log("ShowNotification is not worked");
     }

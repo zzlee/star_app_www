@@ -20,7 +20,7 @@ init: function(){
                             
                            
                            if($("#ur_text").val().length==0 ||$("#ur_text").val()==" "){
-                           alert("請輸入文字！");
+                           FmMobile.showNotification("nullText");
                            }else{
                            var check_format= FmMobile.userContent.text.split("<n>");
                            //FmMobile.userContent.text=check_format;
