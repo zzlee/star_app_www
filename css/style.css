@@ -570,9 +570,10 @@ padding:5% 5%;
 	color: #dcd586;
 	line-height: 125%;
 	padding-bottom:2%;
+    text-align: center;
 }
 .text_input_readonly{
-	margin-left:40%;
+	margin-left:35%;
 	width: 30%;
 }
 .template_input_instruction{
@@ -620,7 +621,6 @@ padding:5% 5%;
 .tab_button{
     display: inline-table;
     width: 49%;
-    margin-top: 3%;
 }
 .tab_button_text{
 	position: absolute;
@@ -727,7 +727,8 @@ padding:5% 5%;
 .facebook_pic{
 	margin-right: 7%;
 	width: 30%;
-    float:left
+    float:left;
+    margin-top:2%;
 }
 .facebook_name{
 	padding-top:8%;
@@ -746,6 +747,22 @@ padding:5% 5%;
     width:100%;
     text-shadow: none;
     }
+#check_text_1{
+    background-color:transparent;
+    border-color:transparent;
+    margin:0;
+    color: #dcd586;
+    width:100%;
+    text-shadow: none;
+}
+#check_text_2{
+    background-color:transparent;
+    border-color:transparent;
+    margin:0;
+    color: #dcd586;
+    width:100%;
+    text-shadow: none;
+}
 .template_script{
     position: absolute;
 	margin-top: 3.8%;
@@ -897,7 +914,7 @@ padding:5% 5%;
 	font-family:"kaiu";
     text-shadow: none;
     color:#dcd586;
-    padding-top: 6%;
+    padding-top: 5%;
 }
 .buttonlong_text_submit{
     position: absolute;
@@ -907,7 +924,7 @@ padding:5% 5%;
 	font-family:"kaiu";
     text-shadow: none;
     color:#dcd586;
-    padding-top:6%;
+    padding-top:5.5%;
 
 }    
 hr{
@@ -944,7 +961,7 @@ hr{
 
 }
 .text_img{
-	margin-top: 10%;
+	margin-top: 7%;
 	width:100%;
     /*position: absolute;*/
 }
@@ -999,6 +1016,12 @@ hr{
     bottom:21%;
     padding:5%;
 }
+.setting-headline{
+	text-shadow: none;
+	font-family: "kaiu";
+	color: #000;
+    text-decoration:underline;
+	}
 
 
 .time{
@@ -1012,7 +1035,7 @@ hr{
 }
 .customer_button_text{
 	position:absolute;
-	margin-left:18%;
+	margin-left:15%;
 	margin-top:3%;
 	text-align:center;
 	font-size:100%;

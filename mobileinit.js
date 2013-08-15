@@ -124,6 +124,12 @@ $('#mapAreaNext').attr("coords","'"+FmMobile.or_pic_width+","+((FmMobile.or_pic_
                  $("#photoCropperPg").live("pageinit", FmMobile.photoCropperPg.load);
                  $("#photoCropperPg").live("pageshow", FmMobile.photoCropperPg.show);
                  
+                 $("#settingAboutPg").live("pageinit", FmMobile.settingAboutPg.init);
+                 $("#settingAboutPg").live("pageshow", FmMobile.settingAboutPg.show);
+                 
+                 $("#fbLogoutPg").live("pageinit", FmMobile.fbLogoutPg.init);
+                 $("#fbLogoutPg").live("pageshow", FmMobile.fbLogoutPg.show);
+                 
                  
                  
                  $("#fullPageViewerPg").live("pageinit", FmMobile.fullPageViewerPg.load);
@@ -1005,6 +1011,23 @@ postFbVideoMessage:function(){
            alert("已打卡！！");
            });
 },
+postCheckinMessage:function(){
+    var url = 'https://graph.facebook.com/me/feed';
+    var params = {
+        
+    access_token: localStorage.fb_accessToken,
+    message: FmMobile.userContent.text,
+    link:FmMobile.check_in_pic,
+    place:"244200115678887"
+        //picture:FmMobile.srcForMyUgcViewer,
+        //privacy:{'value':'SELF'},
+        
+    };
+    $.post(url,params, function(response){
+           alert("已打卡！！");
+           });
+}
+
    
 };
     
@@ -1058,6 +1081,12 @@ FmMobile.showNotification = function(fun){
             break;
         case "error":
             navigator.notification.confirm("錯誤發生，請通知我們", FmMobile.Confirm(), appName, "確定");
+            break;
+        case "moreWords":
+            navigator.notification.confirm("超過每行限制字數!", FmMobile.Confirm(), appName, "確定");
+            break;
+        case "moreLines":
+            navigator.notification.confirm("超過3行囉！", FmMobile.Confirm(), appName, "確定");
             break;
         default:
             console.log("ShowNotification is not worked");

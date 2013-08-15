@@ -55,14 +55,53 @@ FmMobile.template_pic_text_pg = {
                               });
         
         var buttonClick_cb = function(event, ui) {
-            
             console.log('button clicked!');
             if($("#ur_text").val().length==0 ||$("#ur_text").val()==" "){
                 alert("請輸入文字！");
             }else{
-                FmMobile.userContent.text=$("#ur_text").val();
+               /*
+                for(var i=0;i<check_format.length;i++){
+                     console.log(check_format[i]);
+                }
+                
+                if(check_format.length >3){
+                    alert("too much");
+                }
+                */
+               // FmMobile.userContent.text=$("#ur_text").val();
                 // 用textForUgcUtility才能在合成圖作出換行效果
-               // FmMobile.userContent.text=textForUgcUtility;
+                var check_format= FmMobile.userContent.text.split("<n>");
+                //FmMobile.userContent.text=check_format;
+                if(check_format.length>3){
+                    FmMobile.showNotification("moreLines");
+                    return false;
+                    //alert("more than 4 lines!");
+                }
+                
+                if(check_format[0].length >8){
+                    
+                    FmMobile.showNotification("moreWords");
+                    return false;
+
+
+                }
+                if(check_format[1] != undefined){
+                    if(check_format[1].length >8 ){
+                    FmMobile.showNotification("moreWords");
+                        return false;
+
+                    }
+                }
+                
+                if(check_format[2] != undefined){
+                if(check_format[2].length >8 ){
+FmMobile.showNotification("moreWords");
+                    return false;
+
+                }
+                }
+                
+                
             
             fileObjectID = event.data.objectID;
             console.log('[buttonClick_cb()] fileObjectID = %s', fileObjectID);
@@ -193,11 +232,43 @@ FmMobile.template_pic_text_pg = {
                             }
                             });
         */
-        /*
+        
         var textForUgcUtility;
+        
+        /*
+        var textTime;
+        $("#ur_text").bind("focusin", function() {
+                           
+                           function yo(){
+                           textForUgcUtility= $("#ur_text").val().replace(/\n/g,"<n>");
+                           FmMobile.userContent.text=textForUgcUtility;
+                           }
+                           
+                           textTime=setTimeout(yo,100);
+                           });
+        $("#ur_text").bind("blur",function(){
+                           clearTimeout(textTime);
+                           
+                           });
+        
+        /*
+         */
+        $("#ur_text").bind("blur",function(){
+                           textForUgcUtility= $("#ur_text").val().replace(/\n/g,"<n>");
+                           FmMobile.userContent.text=textForUgcUtility;
+                           });
+/*
+        
+        $("#ur_text").keyup(function(){
+                            textForUgcUtility= $("#ur_text").val().replace(/\n/g,"<n>");
+                            FmMobile.userContent.text=textForUgcUtility;
+                            });
+         */
+               /*
         $("#ur_text").bind("keyup",function(){
                            //<n> is not HTML tag, just for seperate line in drawChineseText.
                           textForUgcUtility= $("#ur_text").val().replace(/\n/g,"<n>");
+                           FmMobile.userContent.text=textForUgcUtility;
                            });
         
         */

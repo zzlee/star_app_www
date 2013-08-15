@@ -47,7 +47,7 @@ FmMobile.customerQuestionPg = {
         //
         
         $.get(starServerURL+"/miix_service/"+memberId+"/questions",{token:"53768608"},function(data,status){
-              alert("get"+status);
+              //alert("get"+status);
               //alert(data[1].question);
               console.log(data);
               //alert(data[1].questionTime);

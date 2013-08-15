@@ -27,20 +27,46 @@ ugcUtility.drawChineseText = function(context, text, x, y, maxWidth, lineHeight,
         var metrics = context.measureText(testLine);
         var testWidth = metrics.width;
         
-                   // var changePerLine=testLine.split("<n>");
-        //alert(changePerLine[1]);
-    
-        if (testWidth > maxWidth && n > 0) {
+        
+        if(FmMobile.selectedTemplate=="check_in"){
+            if (testWidth > maxWidth && n > 0) {
+                context.fillText(line, cursorX, cursorY);
+                line = words[n];
+                cursorY += lineHeight;
+            }
+            else {
+                line = testLine;
+            }
+        }else{
+            if(true) {
+                line = testLine;
+                var changePerLine=testLine.split("<n>");
+                if(changePerLine.length>1){
+                    for(var i=0;i<changePerLine.length;i++){
+                        line=changePerLine[i];
+                        context.fillText(line, cursorX, cursorY);
+                    }
+                    cursorY += lineHeight;
+                }else{
+                    line = testLine;
+                }
+            }
+        }
+        //var changePerLine=testLine.split("<n>");
+        //&& changePerLine.length<1
+        /*
+        if (testWidth > maxWidth && n > 0  ) {
             context.fillText(line, cursorX, cursorY);
             line = words[n];
             cursorY += lineHeight;
-        }
-        else {
-            line = testLine;
-        }
+        }else
+         */
+         
         context.fillStyle = fontColor;
-
     }
+    
+    
+    
     context.fillText(line, cursorX, cursorY);
     
     context.restore();
