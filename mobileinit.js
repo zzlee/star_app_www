@@ -683,90 +683,93 @@ FmMobile.gcm = {
 /** Apple Push Notification */
 FmMobile.apn = {
     
-init: function(){
-    FM_LOG("[APN.init]");
-    if(device.platform == "iPhone"){
-    	FmMobile.pushNotification = window.plugins.pushNotification;
-    	FmMobile.apn.registerDevice();
-    	FmMobile.apn.getPendingNotification();
-    	//FmMobile.apn.getRemoteNotificationStatus();
-    	//FmMobile.apn.getDeviceUniqueIdentifier();
-    }
-},
-    
-    
-    /* registration on Apple Push Notification servers (via user interaction) & retrieve the token that will be used to push remote notifications to this device. */
-registerDevice: function(){
-    
-    FM_LOG("[APN.registerDevice]");
-    FmMobile.pushNotification.registerDevice({alert:true, badge:true, sound:true}, function(status) {
-                                             
-                                             /*  if successful status is an object that looks like this:
-                                              *  {"type":"7","pushBadge":"1","pushSound":"1","enabled":"1","deviceToken":"blablahblah","pushAlert":"1"}
-                                              */
-                                             FM_LOG('registerDevice status: ' + JSON.stringify(status) );
-                                             if(status && !localStorage.deviceToken){
-                                             localStorage.deviceToken = status.deviceToken;
-                                             }
-                                             });
-},
-    
-    
-    /* it can only retrieve the notification that the user has interacted with while entering the app. Returned params applicationStateActive & applicationLaunchNotification enables you to filter notifications by type. */
-getPendingNotification: function(){
-    FM_LOG("[APN.getPendingNotification]");
-    FmMobile.pushNotification.getPendingNotifications(function(result) {
-                                                      FM_LOG('getPendingNotifications: ' + JSON.stringify(['getPendingNotifications', result]) );
-                                                      //navigator.notification.alert(JSON.stringify(['getPendingNotifications', notifications]));
-                                                      //if(result.notifications.length > 0){
-                                                      FM_LOG("["+result.notifications.length + " Pending Push Notifications.]");
-                                                      FmMobile.apn.setApplicationIconBadgeNumber(0);
-                                                      //}
-                                                      //navigator.notification.alert('You have a new video!');
-                                                      
-                                                      });
-},
-    
-    
-    /* registration check for this device.
-     * {"type":"6","pushBadge":"0","pushSound":"1","enabled":"1","pushAlert":"1"}
-     */
-getRemoteNotificationStatus: function(){
-    FM_LOG("[APN.getRemoteNotificationStatus]");
-    FmMobile.pushNotification.getRemoteNotificationStatus(function(status) {
-                                                          FM_LOG('getRemoteNotificationStatus ' + JSON.stringify(status) );
-                                                          //navigator.notification.alert(JSON.stringify(['getRemoteNotificationStatus', status]));
-                                                          });
-},
-    
-    
-    /* set the application badge number (that can be updated by a remote push, for instance, resetting it to 0 after notifications have been processed). */
-setApplicationIconBadgeNumber: function(badgeNum){
-    FM_LOG("[APN.setApplicationIconBadgeNumber]");
-    FmMobile.pushNotification.setApplicationIconBadgeNumber(badgeNum, function(status) {
-                                                            FM_LOG('setApplicationIconBadgeNumber: ' + JSON.stringify(status) );
-                                                            //navigator.notification.alert(JSON.stringify(['setBadge', status]));
-                                                            });
-},
-    
-    
-    /* clear all notifications from the notification center. */
-cancelAllLocalNotifications: function(){
-    FM_LOG("[APN.cancelAllLocalNotifications]");
-    FmMobile.pushNotification.cancelAllLocalNotifications(function() {
-                                                          //navigator.notification.alert(JSON.stringify(['cancelAllLocalNotifications']));
-                                                          });
-},
-    
-    
-    //DEPRECATED
-    /* retrieve the original device unique id. (@warning As of today, usage is deprecated and requires explicit consent from the user) */
-getDeviceUniqueIdentifier: function(){
-    FM_LOG("[APN.getDeviceUniqueIdentifier]");
-    pushNotification.getDeviceUniqueIdentifier(function(uuid) {
-                                               FM_LOG('getDeviceUniqueIdentifier: ' + uuid);
-                                               });
-},
+    init: function(){
+        FM_LOG("[APN.init]");
+        if(device.platform == "iPhone"){
+            FmMobile.pushNotification = window.plugins.pushNotification;
+            FmMobile.apn.registerDevice();
+            FmMobile.apn.getPendingNotification();
+            //FmMobile.apn.getRemoteNotificationStatus();
+            //FmMobile.apn.getDeviceUniqueIdentifier();
+        }
+    },
+        
+        
+        /* registration on Apple Push Notification servers (via user interaction) & retrieve the token that will be used to push remote notifications to this device. */
+    registerDevice: function(){
+        
+        FM_LOG("[APN.registerDevice]");
+        FmMobile.pushNotification.registerDevice({alert:true, badge:true, sound:true}, function(status) {
+                                                 
+             /*  if successful status is an object that looks like this:
+              *  {"type":"7","pushBadge":"1","pushSound":"1","enabled":"1","deviceToken":"blablahblah","pushAlert":"1"}
+              */
+             FM_LOG('registerDevice status: ' + JSON.stringify(status) );
+             if (status) {
+                 FM_LOG("APN deviceToken="+status.deviceToken);
+             }
+             if(status && !localStorage.deviceToken){
+                 localStorage.deviceToken = status.deviceToken;
+             }
+         });
+    },
+        
+        
+        /* it can only retrieve the notification that the user has interacted with while entering the app. Returned params applicationStateActive & applicationLaunchNotification enables you to filter notifications by type. */
+    getPendingNotification: function(){
+        FM_LOG("[APN.getPendingNotification]");
+        FmMobile.pushNotification.getPendingNotifications(function(result) {
+            FM_LOG('getPendingNotifications: ' + JSON.stringify(['getPendingNotifications', result]) );
+            //navigator.notification.alert(JSON.stringify(['getPendingNotifications', notifications]));
+            //if(result.notifications.length > 0){
+            FM_LOG("["+result.notifications.length + " Pending Push Notifications.]");
+            FmMobile.apn.setApplicationIconBadgeNumber(0);
+            //}
+            //navigator.notification.alert('You have a new video!');
+            
+        });
+    },
+        
+        
+        /* registration check for this device.
+         * {"type":"6","pushBadge":"0","pushSound":"1","enabled":"1","pushAlert":"1"}
+         */
+    getRemoteNotificationStatus: function(){
+        FM_LOG("[APN.getRemoteNotificationStatus]");
+        FmMobile.pushNotification.getRemoteNotificationStatus(function(status) {
+            FM_LOG('getRemoteNotificationStatus ' + JSON.stringify(status) );
+            //navigator.notification.alert(JSON.stringify(['getRemoteNotificationStatus', status]));
+        });
+    },
+        
+        
+        /* set the application badge number (that can be updated by a remote push, for instance, resetting it to 0 after notifications have been processed). */
+    setApplicationIconBadgeNumber: function(badgeNum){
+        FM_LOG("[APN.setApplicationIconBadgeNumber]");
+        FmMobile.pushNotification.setApplicationIconBadgeNumber(badgeNum, function(status) {
+            FM_LOG('setApplicationIconBadgeNumber: ' + JSON.stringify(status) );
+            //navigator.notification.alert(JSON.stringify(['setBadge', status]));
+        });
+    },
+        
+        
+        /* clear all notifications from the notification center. */
+    cancelAllLocalNotifications: function(){
+        FM_LOG("[APN.cancelAllLocalNotifications]");
+        FmMobile.pushNotification.cancelAllLocalNotifications(function() {
+            //navigator.notification.alert(JSON.stringify(['cancelAllLocalNotifications']));
+        });
+    },
+        
+        
+        //DEPRECATED
+        /* retrieve the original device unique id. (@warning As of today, usage is deprecated and requires explicit consent from the user) */
+    getDeviceUniqueIdentifier: function(){
+        FM_LOG("[APN.getDeviceUniqueIdentifier]");
+        pushNotification.getDeviceUniqueIdentifier(function(uuid) {
+            FM_LOG('getDeviceUniqueIdentifier: ' + uuid);
+        });
+    },
 };
 
 
