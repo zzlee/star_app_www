@@ -756,6 +756,7 @@ FmMobile.apn = {
                     FM_LOG("[getPendingNotifications] error :" + "You don't have this alert.");
                                                           
             }
+            arryResult = null;
             FmMobile.apn.setApplicationIconBadgeNumber(0);
             //}
             //navigator.notification.alert('You have a new video!');
