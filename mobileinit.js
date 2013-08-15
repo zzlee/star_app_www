@@ -873,9 +873,11 @@ init: function(){
     FM_LOG("[authPopup Init]");
     
     //miixcard metadata
-    var client_id = "116813818475773";
-    var redir_url = ["http://www.miix.tv/welcome.html", "https://www.miix.tv/welcome.html"];
+    var client_id = "430008873778732";
+    //var redir_url = ["http://www.miix.tv/welcome.html", "https://www.miix.tv/welcome.html"];
     
+    
+    var redir_url = ["http://www.ondascreen.com"];
     // watasistar metadata
     /*
      var client_id = "243619402408275";
