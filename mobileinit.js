@@ -304,6 +304,7 @@ onResume: function(){
       if(device.platform == "iPhone"){
       	FmMobile.apn.getPendingNotification();
 //      	recordUserAction("resumes MiixCard app");
+          $.mobile.changePage("my_ugc.html");
       }else if(device.platform == "Android"){
           
       }
@@ -665,13 +666,14 @@ FmMobile.gcm = {
 				// In my case on registered I have EVENT, MSG and MSGCNT defined
 				FM_LOG("[GCM.message] " + JSON.stringify(e));
 //				FmMobile.ajaxNewVideos();
+                FmMobile.showNotification("newUgc");
 //	            navigator.notification.alert('You have a video!');
-                var msg = JSON.stringify(e);
-                switch(msg){
-                    case "您有一個新影片！":
-                        $.mobile.changePage("my_ugc.html");
-                        break;
-                }//End of Switch
+//                var msg = JSON.stringify(e.message);
+//                switch(msg){
+//                    case "您有一個新影片！":
+//                        $.mobile.changePage("my_ugc.html");
+//                        break;
+//                }//End of Switch
 				break;
 
 			  case 'error':
@@ -731,10 +733,27 @@ FmMobile.apn = {
     getPendingNotification: function(){
         FM_LOG("[APN.getPendingNotification]");
         FmMobile.pushNotification.getPendingNotifications(function(result) {
+//            FM_LOG("[pushNotification] " + JSON.stringify(result));
+              /* result:
+                {"notifications":[{"messageFrom":"Miix.tv","applicationStateActive":"0","applicationLaunchNotification":"0","timestamp":1376554348.356165,"aps":{"alert":"您有一個新影片！","sound":"ping.aiff","badge":1}}]
+               }
+
+               */
             FM_LOG('getPendingNotifications: ' + JSON.stringify(['getPendingNotifications', result]) );
             //navigator.notification.alert(JSON.stringify(['getPendingNotifications', notifications]));
             //if(result.notifications.length > 0){
             FM_LOG("["+result.notifications.length + " Pending Push Notifications.]");
+
+            var arryResult = JSON.parse(result);
+            switch(arryResult.notifications[0].aps.alert){
+                case "您有一個新影片！":
+                    FmMobile.myUgcPg.Type = "content";
+                    $.mobile.changePage("my_ugc.html");
+                break;
+                default:
+                    FM_LOG("[getPendingNotifications] error :" + "You don't have this alert.");
+                                                          
+            }
             FmMobile.apn.setApplicationIconBadgeNumber(0);
             //}
             //navigator.notification.alert('You have a new video!');
