@@ -8,7 +8,7 @@ FmMobile.myUgcPg = {
     init: function(){
         FM_LOG("[myUgcPg] pageinit");
         $('#nav-bar').show();
-        
+        FmMobile.viewerBackFlag=null;
                
         
     },
