@@ -235,6 +235,10 @@ FmMobile.myLiveContents = null;
 //For screen contents
 FmMobile.highlightContents = [];
 
+//For push notification
+FmMobile.pushMessage = null;
+FmMobile.isResume = false;
+
 FmMobile.init = {
     
 onBodyLoad: function(){
@@ -253,11 +257,12 @@ onBodyLoad: function(){
 //                              FmMobile.ajaxNewStoryVideos();
                               FM_LOG("push-notification:");
                               console.dir(event);
+                              FmMobile.pushMessage = JSON.parse(JSON.stringify(event));
+                              FmMobile.pushNotificationHandler(FmMobile.pushMessage.notifications[0].aps.alert);
                               //TODO:If device received the push notification and show the page
-                              FmMobile.showNotification("newUgc");
-                              
+//                              FmMobile.apn.getPendingNotification();
                               //alert(event);
-                              });
+    });
     
     //TODO:
     //document.addEventListener("touchmove", function(e){ e.preventDefault(); }, true);
@@ -302,9 +307,10 @@ onResume: function(){
 //    	FmMobile.ajaxLiveContents();
 //    	FmMobile.ajaxHighlightContents();
       if(device.platform == "iPhone"){
+          FmMobile.isResume = true;
       	FmMobile.apn.getPendingNotification();
 //      	recordUserAction("resumes MiixCard app");
-          $.mobile.changePage("my_ugc.html");
+//          $.mobile.changePage("my_ugc.html");
       }else if(device.platform == "Android"){
           
       }
@@ -740,19 +746,11 @@ FmMobile.apn = {
             //navigator.notification.alert(JSON.stringify(['getPendingNotifications', notifications]));
             //if(result.notifications.length > 0){
             FM_LOG("["+result.notifications.length + " Pending Push Notifications.]");
-
-            var arryResult = JSON.parse(result);
-
-            switch(arryResult.notifications[0].aps.alert){
-                case "您有一個新影片！":
-                    FmMobile.myUgcPg.Type = "content";
-                    $.mobile.changePage("my_ugc.html");
-                break;
-                default:
-                    FM_LOG("[getPendingNotifications] error :" + "You don't have this alert.");
+            if(result.notifications.length > 0){
+                FmMobile.pushMessage = JSON.parse(JSON.stringify(result));
+                FmMobile.pushNotificationHandler(FmMobile.pushMessage.notifications[0].aps.alert);
                                                           
             }
-
             FmMobile.apn.setApplicationIconBadgeNumber(0);
             //}
             //navigator.notification.alert('You have a new video!');
@@ -1153,15 +1151,30 @@ FmMobile.bindClickEventToNavBar = function(){
 //Handle push notifications including APN and GCM
 
 FmMobile.pushNotificationHandler = function(pushMsg){
-    FM_LOG("[pushNotficationHandler]");
+    FM_LOG("[pushNotficationHandler]:");
+    FM_LOG("[pushNotficationHandler] Platform : " + device.platform);
+    FM_LOG("[pushNotficationHandler] Message : " + pushMsg);
     switch(pushMsg){
         case "您有一個新影片！":
-            FmMobile.myUgcPg.Type = "content";
-            $.mobile.changePage("my_ugc.html");
+            if(FmMobile.isResume){
+                FmMobile.myUgcPg.Type = "content";
+                $.mobile.changePage("my_ugc.html");
+                FmMobile.isResume = false;
+            }else if($.mobile.activePage.attr('id') == "myUgcPg"){
+
+                FmMobile.ShowNotification("newUgc");
+                 $.mobile.changePage("my_ugc.html");   
+            }else{
+                FmMobile.showNotification("newUgc");
+            }
+
         break;
         default:
             FM_LOG("[pushNotficationHandler] Your push notification is not exist.");
     }
+    console.log("pageId : " + $.mobile.activePage.attr('id'));
+    FmMobile.pushMessage = " ";
+    
 },
 
 FmMobile.Confirm = function(){
