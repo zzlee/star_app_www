@@ -91,7 +91,7 @@ DoohPreview = (function(){
                 bgImage.onabort = function(){
                     callback("Failed to load the background image "+doohPreviewTemplate.backgroundImageUrl+" (aborted)");
                 };
-            },
+            }, 
             function(callback){
                 //draw the customizable objects
                 var imageUrl = null;
@@ -129,7 +129,7 @@ DoohPreview = (function(){
                         callback('Failed to draw the customizable objects: '+err);
                     }
                 });
-            },
+            }, 
             function(callback){
                 //draw the cover image (such as the fence in Taipei Arena)
                 var coverImage = null;
@@ -154,7 +154,7 @@ DoohPreview = (function(){
             function(callback){
                 //resize doohPreviewCanvas
                 if (doohPreviewTemplate.resizeFactor) {
-                    ugcUtility.resizeCanvas(doohPreviewCanvas, doohPreviewTemplate.resizeFactor, aCustomizableObject.resizeFactor, function(){
+                    ugcUtility.resizeCanvas(doohPreviewCanvas, doohPreviewTemplate.resizeFactor, doohPreviewTemplate.resizeFactor, function(){
                         callback(null);
                     });
                 }
