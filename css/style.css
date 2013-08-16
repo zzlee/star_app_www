@@ -511,7 +511,7 @@ padding:5% 5%;
     left: 0;
     right: 0;
 	width:95%;
-	margin-top:3%;
+	margin-top:6%;
 	margin-left:3%;
 }
 .content-movie-img-long{
@@ -522,6 +522,16 @@ padding:5% 5%;
     right: 0;
 	width:95%;
 	margin-top:15%;
+	margin-left:3%;
+}
+.content-movie-img-tanmu{
+    position:absolute;
+	top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+	width:95%;
+	margin-top:3%;
 	margin-left:3%;
 }
 
@@ -562,7 +572,7 @@ padding:5% 5%;
 	}
 .template_instruction{
 	margin-top: 5%;
-	margin-left:6%;
+	margin-left:0;
 	width: 100%;
 	font-size: 125%;
 	font-family:"kaiu";
@@ -596,7 +606,7 @@ padding:5% 5%;
 	}
 .button_text{
 	position: absolute;
-	margin-top: 3.8%;
+	margin-top: 3%;
 	width: 50%;
 	text-align: center;
 	font-size: 120%;
@@ -747,7 +757,7 @@ padding:5% 5%;
     width:100%;
     text-shadow: none;
     }
-#check_text_1{
+#checkin_text_1{
     background-color:transparent;
     border-color:transparent;
     margin:0;
@@ -755,7 +765,7 @@ padding:5% 5%;
     width:100%;
     text-shadow: none;
 }
-#check_text_2{
+#checkin_text_2{
     background-color:transparent;
     border-color:transparent;
     margin:0;

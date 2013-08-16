@@ -221,7 +221,7 @@ FmMobile.userContent = {
 			urlOfOriginalIsFromAndroidAlbum: false, //A flag to indicate that the picture is from Android album.  This is used to overcome the problem that photos taken from Android photo album does not contnet any file extension
 			urlOfCropped: null, //the URL of the picture that the user crops. (It is normally a base64 string got from canvas.toDataURL() )
 			//url:null,
-			crop: {_x:0, _y:0, _w:1, _h:1},  // _x=x_crop/width_picture; _y=y_crop/height_picture; _w=width_crop/width_picture;  _h=height_crop/height_picture
+			crop: {_x:0, _y:0, _w:0, _h:0},  // _x=x_crop/width_picture; _y=y_crop/height_picture; _w=width_crop/width_picture;  _h=height_crop/height_picture
 		},
 		thumbnail:{
 			url:'https://graph.facebook.com/'+localStorage.fb_userID+'/picture/'
@@ -234,6 +234,10 @@ FmMobile.myContents = null;
 FmMobile.myLiveContents = null;
 //For screen contents
 FmMobile.highlightContents = [];
+
+//For push notification
+FmMobile.pushMessage = null;
+FmMobile.isResume = false;
 
 FmMobile.init = {
     
@@ -253,12 +257,13 @@ onBodyLoad: function(){
 //                              FmMobile.ajaxNewStoryVideos();
                               FM_LOG("push-notification:");
                               console.dir(event);
-                              //navigator.notification.alert(JSON.stringify(['push-notification!', event]));
-//                              navigator.notification.alert('You have a new video!');
-                              FmMobile.showNotification("newUgc");
-                              
+                              localStorage.tmp = event.notification;
+                              FmMobile.pushMessage = JSON.parse(JSON.stringify(event.notification));
+                              FmMobile.pushNotificationHandler(FmMobile.pushMessage.aps.alert);
+                              //TODO:If device received the push notification and show the page
+//                              FmMobile.apn.getPendingNotification();
                               //alert(event);
-                              });
+    });
     
     //TODO:
     //document.addEventListener("touchmove", function(e){ e.preventDefault(); }, true);
@@ -303,9 +308,10 @@ onResume: function(){
 //    	FmMobile.ajaxLiveContents();
 //    	FmMobile.ajaxHighlightContents();
       if(device.platform == "iPhone"){
+          FmMobile.isResume = true;
       	FmMobile.apn.getPendingNotification();
 //      	recordUserAction("resumes MiixCard app");
-          $.mobile.changePage("my_ugc.html");
+//          $.mobile.changePage("my_ugc.html");
       }else if(device.platform == "Android"){
           
       }
@@ -667,14 +673,11 @@ FmMobile.gcm = {
 				// In my case on registered I have EVENT, MSG and MSGCNT defined
 				FM_LOG("[GCM.message] " + JSON.stringify(e));
 //				FmMobile.ajaxNewVideos();
-                FmMobile.showNotification("newUgc");
-//	            navigator.notification.alert('You have a video!');
-//                var msg = JSON.stringify(e.message);
-//                switch(msg){
-//                    case "您有一個新影片！":
-//                        $.mobile.changePage("my_ugc.html");
-//                        break;
-//                }//End of Switch
+                var jsonMessage = JSON.stringify(e);
+                if(jsonMessage.message){
+                    FmMobile.pushNotificationHandler(jsonMessage.message);
+                }
+
 				break;
 
 			  case 'error':
@@ -744,19 +747,11 @@ FmMobile.apn = {
             //navigator.notification.alert(JSON.stringify(['getPendingNotifications', notifications]));
             //if(result.notifications.length > 0){
             FM_LOG("["+result.notifications.length + " Pending Push Notifications.]");
-
-            var arryResult = JSON.parse(result);
-
-            switch(arryResult.notifications[0].aps.alert){
-                case "您有一個新影片！":
-                    FmMobile.myUgcPg.Type = "content";
-                    $.mobile.changePage("my_ugc.html");
-                break;
-                default:
-                    FM_LOG("[getPendingNotifications] error :" + "You don't have this alert.");
+            if(result.notifications.length > 0){
+                FmMobile.pushMessage = JSON.parse(JSON.stringify(result));
+                FmMobile.pushNotificationHandler(FmMobile.pushMessage.notifications[0].aps.alert);
                                                           
             }
-            arryResult = null;
             FmMobile.apn.setApplicationIconBadgeNumber(0);
             //}
             //navigator.notification.alert('You have a new video!');
@@ -908,7 +903,7 @@ init: function(){
     //var redir_url = ["http://www.miix.tv/welcome.html", "https://www.miix.tv/welcome.html"];
     
     
-    var redir_url = ["http://www.ondascreen.com"];
+    var redir_url = ["http://www.ondascreen.com/welcome.html"];
     // watasistar metadata
     /*
      var client_id = "243619402408275";
@@ -1154,6 +1149,38 @@ FmMobile.bindClickEventToNavBar = function(){
                               });
 };
 
+//Handle push notifications including APN and GCM
+
+FmMobile.pushNotificationHandler = function(pushMsg){
+    FM_LOG("[pushNotficationHandler]:");
+    FM_LOG("[pushNotficationHandler] Platform : " + device.platform);
+    FM_LOG("[pushNotficationHandler] Message : " + pushMsg);
+    switch(pushMsg){
+        case "您有一個新影片！":
+            if(FmMobile.isResume && ($.mobile.activePage.attr('id') == "myUgcPg")){
+                FmMobile.myUgcPg.Type = "content";
+                $.mobile.changePage("my_ugc.html", { reloadPage : true });
+                FmMobile.isResume = false;
+            }else if(FmMobile.isResume && ($.mobile.activePage.attr('id') != "myUgcPg")){
+                FmMobile.myUgcPg.Type = "content";
+                $.mobile.changePage("my_ugc.html");
+                FmMobile.isResume = false;
+            }else if($.mobile.activePage.attr('id') == "myUgcPg"){
+                FmMobile.showNotification("newUgc");
+                $.mobile.changePage('my_ugc.html', { reloadPage : true });
+            }else{
+                FmMobile.showNotification("newUgc");
+            }
+
+        break;
+        default:
+            FM_LOG("[pushNotficationHandler] Your push notification is not exist.");
+    }
+
+    FmMobile.pushMessage = " ";
+    
+},
+
 FmMobile.Confirm = function(){
     //Just for FmMobile.showNotification
     //Do nothing.
@@ -1164,11 +1191,14 @@ FmMobile.showNotification = function(fun){
     var appName = "登大螢幕";
     
     switch(fun){
+        case "uploadUgc":
+            navigator.notification.confirm("投件成功！", FmMobile.Confirm(), appName, "確定");
+            break;
         case "copyUrl":
-            navigator.notification.confirm("已複製連結", FmMobile.Confirm(), appName, "確定");
+            navigator.notification.confirm("已複製連結！", FmMobile.Confirm(), appName, "確定");
             break;
         case "error":
-            navigator.notification.confirm("錯誤發生，請通知我們", FmMobile.Confirm(), appName, "確定");
+            navigator.notification.confirm("錯誤發生，請通知我們！", FmMobile.Confirm(), appName, "確定");
             break;
         case "moreWords":
             navigator.notification.confirm("超過每行限制字數!", FmMobile.Confirm(), appName, "確定");
@@ -1180,11 +1210,16 @@ FmMobile.showNotification = function(fun){
             navigator.notification.confirm("請輸入文字！", FmMobile.Confirm(), appName, "確定");
             break;
         case "newUgc":
-            navigator.notification.confirm("你有一個新影片！", FmMobile.Confirm(), appName, "確定");
+            navigator.notification.confirm("您有一個新影片！", FmMobile.Confirm(), appName, "確定");
             break;
         case "informLiveTime":
             navigator.notification.confirm("您的投件即將上映！", FmMobile.Confirm(), appName, "確定");
             break;
+        case "settingQaSend":
+            navigator.notification.confirm("問題已送出！", FmMobile.Confirm(), appName, "確定");
+            break;
+
+            
         default:
             console.log("ShowNotification is not worked");
     }

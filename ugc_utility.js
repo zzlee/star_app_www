@@ -72,11 +72,14 @@ ugcUtility.drawChineseText = function(context, text, x, y, maxWidth, lineHeight,
     context.restore();
 };
 
-ugcUtility.drawImage = function(context, imageUrl, x, y, width, height, angle, cbOfDrawImage){
+ugcUtility.drawImage = function(context, imageUrl, x, y, width, height, angle, cbOfDrawImage, alpha){
     var objImage = new Image();
     objImage.src = imageUrl;
     objImage.onload = function(){
         context.save();
+        if (alpha) {
+            context.globalAlpha = alpha;
+        }
         context.translate(x,y);
         context.rotate(angle*Math.PI/180);
         context.drawImage(objImage, 0, 0, width, height);
@@ -88,5 +91,23 @@ ugcUtility.drawImage = function(context, imageUrl, x, y, width, height, angle, c
     };
     objImage.onabort = function(){
         cbOfDrawImage("Failed to load the image "+imageUrl+" (aborted)");
+    };
+};
+
+ugcUtility.resizeCanvas = function(canvas, widthResizeFactor, heightResizeFactor, cbOfResizeCanvas) {
+    var base64ImageOfOriginalCanvas = canvas.toDataURL("image/png");
+    var context = canvas.getContext('2d');
+    context.webkitImageSmoothingEnabled = true;
+    var originalWidth = canvas.width;
+    var originalHeight = canvas.height;
+    var img = new Image();
+    img.src = base64ImageOfOriginalCanvas;
+    img.onload = function (){
+        canvas.width *= widthResizeFactor;
+        canvas.height *= heightResizeFactor;
+        context.drawImage(img, 0, 0, originalWidth, originalHeight, 0, 0, canvas.width, canvas.height);
+        if (cbOfResizeCanvas) {
+            cbOfResizeCanvas();
+        }
     };
 };

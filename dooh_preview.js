@@ -2,12 +2,11 @@
 
 DoohPreview = (function(){
         
-    function constructor(doohId, ugcBgImageUrl, customizableObjects, userContent, cbOfConstructor){
+    function constructor(doohId, doohPreviewTemplate, userContent, cbOfConstructor){
         
-        var templateMgr = null;
-        var template = null;
         var doohInfo = null;
         var doohPreviewCanvas = null;
+        var templateMgr = null
         var context = null;
         
         /**
@@ -25,12 +24,12 @@ DoohPreview = (function(){
          *     </ul>
          * @param cbOfDrawQuadrilateralImage
          */
-        var drawQuadrilateralImage = function( context, imageUrl, quadrilateral, cbOfDrawQuadrilateralImage ){
+        var drawQuadrilateralImage = function( context, imageUrl, quadrilateral, cbOfDrawQuadrilateralImage, alpha ){
             var q = quadrilateral;
             var width = Math.sqrt( (q.x_ur-q.x_ul)*(q.x_ur-q.x_ul)+(q.y_ur-q.y_ul)*(q.y_ur-q.y_ul) );
             var height = Math.sqrt( (q.x_ll-q.x_ul)*(q.x_ll-q.x_ul)+(q.y_ll-q.y_ul)*(q.y_ll-q.y_ul) );
             var angle = Math.atan( (q.y_ur-q.y_ul)/(q.x_ur-q.x_ul) )/Math.PI*180;
-            ugcUtility.drawImage(context, imageUrl, q.x_ul, q.y_ul, width, height, angle, cbOfDrawQuadrilateralImage);
+            ugcUtility.drawImage(context, imageUrl, q.x_ul, q.y_ul, width, height, angle, cbOfDrawQuadrilateralImage, alpha);
         };
         
         
@@ -58,6 +57,18 @@ DoohPreview = (function(){
                 });
             },
             function(callback){
+              //get templateMgr
+                TemplateMgr.getInstance(function(err, _templateMgr){
+                    if (!err) {
+                        templateMgr = _templateMgr;
+                        callback(null);
+                    }
+                    else {
+                        callback('Failed to get TemplateMgr instance');
+                    }
+                });
+            },
+            function(callback){
                 //initiate canvas related variables
                 doohPreviewCanvas = document.createElement('canvas');
                 doohPreviewCanvas.setAttribute("id","doohPreviewCanvas");
@@ -66,7 +77,7 @@ DoohPreview = (function(){
                 context.webkitImageSmoothingEnabled = true;
                 var bgImage = null;
                 bgImage = new Image();
-                bgImage.src = ugcBgImageUrl;
+                bgImage.src = doohPreviewTemplate.backgroundImageUrl;
                 bgImage.onload = function(){
                     //console.log("bgImage.width="+bgImage.width+"  bgImage.height="+bgImage.height);
                     doohPreviewCanvas.width = bgImage.width;
@@ -75,10 +86,10 @@ DoohPreview = (function(){
                     callback(null);
                 };
                 bgImage.onerror = function(){
-                    callback("Failed to load the background image "+ugcBgImageUrl);
+                    callback("Failed to load the background image "+doohPreviewTemplate.backgroundImageUrl);
                 };
                 bgImage.onabort = function(){
-                    callback("Failed to load the background image "+ugcBgImageUrl+" (aborted)");
+                    callback("Failed to load the background image "+doohPreviewTemplate.backgroundImageUrl+" (aborted)");
                 };
             },
             function(callback){
@@ -89,7 +100,7 @@ DoohPreview = (function(){
                         imageUrl = userContent.picture.urlOfCropped;
                         drawQuadrilateralImage( context, imageUrl, aCustomizableObject.quadrilateral, function(errOfDrawQuadrilateralImage){
                             cbOfIterator(errOfDrawQuadrilateralImage);
-                        });
+                        }, aCustomizableObject.alpha);
                     }
                     else if (aCustomizableObject.type == "thumbnail"){
                         imageUrl = userContent.thumbnail.url;
@@ -110,7 +121,7 @@ DoohPreview = (function(){
                         cbOfIterator(null);
                     }
                 };
-                async.eachSeries(customizableObjects, iteratorDrawCustomizalbeObjects, function(err){
+                async.eachSeries(doohPreviewTemplate.customizableObjects, iteratorDrawCustomizalbeObjects, function(err){
                     if (!err) {
                         callback(null);
                     }
@@ -123,7 +134,12 @@ DoohPreview = (function(){
                 //draw the cover image (such as the fence in Taipei Arena)
                 var coverImage = null;
                 coverImage = new Image();
-                coverImage.src = doohInfo.getPreviewCoverImageUrl(doohId);
+                if (doohPreviewTemplate.coverImageUrl){
+                    coverImage.src = doohPreviewTemplate.coverImageUrl;
+                }
+                else {
+                    coverImage.src = doohInfo.getPreviewCoverImageUrl(doohId);
+                }
                 coverImage.onload = function(){
                     context.drawImage(coverImage,0,0);
                     callback(null);
@@ -134,6 +150,20 @@ DoohPreview = (function(){
                 coverImage.onabort = function(){
                     callback("Failed to load the cover image "+coverImage.src+" (aborted)");
                 };
+            },
+            function(callback){
+                //resize doohPreviewCanvas
+                if (doohPreviewTemplate.resizeFactor) {
+                    ugcUtility.resizeCanvas(doohPreviewCanvas, doohPreviewTemplate.resizeFactor, aCustomizableObject.resizeFactor, function(){
+                        callback(null);
+                    });
+                }
+                else {
+                    ugcUtility.resizeCanvas(doohPreviewCanvas, 0.4, 0.4, function(){
+                        callback(null);
+                    });
+                }
+                
             }
         ],
         function(err, results){
@@ -152,14 +182,13 @@ DoohPreview = (function(){
          * Get an instance of DoohPreview
          * 
          * @param doohId
-         * @param ugcBgImageUrl
-         * @param customizableObjects
+         * @param doohPreviewTemplate
          * @param userContent
          * @param cbOfgetInstance
          * @returns
          */
-        getInstance: function(doohId, ugcBgImageUrl, customizableObjects, userContent, cbOfgetInstance){
-                constructor(doohId, ugcBgImageUrl, customizableObjects, userContent, function(err, _uInstance){
+        getInstance: function(doohId, doohPreviewTemplate, userContent, cbOfgetInstance){
+                constructor(doohId, doohPreviewTemplate, userContent, function(err, _uInstance){
                     cbOfgetInstance(err, _uInstance);
                 });
         }

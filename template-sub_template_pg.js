@@ -10,16 +10,15 @@ FmMobile.template_subTemplatePg = {
 		$('#nav-bar').show();
         
         var settings = {
-        type: "GET",
-        dataType: "html",
-            
-        success: function(data, textStatus, jqXHR ){
-            $("#show_intro").html(data);
-                        cb1_series(null);
-        },
-        error: function(jqXHR, textStatus, errorThrown){
-            cb1_series(errorThrown);
-        }
+            type: "GET",
+            dataType: "html",
+                
+            success: function(data, textStatus, jqXHR ){
+                $("#show_intro").html(data);
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                console.log("Falied to read template_instruction.html: "+errorThrown);
+            }
         };
         $.ajax("template/"+FmMobile.selectedTemplate+"/template_instruction.html",settings);
         
@@ -49,14 +48,17 @@ FmMobile.template_subTemplatePg = {
                                                    id:templateMgr.getSubTemplateList(FmMobile.selectedTemplate)[i].id
                                                   });
             var sub_img = $("<img>").attr({class:"style-img",
-                                           src:templateMgr.getSubTemplateList(FmMobile.selectedTemplate)[i].representingImageUrlSub});
+                                           src:templateMgr.getSubTemplateList(FmMobile.selectedTemplate)[i].representingImageUrlSub,
+                                           id:templateMgr.getSubTemplateList(FmMobile.selectedTemplate)[i].id
+                                          
+                                          });
             var sub_des = $("<div>").attr({class:"style_text"});
             var sub_line = $("<div>").attr({class:"hr_line_template"});
-            
+            sub_des.appendTo(mainStyle);
             sub_number.appendTo(mainStyle);
             sub__button_img.appendTo(mainStyle);
             sub_img.appendTo(mainStyle);
-            sub_des.appendTo(mainStyle);
+            
             sub_line.appendTo(mainStyle);
             mainStyle.appendTo(start);
             

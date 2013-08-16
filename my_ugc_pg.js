@@ -8,7 +8,7 @@ FmMobile.myUgcPg = {
     init: function(){
         FM_LOG("[myUgcPg] pageinit");
         $('#nav-bar').show();
-        
+        FmMobile.viewerBackFlag=null;
                
         
     },
@@ -60,7 +60,9 @@ FmMobile.myUgcPg = {
             FmMobile.myUgcPg.Type = "";
             $("#btnLiveMovie >img").attr({src: "images/tab_live_active.png"});
             $("#btnMiixMovie >img").attr({src: "images/tab_ugc.png"});
+//            FmMobile.myUgcPg.Type = "content";
             FmMobile.myUgcPg.loadLiveContents(FmMobile.myUgcPg.myLiveContents);
+            
         }else{
             FmMobile.myUgcPg.myContents = [];
             

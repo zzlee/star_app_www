@@ -43,50 +43,53 @@
                 <link rel="stylesheet" href="./css/style.css">
     </head>
     <body>
-        
         <div data-role="page" id="screenPg">
-          
-            <div id="fixedBackground"></div>
+                    <div id="fixedBackground"></div>
             <div class="container" data-role="content" style="background-image: none;">
-                <div class="tab_bar">
-                    <div id="btnHighLights" class="my-video-icon"><div class="tab_button_text">
-</div><img class="my-video-icon-img" src="images/tab_show.png"></div>
-                    <div id="btnArena" class="my-video-icon"><div class="tab_button_text">
-</div><img class="my-video-icon-img" src="images/tab_tanmu_active.png"></div>
+                <div id="btnHighLights" class="tab_button">
+                    <div class="tab_button_text"></div>
+                    <img class="my-video-icon-img" src="images/tab_show_active.png">
+                </div>
+                <div id="btnArena" class="tab_button">
+                    <div class="tab_button_text"></div>
+                    <img class="my-video-icon-img" src="images/tab_tanmu.png">
                 </div>
                 
-                <div class="style">
-
-                    <div class="tanmu-instraction">
-                        台北天幕LED介紹<br>
-                        <br>
-                        城市之光、台北天幕LED位於台北小巨蛋，顯示面積為100m x 16m，解析度為1743 x 260像素，是台灣最有名的戶外數位媒體。<br>
-                        <br>
-                        台北天幕LED由<a href="http://www.novamedia.com.tw/" target="_blank" style="color:#ccc">諾亞媒體</a>代理經營。諾亞媒體，數位看板媒體專家。
-
-                     </div>
-                    <img class="tanmu-img" src="images/tanmu01.png"></img>
-                    <img class="tanmu-img" src="images/tanmu02.png"></img>
-                    <img class="tanmu-img" src="images/tanmu03.png"></img>
+                <div id="my-video-list">
+<<<<<<< HEAD
+                    <!--<div id="videoList">-->
+                    <div class="content-movie">
+                        <div class="content-movie-img-tanmu"></div>
+                        <img class="content-movie-img" src="images/movie_pic.png"></img>
+                    </div>
+                    <div class="screen_dp">影片名稱:<br>發布者:</div>
+                    <div class="content-movie">
+                        <div class="content-movie-img-tanmu"></div>
+                        <img class="content-movie-img" src="images/movie_pic.png"></img>
+                    </div>
+                    <div class="screen_dp">影片名稱:<br>發布者:</div>
+=======
+                   
+>>>>>>> origin/Jean_Ondascreen
+                    
                 </div>
-                
-                
+                </div>
             </div>
             
         </div>
         
         <div id="nav-bar" class="nav-bar-background3">
             <div id="btnTemplate" class="ui-menu-inactive">
-                <img class="menu-img" src="images/m1.png">
-                    <div class="menu-text">劇本挑選</div>
+                <img class="menu-img" src="images/m1-active.png">
+                    <div class="menu-text">主題模板</div>
                     </div>
             <div id="btnMyUgc" class="ui-menu-inactive">
                 <img class="menu-img" src="images/m2.png">
-                    <div class="menu-text">我的演出</div>
+                    <div class="menu-text">我的影片</div>
                     </div>
             <div id="btnScreen" class="ui-menu-inactive">
-                <img class="menu-img" src="images/m3-active.png">
-                    <div class="menu-text">大螢幕介紹</div>
+                <img class="menu-img" src="images/m3.png">
+                    <div class="menu-text">大螢幕</div>
                     </div>
             <div id="btnSetting" class="ui-menu-active">
                 <img class="menu-img" src="images/m4.png">

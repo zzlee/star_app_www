@@ -1,7 +1,7 @@
 {
     "taipei_arena":{
         "text_only":{
-            "backgroundImageUrl":"taipei_arena-mood_text.jpg",
+            "backgroundImageUrl":"template/template_resource/taipei_arena-mood_text.jpg",
             "customizableObjects":[
                 {
                     "id":"text0",
@@ -35,7 +35,7 @@
             ]
         },
         "picture_only":{
-            "backgroundImageUrl":"taipei_arena-mood_pic.jpg",
+            "backgroundImageUrl":"template/template_resource/taipei_arena-mood_pic.jpg",
             "customizableObjects":[
                 {
                     "id":"picture0",
@@ -73,7 +73,7 @@
             ]
         },
         "picture_plus_text":{
-            "backgroundImageUrl":"taipei_arena-mood_text_and_pic.jpg",
+            "backgroundImageUrl":"template/template_resource/taipei_arena-mood_text_and_pic.jpg",
             "customizableObjects":[
                 {
                     "id":"text0",

@@ -5,7 +5,7 @@ VideoUgc = (function(){
         //object's private members		
         var DOOH_ID = "taipei_arena";
         var templateMgr = null;
-        var template = null;
+        //var template = null;
         var doohPreviewTemplate = null;
         var doohPreview = null;
         var customizableObjects = [];
@@ -165,7 +165,7 @@ VideoUgc = (function(){
                 TemplateMgr.getInstance(function(err, _templateMgr){
                     if (!err) {
                         templateMgr = _templateMgr;
-                        template = templateMgr.getSubTemplate(mainTemplateId, subTemplateId);
+                        //template = templateMgr.getSubTemplate(mainTemplateId, subTemplateId);
                         doohPreviewTemplate = templateMgr.getDoohPreviewTemplate(mainTemplateId, subTemplateId, DOOH_ID);
                         callback(null);
                     }
@@ -212,9 +212,9 @@ VideoUgc = (function(){
             function(callback){
                 //create DOOH preview
                 if (doohPreviewTemplate){
-                    var ugcDoohPreviewBgImageUrl = templateMgr.getTemplateFolderPath(mainTemplateId)+mainTemplateId+'/'+subTemplateId+'/'+doohPreviewTemplate.backgroundImageUrl; //TODO: TemplateMgr output cleaner url
-                    var customizableObjects = doohPreviewTemplate.customizableObjects;
-                    DoohPreview.getInstance(DOOH_ID, ugcDoohPreviewBgImageUrl, customizableObjects, userContent, function(errOfGetInstance, _doohPreview){
+                    //var ugcDoohPreviewBgImageUrl = templateMgr.getTemplateFolderPath(mainTemplateId)+mainTemplateId+'/'+subTemplateId+'/'+doohPreviewTemplate.backgroundImageUrl; //TODO: TemplateMgr output cleaner url
+                    //var customizableObjects = doohPreviewTemplate.customizableObjects;
+                    DoohPreview.getInstance(DOOH_ID, doohPreviewTemplate, userContent, function(errOfGetInstance, _doohPreview){
                         if (!errOfGetInstance){
                             doohPreview = _doohPreview;
                             callback(null);

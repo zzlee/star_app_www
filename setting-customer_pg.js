@@ -37,7 +37,11 @@ FmMobile.customerQuestionPg = {
                     }
                }).done(function( result ) {
                        
-                       //alert(result);
+                       FmMobile.showNotification("settingQaSend");
+                      
+                       $('#input_id').val("");
+                       
+                       $('#question_text').val("");
                        console.log(result);
                    });
         });
