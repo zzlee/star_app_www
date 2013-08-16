@@ -83,6 +83,7 @@ FmMobile.template_previewPg = {
                                         // alert("success!");
                                     }
                                     $.mobile.hidePageLoadingMsg();
+                                    FmMobile.my_ugc.Type = "content";
                                     $.mobile.changePage("my_ugc.html");
                                 });
                     });
@@ -157,6 +158,7 @@ FmMobile.template_previewPg = {
                                                         //alert("success!");
                                                         }
                                                         $.mobile.hidePageLoadingMsg();
+                                                        FmMobile.my_ugc.Type = "content";
                                                         $.mobile.changePage("my_ugc.html");
                                                         });
                                 
@@ -202,6 +204,7 @@ FmMobile.template_previewPg = {
                                         //alert("success!");
                                     }
                                     $.mobile.hidePageLoadingMsg();
+                                    FmMobile.my_ugc.Type = "content";
                                     $.mobile.changePage("my_ugc.html");
                                 });
 
