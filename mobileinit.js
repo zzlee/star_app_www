@@ -904,7 +904,7 @@ init: function(){
     //var redir_url = ["http://www.miix.tv/welcome.html", "https://www.miix.tv/welcome.html"];
     
     
-    var redir_url = ["http://www.ondascreen.com"];
+    var redir_url = ["http://www.ondascreen.com/welcome.html"];
     // watasistar metadata
     /*
      var client_id = "243619402408275";
