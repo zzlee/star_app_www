@@ -253,8 +253,7 @@ onBodyLoad: function(){
 //                              FmMobile.ajaxNewStoryVideos();
                               FM_LOG("push-notification:");
                               console.dir(event);
-                              //navigator.notification.alert(JSON.stringify(['push-notification!', event]));
-//                              navigator.notification.alert('You have a new video!');
+                              //TODO:If device received the push notification and show the page
                               FmMobile.showNotification("newUgc");
                               
                               //alert(event);
@@ -667,14 +666,11 @@ FmMobile.gcm = {
 				// In my case on registered I have EVENT, MSG and MSGCNT defined
 				FM_LOG("[GCM.message] " + JSON.stringify(e));
 //				FmMobile.ajaxNewVideos();
-                FmMobile.showNotification("newUgc");
-//	            navigator.notification.alert('You have a video!');
-//                var msg = JSON.stringify(e.message);
-//                switch(msg){
-//                    case "您有一個新影片！":
-//                        $.mobile.changePage("my_ugc.html");
-//                        break;
-//                }//End of Switch
+                var jsonMessage = JSON.stringify(e);
+                if(jsonMessage.message){
+                    FmMobile.pushNotificationHandler(jsonMessage.message);
+                }
+
 				break;
 
 			  case 'error':
@@ -756,7 +752,7 @@ FmMobile.apn = {
                     FM_LOG("[getPendingNotifications] error :" + "You don't have this alert.");
                                                           
             }
-            arryResult = null;
+
             FmMobile.apn.setApplicationIconBadgeNumber(0);
             //}
             //navigator.notification.alert('You have a new video!');
@@ -1153,6 +1149,20 @@ FmMobile.bindClickEventToNavBar = function(){
                               }
                               });
 };
+
+//Handle push notifications including APN and GCM
+
+FmMobile.pushNotificationHandler = function(pushMsg){
+    FM_LOG("[pushNotficationHandler]");
+    switch(pushMsg){
+        case "您有一個新影片！":
+            FmMobile.myUgcPg.Type = "content";
+            $.mobile.changePage("my_ugc.html");
+        break;
+        default:
+            FM_LOG("[pushNotficationHandler] Your push notification is not exist.");
+    }
+},
 
 FmMobile.Confirm = function(){
     //Just for FmMobile.showNotification
