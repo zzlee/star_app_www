@@ -121,7 +121,7 @@ DoohPreview = (function(){
                         cbOfIterator(null);
                     }
                 };
-                async.eachSeries(customizableObjects, iteratorDrawCustomizalbeObjects, function(err){
+                async.eachSeries(doohPreviewTemplate.customizableObjects, iteratorDrawCustomizalbeObjects, function(err){
                     if (!err) {
                         callback(null);
                     }
@@ -134,8 +134,8 @@ DoohPreview = (function(){
                 //draw the cover image (such as the fence in Taipei Arena)
                 var coverImage = null;
                 coverImage = new Image();
-                if (aCustomizableObject.coverImageUrl){
-                    coverImage.src = aCustomizableObject.coverImageUrl;
+                if (doohPreviewTemplate.coverImageUrl){
+                    coverImage.src = doohPreviewTemplate.coverImageUrl;
                 }
                 else {
                     coverImage.src = doohInfo.getPreviewCoverImageUrl(doohId);
@@ -153,8 +153,8 @@ DoohPreview = (function(){
             },
             function(callback){
                 //resize doohPreviewCanvas
-                if (aCustomizableObject.resizeFactor) {
-                    ugcUtility.resizeCanvas(doohPreviewCanvas, aCustomizableObject.resizeFactor, aCustomizableObject.resizeFactor, function(){
+                if (doohPreviewTemplate.resizeFactor) {
+                    ugcUtility.resizeCanvas(doohPreviewCanvas, doohPreviewTemplate.resizeFactor, aCustomizableObject.resizeFactor, function(){
                         callback(null);
                     });
                 }

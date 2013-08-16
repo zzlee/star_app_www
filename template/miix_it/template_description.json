@@ -2,14 +2,14 @@
     "selected":"miix_it",
     "name":"合成",
     "representingImageUrl":"template/template_resource/script04.png",
-    "introdcutionContentUrl":"mood_introdction.html",
+    "introdcutionContentUrl":"template/template_resource/mood_introdction.html",
     "outputSize":{
         "width":720,
         "height":480
     },
     "subTemplate":{
         "miix_one_image":{
-            "representingImageUrlSub":"images/choose_movie.png",
+            "representingImageUrlSub":"template/template_resource/choose_movie.png",
             "selected":"miix_one_image",
             "name":"合成影片",
             "outputType":"video",
