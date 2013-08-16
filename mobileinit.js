@@ -1195,6 +1195,11 @@ FmMobile.showNotification = function(fun){
         case "informLiveTime":
             navigator.notification.confirm("您的投件即將上映！", FmMobile.Confirm(), appName, "確定");
             break;
+        case "settingQaSend":
+            navigator.notification.confirm("問題已送出！", FmMobile.Confirm(), appName, "確定");
+            break;
+
+            
         default:
             console.log("ShowNotification is not worked");
     }
