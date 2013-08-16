@@ -56,7 +56,21 @@
                 </div>
                 
                 <div id="my-video-list">
+<<<<<<< HEAD
+                    <!--<div id="videoList">-->
+                    <div class="content-movie">
+                        <div class="content-movie-img-tanmu"></div>
+                        <img class="content-movie-img" src="images/movie_pic.png"></img>
+                    </div>
+                    <div class="screen_dp">影片名稱:<br>發布者:</div>
+                    <div class="content-movie">
+                        <div class="content-movie-img-tanmu"></div>
+                        <img class="content-movie-img" src="images/movie_pic.png"></img>
+                    </div>
+                    <div class="screen_dp">影片名稱:<br>發布者:</div>
+=======
                    
+>>>>>>> origin/Jean_Ondascreen
                     
                 </div>
                 </div>
