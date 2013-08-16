@@ -77,7 +77,7 @@ FmMobile.screenPg = {
         
         var intro = $("<div>").attr({id:"intro", class:"tanmu-instraction"});
         intro.html('台北天幕LED介紹<br><br> 城市之光、台北天幕LED位於台北小巨蛋，顯示面積為100m x 16m，解析度為1743 x 260像素，是台灣最有名的戶外數位媒體。<br><br>'
-            + '台北天幕LED由' + '<a href="http://www.novamedia.com.tw/" target="_blank">諾亞媒體</a>'
+            + '台北天幕LED由' + '<a href="http://www.novamedia.com.tw/" target="_blank" style="color:#790000">諾亞媒體</a>'
                    + '代理經營。諾亞媒體，數位看板媒體專家。');
         var introImg_1 = $("<img>").attr({
                                         src: "images/tanmu01.png",

@@ -118,6 +118,11 @@ FmMobile.photoCropperPg = {
                 width : canvas.width / option.scope.w, //fraction relative to its width
                 height : canvas.height / option.scope.h //fraction relative to its height
             };
+            
+            FmMobile.userContent.picture.crop._x = croppedArea.x;
+            FmMobile.userContent.picture.crop._y = croppedArea.y;
+            FmMobile.userContent.picture.crop._w = croppedArea.width;
+            FmMobile.userContent.picture.crop._h = croppedArea.height;
             //alert(croppedArea.x);
 
         };
@@ -198,6 +203,11 @@ FmMobile.photoCropperPg = {
                 width : canvas.width / option.scope.w, //fraction relative to its width
                 height : canvas.height / option.scope.h //fraction relative to its height
             };
+                               
+                               FmMobile.userContent.picture.crop._x = croppedArea.x;
+                               FmMobile.userContent.picture.crop._y = croppedArea.y;
+                               FmMobile.userContent.picture.crop._w = croppedArea.width;
+                               FmMobile.userContent.picture.crop._h = croppedArea.height;
         });
 
         $$('#photoZoom').swiping(function(e) {

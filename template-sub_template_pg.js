@@ -48,14 +48,17 @@ FmMobile.template_subTemplatePg = {
                                                    id:templateMgr.getSubTemplateList(FmMobile.selectedTemplate)[i].id
                                                   });
             var sub_img = $("<img>").attr({class:"style-img",
-                                           src:templateMgr.getSubTemplateList(FmMobile.selectedTemplate)[i].representingImageUrlSub});
+                                           src:templateMgr.getSubTemplateList(FmMobile.selectedTemplate)[i].representingImageUrlSub,
+                                           id:templateMgr.getSubTemplateList(FmMobile.selectedTemplate)[i].id
+                                          
+                                          });
             var sub_des = $("<div>").attr({class:"style_text"});
             var sub_line = $("<div>").attr({class:"hr_line_template"});
-            
+            sub_des.appendTo(mainStyle);
             sub_number.appendTo(mainStyle);
             sub__button_img.appendTo(mainStyle);
             sub_img.appendTo(mainStyle);
-            sub_des.appendTo(mainStyle);
+            
             sub_line.appendTo(mainStyle);
             mainStyle.appendTo(start);
             
