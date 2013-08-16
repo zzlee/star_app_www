@@ -41,6 +41,13 @@ FmMobile.orientationPg = {
        // var or_pic_height = ($('#or_pic').height());
         //alert(or_pic_width);
         //alert(or_pic_height);
+        $$("#link").tap(function(){
+                         console.log("click");
+            var link = document.getElementById('link');
+            FmMobile.openBrowser(link.getAttribute("url"));
+        });
+
+
 
         
     },

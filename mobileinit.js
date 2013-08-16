@@ -307,8 +307,9 @@ onResume: function(){
 //    	FmMobile.ajaxContents();
 //    	FmMobile.ajaxLiveContents();
 //    	FmMobile.ajaxHighlightContents();
+        FmMobile.isResume = true;
       if(device.platform == "iPhone"){
-          FmMobile.isResume = true;
+          
       	FmMobile.apn.getPendingNotification();
 //      	recordUserAction("resumes MiixCard app");
 //          $.mobile.changePage("my_ugc.html");
@@ -914,77 +915,79 @@ init: function(){
     fb.onConnect = FmMobile.authPopup.onFBConnected;
 },
     
-onFBConnected: function(){
-    FM_LOG("[onFBConnected]: ");
-    // if(!localStorage.fb_userID)
-    var url = remotesite + "/members/fb_info";
-    data = {"authResponse": {
-        "userID": localStorage.fb_userID,
-        "userName": localStorage.fb_name,
-        "email": localStorage.email,
-        "accessToken": localStorage.fb_accessToken,
-        "expiresIn":  localStorage.expiresIn,
-        "deviceToken": localStorage.deviceToken,
-        "devicePlatform": device.platform,
-        "device": device.uuid,
-        "timestamp": Date.now()
-    }
-    };
-    FM_LOG(JSON.stringify(data));
+    onFBConnected: function(){
+        FM_LOG("[onFBConnected]: ");
+        // if(!localStorage.fb_userID)
+        var url = remotesite + "/members/fb_info";
+        data = {"authResponse": {
+            "userID": localStorage.fb_userID,
+            "userName": localStorage.fb_name,
+            "email": localStorage.email,
+            "accessToken": localStorage.fb_accessToken,
+            "expiresIn":  localStorage.expiresIn,
+            "deviceToken": localStorage.deviceToken,
+            "devicePlatform": device.platform,
+            "device": device.uuid,
+            "timestamp": Date.now()
+            }
+        };
+        FM_LOG(JSON.stringify(data));
+        
+        $.post(url, data, function(response){
+            FM_LOG("[SignUp with FB]: ");
+            if(response.data){
+                localStorage._id = response.data._id;
+                //localStorage.fb_user_pic=response.data.fb_user_pic;
+                localStorage.fb_accessToken = response.data.accessToken;
+                localStorage.verified = (response.data.verified) ? response.data.verified : 'false';
+                FmMobile.userContent.thumbnail.url='https://graph.facebook.com/'+localStorage.fb_userID+'/picture/';
+               
+                FmMobile.userContent.fb_name=localStorage.fb_name;
+               //localStorage.verified='true';//此行為了測試電話認證！
+                FM_LOG("localStorage" + JSON.stringify(localStorage));
+               
+                   // Each time of Login, pull all videos.
+        //           FmMobile.ajaxNewVideos();
+        //           FmMobile.ajaxNewStoryVideos();
+               
+                if(localStorage.verified == 'true'){
+                    $.mobile.changePage("template-main_template.html");
+               
+                }else{
+                    $.mobile.changePage("cellphone_login.html");
+                }
+
+                window.plugins.childBrowser.close();
+               
+    //           FmMobile.analysis.setVariable("Facebook_ID", localStorage.fb_userID, 1);
+//                   recordUserAction("successfully logs in with FB");
+            }else{
+                   FM_LOG("[Sinup with FB failed!]");
+            }
+        });
+        
+    },
     
-    $.post(url, data, function(response){
-           FM_LOG("[SignUp with FB]: ");
-           if(response.data){
-           localStorage._id = response.data._id;
-           //localStorage.fb_user_pic=response.data.fb_user_pic;
-           localStorage.fb_accessToken = response.data.accessToken;
-            localStorage.verified = (response.data.verified) ? response.data.verified : 'false';
-           FmMobile.userContent.thumbnail.url='https://graph.facebook.com/'+localStorage.fb_userID+'/picture/';
-           
-           FmMobile.userContent.fb_name=localStorage.fb_name;
-           //localStorage.verified='true';//此行為了測試電話認證！
-           FM_LOG("localStorage" + JSON.stringify(localStorage));
-           
-           // Each time of Login, pull all videos.
-//           FmMobile.ajaxNewVideos();
-//           FmMobile.ajaxNewStoryVideos();
-           
-           if(localStorage.verified == 'true'){
-           $.mobile.changePage("template-main_template.html");
-           
-           }else{
-           $.mobile.changePage("cellphone_login.html");
-           }
-           // $.mobile.changePage("movie_create.html");
-           window.plugins.childBrowser.close();
-           
-//           FmMobile.analysis.setVariable("Facebook_ID", localStorage.fb_userID, 1);
-           recordUserAction("successfully logs in with FB");
-           }
-           });
-    
-},
-    
-FBLogout: function() {
-    FmMobile.analysis.trackEvent("Button", "Click", "Logout", 54);
-    recordUserAction("log out");
-    var fb = FBConnect.install();
-    delete localStorage._id;
-    delete localStorage.fb_userID;
-    delete localStorage.fb_name;
-    delete localStorage.fb_accessToken;
-    delete localStorage.fb_user_pic;
-    //delete localStorage.verified;
-    if(localStorage.email) delete localStorage.email;
-    
-    $.jStorage.set("videoWorks", []);
-    $.jStorage.set("processingWorks", {});
-    $.jStorage.set("streetVideos", []);
-    $.jStorage.set("fb_profile", null);
-    fb.Logout();
-    $.mobile.changePage("fb_login.html");
-    
-},
+    FBLogout: function() {
+        FmMobile.analysis.trackEvent("Button", "Click", "Logout", 54);
+        recordUserAction("log out");
+        var fb = FBConnect.install();
+        delete localStorage._id;
+        delete localStorage.fb_userID;
+        delete localStorage.fb_name;
+        delete localStorage.fb_accessToken;
+        delete localStorage.fb_user_pic;
+        //delete localStorage.verified;
+        if(localStorage.email) delete localStorage.email;
+        
+        $.jStorage.set("videoWorks", []);
+        $.jStorage.set("processingWorks", {});
+        $.jStorage.set("streetVideos", []);
+        $.jStorage.set("fb_profile", null);
+        fb.Logout();
+        $.mobile.changePage("fb_login.html");
+        
+    },
 //deprecated
 sendDeviceToken: function(){
     FM_LOG("[sendDeviceToken] ");
@@ -1118,35 +1121,32 @@ postCheckinMessage:function(){
 
 FmMobile.bindClickEventToNavBar = function(){
     $("#nav-bar > div").click(function(){
-                              if (this.id == "btnTemplate"){
-                                  $(this).children("img").attr({src:"images/m1-active.png"});
-                                  $("#btnMyUgc").children("img").attr({src:"images/m2.png"});
-                                  $("#btnScreen").children("img").attr({src:"images/m3.png"});
-                                  $("#btnSetting").children("img").attr({src:"images/m4.png"});
-                                  $.mobile.changePage("template-main_template.html");
-                              }
-                              else if (this.id == "btnMyUgc") {
-                                  $(this).children("img").attr({src:"images/m2-active.png"});
-                                  $("#btnTemplate").children("img").attr({src:"images/m1.png"});
-                                  $("#btnScreen").children("img").attr({src:"images/m3.png"});
-                                  $("#btnSetting").children("img").attr({src:"images/m4.png"});
-                              $.mobile.changePage("my_ugc.html");
-                              }
-                              else if (this.id == "btnScreen") {
-                                  $(this).children("img").attr({src:"images/m3-active.png"});
-                                  $("#btnTemplate").children("img").attr({src:"images/m1.png"});
-                                  $("#btnMyUgc").children("img").attr({src:"images/m2.png"});
-                                  $("#btnSetting").children("img").attr({src:"images/m4.png"});
-                                  $.mobile.changePage("screen.html");
-                              }
-                              else if (this.id == "btnSetting") {
-                                  $(this).children("img").attr({src:"images/m4-active.png"});
-                                  $("#btnTemplate").children("img").attr({src:"images/m1.png"});
-                                  $("#btnMyUgc").children("img").attr({src:"images/m2.png"});
-                                  $("#btnScreen").children("img").attr({src:"images/m3.png"});
-                                  $.mobile.changePage("setting-main.html");
-                              }
-                              });
+        if (this.id == "btnTemplate"){
+          $(this).children("img").attr({src:"images/m1-active.png"});
+          $("#btnMyUgc").children("img").attr({src:"images/m2.png"});
+          $("#btnScreen").children("img").attr({src:"images/m3.png"});
+          $("#btnSetting").children("img").attr({src:"images/m4.png"});
+          $.mobile.changePage("template-main_template.html");
+        }else if (this.id == "btnMyUgc") {
+          $(this).children("img").attr({src:"images/m2-active.png"});
+          $("#btnTemplate").children("img").attr({src:"images/m1.png"});
+          $("#btnScreen").children("img").attr({src:"images/m3.png"});
+          $("#btnSetting").children("img").attr({src:"images/m4.png"});
+        $.mobile.changePage("my_ugc.html");
+        }else if (this.id == "btnScreen") {
+          $(this).children("img").attr({src:"images/m3-active.png"});
+          $("#btnTemplate").children("img").attr({src:"images/m1.png"});
+          $("#btnMyUgc").children("img").attr({src:"images/m2.png"});
+          $("#btnSetting").children("img").attr({src:"images/m4.png"});
+          $.mobile.changePage("screen.html");
+        }else if (this.id == "btnSetting") {
+          $(this).children("img").attr({src:"images/m4-active.png"});
+          $("#btnTemplate").children("img").attr({src:"images/m1.png"});
+          $("#btnMyUgc").children("img").attr({src:"images/m2.png"});
+          $("#btnScreen").children("img").attr({src:"images/m3.png"});
+          $.mobile.changePage("setting-main.html");
+        }
+    });
 };
 
 //Handle push notifications including APN and GCM
@@ -1218,5 +1218,11 @@ FmMobile.showNotification = function(fun){
         default:
             console.log("ShowNotification is not worked");
     }
+    
+};
+
+//Open external website
+FmMobile.openBrowser = function(url){
+    window.plugins.childBrowser.showWebPage(url);
     
 };
