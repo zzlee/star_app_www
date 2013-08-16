@@ -245,9 +245,9 @@ ImageUgc = (function(){
             function(callback){
                 //create DOOH preview
                 if (doohPreviewTemplate){
-                    var ugcDoohPreviewBgImageUrl = templateMgr.getTemplateFolderPath(mainTemplateId)+mainTemplateId+'/'+subTemplateId+'/'+doohPreviewTemplate.backgroundImageUrl; //TODO: TemplateMgr output cleaner url
-                    var customizableObjects = doohPreviewTemplate.customizableObjects;
-                    DoohPreview.getInstance(DOOH_ID, ugcDoohPreviewBgImageUrl, customizableObjects, userContent, function(errOfGetInstance, _doohPreview){
+                    //var ugcDoohPreviewBgImageUrl = templateMgr.getTemplateFolderPath(mainTemplateId)+mainTemplateId+'/'+subTemplateId+'/'+doohPreviewTemplate.backgroundImageUrl; //TODO: TemplateMgr output cleaner url
+                    //var customizableObjects = doohPreviewTemplate.customizableObjects;
+                    DoohPreview.getInstance(DOOH_ID, doohPreviewTemplate, userContent, function(errOfGetInstance, _doohPreview){
                         if (!errOfGetInstance){
                             doohPreview = _doohPreview;
                             callback(null);

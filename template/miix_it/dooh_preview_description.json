@@ -1,40 +1,24 @@
 {
     "taipei_arena":{
         "miix_one_image":{
-            "backgroundImageUrl":"taipei_arena-mood_text_and_pic.jpg",
+            "backgroundImageUrl":"taipei_arena-miix_on_image.png",
+            "coverImageUrl":"taipei_arena-miix_on_image_fence.png",
+            "resizeFactor":"0.8",
             "customizableObjects":[
                 {
                     "id":"picture0",
                     "type":"image",
                     "quadrilateral":{
-                        "x_ul":"220",
-                        "y_ul":"208",
-                        "x_ur":"553",
-                        "y_ur":"208",
-                        "x_ll":"220",
-                        "y_ll":"444",
-                        "x_lr":"551",
-                        "y_lr":"452"
-                    }
-                },
-                {
-                    "id":"thumbnail0",
-                    "type":"thumbnail",
-                    "quadrilateral":{
-                        "x_ul":"947",
-                        "y_ul":"245",
-                        "x_ur":"1097",
-                        "y_ur":"260",
-                        "x_ll":"928",
-                        "y_ll":"403",
-                        "x_lr":"1074",
-                        "y_lr":"413"
+                        "x_ul":"102",
+                        "y_ul":"57",
+                        "x_ur":"608",
+                        "y_ur":"57",
+                        "x_ll":"102",
+                        "y_ll":"340",
+                        "x_lr":"608",
+                        "y_lr":"340"
                     },
-                    "fb_x":"1124",
-                    "fb_y":"346",
-                    "fb_angle":"0",
-                    "fb_color":"#603913",
-                    "fb_font":"36pt 華康歐陽詢體W5"
+                    "alpha":"0.5"
                 }
             ]
         }

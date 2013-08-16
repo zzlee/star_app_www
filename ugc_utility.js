@@ -72,11 +72,14 @@ ugcUtility.drawChineseText = function(context, text, x, y, maxWidth, lineHeight,
     context.restore();
 };
 
-ugcUtility.drawImage = function(context, imageUrl, x, y, width, height, angle, cbOfDrawImage){
+ugcUtility.drawImage = function(context, imageUrl, x, y, width, height, angle, cbOfDrawImage, alpha){
     var objImage = new Image();
     objImage.src = imageUrl;
     objImage.onload = function(){
         context.save();
+        if (alpha) {
+            context.globalAlpha = alpha;
+        }
         context.translate(x,y);
         context.rotate(angle*Math.PI/180);
         context.drawImage(objImage, 0, 0, width, height);
