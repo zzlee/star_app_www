@@ -10,16 +10,15 @@ FmMobile.template_subTemplatePg = {
 		$('#nav-bar').show();
         
         var settings = {
-        type: "GET",
-        dataType: "html",
-            
-        success: function(data, textStatus, jqXHR ){
-            $("#show_intro").html(data);
-                        cb1_series(null);
-        },
-        error: function(jqXHR, textStatus, errorThrown){
-            cb1_series(errorThrown);
-        }
+            type: "GET",
+            dataType: "html",
+                
+            success: function(data, textStatus, jqXHR ){
+                $("#show_intro").html(data);
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                console.log("Falied to read template_instruction.html: "+errorThrown);
+            }
         };
         $.ajax("template/"+FmMobile.selectedTemplate+"/template_instruction.html",settings);
         
