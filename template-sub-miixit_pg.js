@@ -8,11 +8,22 @@ show: function(){
     
 init: function(){
     $('#nav-bar').show();
-    $("#show_intro").show();
+   // $("#show_intro").show();
+    
+    if(localStorage[FmMobile.selectedTemplate]=='hasReadHint'){
+        $("#show_intro").hide();
+        $("#close").hide();
+    }else{
+        $("#show_intro").show();
+        
+    }
+
     
     $("#close").click(function(){
                       $("#show_intro").hide();
                       $('#close').hide();
+                      localStorage[FmMobile.selectedTemplate]='hasReadHint';
+
                       });
     
     $('#back_main').click(function(){
