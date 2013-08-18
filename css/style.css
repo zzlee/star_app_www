@@ -158,6 +158,7 @@ div[data-role=page] {
     padding-bottom: 37%;
     z-index: 0;
     display:block !improtant;
+    overflow: visible;
 }
 .container_withheader{
 	background-size:100% 100%;

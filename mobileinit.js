@@ -1177,7 +1177,7 @@ FmMobile.pushNotificationHandler = function(pushMsg){
             FM_LOG("[pushNotficationHandler] Your push notification is not exist.");
     }
 
-    FmMobile.pushMessage = " ";
+
     
 },
 
@@ -1188,7 +1188,7 @@ FmMobile.Confirm = function(){
 
 FmMobile.showNotification = function(fun){
     FM_LOG("[showNotification]");
-    var appName = "登大螢幕";
+    var appName = "上大螢幕";
     
     switch(fun){
         case "uploadUgc":
