@@ -205,7 +205,7 @@ $('#mapAreaNext').attr("coords","'"+FmMobile.or_pic_width+","+((FmMobile.or_pic_
 
 
 
-FmMobile.videoWorks = [];
+FmMobile.videoWorks = [];  //deprecated
 FmMobile.profile = null;
 FmMobile.ga = null;
 FmMobile.pushNotification = null;
@@ -228,6 +228,8 @@ FmMobile.userContent = {
     
 		}
 };
+FmMobile.imageUgc = null;
+FmMobile.videoUgc = null;
 
 //For my_ugc contents
 FmMobile.myContents = null;
