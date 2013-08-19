@@ -25,7 +25,7 @@ load: function(event, data){
     // if(FmMobile.selectedTemplate=="cultural_and_creative"){
     
     $("#back_main").click(function(){
-                          $.mobile.changePage("template-main_template.html");
+                          $.mobile.changePage("template-sub-miixit.html");
                           });
     
     /*

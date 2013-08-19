@@ -27,7 +27,7 @@
                     "angle":"0",
                     "description":"心情文字",
                     "maxTextLength":"39",
-                    "text_color":"white"
+                    "fontColor":"white"
                 },
                 {
                     "id":"picture0",
@@ -109,7 +109,7 @@
                     "angle":"0",
                     "description":"心情文字",
                     "maxTextLength":"39",
-                    "text_color":"white"
+                    "fontColor":"white"
                 },
                 {
                     "id":"thumbnail0",
@@ -124,7 +124,21 @@
                     "fb_y":"160",
                     "fb_angle":"0",
                     "fb_color":"white"
-                }
+                },
+                                   {
+                                   "id":"thumbnail1",
+                                   "type":"thumbnail",
+                                   "x":"260",
+                                   "y":"76",
+                                   "width":"194",
+                                   "height":"120",
+                                   "angle":"0",
+                                   "description":"大頭貼",
+                                   "fb_x":"70",
+                                   "fb_y":"160",
+                                   "fb_angle":"0",
+                                   "fb_color":"white"
+                                   }
             ]
         }
     }
