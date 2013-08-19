@@ -199,7 +199,7 @@ FmMobile.myUgcPg = {
             }else{
                 Thumbnail = $("<img>").attr({
                                               id: 'imgError_' + i,
-                                              src: "images/choose_movie.png",
+                                              src: "images/introduce_miixit02.png",
                                               class: "content-movie-img"
                                               });
                 Thumbnail.appendTo(widget);
@@ -279,7 +279,7 @@ FmMobile.myUgcPg = {
                 dummyDivPreview.appendTo(widgetPreview);
                 Thumbnail = $("<img>").attr({
                                                         id: 'imgPreviewError_' + i,
-                                                        src: "images/choose_movie.png",
+                                                        src: "images/introduce_miixit02.png",
                                                         class: "content-movie-img"
                                                         });
                 Thumbnail.appendTo(widgetPreview);
@@ -328,7 +328,7 @@ FmMobile.myUgcPg = {
                         dummyDiv.appendTo(widget);
                         Thumbnail = $("<img>").attr({
                                                               id: 'imgError_' + i,
-                                                              src: "images/choose_movie.png",
+                                                              src: "images/introduce_miixit02.png",
                                                               class: "content-movie-img"
                                                               });
                         Thumbnail.appendTo(widget);
@@ -377,7 +377,7 @@ FmMobile.myUgcPg = {
                         dummyDivLong.appendTo(widget);
                         Thumbnail = $("<img>").attr({
                                                               id: "imgError_" + i,
-                                                              src: "images/choose_movie.png",
+                                                              src: "images/introduce_miixit02.png",
                                                               class: "content-movie-img-long"
                                                               });
                         
