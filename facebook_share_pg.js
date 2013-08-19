@@ -10,7 +10,7 @@ show: function(){
     
 init: function(){
     //test
-            $("#nav-bar").show();
+            $("#nav-bar").hide();
             $('#youtubePlay').hide();
             $('#shareFbPhoto').hide();
 
