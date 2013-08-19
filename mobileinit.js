@@ -89,9 +89,8 @@ $(document).bind("mobileinit", function(){
                  
                  $("a").live("click", function(event){
                     event.preventDefault();
-                             
-                    var url = document.getElementsByTagName("a")[0].getAttribute("href");
-                    if(url != "#"){
+                    var url = document.getElementsByTagName("a")[0].getAttribute("url");
+                    if(url != null){
                         FmMobile.openBrowser(url);
                     }
                 });

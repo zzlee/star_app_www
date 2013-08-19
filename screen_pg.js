@@ -77,10 +77,7 @@ FmMobile.screenPg = {
         $("#intro").show();
         parent.html("");
         
-//        $("#intro>div>br>br>br>br>a").click(function(){
-//                                alert("click");
-//             FmMobile.openBrowser("http://www.novamedia.com.tw/");
-//        });
+
     },
     
     loadHighLightContent: function(arryHighlight){
