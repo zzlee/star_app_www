@@ -3,7 +3,7 @@
     "name":"創作",
     "topBarImageUrl":"template/template_resource/cultural.png",
     "representingImageUrl":"template/template_resource/script01.png",
-    "introdcutionContentUrl":"mood_introdction.html",
+    "introdcutionContentUrl":"template/template_resource/mood_introdction.html",
     "outputSize":{
         "width":720,
         "height":480
@@ -15,45 +15,45 @@
             "name":"版型一",
             "outputType":"image",
             "description":"一張圖 + 24個字",
-            "backgroundImageUrl":"design_text_and_pic.png",
+            "backgroundImageUrl":"template/template_resource/design_text_and_pic.png",
             "customizableObjects":[
-                                   {
-                                   "id":"text0",
-                                   "type":"text",
-                                   "x":"970",
-                                   "y":"90",
-                                   "width":"397",
-                                   "lineHeight":"68",
-                                   "angle":"0",
-                                   "description":"心情文字",
-                                   "maxTextLength":"39",
-                                   "text_color":"white"
-                                   },
-                                   {
-                                   "id":"picture0",
-                                   "type":"image",
-                                   "x":"676",
-                                   "y":"54",
-                                   "width":"260",
-                                   "height":"170",
-                                   "angle":"0",
-                                   "description":"心情照片"
-                                   },
-                                   {
-                                   "id":"thumbnail0",
-                                   "type":"thumbnail",
-                                   "x":"1396",
-                                   "y":"84",
-                                   "width":"194",
-                                   "height":"120",
-                                   "angle":"0",
-                                   "description":"大頭貼",
-                                   "fb_x":"1613",
-                                   "fb_y":"160",
-                                   "fb_angle":"0",
-                                   "fb_color":"white"
-                                   }
-                                   ]
+                {
+                    "id":"text0",
+                    "type":"text",
+                    "x":"970",
+                    "y":"90",
+                    "width":"397",
+                    "lineHeight":"68",
+                    "angle":"0",
+                    "description":"心情文字",
+                    "maxTextLength":"39",
+                    "text_color":"white"
+                },
+                {
+                    "id":"picture0",
+                    "type":"image",
+                    "x":"676",
+                    "y":"54",
+                    "width":"260",
+                    "height":"170",
+                    "angle":"0",
+                    "description":"心情照片"
+                },
+                {
+                    "id":"thumbnail0",
+                    "type":"thumbnail",
+                    "x":"1396",
+                    "y":"84",
+                    "width":"194",
+                    "height":"120",
+                    "angle":"0",
+                    "description":"大頭貼",
+                    "fb_x":"1613",
+                    "fb_y":"160",
+                    "fb_angle":"0",
+                    "fb_color":"white"
+                }
+            ]
         },
         "picture_only":{
             "representingImageUrlSub":"template/template_resource/cultural_02.png",
@@ -61,34 +61,35 @@
             "name":"版型二",
             "outputType":"image",
             "description":"一張圖",
-            "backgroundImageUrl":"design_pic.png",
+            "backgroundImageUrl":"template/template_resource/design_pic.png",
             "customizableObjects":[
-                                   {
-                                   "id":"picture0",
-                                   "type":"image",
-                                   "x":"887",
-                                   "y":"53",
-                                   "width":"260",
-                                   "height":"170",
-                                   "angle":"0",
-                                   "description":"心情照片"
-                                   },
-                                   {"id":"thumbnail0",
-                                   "type":"thumbnail",
-                                   "x":"550",
-                                   "y":"76",
-                                   "x2":"1254",
-                                   "y2":"76",
-                                   "width":"194",
-                                   "height":"120",
-                                   "angle":"0",
-                                   "description":"大頭貼",
-                                   "fb_x":"1500",
-                                   "fb_y":"160",
-                                   "fb_angle":"0",
-                                   "fb_color":"white"
-                                   }
-                                   ]
+                {
+                    "id":"picture0",
+                    "type":"image",
+                    "x":"887",
+                    "y":"53",
+                    "width":"260",
+                    "height":"170",
+                    "angle":"0",
+                    "description":"心情照片"
+                },
+                {
+                    "id":"thumbnail0",
+                    "type":"thumbnail",
+                    "x":"550",
+                    "y":"76",
+                    "x2":"1254",
+                    "y2":"76",
+                    "width":"194",
+                    "height":"120",
+                    "angle":"0",
+                    "description":"大頭貼",
+                    "fb_x":"1500",
+                    "fb_y":"160",
+                    "fb_angle":"0",
+                    "fb_color":"white"
+                }
+            ]
         },
         "text_only":{
             "representingImageUrlSub":"template/template_resource/cultural_03.png",
@@ -96,35 +97,35 @@
             "name":"版型三",
             "outputType":"image",
             "description":"39個字",
-            "backgroundImageUrl":"design_text.png",
+            "backgroundImageUrl":"template/template_resource/design_text.png",
             "customizableObjects":[
-                                   {
-                                   "id":"text0",
-                                   "type":"text",
-                                   "x":"687",
-                                   "y":"80",
-                                   "width":"470",
-                                   "lineHeight":"68",
-                                   "angle":"0",
-                                   "description":"心情文字",
-                                   "maxTextLength":"39",
-                                   "text_color":"white"
-                                   },
-                                   {
-                                   "id":"thumbnail0",
-                                   "type":"thumbnail",
-                                   "x":"1254",
-                                   "y":"76",
-                                   "width":"194",
-                                   "height":"120",
-                                   "angle":"0",
-                                   "description":"大頭貼",
-                                   "fb_x":"1500",
-                                   "fb_y":"160",
-                                   "fb_angle":"0",
-                                   "fb_color":"white"
-                                   
-                                   }            ]
+                {
+                    "id":"text0",
+                    "type":"text",
+                    "x":"687",
+                    "y":"80",
+                    "width":"470",
+                    "lineHeight":"68",
+                    "angle":"0",
+                    "description":"心情文字",
+                    "maxTextLength":"39",
+                    "text_color":"white"
+                },
+                {
+                    "id":"thumbnail0",
+                    "type":"thumbnail",
+                    "x":"1254",
+                    "y":"76",
+                    "width":"194",
+                    "height":"120",
+                    "angle":"0",
+                    "description":"大頭貼",
+                    "fb_x":"1500",
+                    "fb_y":"160",
+                    "fb_angle":"0",
+                    "fb_color":"white"
+                }
+            ]
         }
     }
 }
