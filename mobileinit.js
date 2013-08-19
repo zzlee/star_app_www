@@ -1231,3 +1231,9 @@ FmMobile.openBrowser = function(url){
     window.plugins.childBrowser.showWebPage(url);
     
 };
+
+//Set a dive under the Page
+FmMobile.dummyDiv = function(){
+    var paddingBottomDiv = $('[data-role="page"]').height() * 0.1847;
+    $('[data-role="content"]').attr({style:"padding-bottom:" + paddingBottomDiv + "px;"});
+};
