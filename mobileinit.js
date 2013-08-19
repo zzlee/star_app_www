@@ -980,6 +980,20 @@ init: function(){
         //delete localStorage.verified;
         if(localStorage.email) delete localStorage.email;
         
+        
+        /* -------------  判斷templete instruction 是否已看過 ------------  */
+        for(var i=0;i<templateMgr.getTemplateList().length;i++){
+            var temp=templateMgr.getTemplateList()[i].id;
+            
+            if(localStorage[temp]== 'hasReadHint'){
+                localStorage[temp]='unReadHint';
+            }
+            
+        }
+        /*-------------------------------------*/
+        
+        
+        
         $.jStorage.set("videoWorks", []);
         $.jStorage.set("processingWorks", {});
         $.jStorage.set("streetVideos", []);
