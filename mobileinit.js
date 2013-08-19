@@ -87,7 +87,15 @@ $(document).bind("mobileinit", function(){
 
                  */
                  
-                 
+                 $("a").live("click", function(event){
+                    event.preventDefault();
+                             
+                    var url = document.getElementsByTagName("a")[0].getAttribute("href");
+                    if(url != "#"){
+                        FmMobile.openBrowser(url);
+                    }
+                });
+
                  $("#indexPg").live("pageinit", FmMobile.indexPg.init);
                  $("#indexPg").live("pagebeforeshow", FmMobile.indexPg.beforeshow);
                  $("#indexPg").live("pageshow", FmMobile.indexPg.show);
