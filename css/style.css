@@ -849,6 +849,17 @@ padding:5% 5%;
     line-height: 125%;
     padding-bottom: 2%;
     }
+.preview-instraction{
+    margin-top: 5%;
+    margin-left: 5%;
+    width: 90%;
+    font-size: 100%;
+    font-family: "kaiu";
+    text-shadow: none;
+    color:#dcd586;
+    line-height: 125%;
+    padding-bottom: 2%;
+}
 
 /* Booking------------------------------------------------------------*/
 
@@ -1069,6 +1080,8 @@ hr{
 	font-family:"kaiu";
 	color: #dcd586;
     list-style-type:none;
+    margin: 0;
+    padding-left: 10%;
 }
 
     
