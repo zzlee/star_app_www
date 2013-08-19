@@ -158,6 +158,7 @@ div[data-role=page] {
     padding-bottom: 37%;
     z-index: 0;
     display:block !improtant;
+    overflow: visible;
 }
 .container_withheader{
 	background-size:100% 100%;
@@ -511,7 +512,7 @@ padding:5% 5%;
     left: 0;
     right: 0;
 	width:95%;
-	margin-top:6%;
+	margin-top:3%;
 	margin-left:3%;
 }
 .content-movie-img-long{
