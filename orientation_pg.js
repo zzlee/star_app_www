@@ -41,11 +41,6 @@ FmMobile.orientationPg = {
        // var or_pic_height = ($('#or_pic').height());
         //alert(or_pic_width);
         //alert(or_pic_height);
-        $("#link").click(function(){
-            //Set Nova's url to connect
-            FmMobile.openBrowser("http://www.novamedia.com.tw/");
-                         
-        });
 
         
     },

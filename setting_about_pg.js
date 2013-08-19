@@ -12,10 +12,10 @@ FmMobile.settingAboutPg = {
                                  $.mobile.changePage("setting-main.html");
          });
         
-        $("#contentAboutMiixIt>a").click(function(){
-            FmMobile.openBrowser("http://www.feltmeng.com/");
-                                         
-        });
+//        $("#contentAboutMiixIt>a").click(function(){
+//            FmMobile.openBrowser("http://www.feltmeng.com/");
+//                                         
+//        });
         
     }
 };

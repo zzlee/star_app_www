@@ -4,6 +4,7 @@ FmMobile.template_subTemplatePg = {
     show: function(){
         FmMobile.analysis.trackPage("/template_subTemplatePg");
         recordUserAction("enters template_subTemplatePg");
+        FmMobile.dummyDiv();
     },
         
     init: function(){
