@@ -13,7 +13,10 @@ FmMobile.template_checkinPg = {
         if (navigator.geolocation) {
             
             function errorHandler (error) {
-                alert('Attempt to get location failed: ' + error.message);
+                FmMobile.showNotification("gpsDeny");
+                $.mobile.changePage("template-main_template.html");
+
+                //alert('Attempt to get location failed: ' + error.message);
             }
             
             function successHandler (location) {
@@ -31,7 +34,7 @@ FmMobile.template_checkinPg = {
                    // alert("在夢蝶");
                     rightLocation=true;
                 }else{
-                    alert("不再夢蝶");
+                    //alert("不再夢蝶");
                     rightLocation=false;
                 }
                 
@@ -101,7 +104,10 @@ FmMobile.template_checkinPg = {
                                    
                                    
                                    if(rightLocation==false){
-                                   alert("你不在附近...");
+                                   
+                                   FmMobile.showNotification("wrongPlace");
+                                   
+                                   //alert("你不在附近...");
                                    return false;
                                    }
             var finalTextOfCheckin=$('#checkin_text_1').val()+"\n路經貴寶地\n"+$('#checkin_text_2').val();

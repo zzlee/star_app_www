@@ -1232,8 +1232,11 @@ FmMobile.showNotification = function(fun){
         case "settingQaSend":
             navigator.notification.confirm("問題已送出！", FmMobile.Confirm(), appName, "確定");
             break;
-        case "userGpsDeny":
-            navigator.notification.confirm("你按了不要...想通時記得去設定->隱私->定位服務", FmMobile.Confirm(), appName, "確定");
+        case "gpsDeny":
+            navigator.notification.confirm("完全沒有定位, 想通時請至\n設定->隱私->定位服務\n交出你的坐標！", FmMobile.Confirm(), appName, "確定");
+            break;
+        case "wrongPlace":
+            navigator.notification.confirm("其實你不在小巨蛋對吧...\n臺北市松山區南京東路4段2號\n歡迎來打卡！", FmMobile.Confirm(), appName, "確定");
             break;
 
             
