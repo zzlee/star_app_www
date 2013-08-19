@@ -8,7 +8,7 @@ FmMobile.template_checkinPg = {
         
     init: function(){
         
-        var rightLocation;
+        var rightLocation=false;
         
         if (navigator.geolocation) {
             
