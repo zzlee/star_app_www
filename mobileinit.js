@@ -1025,7 +1025,7 @@ postFbMessage:function(){
     
     };
     $.post(url,params, function(response){
-           alert("已打卡！！");
+           //alert("已打卡！！");
            var ugcProjectId=FmMobile.shareProjectID;
            
            $.ajax( starServerURL+"/miix/fb_ugcs/"+ugcProjectId, {
@@ -1060,7 +1060,7 @@ postFbVideoMessage:function(){
         
     };
     $.post(url,params, function(response){
-           alert("已打卡！！");
+           //alert("已打卡！！");
            
            var ugcProjectId=FmMobile.shareProjectID;
            
@@ -1096,7 +1096,7 @@ postCheckinMessage:function(){
         
     };
     $.post(url,params, function(response){
-           alert("已打卡！！");
+           //alert("已打卡！！");
            var ugcProjectId=FmMobile.shareProjectID;
            
            $.ajax( starServerURL+"/miix/fb_ugcs/"+ugcProjectId, {
