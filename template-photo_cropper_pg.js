@@ -91,15 +91,16 @@ FmMobile.photoCropperPg = {
         image = new Image();
 
         var change_css = ($('.movie-pic-dummy').width()) * 0.95;
+        
         $('.content-movie-img').css({
             'width' : change_css,
         });
 
         //canvas.width = screen.availWidth;
         canvas.width = $('.movie-pic-dummy').width();
-        canvas.height = canvas.width
-                / customizableObjectDimensions[fileObjectID].width
-                * customizableObjectDimensions[fileObjectID].height;
+        //canvas.height=image.height;
+        canvas.height=$('.movie-pic-dummy').width()/767*450;
+       // canvas.height = canvas.width/ customizableObjectDimensions[fileObjectID].width* customizableObjectDimensions[fileObjectID].height;
 
         image.onload = function() {
 

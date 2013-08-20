@@ -65,7 +65,8 @@ ugcUtility.drawChineseText = function(context, text, x, y, maxWidth, lineHeight,
         context.font = font; 
     }
     else {
-        context.font = '36px 華康歐陽詢體W5';
+       context.font = '36px JT1-47U';
+        // context.font = '36px 華康歐陽詢體W5';
     }
     
     for(var n = 0; n < words.length; n++) {
@@ -74,7 +75,7 @@ ugcUtility.drawChineseText = function(context, text, x, y, maxWidth, lineHeight,
         var testWidth = metrics.width;
         
         
-        if(FmMobile.selectedTemplate=="check_in"){
+        if(FmMobile.selectedTemplate=="check_idn"){
             if (testWidth > maxWidth && n > 0) {
                 context.fillText(line, cursorX, cursorY);
                 line = words[n];

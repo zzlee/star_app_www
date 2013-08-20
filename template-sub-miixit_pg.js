@@ -7,9 +7,10 @@ show: function(){
 },
     
 init: function(){
+    //$('.content-movie-img').height(
     $('#nav-bar').show();
    // $("#show_intro").show();
-    
+    $('.content-movie-img').attr("height",$('.content-movie-img').width()/757*452);
     if(localStorage[FmMobile.selectedTemplate]=='hasReadHint'){
         $("#show_intro").hide();
         $("#close").hide();
