@@ -716,7 +716,7 @@ FmMobile.gcm = {
 /** Check network status */
 FmMobile.checkNetwork = function(){
     FM_LOG("[checkNetwork]");
-    var connectionType = navigator.network.connection.type;
+    var connectionType = navigator.connection.type;
     FM_LOG("[checkNetwork]Network Status : " + connectionType);
     var connectServerStatus = false;
     $.ajax({
@@ -1277,6 +1277,9 @@ FmMobile.showNotification = function(fun){
             break;
         case "enableNetwork":
             navigator.notification.confirm("本服務必須連接網路，請檢查您的網路環境。", FmMobile.Confirm(), appName, "確定");
+            break;
+        case "uploadFailed":
+            navigator.notification.confirm("投件失敗，請重新再試。", FmMobile.Confirm(), appName, "確定");
             break;
             
         default:

@@ -42,7 +42,7 @@ ImageUgc = (function(){
                 ugcProjectId = mainTemplateId +'-'+ ugcInfo.ownerId._id +'-'+ (new Date()).toISOString().replace(/[-:.]/g, "");
                 var reultURI = ugcCanvas.toDataURL('image/png').replace('image/octet-stream');
                 var doohPreviewResultURI = doohPreview.getPreviewImageUrl().replace('image/octet-stream');
-                
+
                 async.series([
                     function(callback){
                         //upload original image user content file to server if there is one
@@ -95,7 +95,6 @@ ImageUgc = (function(){
                                 };
                                 
                                 var uploadFail_cb = function(error) {
-                                    FmMobile.showNotification("enableNetwork");
                                     console.log("upload error source " + error.source);
                                     console.log("upload error target " + error.target);
                                     cbOfIterator("Failed to uplaod user content file to server: "+error.code);
@@ -131,7 +130,6 @@ ImageUgc = (function(){
                                 callback(null);
                             },
                             error: function(jqXHR, textStatus, errorThrown){
-                                FmMobile.showNotification("enableNetwork");
                                 console.log("Failed to upload image UGC to server: "+errorThrown);
                                 callback("Failed to upload image UGC to server: "+errorThrown);
                             }
@@ -179,7 +177,6 @@ ImageUgc = (function(){
                         callback(null, obj);
                     }
                     else {
-                        FmMobile.showNotification("enableNetwork");
                         callback('Failed to get TemplateMgr instance :'+err, null);
                     }
                 });
