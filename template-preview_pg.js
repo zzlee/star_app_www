@@ -14,7 +14,7 @@ FmMobile.template_previewPg = {
         
                 /*  點下去跳到full screen  */
         $(".content-movie").bind('click',function(){
-                                 $.mobile.changePage("fullPageViewer.html");
+                                 $.mobile.changePage("imgZoomViewer.html");
                                  });
         /*
         $(".content-movie").click(function(){

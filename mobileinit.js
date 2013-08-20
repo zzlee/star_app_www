@@ -139,6 +139,11 @@ $('#mapAreaNext').attr("coords","'"+FmMobile.or_pic_width+","+((FmMobile.or_pic_
                  $("#fbLogoutPg").live("pageshow", FmMobile.fbLogoutPg.show);
                  
                  
+                 $("#imgZoomViewerPg").live("pageinit", FmMobile.imgZoomViewerPg.load);
+                 $("#imgZoomViewerPg").live("pageshow", FmMobile.imgZoomViewerPg.show);
+                 
+                 
+                 
                  
                  $("#fullPageViewerPg").live("pageinit", FmMobile.fullPageViewerPg.load);
                  $("#fullPageViewerPg").live("pageshow", FmMobile.fullPageViewerPg.show);

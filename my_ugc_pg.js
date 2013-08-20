@@ -454,7 +454,7 @@ FmMobile.myUgcPg = {
             case "imgS3":
             case "imgPreview":
                 FmMobile.srcForMyUgcViewer=this.src;
-                $.mobile.changePage('fullPageViewer.html');
+                $.mobile.changePage('imgZoomViewer.html');
 
                 break;
             default:
