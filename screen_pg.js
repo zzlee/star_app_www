@@ -16,6 +16,7 @@ FmMobile.screenPg = {
         FM_LOG("[screenPg] pageinit");
         $('#nav-bar').show();
         $("#intro").hide();
+        
     },
     
     show: function(){
@@ -67,6 +68,7 @@ FmMobile.screenPg = {
                        }
                    }
                });
+        FmMobile.dummyDiv();
     },
     
     loadArenaContent: function(){

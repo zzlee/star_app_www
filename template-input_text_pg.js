@@ -4,6 +4,7 @@ PAGE_ID: "template_input_textPg",
 show: function(){
     FmMobile.analysis.trackPage("/template_input_textPg");
     recordUserAction("enters template_input_textPg");
+    FmMobile.dummyDiv();
 },
     
 init: function(){

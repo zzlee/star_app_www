@@ -87,7 +87,15 @@ $(document).bind("mobileinit", function(){
 
                  */
                  
-                 
+                 $("a").live("click", function(event){
+                    event.preventDefault();
+                             
+                    var url = document.getElementsByTagName("a")[0].getAttribute("href");
+                    if(url != "#"){
+                        FmMobile.openBrowser(url);
+                    }
+                });
+
                  $("#indexPg").live("pageinit", FmMobile.indexPg.init);
                  $("#indexPg").live("pagebeforeshow", FmMobile.indexPg.beforeshow);
                  $("#indexPg").live("pageshow", FmMobile.indexPg.show);
@@ -1234,6 +1242,12 @@ FmMobile.showNotification = function(fun){
         case "settingQaSend":
             navigator.notification.confirm("問題已送出！", FmMobile.Confirm(), appName, "確定");
             break;
+        case "gpsDeny":
+            navigator.notification.confirm("完全沒有定位, 想通時請至\n設定->隱私->定位服務\n交出你的坐標！", FmMobile.Confirm(), appName, "確定");
+            break;
+        case "wrongPlace":
+            navigator.notification.confirm("其實你不在小巨蛋對吧...\n臺北市松山區南京東路4段2號\n歡迎來打卡！", FmMobile.Confirm(), appName, "確定");
+            break;
 
             
         default:
@@ -1246,4 +1260,10 @@ FmMobile.showNotification = function(fun){
 FmMobile.openBrowser = function(url){
     window.plugins.childBrowser.showWebPage(url);
     
+};
+
+//Set a dive under the Page
+FmMobile.dummyDiv = function(){
+    var paddingBottomDiv = $('[data-role="page"]').height() * 0.1847;
+    $('[data-role="content"]').attr({style:"padding-bottom:" + paddingBottomDiv + "px;"});
 };

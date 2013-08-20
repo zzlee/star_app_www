@@ -4,6 +4,7 @@ FmMobile.template_previewPg = {
     show : function() {
         FmMobile.analysis.trackPage("/template_previewPg");
         recordUserAction("enters template_previewPg");
+        FmMobile.dummyDiv();
     },
 
     init : function() {
@@ -43,7 +44,7 @@ FmMobile.template_previewPg = {
         
         /* preview page title bar text 影片根其他不一樣*/
         if(FmMobile.selectedTemplate == 'miix_it'){
-            $('#clickImgEffect').html("劇照模擬預覽");
+            $('.header-text').html("劇照模擬預覽");
             $('#afterSendText').html('按下確定投件後,您將會收到APP的推 播,通知您是目前第幾位試鏡者。若導 演決定刊登您的作品,您會收到APP的 推播與facebook預告,通知登場日期時 間。名額稀少,導演優先挑選創意作品。');
         }else if(FmMobile.selectedTemplate == 'check_in'){
             $('#clickImgEffect').html("點擊可放大");
