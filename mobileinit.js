@@ -1071,7 +1071,8 @@ postFbMessage:function(){
     
     };
     $.post(url,params, function(response){
-           alert("已打卡！！");
+//           alert("已打卡！！");
+           FmMobile.showNotification("share");
            var ugcProjectId=FmMobile.shareProjectID;
            
            $.ajax( starServerURL+"/miix/fb_ugcs/"+ugcProjectId, {
@@ -1106,8 +1107,8 @@ postFbVideoMessage:function(){
         
     };
     $.post(url,params, function(response){
-           alert("已打卡！！");
-           
+//           alert("已打卡！！");
+           FmMobile.showNotification("share");
            var ugcProjectId=FmMobile.shareProjectID;
            
            $.ajax( starServerURL+"/miix/fb_ugcs/"+ugcProjectId, {
@@ -1142,7 +1143,8 @@ postCheckinMessage:function(){
         
     };
     $.post(url,params, function(response){
-           alert("已打卡！！");
+//           alert("已打卡！！");
+           FmMobile.showNotification("checkIn");
            var ugcProjectId=FmMobile.shareProjectID;
            
            $.ajax( starServerURL+"/miix/fb_ugcs/"+ugcProjectId, {
@@ -1281,7 +1283,12 @@ FmMobile.showNotification = function(fun){
         case "uploadFailed":
             navigator.notification.confirm("投件失敗，請重新再試。", FmMobile.Confirm(), appName, "確定");
             break;
-            
+        case "share":
+            navigator.notification.confirm("分享成功！", FmMobile.Confirm(), appName, "確定");
+            break;
+        case "checkIn":
+            navigator.notification.confirm("已成功在小巨蛋打卡！", FmMobile.Confirm(), appName, "確定");
+            break;
         default:
             console.log("ShowNotification is not worked");
     }
