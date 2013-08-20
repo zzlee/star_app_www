@@ -506,16 +506,7 @@ padding:5% 5%;
 	position:relative;
 }
 .content-movie{
-	background-image:url(../images/loading.png);
-	background-repeat:no-repeat;
-	background-size:100%;
-	width: 90%;
-	margin-top: 5%;
-	margin-left: 5%;
-	position:relative;
-}
-.content-movie-preview{
-	background-image:url(../images/loading.png);
+	background-image:url(../images/big_frame.png);
 	background-repeat:no-repeat;
 	background-size:100%;
 	width: 90%;
@@ -887,7 +878,7 @@ padding:5% 5%;
     line-height: 125%;
     padding-bottom: 2%;
     }
-.preview_instruction{
+.preview-instruction{
     margin-top: 5%;
     margin-left: 5%;
     width: 90%;
@@ -1073,7 +1064,9 @@ hr{
 	width: 75%;
     top:11%;
     bottom:21%;
-    padding:5%;
+    padding-top: 5%;
+    padding-left: 8%;
+    padding-right: 3.5%;
 }
 .setting-headline{
 	text-shadow: none;
