@@ -52,46 +52,48 @@ FmMobile.myUgcPg = {
                     
                 });
          });
+        if(FmMobile.checkNetwork()){
         
-        //(the code originally in init() )
-        var url = starServerURL + "/miix/members/" + localStorage._id + "/ugcs";
-        //    FmMobile.myUgcPg.myContents = new Array();
-        if(FmMobile.myUgcPg.Type == "live"){
-            FmMobile.myUgcPg.Type = "";
-            $("#btnLiveMovie >img").attr({src: "images/tab_live_active.png"});
-            $("#btnMiixMovie >img").attr({src: "images/tab_ugc.png"});
-//            FmMobile.myUgcPg.Type = "content";
-            FmMobile.myUgcPg.loadLiveContents(FmMobile.myUgcPg.myLiveContents);
-            
-        }else{
-            FmMobile.myUgcPg.myContents = [];
-            
-            $.ajax({
-                   url: url,
-                   dataType: 'json',
-                   success: function(response){
-                                   if(response){
-                                       $.each(response, function(i, item){
-                                              var data ={
-                                                  ProjectId: item.projectId,
-                                                  Genre: item.genre,
-                                                  Url : item.url,
-                                                  PreviewUrl: item.doohPreviewUrl,
-                                                  No: item.no,
-                                              };
-                                              FmMobile.myUgcPg.myContents.push(data);
-                                      });
-                                        FmMobile.myUgcPg.Type = "content";
-                                       FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myContents);
-                                   }else{
-                                       console.log("[error] : " + response.error);
-                                   }
-                           }
-                });
-            
-            
+            //(the code originally in init() )
+            var url = starServerURL + "/miix/members/" + localStorage._id + "/ugcs";
+            //    FmMobile.myUgcPg.myContents = new Array();
+            if(FmMobile.myUgcPg.Type == "live"){
+                FmMobile.myUgcPg.Type = "";
+                $("#btnLiveMovie >img").attr({src: "images/tab_live_active.png"});
+                $("#btnMiixMovie >img").attr({src: "images/tab_ugc.png"});
+    //            FmMobile.myUgcPg.Type = "content";
+                FmMobile.myUgcPg.loadLiveContents(FmMobile.myUgcPg.myLiveContents);
+                
+            }else{
+                FmMobile.myUgcPg.myContents = [];
+                
+                $.ajax({
+                       url: url,
+                       dataType: 'json',
+                       success: function(response){
+                                       if(response){
+                                           $.each(response, function(i, item){
+                                                  var data ={
+                                                      ProjectId: item.projectId,
+                                                      Genre: item.genre,
+                                                      Url : item.url,
+                                                      PreviewUrl: item.doohPreviewUrl,
+                                                      No: item.no,
+                                                  };
+                                                  FmMobile.myUgcPg.myContents.push(data);
+                                          });
+                                            FmMobile.myUgcPg.Type = "content";
+                                           FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myContents);
+                                       }else{
+                                           console.log("[error] : " + response.error);
+                                       }
+                               }
+                    });
+                
+                
+            }
+            FmMobile.dummyDiv();
         }
-        FmMobile.dummyDiv();
 
 
         

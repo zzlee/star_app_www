@@ -46,15 +46,18 @@ init: function(){
         }
     
             $('#go_preview').click(function(){
-                FmMobile.userContent.text=$('#ur_text').val();
-                if(FmMobile.shareFbType=="video"){
-                    FmMobile.authPopup.postFbVideoMessage();
-                }else if(FmMobile.shareFbType=="image"){
-                   FmMobile.authPopup.postFbMessage();
+                if(FmMobile.checkNetwork()){
+                    FmMobile.userContent.text=$('#ur_text').val();
+                                       
+                    if(FmMobile.shareFbType=="video"){
+                        FmMobile.authPopup.postFbVideoMessage();
+                    }else if(FmMobile.shareFbType=="image"){
+                        FmMobile.authPopup.postFbMessage();
                                
-               }
-            
-                $.mobile.changePage('my_ugc.html');
+                    }
+                
+                    $.mobile.changePage('my_ugc.html');
+                }
             });
     
         $("#back_setting").click(function(){
