@@ -42,7 +42,7 @@ ImageUgc = (function(){
                 ugcProjectId = mainTemplateId +'-'+ ugcInfo.ownerId._id +'-'+ (new Date()).toISOString().replace(/[-:.]/g, "");
                 var reultURI = ugcCanvas.toDataURL('image/png').replace('image/octet-stream');
                 var doohPreviewResultURI = doohPreview.getPreviewImageUrl().replace('image/octet-stream');
-                
+
                 async.series([
                     function(callback){
                         //upload original image user content file to server if there is one

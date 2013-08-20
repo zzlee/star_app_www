@@ -100,9 +100,10 @@ TemplateMgr = (function(){
         };
 		
 		TemplateGroup.prototype.load = function(cbOfLoad){
-			var templateList = null;
+//			var templateList = null;
+            var templateList = [];
 			var _this = this;
-			async.series([
+			async.waterfall([
 				function(cb1_series){
                     //read template_list.json
 					var settings = {

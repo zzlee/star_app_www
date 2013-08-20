@@ -256,7 +256,7 @@ FmMobile.init = {
 onBodyLoad: function(){
     
     FM_LOG("[Init.onDeviceReady]");
-    
+
     document.addEventListener("deviceready", FmMobile.analysis.init, true);
     document.addEventListener("deviceready", FmMobile.gcm.init, true);
     document.addEventListener("deviceready", FmMobile.apn.init, true);
@@ -310,10 +310,12 @@ onBodyLoad: function(){
      $.jStorage.set("fb_profile", metadata);*/
     
 },
+
     
 onResume: function(){
     FM_LOG("[Init.onResume]");
-    if(localStorage.fb_userID){
+//    FmMobile.checkNetwork();
+    if(localStorage.fb_userID && FmMobile.checkNetwork()){
 //      FmMobile.ajaxNewVideos();
 //      FmMobile.ajaxNewStoryVideos();
 //    	FmMobile.ajaxContents();
@@ -338,33 +340,35 @@ onPause: function(){
     }
 },
     
-isFBTokenValid: function(){
-    if(!localStorage.fb_userID)
-        return;
-    
-    var url = remotesite + "/members/fb_token_validity";
-    var data = {
-        "_id": localStorage._id,
-        "fb_id": localStorage.fb_userID,
-        "timestamp": Date.now(),
-    };
-    
-    
-    $.get(url, data, function(response){
-          if(response.error){
-          console.log("[isFBTokenValid] error: " + JSON.stringify(response.error) );
-          
-          }else{
-          console.log("[isFBTokenValid] " + response.message);
-          
-          // Force logout to gain valid user access_token if invalid.
-          if(response.message !== true){
-          FmMobile.authPopup.FBLogout();
-          }
-          }
-          });
-    
-},
+    isFBTokenValid: function(){
+        if(FmMobile.checkNetwork()){
+            if(!localStorage.fb_userID)
+                return;
+            
+            var url = remotesite + "/members/fb_token_validity";
+            var data = {
+                "_id": localStorage._id,
+                "fb_id": localStorage.fb_userID,
+                "timestamp": Date.now(),
+            };
+            
+            
+            $.get(url, data, function(response){
+                  if(response.error){
+                      console.log("[isFBTokenValid] error: " + JSON.stringify(response.error) );
+                  
+                  }else{
+                      console.log("[isFBTokenValid] " + response.message);
+                  
+                      // Force logout to gain valid user access_token if invalid.
+                      if(response.message !== true){
+                          FmMobile.authPopup.FBLogout();
+                      }
+                  }
+            });
+        }
+        
+    },
 };
 
 //deprecated
@@ -714,6 +718,31 @@ FmMobile.gcm = {
 		},	
 };
 
+/** Check network status */
+FmMobile.checkNetwork = function(){
+    FM_LOG("[checkNetwork]");
+    var connectionType = navigator.connection.type;
+    FM_LOG("[checkNetwork]Network Status : " + connectionType);
+    var connectServerStatus = false;
+    $.ajax({
+           url: remotesite + "/connectStarServer",
+           dataType: 'json',
+           success: function(response){
+               if(response == 200)
+                   connectServerStatus = true;
+               
+           }
+    });
+    if((connectionType == "none") && (!connectServerStatus)){
+        FmMobile.showNotification("enableNetwork");
+        return false;
+    }else{
+        return true;
+    }
+    
+
+
+};
 
 /** Apple Push Notification */
 FmMobile.apn = {
@@ -910,7 +939,7 @@ fbStatusPolling: function(){ //DEPRECATED - used in early implementation to hand
     
 init: function(){
     FM_LOG("[authPopup Init]");
-    
+    if(FmMobile.checkNetwork()){
     //miixcard metadata
     var client_id = "430008873778732";
     //var redir_url = ["http://www.miix.tv/welcome.html", "https://www.miix.tv/welcome.html"];
@@ -925,6 +954,7 @@ init: function(){
     var fb = FBConnect.install();
     fb.connect(client_id, redir_url[0], "touch");
     fb.onConnect = FmMobile.authPopup.onFBConnected;
+    }
 },
     
     onFBConnected: function(){
@@ -1038,6 +1068,7 @@ postFbMessage:function(){
     };
     $.post(url,params, function(response){
            //alert("已打卡！！");
+           FmMobile.showNotification("share");
            var ugcProjectId=FmMobile.shareProjectID;
            
            $.ajax( starServerURL+"/miix/fb_ugcs/"+ugcProjectId, {
@@ -1072,8 +1103,9 @@ postFbVideoMessage:function(){
         
     };
     $.post(url,params, function(response){
-           //alert("已打卡！！");
-           
+//           alert("已打卡！！");
+           FmMobile.showNotification("share");
+
            var ugcProjectId=FmMobile.shareProjectID;
            
            $.ajax( starServerURL+"/miix/fb_ugcs/"+ugcProjectId, {
@@ -1108,7 +1140,8 @@ postCheckinMessage:function(){
         
     };
     $.post(url,params, function(response){
-           //alert("已打卡！！");
+//           alert("已打卡！！");
+           FmMobile.showNotification("checkIn");
            var ugcProjectId=FmMobile.shareProjectID;
            
            $.ajax( starServerURL+"/miix/fb_ugcs/"+ugcProjectId, {
@@ -1241,12 +1274,21 @@ FmMobile.showNotification = function(fun){
         case "wrongPlace":
             navigator.notification.confirm("其實你不在小巨蛋對吧...\n臺北市松山區南京東路4段2號\n歡迎來打卡！", FmMobile.Confirm(), appName, "確定");
             break;
-            
         case "inAreaTextOver":
             navigator.notification.confirm("超過三行囉！第四行在天幕上看不到啦！", FmMobile.Confirm(), appName, "確定");
             break;
-
-            
+        case "enableNetwork":
+            navigator.notification.confirm("本服務必須連接網路，請檢查您的網路環境。", FmMobile.Confirm(), appName, "確定");
+            break;
+        case "uploadFailed":
+            navigator.notification.confirm("投件失敗，請重新再試。", FmMobile.Confirm(), appName, "確定");
+            break;
+        case "share":
+            navigator.notification.confirm("分享成功！", FmMobile.Confirm(), appName, "確定");
+            break;
+        case "checkIn":
+            navigator.notification.confirm("已成功在小巨蛋打卡！", FmMobile.Confirm(), appName, "確定");
+            break;
         default:
             console.log("ShowNotification is not worked");
     }
@@ -1255,8 +1297,9 @@ FmMobile.showNotification = function(fun){
 
 //Open external website
 FmMobile.openBrowser = function(url){
-    window.plugins.childBrowser.showWebPage(url);
-    
+    if(FmMobile.checkNetwork()){
+        window.plugins.childBrowser.showWebPage(url);
+    }
 };
 
 //Set a dive under the Page
