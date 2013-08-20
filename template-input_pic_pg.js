@@ -6,6 +6,7 @@ FmMobile.template_pic_pg = {
     show: function(){
         FmMobile.analysis.trackPage("/template_pic_pg");
         recordUserAction("enters template_pic_pg");
+        FmMobile.dummyDiv();
     },
     
     load: function(event, data){

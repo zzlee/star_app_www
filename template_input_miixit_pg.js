@@ -6,6 +6,7 @@ PAGE_ID: "template_input_miixit",
 show: function(){
     FmMobile.analysis.trackPage("/template_input_miixit");
     recordUserAction("enters template_input_miixit");
+    FmMobile.dummyDiv();
 },
     
 load: function(event, data){

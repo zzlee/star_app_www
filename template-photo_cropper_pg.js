@@ -273,5 +273,7 @@ FmMobile.photoCropperPg = {
 
         FmMobile.analysis.trackPage("/photoCropperPg");
         recordUserAction("enters photoCropperPg");
+        FmMobile.dummyDiv();
     }
+   
 }

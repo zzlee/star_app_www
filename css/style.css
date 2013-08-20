@@ -155,10 +155,9 @@ div[data-role=page] {
 	width: 100%;
 	padding: 0px;
 	min-height: 72.84%;
-    padding-bottom: 37%;
     z-index: 0;
     display:block !improtant;
-    overflow: visible;
+    overflow: auto;
 }
 .container_withheader{
 	background-size:100% 100%;
@@ -167,7 +166,6 @@ div[data-role=page] {
 	width: 100%;
 	padding: 0px;
 	min-height: 72.84%;
-    padding-bottom: 37%;
     z-index: 0;
     display:block !improtant;
 }
@@ -246,6 +244,7 @@ div[data-role=page] {
 	background-image: url(../images/navbar_bg.png);
 	background-size: 100% 100%;
 }
+
 .ui-menu-active {
 	width: 24.7%;
 	height: 100%;
@@ -850,6 +849,17 @@ padding:5% 5%;
     line-height: 125%;
     padding-bottom: 2%;
     }
+.preview_instruction{
+    margin-top: 5%;
+    margin-left: 5%;
+    width: 90%;
+    font-size: 100%;
+    font-family: "kaiu";
+    text-shadow: none;
+    color:#dcd586;
+    line-height: 125%;
+    padding-bottom: 2%;
+}
 
 /* Booking------------------------------------------------------------*/
 
@@ -1070,6 +1080,8 @@ hr{
 	font-family:"kaiu";
 	color: #dcd586;
     list-style-type:none;
+    margin: 0;
+    padding-left: 10%;
 }
 
     
