@@ -58,7 +58,7 @@ FmMobile.myUgcPg = {
             var url = starServerURL + "/miix/members/" + localStorage._id + "/ugcs";
             //    FmMobile.myUgcPg.myContents = new Array();
             if(FmMobile.myUgcPg.Type == "live"){
-                FmMobile.myUgcPg.Type = "";
+//                FmMobile.myUgcPg.Type = "";
                 $("#btnLiveMovie >img").attr({src: "images/tab_live_active.png"});
                 $("#btnMiixMovie >img").attr({src: "images/tab_ugc.png"});
     //            FmMobile.myUgcPg.Type = "content";
@@ -201,7 +201,6 @@ FmMobile.myUgcPg = {
             }else{
                 Thumbnail = $("<img>").attr({
                                               id: 'imgError_' + i,
-                                              src: "images/waiting.png",
                                               class: "content-movie-img"
                                               });
                 Thumbnail.appendTo(widget);
