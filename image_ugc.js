@@ -216,7 +216,7 @@ ImageUgc = (function(){
                     }
                     else if (aCustomizableObject.type == "thumbnail"){
                         imageUrl = userContent.thumbnail.url;
-                        ugcUtility.drawChineseText( context, localStorage.fb_name, aCustomizableObject.fb_x, aCustomizableObject.fb_y, aCustomizableObject.width, aCustomizableObject.lineHeight, aCustomizableObject.fb_angle,aCustomizableObject.fb_color);
+                        ugcUtility.drawFbNameText( context, localStorage.fb_name, aCustomizableObject.fb_x, aCustomizableObject.fb_y, aCustomizableObject.fbNameWidth, aCustomizableObject.lineHeight, aCustomizableObject.fb_angle,aCustomizableObject.fb_color);
                         ugcUtility.drawImage( context, imageUrl, aCustomizableObject.x, aCustomizableObject.y, aCustomizableObject.width, aCustomizableObject.height, aCustomizableObject.angle, function(errOfDrawImage){
                             if(aCustomizableObject.x2){
                                 ugcUtility.drawImage(context, imageUrl, aCustomizableObject.x2, aCustomizableObject.y2, aCustomizableObject.width, aCustomizableObject.height, aCustomizableObject.angle, function(errOfDrawImage){

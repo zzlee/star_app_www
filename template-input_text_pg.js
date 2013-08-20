@@ -74,13 +74,21 @@ init: function(){
                        textForUgcUtility= $("#ur_text").val().replace(/\n/g,"<n>");
                        FmMobile.userContent.text=textForUgcUtility;
                        });
-/*
+
     
     $("#ur_text").keyup(function(){
-                        textForUgcUtility= $("#ur_text").val().replace(/\n/g,"<n>");
-                        FmMobile.userContent.text=textForUgcUtility;
+                        var moreLineInBox=$("#ur_text").val();
+                        moreLineInBox=$("#ur_text").val().replace(/\n/g,"<n>");
+                        var moreLineInBox_2=moreLineInBox.split("<n>");
+                           if(moreLineInBox_2.length>3){
+                        
+                        FmMobile.showNotification("inAreaTextOver");
+                                //alert("小巨蛋電視牆沒那麼高喔...");
+                                $("#ur_text").val(moreLineInBox_2[0]+"\n"+moreLineInBox_2[1]+"\n"+moreLineInBox_2[2]);
+                                return false;
+                        }
                         });
-*/
+
     /*
   var text_limit=39;
     $("#ur_text").focusout(function(){

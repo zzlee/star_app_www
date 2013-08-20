@@ -89,9 +89,8 @@ $(document).bind("mobileinit", function(){
                  
                  $("a").live("click", function(event){
                     event.preventDefault();
-                             
-                    var url = document.getElementsByTagName("a")[0].getAttribute("href");
-                    if(url != "#"){
+                    var url = document.getElementsByTagName("a")[0].getAttribute("url");
+                    if(url != null){
                         FmMobile.openBrowser(url);
                     }
                 });
@@ -989,16 +988,7 @@ init: function(){
         if(localStorage.email) delete localStorage.email;
         
         
-        /* -------------  判斷templete instruction 是否已看過 ------------  */
-        for(var i=0;i<templateMgr.getTemplateList().length;i++){
-            var temp=templateMgr.getTemplateList()[i].id;
-            
-            if(localStorage[temp]== 'hasReadHint'){
-                localStorage[temp]='unReadHint';
-            }
-            
-        }
-        /*-------------------------------------*/
+      
         
         
         
@@ -1042,7 +1032,7 @@ postFbMessage:function(){
     
     };
     $.post(url,params, function(response){
-           alert("已打卡！！");
+           //alert("已打卡！！");
            var ugcProjectId=FmMobile.shareProjectID;
            
            $.ajax( starServerURL+"/miix/fb_ugcs/"+ugcProjectId, {
@@ -1077,7 +1067,7 @@ postFbVideoMessage:function(){
         
     };
     $.post(url,params, function(response){
-           alert("已打卡！！");
+           //alert("已打卡！！");
            
            var ugcProjectId=FmMobile.shareProjectID;
            
@@ -1113,7 +1103,7 @@ postCheckinMessage:function(){
         
     };
     $.post(url,params, function(response){
-           alert("已打卡！！");
+           //alert("已打卡！！");
            var ugcProjectId=FmMobile.shareProjectID;
            
            $.ajax( starServerURL+"/miix/fb_ugcs/"+ugcProjectId, {
@@ -1245,6 +1235,10 @@ FmMobile.showNotification = function(fun){
             break;
         case "wrongPlace":
             navigator.notification.confirm("其實你不在小巨蛋對吧...\n臺北市松山區南京東路4段2號\n歡迎來打卡！", FmMobile.Confirm(), appName, "確定");
+            break;
+            
+        case "inAreaTextOver":
+            navigator.notification.confirm("超過三行囉！第四行在天幕上看不到啦！", FmMobile.Confirm(), appName, "確定");
             break;
 
             

@@ -1,6 +1,9 @@
 var ugcUtility = {};
 
-ugcUtility.drawChineseText = function(context, text, x, y, maxWidth, lineHeight, angle, fontColor, font) {
+
+
+
+ugcUtility.drawFbNameText = function(context, text, x, y, maxWidth, lineHeight, angle, fontColor, font) {
     x = Number(x);
     y = Number(y);
     maxWidth = Number(maxWidth);
@@ -16,10 +19,54 @@ ugcUtility.drawChineseText = function(context, text, x, y, maxWidth, lineHeight,
     context.translate(x,y);
     context.rotate(angle*Math.PI/180);
     if (font){
+        context.font = font;
+    }
+    else {
+        context.font = '36px è¯åº·æ­é™½è©¢é«”W5';
+    }
+    
+    for(var n = 0; n < words.length; n++) {
+        var testLine = line + words[n];
+        var metrics = context.measureText(testLine);
+        var testWidth = metrics.width;
+        
+        if (testWidth > maxWidth && n > 0) {
+            context.fillText(line, cursorX, cursorY);
+            line = words[n];
+            cursorY += lineHeight;
+        }
+        else {
+            line = testLine;
+        }
+        context.fillStyle = fontColor;
+        
+    }
+    context.fillText(line, cursorX, cursorY);
+    
+    context.restore();
+};
+
+ugcUtility.drawChineseText = function(context, text, x, y, maxWidth, lineHeight, angle, fontColor, font) {
+    x = Number(x);
+    y = Number(y);
+    maxWidth = Number(maxWidth);
+    lineHeight = Number(lineHeight);
+    angle = Number(angle);
+    
+    var cursorX = 0;
+    var cursorY = 0;
+    var words = text; //In Chinese, a character is a word..
+    var line = '';
+    
+    context.save();
+    context.translate(x,y);
+    context.rotate(angle*Math.PI/180);
+    if (font){
         context.font = font; 
     }
     else {
-        context.font = '36px 華康歐陽詢體W5';
+       context.font = '36px JT1-47U';
+        // context.font = '36px 華康歐陽詢體W5';
     }
     
     for(var n = 0; n < words.length; n++) {
@@ -28,7 +75,7 @@ ugcUtility.drawChineseText = function(context, text, x, y, maxWidth, lineHeight,
         var testWidth = metrics.width;
         
         
-        if(FmMobile.selectedTemplate=="check_in"){
+        if(FmMobile.selectedTemplate=="check_idn"){
             if (testWidth > maxWidth && n > 0) {
                 context.fillText(line, cursorX, cursorY);
                 line = words[n];

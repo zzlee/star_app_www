@@ -41,32 +41,38 @@ FmMobile.photoCropperPg = {
 
     //  Page methods.
     load : function(event, data) {
-
+        FM_LOG("[photoCropperPg]load");
+        console.dir(event);
+        console.dir(data);
         $("#nav-bar").show();
 
-        if (FmMobile.selectedTemplate == 'miix_it') {
 
-            $("#submitPhotoBtn2").click(function() {
-                FmMobile.userContent.picture.urlOfOriginal = fileSelectedURI;
-                FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
-                $.mobile.changePage("template-preview.html");
-            });
-
-        } else {
-            $("#submitPhotoBtn2").click(function() {
-
-                FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
-                $.mobile.changePage("template-preview.html");
-            });
-
-        }
         
-        var onSubmitBtnClick = function() {
-            FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
-            FmMobile.analysis.trackEvent("Button", "Click", "Submit", 24);
-        };
 
-        $('#submitPhotoBtn').click(onSubmitBtnClick);
+
+//        if (FmMobile.selectedTemplate == 'miix_it') {
+//
+//            $("#submitBtn").click(function() {
+//                FmMobile.userContent.picture.urlOfOriginal = fileSelectedURI;
+//                FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
+//                $.mobile.changePage("template-preview.html");
+//            });
+//
+//        } else {
+//            $("#submitBtn").click(function() {
+//
+//                FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
+//                $.mobile.changePage("template-preview.html");
+//            });
+//
+//        }
+        //Deprecated
+//        var onSubmitBtnClick = function() {
+//            FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
+//            FmMobile.analysis.trackEvent("Button", "Click", "Submit", 24);
+//        };
+//
+//        $('#submitPhotoBtn').click(onSubmitBtnClick);
         $('#cancelBtn').click(function() {
 
             if (FmMobile.selectedSubTemplate == "picture_only") {
@@ -80,9 +86,28 @@ FmMobile.photoCropperPg = {
           }
         });
 
+        //Rewrite #submitBtn click function
+        $('#submitBtn').click(function() {
+                              console.log("click");
+                              if (FmMobile.selectedTemplate == 'miix_it') {
+                              FmMobile.userContent.picture.urlOfOriginal = fileSelectedURI;
+                              FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
+                              
+                              }else{
+                              FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
+                              //                $.mobile.changePage("template-preview.html");
+                              }
+                              $.mobile.changePage("template-preview.html");
+                              });
+    },
+    
+    clickEvent: function(){
+        FM_LOG("[photoCropperPg]clickEvent");
+        
     },
 
     show : function(event, data) {
+        FM_LOG("[photoCropperPg]show");
         FmMobile.userContent.picture.urlOfOriginal = fileSelectedURI;
 
         //JF - image initial
@@ -91,15 +116,16 @@ FmMobile.photoCropperPg = {
         image = new Image();
 
         var change_css = ($('.movie-pic-dummy').width()) * 0.95;
+        
         $('.content-movie-img').css({
             'width' : change_css,
         });
 
         //canvas.width = screen.availWidth;
         canvas.width = $('.movie-pic-dummy').width();
-        canvas.height = canvas.width
-                / customizableObjectDimensions[fileObjectID].width
-                * customizableObjectDimensions[fileObjectID].height;
+        //canvas.height=image.height;
+        canvas.height=$('.movie-pic-dummy').width()/767*450;
+       // canvas.height = canvas.width/ customizableObjectDimensions[fileObjectID].width* customizableObjectDimensions[fileObjectID].height;
 
         image.onload = function() {
 

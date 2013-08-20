@@ -110,7 +110,7 @@ FmMobile.template_checkinPg = {
                                    //alert("你不在附近...");
                                    return false;
                                    }
-            var finalTextOfCheckin=$('#checkin_text_1').val()+"\n路經貴寶地\n"+$('#checkin_text_2').val();
+            var finalTextOfCheckin=$('#checkin_text_1').val()+"<n>路經貴寶地<n>"+$('#checkin_text_2').val();
                                 //   alert(finalTextOfCheckin);
       FmMobile.selectedSubTemplate=templateMgr.getSubTemplateList("check_in")[0].id;
                                    FmMobile.userContent.text=finalTextOfCheckin;

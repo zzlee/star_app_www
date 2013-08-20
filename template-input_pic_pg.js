@@ -15,13 +15,14 @@ FmMobile.template_pic_pg = {
         //FmMobile.bindClickEventToNavBar();
         
         $("#nav-bar").show();
+        /*
         if ( localStorage._id ) {
             userName = localStorage._id;
         }
         else {
             userName = "anonymous";
         }
-        
+        */
         
        // if(FmMobile.selectedTemplate=="cultural_and_creative"){
             
@@ -48,16 +49,16 @@ FmMobile.template_pic_pg = {
         
         var url = $(this).data('url');
         //var templateID = url.split("=")[1];
-        var templateID = "greeting";
+       // var templateID = "greeting";
         //var templateID = "miixcard";
         //var templateID = "rotate";
-        projectID = templateID +'-'+ userName +'-'+ (new Date()).toISOString().replace(/[-:.]/g, "");
-        customizedContent.projectID = projectID;
-        customizedContent.templateID = templateID;
-        customizedContent.userName = userName;
+        //projectID = templateID +'-'+ userName +'-'+ (new Date()).toISOString().replace(/[-:.]/g, "");
+        //customizedContent.projectID = projectID;
+        //customizedContent.templateID = templateID;
+        //customizedContent.userName = userName;
         //customizedContent.ownerID = {_id: localStorage._id, fb_userID: localStorage.fb_userID, fb_name: localStorage.fb_name};
-        customizedContent.ownerID = localStorage._id;
-        customizedContent.ownerFbUserID = localStorage.fb_userID;
+        //customizedContent.ownerID = localStorage._id;
+        //customizedContent.ownerFbUserID = localStorage.fb_userID;
         
         
         var itemContentIsReady;
@@ -130,7 +131,7 @@ FmMobile.template_pic_pg = {
             
             
         }
-        
+        /*
         var getCustomizableObject_cb = function(xmlDoc) {
             var customizableObjectsXml = xmlDoc.getElementsByTagName("customizable_object");
             
@@ -157,16 +158,22 @@ FmMobile.template_pic_pg = {
                 customizableObjects[i].format = objFormat;
             }
         }
+        */
+        
+        
+        $('#btnUseCamera').bind( "click", {PhotoSource: "camera" }, buttonClick_cb);
+        $('#btnUseAlbum').bind( "click", {  PhotoSource: "album" }, buttonClick_cb);
         
         
         //console.log('enter movieCreatePg');
         
-        
+        /*
         $.ajax({
                url: './template/'+templateID+'/template_customizable_object_list.xml',
                dataType: 'xml',
                success: getCustomizableObject_cb		
                });
+         */
         
         /*
          var btnSubmit1Click_cb = function () {

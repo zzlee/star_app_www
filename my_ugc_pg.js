@@ -247,7 +247,7 @@ FmMobile.myUgcPg = {
             
             //Set Preview
             if(typeof(arryContents[i].PreviewUrl) != "undefined"){
-                widgetPreview = $("<div>").attr({id: "preview_" + projectId, class: "content-movie"});
+                widgetPreview = $("<div>").attr({id: "preview_" + projectId, class: "content-movie-preview"});
                 dummyDivPreview.appendTo(widgetPreview);
                 var previewUrl = arryContents[i].PreviewUrl;
                 Thumbnail = $("<img>").attr({
@@ -275,11 +275,10 @@ FmMobile.myUgcPg = {
                 infoPreview.appendTo(widgetPreview);
                 widgetPreview.appendTo(parent);
             }else{
-                widgetPreview = $("<div>").attr({id: "previewError_" + i, class: "content-movie"});
+                widgetPreview = $("<div>").attr({id: "previewError_" + i, class: "content-movie-preview"});
                 dummyDivPreview.appendTo(widgetPreview);
                 Thumbnail = $("<img>").attr({
                                                         id: 'imgPreviewError_' + i,
-                                                        src: "images/waiting.png",
                                                         class: "content-movie-img"
                                                         });
                 Thumbnail.appendTo(widgetPreview);
