@@ -477,7 +477,7 @@ padding:5% 5%;
 	position:relative;
 }
 .content-movie{
-	background-image:url(../images/big_frame.png);
+	background-image:url(../images/loading.png);
 	background-repeat:no-repeat;
 	background-size:100%;
 	width: 90%;
