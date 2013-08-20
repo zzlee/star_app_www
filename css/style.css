@@ -1035,7 +1035,9 @@ hr{
 	width: 75%;
     top:11%;
     bottom:21%;
-    padding:5%;
+    padding-top: 5%;
+    padding-left: 8%;
+    padding-right: 3.5%;
 }
 .setting-headline{
 	text-shadow: none;
