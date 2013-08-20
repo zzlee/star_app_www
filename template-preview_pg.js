@@ -11,10 +11,15 @@ FmMobile.template_previewPg = {
         
         
         
-        /*  點下去跳到full screen  */
+                /*  點下去跳到full screen  */
+        $(".content-movie").bind('click',function(){
+                                 $.mobile.changePage("fullPageViewer.html");
+                                 });
+        /*
         $(".content-movie").click(function(){
-           $.mobile.changePage("fullPageViewer.html");
+                       $.mobile.changePage("fullPageViewer.html");
         });
+         */
         /* ends of 點下去跳到full screen */
         
         /* 判斷按上一步要回哪一頁 */
@@ -67,32 +72,38 @@ FmMobile.template_previewPg = {
             });
 
             $('#btnTest').click(
-                    function() {
-                        $.mobile.showPageLoadingMsg();
-                        var mainTemplate = FmMobile.selectedTemplate;
-                        var ownerId = localStorage._id; 
-                        var ownerFbUserId = localStorage.fb_userID; 
-                        var ugcInfo = {
-                            ownerId : {
-                                _id : ownerId,
-                                fbUserId : ownerFbUserId
-                            },
-                            title : "My Miix move!!"
-                        };
-
-                        videoUgc.askServerToGenerate(FmMobile.userContent,
-                                ugcInfo, function(err) {
-//                                    console.log("err=" + err);
-                                    if (!err) {
-                                        // alert("success!");
-                                        FM_LOG("[templatePreview]Video uploads successfully.");
-                                        FmMobile.showNotification("uploadUgc");
-                                    }
-                                    $.mobile.hidePageLoadingMsg();
-                                    FmMobile.myUgcPg.Type = "content";
-                                    $.mobile.changePage("my_ugc.html");
+                                function(){
+                                $('#clickImgEffect').hide("normal");
+                                $(".content-movie").unbind("click");
+                                $('#afterClickBack').hide("normal");
+                                $('#afterClickSent').hide("normal",function() {
+                                                          $.mobile.showPageLoadingMsg();
+                                                          var mainTemplate = FmMobile.selectedTemplate;
+                                                          var ownerId = localStorage._id;
+                                                          var ownerFbUserId = localStorage.fb_userID;
+                                                          var ugcInfo = {
+                                                          ownerId : {
+                                                          _id : ownerId,
+                                                          fbUserId : ownerFbUserId
+                                                          },
+                                                          title : "My Miix move!!"
+                                                          };
+                                                          
+                                                          videoUgc.askServerToGenerate(FmMobile.userContent,
+                                                                                       ugcInfo, function(err) {
+                                                                                       //                                    console.log("err=" + err);
+                                                                                       if (!err) {
+                                                                                       // alert("success!");
+                                                                                       FM_LOG("[templatePreview]Video uploads successfully.");
+                                                                                       FmMobile.showNotification("uploadUgc");
+                                                                                       }
+                                                                                       $.mobile.hidePageLoadingMsg();
+                                                                                       FmMobile.myUgcPg.Type = "content";
+                                                                                       $.mobile.changePage("my_ugc.html");
+                                                                                       });
+                                                          });
+                                
                                 });
-                    });
 
         }else if(FmMobile.selectedTemplate == 'check_in'){
             var imageUgc;
@@ -103,103 +114,114 @@ FmMobile.template_previewPg = {
                     FmMobile.imgForFullPageViewer=imageUgc.getDoohPreviewImageUrl();
 
                     $("#show").attr("src", imageUgc.getDoohPreviewImageUrl());
+                                 
                 }else {
                     console.log(err);
                 }
             });
             
-            $('#btnTest').click(function() {
-                $.mobile.showPageLoadingMsg();
-                var mainTemplate = FmMobile.selectedTemplate;
-                var ownerId = localStorage._id;
-                var ownerFbUserId = localStorage.fb_userID;
-                var ugcInfo = {
-                        ownerId : {
-                            _id : ownerId,
-                            fbUserId : ownerFbUserId
-                        },
-                        contentGenre : mainTemplate,
-                        title : "today's mood"
-                    };
-                                
-                imageUgc.uploadToServer(ugcInfo,function(err) {
-                    if (!err) {
-                        if(FmMobile.selectedTemplate=="check_in"){
-                            var url = starServerURL + "/miix/members/" + localStorage._id + "/ugcs";
-                        
-                            $.ajax({
-                                   url: url,
-                                   dataType: 'json',
-                                   success: function(response){
-                                       if(response){
-                                            console.log(response[0].url.s3);
-                                            FmMobile.check_in_pic=response[0].url.s3;
-                                            FmMobile.shareProjectID= response[0].projectId;
-                                            FmMobile.authPopup.postCheckinMessage();
-                   
-                                       }else{
-                                            console.log("[error] : " + response.error);
-                                   }
-                               }
-                           });
-                        
-
-                        }//End of if
-                        FM_LOG("[templatePreview]Image uploads successfully.");
-                        FmMobile.showNotification("uploadUgc");
-        
-                    }//End of if(!err)
-                    $.mobile.hidePageLoadingMsg();
-                    FmMobile.myUgcPg.Type = "content";
-                    $.mobile.changePage("my_ugc.html");
-                });
-                                
-            });
-        }
-        else {
+            $('#btnTest').click(function(){
+                                $('#clickImgEffect').hide("normal");
+                                $(".content-movie").unbind("click");
+                                $('#afterClickBack').hide("normal");
+                                $('#afterClickSent').hide("normal",function() {
+                                                          $.mobile.showPageLoadingMsg();
+                                                          var mainTemplate = FmMobile.selectedTemplate;
+                                                          var ownerId = localStorage._id;
+                                                          var ownerFbUserId = localStorage.fb_userID;
+                                                          var ugcInfo = {
+                                                          ownerId : {
+                                                          _id : ownerId,
+                                                          fbUserId : ownerFbUserId
+                                                          },
+                                                          contentGenre : mainTemplate,
+                                                          title : "today's mood"
+                                                          };
+                                                          
+                                                          imageUgc.uploadToServer(ugcInfo,function(err) {
+                                                                                  if (!err) {
+                                                                                  if(FmMobile.selectedTemplate=="check_in"){
+                                                                                  var url = starServerURL + "/miix/members/" + localStorage._id + "/ugcs";
+                                                                                  
+                                                                                  $.ajax({
+                                                                                         url: url,
+                                                                                         dataType: 'json',
+                                                                                         success: function(response){
+                                                                                         if(response){
+                                                                                         console.log(response[0].url.s3);
+                                                                                         FmMobile.check_in_pic=response[0].url.s3;
+                                                                                         FmMobile.shareProjectID= response[0].projectId;
+                                                                                         FmMobile.authPopup.postCheckinMessage();
+                                                                                         
+                                                                                         }else{
+                                                                                         console.log("[error] : " + response.error);
+                                                                                         }
+                                                                                         }
+                                                                                         });
+                                                                                  
+                                                                                  
+                                                                                  }//End of if
+                                                                                  FM_LOG("[templatePreview]Image uploads successfully.");
+                                                                                  FmMobile.showNotification("uploadUgc");
+                                                                                  
+                                                                                  }//End of if(!err)
+                                                                                  $.mobile.hidePageLoadingMsg();
+                                                                                  FmMobile.myUgcPg.Type = "content";
+                                                                                  $.mobile.changePage("my_ugc.html");
+                                                                                  });
+                                                          
+                                                          });
+                                });
+        }else {
             var imageUgc;
-            $.mobile.showPageLoadingMsg();
             ImageUgc.getInstance(FmMobile.selectedTemplate, FmMobile.selectedSubTemplate, FmMobile.userContent, function(err, _imageUgc) {
-                $.mobile.hidePageLoadingMsg();
                 if (!err) {
                     imageUgc = _imageUgc;
                     FmMobile.viewerBackFlag='backPreview';
                     FmMobile.imgForFullPageViewer=imageUgc.getDoohPreviewImageUrl();
                     $("#show").attr("src", imageUgc.getDoohPreviewImageUrl());
-                    
-                    $('#btnTest').click(function() {
-                        $.mobile.showPageLoadingMsg();
-                        var mainTemplate = FmMobile.selectedTemplate;
-                        var ownerId = localStorage._id; 
-                        var ownerFbUserId = localStorage.fb_userID; 
-                        
-                        var ugcInfo = {
-                            ownerId : {
-                                _id : ownerId,
-                                fbUserId : ownerFbUserId
-                            },
-                            contentGenre : mainTemplate,
-                            title : "today's mood"
-                        };
-            
-                        imageUgc.uploadToServer(ugcInfo,function(err) {
-                            if (!err) {
-                                FM_LOG("[templatePreview]Image uploads successfully.");
-                                FmMobile.showNotification("uploadUgc");
-                            }
-                            $.mobile.hidePageLoadingMsg();
-                            FmMobile.myUgcPg.Type = "content";
-                            $.mobile.changePage("my_ugc.html");
-                        });
-
-                    });
-
                 }else {
                     console.log(err);
                 }
             });
             
 
+            $('#btnTest').click(function(){
+                                $('#clickImgEffect').hide("normal");
+                                $(".content-movie").unbind("click");
+                                $('#afterClickBack').hide("normal");
+                                $('#afterClickSent').hide("normal",function() {
+                                                          //$('#show').attr('disabled', 'disabled');
+                                                $.mobile.showPageLoadingMsg();
+                                                var mainTemplate = FmMobile.selectedTemplate;
+                                                var ownerId = localStorage._id;
+                                                var ownerFbUserId = localStorage.fb_userID;
+                                                
+                                                var ugcInfo = {
+                                                ownerId : {
+                                                _id : ownerId,
+                                                fbUserId : ownerFbUserId
+                                                },
+                                                contentGenre : mainTemplate,
+                                                title : "today's mood"
+                                                };
+                                                
+                                                imageUgc.uploadToServer(ugcInfo,
+                                                                        function(err) {
+                                                                        //                                    console.log("err=" + err);
+                                                                        
+                                                                        if (!err) {
+                                                                        FM_LOG("[templatePreview]Image uploads successfully.");
+                                                                        FmMobile.showNotification("uploadUgc");
+                                                                        }
+                                                                        $.mobile.hidePageLoadingMsg();
+                                                                        FmMobile.myUgcPg.Type = "content";
+                                                                        $.mobile.changePage("my_ugc.html");
+                                                                        });
+                                                
+                                                });
+                                
+                                });
 
         }
 

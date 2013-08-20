@@ -15,6 +15,7 @@ FmMobile.screenPg = {
     init: function(){
         FM_LOG("[screenPg] pageinit");
         $('#nav-bar').show();
+        $("#intro").hide();
     },
     
     show: function(){
@@ -23,6 +24,7 @@ FmMobile.screenPg = {
         $("#btnHighLights").click(function(){
             $("#btnHighLights > img").attr({src: "images/tab_show_active.png"});
             $("#btnArena > img").attr({src: "images/tab_tanmu.png"});
+            $("#intro").hide();
 //            FmMobile.screenPg.loadVideo(FmMobile.screenPg.highLightVideos, "highlight");
             FmMobile.screenPg.loadHighLightContent(FmMobile.screenPg.highLightContent);
         });
@@ -70,32 +72,13 @@ FmMobile.screenPg = {
     loadArenaContent: function(){
         FM_LOG("[screenPg]loadArenaContent");
         var parent = $("#my-video-list");
+        $("#intro").show();
         parent.html("");
         
-        
-        //Introduce Nova
-        
-        var intro = $("<div>").attr({id:"intro", class:"tanmu-instraction"});
-        intro.html('台北天幕LED介紹<br><br> 城市之光、台北天幕LED位於台北小巨蛋，顯示面積為100m x 16m，解析度為1743 x 260像素，是台灣最有名的戶外數位媒體。<br><br>'
-            + '台北天幕LED由' + '<a href="http://www.novamedia.com.tw/" target="_blank" style="color:#790000">諾亞媒體</a>'
-                   + '代理經營。諾亞媒體，數位看板媒體專家。');
-        var introImg_1 = $("<img>").attr({
-                                        src: "images/tanmu01.png",
-                                        class: "tanmu-img"
-                                        });
-        var introImg_2 = $("<img>").attr({
-                                         src: "images/tanmu02.png",
-                                         class: "tanmu-img"
-                                         });
-        var introImg_3 = $("<img>").attr({
-                                         src: "images/tanmu03.png",
-                                         class: "tanmu-img"
-                                         });
-        
-        intro.appendTo(parent);
-        introImg_1.appendTo(parent);
-        introImg_2.appendTo(parent);
-        introImg_3.appendTo(parent);
+//        $("#intro>div>br>br>br>br>a").click(function(){
+//                                alert("click");
+//             FmMobile.openBrowser("http://www.novamedia.com.tw/");
+//        });
     },
     
     loadHighLightContent: function(arryHighlight){
