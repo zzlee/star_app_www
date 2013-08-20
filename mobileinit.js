@@ -1245,7 +1245,9 @@ FmMobile.showNotification = function(fun){
         case "wrongPlace":
             navigator.notification.confirm("其實你不在小巨蛋對吧...\n臺北市松山區南京東路4段2號\n歡迎來打卡！", FmMobile.Confirm(), appName, "確定");
             break;
-
+        case "enableNetwork":
+            navigator.notification.confirm("本服務必須連接網路，請檢查您的網路環境。", FmMobile.Confirm(), appName, "確定");
+            break;
             
         default:
             console.log("ShowNotification is not worked");

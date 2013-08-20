@@ -95,6 +95,7 @@ ImageUgc = (function(){
                                 };
                                 
                                 var uploadFail_cb = function(error) {
+                                    FmMobile.showNotification("enableNetwork");
                                     console.log("upload error source " + error.source);
                                     console.log("upload error target " + error.target);
                                     cbOfIterator("Failed to uplaod user content file to server: "+error.code);
@@ -130,6 +131,7 @@ ImageUgc = (function(){
                                 callback(null);
                             },
                             error: function(jqXHR, textStatus, errorThrown){
+                                FmMobile.showNotification("enableNetwork");
                                 console.log("Failed to upload image UGC to server: "+errorThrown);
                                 callback("Failed to upload image UGC to server: "+errorThrown);
                             }
@@ -177,6 +179,7 @@ ImageUgc = (function(){
                         callback(null, obj);
                     }
                     else {
+                        FmMobile.showNotification("enableNetwork");
                         callback('Failed to get TemplateMgr instance :'+err, null);
                     }
                 });
