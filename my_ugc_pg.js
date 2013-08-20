@@ -113,21 +113,17 @@ FmMobile.myUgcPg = {
         
         var arryLen = arryHighlightContents.length;
         var widget = null;
-
+        var countContent = 0;
         
         /** Set data to List */
         for(var i = 0; i < arryLen; i++){
             
             var projectId = arryHighlightContents[i].ProjectId;
             console.log("projectId " + projectId);
+            var widget = null;
             var dummyDiv = $("<div>").attr({class: "movie-pic-dummy"});
             
-            if(i === 0){
-                widget = $("<div>").attr({id: projectId, class: "content-movie"});
-            }else{
-                widget = $("<div>").attr({id: projectId, class: "content-movie", style: "margin-top:20%;"}); //TODO: don't use margin-top with percentage in this case
-            }
-            dummyDiv.appendTo(widget);
+
             
             
             
@@ -137,37 +133,53 @@ FmMobile.myUgcPg = {
             var shareYoutubeDiv = null;
             var shareFbDiv = null;
 
-            if(typeof(arryHighlightContents[i].Url) != "undefined"){
+//            if(typeof(arryHighlightContents[i].Url) != "undefined"){
                 switch(arryHighlightContents[i].Genre){
                     case "miix_story":
-                        var ytVideoID = (arryHighlightContents[i].Url.youtube).split('/').pop();
+                        if(typeof(arryHighlightContents[i].Url.youtube) != "undefined"){
+                            countContent = countContent + 1;
+                            if(countContent === 1){
+                                widget = $("<div>").attr({id: projectId, class: "content-movie"});
+                            }else{
+                                widget = $("<div>").attr({id: projectId, class: "content-movie", style: "margin-top:20%;"}); //TODO: don't use margin-top with percentage in this case
+                            }
+                            dummyDiv.appendTo(widget);
+                            var ytVideoID = (arryHighlightContents[i].Url.youtube).split('/').pop();
 
-                        Thumbnail = $("<img>").attr({
-                                                      id: 'imgYouTube_'+ytVideoID,
-                                                      src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
-                                                      class: "content-movie-img",
-                                                      style: "height: 90%;"  //fixed the image of height
+                            Thumbnail= $("<iframe>").attr({
+                                                        id: ytVideoID,
+                                                        src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
+                                                        class: "content-movie-img",
+                                                        frameborder: "0"
                                                       });
-                        Thumbnail.appendTo(widget);
-                        
-                        shareYoutubeDiv = $("<img>").attr({
-                                                           id: "copyUrl_" + ytVideoID,
-                                                           class: "share",
-                                                           src: "images/youtube.png"
-                                                           });
-                        shareYoutubeDiv.appendTo(info);
-                        
-                        shareFbDiv = $("<img>").attr({
-                                                      id: "shareFb_" + ytVideoID,
-                                                      class: "share",
-                                                      src: "images/facebook.png"
-                                                      });
-                        shareFbDiv.appendTo(info);
-                        info.appendTo(widget);
-                        widget.appendTo(parent);
+                            Thumbnail.appendTo(widget);
+                            
+                            shareYoutubeDiv = $("<img>").attr({
+                                                               id: "copyUrl_" + ytVideoID,
+                                                               class: "share",
+                                                               src: "images/youtube.png"
+                                                               });
+                            shareYoutubeDiv.appendTo(info);
+                            
+                            shareFbDiv = $("<img>").attr({
+                                                          id: "shareFb_" + ytVideoID,
+                                                          class: "share",
+                                                          src: "images/facebook.png"
+                                                          });
+                            shareFbDiv.appendTo(info);
+                            info.appendTo(widget);
+                            widget.appendTo(parent);
+                        }
                         break;
                     case "miix_image_live_photo":
                         console.log("s3 :" + arryHighlightContents[i].Url.s3);
+                        countContent = countContent + 1;
+                        if(countContent === 1){
+                            widget = $("<div>").attr({id: projectId, class: "content-movie"});
+                        }else{
+                            widget = $("<div>").attr({id: projectId, class: "content-movie", style: "margin-top:20%;"}); //TODO: don't use margin-top with percentage in this case
+                        }
+                        dummyDiv.appendTo(widget);
                         var s3Url = "https://s3.amazonaws.com/miix_content" + arryHighlightContents[i].Url.s3;
                         Thumbnail = $("<img>").attr({
                                                       id: "imgS3_" +projectId,
@@ -198,16 +210,16 @@ FmMobile.myUgcPg = {
                     default :
                         console.log("Eroor : no Genre");
                 }//End of switch
-            }else{
-                Thumbnail = $("<img>").attr({
-                                              id: 'imgError_' + i,
-                                              class: "content-movie-img"
-                                              });
-                Thumbnail.appendTo(widget);
-                widget.appendTo(parent);
+//            }else{
+//                Thumbnail = $("<img>").attr({
+//                                              id: 'imgError_' + i,
+//                                              class: "content-movie-img"
+//                                              });
+//                Thumbnail.appendTo(widget);
+//                widget.appendTo(parent);
                 
-            }//End of If
-            
+//            }//End of If
+        
         }//End of Loop
         
         FmMobile.myUgcPg.ClickEvent();
@@ -412,11 +424,13 @@ FmMobile.myUgcPg = {
         var arryIdType = this.id.split('_');
         switch(arryIdType[0]){
             case "imgYouTube":
+                                         
                 var tempUrlArray = this.src.split('/');
 
                 var ytVideoID = tempUrlArray[tempUrlArray.length-2];
+                console.log("divId :" + divID);
                 var videoFrame = $("<iframe>").attr({
-                                                                                                      id: ytVideoID,
+                                                  id: ytVideoID,
                                                   src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
                                                   class: "content-movie-img",
                                                   frameborder: "0"
