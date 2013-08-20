@@ -42,8 +42,6 @@ FmMobile.photoCropperPg = {
     //  Page methods.
     load : function(event, data) {
         FM_LOG("[photoCropperPg]load");
-        console.dir(event);
-        console.dir(data);
         $("#nav-bar").show();
 
 
@@ -88,23 +86,18 @@ FmMobile.photoCropperPg = {
 
         //Rewrite #submitBtn click function
         $('#submitBtn').click(function() {
-                              console.log("click");
-                              if (FmMobile.selectedTemplate == 'miix_it') {
-                              FmMobile.userContent.picture.urlOfOriginal = fileSelectedURI;
-                              FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
-                              
-                              }else{
-                              FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
-                              //                $.mobile.changePage("template-preview.html");
-                              }
-                              $.mobile.changePage("template-preview.html");
-                              });
+            if (FmMobile.selectedTemplate == 'miix_it') {
+                FmMobile.userContent.picture.urlOfOriginal = fileSelectedURI;
+                FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
+
+            }else{
+                FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
+            //                $.mobile.changePage("template-preview.html");
+            }
+            $.mobile.changePage("template-preview.html");
+        });
     },
-    
-    clickEvent: function(){
-        FM_LOG("[photoCropperPg]clickEvent");
-        
-    },
+
 
     show : function(event, data) {
         FM_LOG("[photoCropperPg]show");
