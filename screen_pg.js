@@ -33,7 +33,11 @@ FmMobile.screenPg = {
         $("#btnArena").click(function(){
             $("#btnHighLights > img").attr({src: "images/tab_show.png"});
             $("#btnArena > img").attr({src: "images/tab_tanmu_active.png"});
-             FmMobile.screenPg.loadArenaContent();
+            var parent = $("#my-video-list");
+            $("#intro").show();
+            parent.html("");
+            //We use html to introduce Tanmu LED so we don't need a function to show it.
+//             FmMobile.screenPg.loadArenaContent();
 
         });
         
@@ -73,14 +77,9 @@ FmMobile.screenPg = {
     
     loadArenaContent: function(){
         FM_LOG("[screenPg]loadArenaContent");
-        var parent = $("#my-video-list");
-        $("#intro").show();
-        parent.html("");
+
         
-//        $("#intro>div>br>br>br>br>a").click(function(){
-//                                alert("click");
-//             FmMobile.openBrowser("http://www.novamedia.com.tw/");
-//        });
+
     },
     
     loadHighLightContent: function(arryHighlight){
