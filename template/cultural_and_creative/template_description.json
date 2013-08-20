@@ -51,7 +51,7 @@
                     "fbNameWidth":"100",
                     "lineHeight":"50",
                     "fb_x":"1613",
-                    "fb_y":"160",
+                    "fb_y":"100",
                     "fb_angle":"0",
                     "fb_color":"white"
                 },
@@ -65,9 +65,11 @@
                "angle":"0",
                "description":"大頭貼",
                "fb_x":"58",
-               "fb_y":"160",
+               "fb_y":"100",
                "fb_angle":"0",
-               "fb_color":"white"
+               "fb_color":"white",
+                                   "fbNameWidth":"100",
+                                   "lineHeight":"50"
                }
 
             ]
@@ -112,7 +114,7 @@
                                    
                                   
                                    "fb_x":"1500",
-                                   "fb_y":"130",
+                                   "fb_y":"100",
                                    "fb_angle":"0",
                                    "fb_color":"white"
                                    },
@@ -126,9 +128,11 @@
                                    "angle":"0",
                                    "description":"大頭貼",
                                    "fb_x":"35",
-                                   "fb_y":"130",
+                                   "fb_y":"100",
                                    "fb_angle":"0",
-                                   "fb_color":"white"
+                                   "fb_color":"white",
+                                   "fbNameWidth":"100",
+                                   "lineHeight":"50"
                                    }            ]
         },
         "text_only":{
@@ -161,7 +165,7 @@
                     "angle":"0",
                     "description":"大頭貼",
                     "fb_x":"1500",
-                    "fb_y":"160",
+                    "fb_y":"100",
                     "fb_angle":"0",
                     "fb_color":"white"
                 },
@@ -175,9 +179,11 @@
                "angle":"0",
                "description":"大頭貼",
                "fb_x":"70",
-               "fb_y":"160",
+               "fb_y":"100",
                "fb_angle":"0",
-               "fb_color":"white"
+               "fb_color":"white",
+                                   "fbNameWidth":"100",
+                                   "lineHeight":"50"
                }
 
                                    

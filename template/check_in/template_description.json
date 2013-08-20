@@ -36,9 +36,11 @@
                     "description":"大頭貼",
                     "description":"大頭貼",
                     "fb_x":"1530",
-                    "fb_y":"160",
+                    "fb_y":"100",
                     "fb_angle":"0",
-                    "fb_color":"white"
+                    "fb_color":"white",
+                                   "fbNameWidth":"100",
+                                   "lineHeight":"50"
                 },
                                    {
                                    "id":"thumbnail1",
@@ -51,9 +53,11 @@
                                    "description":"大頭貼",
                                    "description":"大頭貼",
                                    "fb_x":"63",
-                                   "fb_y":"160",
+                                   "fb_y":"100",
                                    "fb_angle":"0",
-                                   "fb_color":"white"
+                                   "fb_color":"white",
+                                   "fbNameWidth":"100",
+                                   "lineHeight":"50"
                                    }
             ]
         },

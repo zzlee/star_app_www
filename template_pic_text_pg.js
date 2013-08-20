@@ -265,7 +265,7 @@ FmMobile.showNotification("moreWords");
                             moreLineInBox=$("#ur_text").val().replace(/\n/g,"<n>");
                             var moreLineInBox_2=moreLineInBox.split("<n>");
                             if(moreLineInBox_2.length>3){
-                            alert("小巨蛋電視牆沒那麼高喔...");
+                            FmMobile.showNotification("inAreaTextOver");
                             $("#ur_text").val(moreLineInBox_2[0]+"\n"+moreLineInBox_2[1]+"\n"+moreLineInBox_2[2]);
                             return false;
                             }

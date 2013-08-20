@@ -1236,6 +1236,10 @@ FmMobile.showNotification = function(fun){
         case "wrongPlace":
             navigator.notification.confirm("其實你不在小巨蛋對吧...\n臺北市松山區南京東路4段2號\n歡迎來打卡！", FmMobile.Confirm(), appName, "確定");
             break;
+            
+        case "inAreaTextOver":
+            navigator.notification.confirm("超過三行囉！第四行在天幕上看不到啦！", FmMobile.Confirm(), appName, "確定");
+            break;
 
             
         default:
