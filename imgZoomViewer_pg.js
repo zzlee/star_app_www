@@ -24,6 +24,15 @@ FmMobile.imgZoomViewerPg = {
     //  Page methods.
     load: function(event, data){
          $("#nav-bar").hide();
+        
+        /*  back previous page dynamically*/
+        $("#backMyUgc").click(function() {
+               history.back();
+               return false;
+               });
+        /* end  back previous page dynamically*/
+        
+        /*
         $('#backMyUgc').click(function(){
                               if(FmMobile.viewerBackFlag=='backPreview'){
                               $.mobile.changePage('template-preview.html');
@@ -35,7 +44,7 @@ FmMobile.imgZoomViewerPg = {
         
 
         
-        
+        */
         
         //JF - image initial
         canvas = document.getElementById('photoZoom');

@@ -41,6 +41,7 @@ FmMobile.mycount;
 FmMobile.srcForMyUgcViewer;
 FmMobile.myflag=true;
 FmMobile.check_in_pic;
+FmMobile.checkinTextForFB;
 
 var templateMgr = null;
 
@@ -1132,7 +1133,7 @@ postCheckinMessage:function(){
     var params = {
         
     access_token: localStorage.fb_accessToken,
-    message: FmMobile.userContent.text,
+    message: FmMobile.checkinTextForFB,
     link:FmMobile.check_in_pic,
     place:"244200115678887"
         //picture:FmMobile.srcForMyUgcViewer,
