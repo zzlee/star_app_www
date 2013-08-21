@@ -3,7 +3,7 @@
     "name":"心情",
     "topBarImageUrl":"template/template_resource/mood.png",
     "representingImageUrl":"template/template_resource/script02.png",
-    "introdcutionContentUrl":"template/template_resource/mood_introdction.html",
+    "introdcutionContentUrl":"template/template_resource/mood_template_instruction.html",
     "outputSize":{
         "width":720,
         "height":480

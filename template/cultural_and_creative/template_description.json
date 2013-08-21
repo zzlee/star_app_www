@@ -3,7 +3,7 @@
     "name":"創作",
     "topBarImageUrl":"template/template_resource/cultural.png",
     "representingImageUrl":"template/template_resource/script01.png",
-    "introdcutionContentUrl":"template/template_resource/mood_introdction.html",
+    "introdcutionContentUrl":"template/template_resource/design_template_instruction.html",
     "outputSize":{
         "width":720,
         "height":480

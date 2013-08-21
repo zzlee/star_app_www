@@ -49,6 +49,17 @@ TemplateMgr = (function(){
                 }
                 return subTemplateList;
             },
+            
+            /**
+             * Get a specific template
+             * 
+             * @param mainTemplateId
+             * @returns
+             */
+            getTemplate: function(mainTemplateId){
+                return templates[mainTemplateId];
+            },
+            
             /**
              * Get a specific sub template
              * 

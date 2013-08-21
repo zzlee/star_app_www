@@ -21,7 +21,8 @@ FmMobile.template_subTemplatePg = {
                 console.log("Falied to read template_instruction.html: "+errorThrown);
             }
         };
-        $.ajax("template/"+FmMobile.selectedTemplate+"/template_instruction.html",settings);
+        //$.ajax("template/"+FmMobile.selectedTemplate+"/template_instruction.html",settings);
+        $.ajax(templateMgr.getTemplate(FmMobile.selectedTemplate).introdcutionContentUrl,settings);
         
         if(localStorage[FmMobile.selectedTemplate]=='hasReadHint'){
             $("#show_intro").hide();
