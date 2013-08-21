@@ -33,54 +33,55 @@ FmMobile.screenPg = {
         $("#btnArena").click(function(){
             $("#btnHighLights > img").attr({src: "images/tab_show.png"});
             $("#btnArena > img").attr({src: "images/tab_tanmu_active.png"});
-             FmMobile.screenPg.loadArenaContent();
+            var parent = $("#my-video-list");
+            $("#intro").show();
+            parent.html("");
+            //We use html to introduce Tanmu LED so we don't need a function to show it.
+//             FmMobile.screenPg.loadArenaContent();
 
         });
         
 //        FmMobile.screenPg.loadVideo(FmMobile.screenPg.highLightVideos, "highlight");
 //        FmMobile.screenPg.loadHighLightContent(FmMobile.screenPg.highLightContent);
         
-        //Get the the video from our server.
-        var url = starServerURL + "/miix/ugc_hightlights";
-        FmMobile.screenPg.highLightContent = new Array();
-        
-        //json transfer array
-        //it's async
-        $.ajax({
-               url: url,
-               dataType: 'json',
-               success: function(response){
-                               if(response){
-                                   $.each(response, function(i, item){
-                                          var data ={
-                                              OwnerId: item.ownerId,
-                                              Name: item.fb_userName,
-                                              Genre: item.genre,
-                                              Url : item.url,
-                              
-                                  }
-                              FmMobile.screenPg.highLightContent.push(data);
-                              });
-        //               FmMobile.screenPg.loadVideo(FmMobile.screenPg.highLightVideos, "highlight");
-                            FmMobile.screenPg.loadHighLightContent(FmMobile.screenPg.highLightContent);
-                       }else{
-                           console.log("[error] : " + response.error);
+        if(FmMobile.checkNetwork()){
+            //Get the the video from our server.
+            var url = starServerURL + "/miix/ugc_hightlights";
+            FmMobile.screenPg.highLightContent = new Array();
+            
+            //json transfer array
+            //it's async
+            $.ajax({
+                   url: url,
+                   dataType: 'json',
+                   success: function(response){
+                                   if(response){
+                                       $.each(response, function(i, item){
+                                              var data ={
+                                                  OwnerId: item.ownerId,
+                                                  Name: item.fb_userName,
+                                                  Genre: item.genre,
+                                                  Url : item.url,
+                                  
+                                      }
+                                  FmMobile.screenPg.highLightContent.push(data);
+                                  });
+            //               FmMobile.screenPg.loadVideo(FmMobile.screenPg.highLightVideos, "highlight");
+                                FmMobile.screenPg.loadHighLightContent(FmMobile.screenPg.highLightContent);
+                           }else{
+                               console.log("[error] : " + response.error);
+                           }
                        }
-                   }
-               });
-        FmMobile.dummyDiv();
+                   });
+            FmMobile.dummyDiv();
+        }
     },
     
     loadArenaContent: function(){
         FM_LOG("[screenPg]loadArenaContent");
-        var parent = $("#my-video-list");
-        $("#intro").show();
-        parent.html("");
+
         
-//        $("#intro>div>br>br>br>br>a").click(function(){
-//                                alert("click");
-//             FmMobile.openBrowser("http://www.novamedia.com.tw/");
-//        });
+
     },
     
     loadHighLightContent: function(arryHighlight){

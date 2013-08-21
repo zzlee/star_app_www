@@ -114,12 +114,41 @@ div[data-role=page] {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000',GradientType=1 ); /* IE6-9 */
 }	
 
+
+
 .content-movie-photoViewer{
 	background-repeat:no-repeat;
 	background-size:100%;
 	margin-top: 45%;
     position:relative;
 }
+
+
+.fullViewerPage{
+padding: 0px;
+overflow-x: visible;
+}
+
+
+
+#imgZoomViewerPg{
+
+background: #000000; /* Old browsers */
+	background: #000000; /* FF3.6+ */
+	background: #000000; /* Chrome,Safari4+ */
+	background: #000000; /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left,  #000000 0%,#970018 50%,#000000 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left,  #000000 0%,#970018 50%,#000000 100%); /* IE10+ */
+	background: linear-gradient(to right,  #000000 0%,#970018 50%,#000000 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000',GradientType=1 ); /* IE6-9 */
+    background-repeat: repeat-y;
+    background-size: 100%;
+/*background-size: contain;*/
+    
+/*width:320px;*/
+
+}
+
 
 /* ------------------------------------------------*/
 
@@ -849,6 +878,17 @@ padding:5% 5%;
     line-height: 125%;
     padding-bottom: 2%;
     }
+.preview-instruction{
+    margin-top: 5%;
+    margin-left: 5%;
+    width: 90%;
+    font-size: 100%;
+    font-family: "kaiu";
+    text-shadow: none;
+    color:#dcd586;
+    line-height: 125%;
+    padding-bottom: 2%;
+}
 
 /* Booking------------------------------------------------------------*/
 
@@ -1024,7 +1064,9 @@ hr{
 	width: 75%;
     top:11%;
     bottom:21%;
-    padding:5%;
+    padding-top: 5%;
+    padding-left: 8%;
+    padding-right: 3.5%;
 }
 .setting-headline{
 	text-shadow: none;
@@ -1069,6 +1111,8 @@ hr{
 	font-family:"kaiu";
 	color: #dcd586;
     list-style-type:none;
+    margin: 0;
+    padding-left: 10%;
 }
 
     

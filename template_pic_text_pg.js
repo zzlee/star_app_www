@@ -118,7 +118,7 @@ FmMobile.showNotification("moreWords");
                                                        fileProcessedForCropperURI = resultURI;
                                                        $.mobile.changePage("template-photo_cropper.html");
                                                        });
-                                     });
+                                     });//
                         
                     };
                     
@@ -187,6 +187,19 @@ FmMobile.showNotification("moreWords");
                            textForUgcUtility= $("#ur_text").val().replace(/\n/g,"<n>");
                            FmMobile.userContent.text=textForUgcUtility;
                            });
+        
+        
+        $("#ur_text").keyup(function(){
+                            var moreLineInBox=$("#ur_text").val();
+                            moreLineInBox=$("#ur_text").val().replace(/\n/g,"<n>");
+                            var moreLineInBox_2=moreLineInBox.split("<n>");
+                            if(moreLineInBox_2.length>3){
+                            FmMobile.showNotification("inAreaTextOver");
+                            $("#ur_text").val(moreLineInBox_2[0]+"\n"+moreLineInBox_2[1]+"\n"+moreLineInBox_2[2]);
+                            return false;
+                            }
+                            });
+
 /*
         
         $("#ur_text").keyup(function(){

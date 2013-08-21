@@ -26,13 +26,14 @@
                     "lineHeight":"68",
                     "angle":"0",
                     "description":"心情文字",
-                    "maxTextLength":"39"
+                    "maxTextLength":"39",
+                                   "fontColor":"#603913"
                 },
                 {
                     "id":"picture0",
                     "type":"image",
                     "x":"669",
-                    "y":"22",
+                    "y":"18",
                     "width":"332",
                     "height":"218",
                     "angle":"0",
@@ -45,13 +46,32 @@
                     "y":"50",
                     "width":"157",
                     "height":"162",
-                    "angle":"5",
+                    "angle":"4",
                     "description":"大頭貼",
                     "fb_x":"1558",
-                    "fb_y":"160",
+                    "fb_y":"100",
                     "fb_angle":"0",
-                    "fb_color":"#603913"
-                }
+                    "fb_color":"#603913",
+                                   "fbNameWidth":"100",
+                                   "lineHeight":"50"
+                },
+                                   
+                                   {
+                                   "id":"thumbnail1",
+                                   "type":"thumbnail",
+                                   "x":"324",
+                                   "y":"50",
+                                   "width":"157",
+                                   "height":"162",
+                                   "angle":"-4",
+                                   "description":"大頭貼",
+                                   "fb_x":"157",
+                                   "fb_y":"100",
+                                   "fb_angle":"0",
+                                   "fb_color":"#603913",
+                                   "fbNameWidth":"100",
+                                   "lineHeight":"50"
+                                   }
             ]
         },
         "picture_only":{
@@ -65,8 +85,8 @@
                 {
                     "id":"picture0",
                     "type":"image",
-                    "x":"795",
-                    "y":"20",
+                    "x":"797",
+                    "y":"15",
                     "width":"332",
                     "height":"218",
                     "angle":"0",
@@ -79,13 +99,32 @@
                     "y":"49",
                     "width":"150",
                     "height":"162",
-                    "angle":"5",
+                    "angle":"4",
                     "description":"大頭貼",
                     "fb_x":"1195",
-                    "fb_y":"160",
+                    "fb_y":"100",
                     "fb_angle":"0",
-                    "fb_color":"#603913"
-                }
+                    "fb_color":"#603913",
+                                   "fbNameWidth":"100",
+                                   "lineHeight":"50"
+                },
+                                   {
+                                   "id":"thumbnail1",
+                                   "type":"thumbnail",
+                                   "x":"326",
+                                   "y":"49",
+                                   "width":"150",
+                                   "height":"162",
+                                   "angle":"-4",
+                                   "description":"大頭貼",
+                                   "fb_x":"540",
+                                   "fb_y":"100",
+                                   "fb_angle":"0",
+                                   "fb_color":"#603913",
+                                   "fbNameWidth":"100",
+                                   "lineHeight":"50"
+                                   }
+
             ]
         },
         "text_only":{
@@ -105,7 +144,8 @@
                     "lineHeight":"68",
                     "angle":"0",
                     "description":"心情文字",
-                    "maxTextLength":"39"
+                    "maxTextLength":"39",
+                   "fontColor":"#603913"
                 },
                 {
                     "id":"thumbnail0",
@@ -114,13 +154,32 @@
                     "y":"43",
                     "width":"157",
                     "height":"162",
-                    "angle":"5",
+                    "angle":"4",
                     "description":"大頭貼",
                     "fb_x":"1422",
-                    "fb_y":"160",
+                    "fb_y":"100",
                     "fb_angle":"0",
-                    "fb_color":"#603913"
-                }
+                    "fb_color":"#603913",
+                                   "fbNameWidth":"100",
+                                   "lineHeight":"50"
+                },
+               {
+               "id":"thumbnail1",
+               "type":"thumbnail",
+               "x":"350",
+               "y":"43",
+               "width":"157",
+               "height":"162",
+               "angle":"-4",
+               "description":"大頭貼",
+               "fb_x":"168",
+               "fb_y":"100",
+               "fb_angle":"0",
+               "fb_color":"#603913",
+                                   "fbNameWidth":"100",
+                                   "lineHeight":"50"
+               }
+
             ]
         }
     }

@@ -61,6 +61,17 @@ PAGE_ID: "template_mainTemplatePg",
                                             $.mobile.changePage("template-sub_template.html");
                                         }
                                 });
+                                    
+                                    /* -------------  判斷templete instruction 是否已看過 ------------  */
+                                    for(var i=0;i<templateMgr.getTemplateList().length;i++){
+                                    var temp=templateMgr.getTemplateList()[i].id;
+                                    
+                                    if(localStorage[temp]== 'hasReadHint'){
+                                    localStorage[temp]='unReadHint';
+                                    }
+                                    
+                                    }
+                                    /*-------------------------------------*/
                           
                 
                   /* --------- ends of get main template dynamically  --------------*/               

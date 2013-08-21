@@ -27,7 +27,7 @@
                     "angle":"0",
                     "description":"心情文字",
                     "maxTextLength":"39",
-                    "text_color":"white"
+                    "fontColor":"white"
                 },
                 {
                     "id":"picture0",
@@ -43,16 +43,35 @@
                     "id":"thumbnail0",
                     "type":"thumbnail",
                     "x":"1396",
-                    "y":"84",
-                    "width":"194",
-                    "height":"120",
+                    "y":"55",
+                    "width":"170",
+                    "height":"170",
                     "angle":"0",
                     "description":"大頭貼",
+                    "fbNameWidth":"100",
+                    "lineHeight":"50",
                     "fb_x":"1613",
-                    "fb_y":"160",
+                    "fb_y":"100",
                     "fb_angle":"0",
                     "fb_color":"white"
-                }
+                },
+               {
+               "id":"thumbnail1",
+               "type":"thumbnail",
+               "x":"245",
+               "y":"55",
+               "width":"170",
+               "height":"170",
+               "angle":"0",
+               "description":"大頭貼",
+               "fb_x":"58",
+               "fb_y":"100",
+               "fb_angle":"0",
+               "fb_color":"white",
+                                   "fbNameWidth":"100",
+                                   "lineHeight":"50"
+               }
+
             ]
         },
         "picture_only":{
@@ -73,23 +92,48 @@
                     "angle":"0",
                     "description":"心情照片"
                 },
-                {
-                    "id":"thumbnail0",
-                    "type":"thumbnail",
-                    "x":"550",
-                    "y":"76",
-                    "x2":"1254",
-                    "y2":"76",
-                    "width":"194",
-                    "height":"120",
-                    "angle":"0",
-                    "description":"大頭貼",
-                    "fb_x":"1500",
-                    "fb_y":"160",
-                    "fb_angle":"0",
-                    "fb_color":"white"
-                }
-            ]
+               {
+               "id":"picture1",
+               "type":"image",
+               "x":"202",
+               "y":"53",
+               "width":"260",
+               "height":"170",
+               "angle":"0",
+               "description":"心情照片"
+               },
+                                   {
+                                   "id":"thumbnail0",
+                                   "type":"thumbnail",
+                                   "x":"1270",
+                                   "y":"55",
+                                   "width":"170",
+                                   "height":"170",
+                                   "angle":"0",
+                                   "description":"大頭貼",
+                                   
+                                  
+                                   "fb_x":"1500",
+                                   "fb_y":"100",
+                                   "fb_angle":"0",
+                                   "fb_color":"white"
+                                   },
+                                   {
+                                   "id":"thumbnail1",
+                                   "type":"thumbnail",
+                                   "x":"607",
+                                   "y":"55",
+                                   "width":"170",
+                                   "height":"170",
+                                   "angle":"0",
+                                   "description":"大頭貼",
+                                   "fb_x":"35",
+                                   "fb_y":"100",
+                                   "fb_angle":"0",
+                                   "fb_color":"white",
+                                   "fbNameWidth":"100",
+                                   "lineHeight":"50"
+                                   }            ]
         },
         "text_only":{
             "representingImageUrlSub":"template_resource/cultural_03.png",
@@ -109,22 +153,40 @@
                     "angle":"0",
                     "description":"心情文字",
                     "maxTextLength":"39",
-                    "text_color":"white"
+                    "fontColor":"white"
                 },
                 {
                     "id":"thumbnail0",
                     "type":"thumbnail",
-                    "x":"1254",
-                    "y":"76",
-                    "width":"194",
-                    "height":"120",
+                    "x":"1268",
+                    "y":"55",
+                    "width":"170",
+                    "height":"170",
                     "angle":"0",
                     "description":"大頭貼",
                     "fb_x":"1500",
-                    "fb_y":"160",
+                    "fb_y":"100",
                     "fb_angle":"0",
                     "fb_color":"white"
-                }
+                },
+               {
+               "id":"thumbnail1",
+               "type":"thumbnail",
+               "x":"250",
+               "y":"55",
+               "width":"170",
+               "height":"170",
+               "angle":"0",
+               "description":"大頭貼",
+               "fb_x":"70",
+               "fb_y":"100",
+               "fb_angle":"0",
+               "fb_color":"white",
+                                   "fbNameWidth":"100",
+                                   "lineHeight":"50"
+               }
+
+                                   
             ]
         }
     }

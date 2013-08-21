@@ -61,13 +61,13 @@ FmMobile.template_subTemplatePg = {
                                           
                                           });
             var sub_des = $("<div>").attr({class:"style_text"});
-            var sub_line = $("<div>").attr({class:"hr_line_template"});
+            //var sub_line = $("<div>").attr({class:"hr_line_template"});
             //sub_des.appendTo(mainStyle);
             sub_number.appendTo(mainStyle);
             sub__button_img.appendTo(mainStyle);
             sub_img.appendTo(mainStyle);
             
-            sub_line.appendTo(mainStyle);
+            //sub_line.appendTo(mainStyle);
             mainStyle.appendTo(start);
             
             sub_number.html(templateMgr.getSubTemplateList(FmMobile.selectedTemplate)[i].name+":"+templateMgr.getSubTemplateList(FmMobile.selectedTemplate)[i].description);

@@ -37,7 +37,7 @@ load: function(){
                           }else{
                           $.mobile.changePage('my_ugc.html');
                           }
-                          });
+                         });
     
     
 },

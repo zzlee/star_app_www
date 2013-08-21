@@ -45,7 +45,7 @@ FmMobile.photoCropperPg = {
 
     //  Page methods.
     load : function(event, data) {
-
+        FM_LOG("[photoCropperPg]load");
         $("#nav-bar").show();
         
         //get the dimension of customizable image 
@@ -67,29 +67,32 @@ FmMobile.photoCropperPg = {
         }
         
 
-        if (FmMobile.selectedTemplate == 'miix_it') {
-
-            $("#submitPhotoBtn2").click(function() {
-                //FmMobile.userContent.picture.urlOfOriginal = fileSelectedURI;
-                FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
-                $.mobile.changePage("template-preview.html");
-            });
-
-        } else {
-            $("#submitPhotoBtn2").click(function() {
-
-                FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
-                $.mobile.changePage("template-preview.html");
-            });
-
-        }
         
-        var onSubmitBtnClick = function() {
-            FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
-            FmMobile.analysis.trackEvent("Button", "Click", "Submit", 24);
-        };
 
-        $('#submitPhotoBtn').click(onSubmitBtnClick);
+
+//        if (FmMobile.selectedTemplate == 'miix_it') {
+//
+//            $("#submitBtn").click(function() {
+//                FmMobile.userContent.picture.urlOfOriginal = fileSelectedURI;
+//                FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
+//                $.mobile.changePage("template-preview.html");
+//            });
+//
+//        } else {
+//            $("#submitBtn").click(function() {
+//
+//                FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
+//                $.mobile.changePage("template-preview.html");
+//            });
+//
+//        }
+        //Deprecated
+//        var onSubmitBtnClick = function() {
+//            FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
+//            FmMobile.analysis.trackEvent("Button", "Click", "Submit", 24);
+//        };
+//
+//        $('#submitPhotoBtn').click(onSubmitBtnClick);
         $('#cancelBtn').click(function() {
 
             if (FmMobile.selectedSubTemplate == "picture_only") {
@@ -103,10 +106,24 @@ FmMobile.photoCropperPg = {
           }
         });
 
+        //Rewrite #submitBtn click function
+        $('#submitBtn').click(function() {
+            if (FmMobile.selectedTemplate == 'miix_it') {
+                FmMobile.userContent.picture.urlOfOriginal = fileSelectedURI;
+                FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
+
+            }else{
+                FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
+            //                $.mobile.changePage("template-preview.html");
+            }
+            $.mobile.changePage("template-preview.html");
+        });
     },
 
+
     show : function(event, data) {
-        //FmMobile.userContent.picture.urlOfOriginal = fileSelectedURI;
+        FM_LOG("[photoCropperPg]show");
+        
         if ( (!WidthOfCustomizableImage) || (!HeightOfcustomizableImage) ) {
             return;
         }
@@ -117,6 +134,7 @@ FmMobile.photoCropperPg = {
         image = new Image();
 
         var change_css = ($('.movie-pic-dummy').width()) * 0.95;
+        
         $('.content-movie-img').css({
             'width' : change_css,
         });
