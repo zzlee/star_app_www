@@ -51,17 +51,28 @@ FmMobile.photoCropperPg = {
         //get the dimension of customizable image 
         WidthOfCustomizableImage = null;
         HeightOfcustomizableImage = null;
-        var customizableObjects = templateMgr.getSubTemplate(FmMobile.selectedTemplate, FmMobile.selectedSubTemplate).customizableObjects;
-        for (var i=0; i<customizableObjects.length; i++) {
-            if (customizableObjects[i].type == 'image') {
-                //WidthOfCustomizableImage = customizableObjects[i].width;
-                //HeightOfcustomizableImage = customizableObjects[i].height;
-                //TODO: get the dimensions of customizable image from templateMgr
-                WidthOfCustomizableImage = 1280;
-                HeightOfcustomizableImage = 722;
-                break;
+        
+        if ( FmMobile.selectedTemplate == "miix_it" ) {
+            //TODO: parse templateMgr.getSubTemplate(FmMobile.selectedTemplate, FmMobile.selectedSubTemplate).customizableObjectsXml 
+            // hard coded them for now
+            WidthOfCustomizableImage = 1280;
+            HeightOfcustomizableImage = 722;
+        }
+        else {
+            var customizableObjects = templateMgr.getSubTemplate(FmMobile.selectedTemplate, FmMobile.selectedSubTemplate).customizableObjects;
+            for (var i=0; i<customizableObjects.length; i++) {
+                if (customizableObjects[i].type == 'image') {
+                    //WidthOfCustomizableImage = customizableObjects[i].width;
+                    //HeightOfcustomizableImage = customizableObjects[i].height;
+                    //TODO: get the dimensions of customizable image from templateMgr
+                    WidthOfCustomizableImage = 1280;
+                    HeightOfcustomizableImage = 722;
+                    break;
+                }
             }
         }
+            
+        
         if ( (!WidthOfCustomizableImage) || (!HeightOfcustomizableImage) ) {
             return;
         }
@@ -108,14 +119,7 @@ FmMobile.photoCropperPg = {
 
         //Rewrite #submitBtn click function
         $('#submitBtn').click(function() {
-            if (FmMobile.selectedTemplate == 'miix_it') {
-                FmMobile.userContent.picture.urlOfOriginal = fileSelectedURI;
-                FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
-
-            }else{
-                FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
-            //                $.mobile.changePage("template-preview.html");
-            }
+            FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
             $.mobile.changePage("template-preview.html");
         });
     },
