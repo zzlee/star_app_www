@@ -47,6 +47,10 @@ FmMobile.imgZoomViewerPg = {
         */
         
         //JF - image initial
+       
+    },
+    
+    show: function(event, data){
         canvas = document.getElementById('photoZoom');
         context = canvas.getContext('2d');
         image = new Image();
@@ -74,17 +78,17 @@ FmMobile.imgZoomViewerPg = {
             
             option.destination.x = 0;
             //option.destination.y = canvasInner.height - 0.5 * (option.scope.h - canvasInner.height);
-           // option.destination.y=(document.body.clientHeight)*0.3;
+            // option.destination.y=(document.body.clientHeight)*0.3;
             //window.screen.height
             
             option.destination.y=(window.screen.height)*0.35;
             //context.drawImage(image,
-                              //option.destination.x, option.destination.y,
-                              //option.scope.w, option.scope.h);
+            //option.destination.x, option.destination.y,
+            //option.scope.w, option.scope.h);
             
             
             context.drawImage(image,
-                             option.destination.x,option.destination.y,
+                              option.destination.x,option.destination.y,
                               option.scope.w, option.scope.h);
             
             //drawTansparentBorder();
@@ -109,31 +113,27 @@ FmMobile.imgZoomViewerPg = {
         
         //image.src = "https://s3.amazonaws.com/miix_content/user_project/check_in-51d38ca086fa21440a000002-20130820T070940435Z/check_in-51d38ca086fa21440a000002-20130820T070940435Z.png";
         /*
-        drawTansparentBorder = function(){
-            
-            context.strokeStyle = 'rgba(30,30,30,0.7)';
-            context.lineWidth = canvasInnerMargins.top;
-            context.beginPath();
-            context.moveTo(0,canvasInnerMargins.top / 2);
-            context.lineTo(canvas.width, canvasInnerMargins.top / 2);
-            context.moveTo(0, canvas.height - (canvasInnerMargins.top / 2));
-            context.lineTo(canvas.width, canvas.height - (canvasInnerMargins.top / 2));
-            context.stroke();
-            
-            context.lineWidth = canvasInnerMargins.left;
-            context.beginPath();
-            context.moveTo(canvasInnerMargins.left / 2, canvasInnerMargins.top);
-            context.lineTo(canvasInnerMargins.left / 2, canvas.height - canvasInnerMargins.top);
-            context.moveTo(canvas.width - (canvasInnerMargins.left / 2), canvasInnerMargins.top);
-            context.lineTo(canvas.width - (canvasInnerMargins.left / 2), canvas.height - canvasInnerMargins.top);
-            context.stroke();
-            
-        };
-        */
-    },
-    
-    show: function(event, data){
-        
+         drawTansparentBorder = function(){
+         
+         context.strokeStyle = 'rgba(30,30,30,0.7)';
+         context.lineWidth = canvasInnerMargins.top;
+         context.beginPath();
+         context.moveTo(0,canvasInnerMargins.top / 2);
+         context.lineTo(canvas.width, canvasInnerMargins.top / 2);
+         context.moveTo(0, canvas.height - (canvasInnerMargins.top / 2));
+         context.lineTo(canvas.width, canvas.height - (canvasInnerMargins.top / 2));
+         context.stroke();
+         
+         context.lineWidth = canvasInnerMargins.left;
+         context.beginPath();
+         context.moveTo(canvasInnerMargins.left / 2, canvasInnerMargins.top);
+         context.lineTo(canvasInnerMargins.left / 2, canvas.height - canvasInnerMargins.top);
+         context.moveTo(canvas.width - (canvasInnerMargins.left / 2), canvasInnerMargins.top);
+         context.lineTo(canvas.width - (canvasInnerMargins.left / 2), canvas.height - canvasInnerMargins.top);
+         context.stroke();
+         
+         };
+         */
         //JF - image event
         $$('#photoZoom').pinching(function(e){
                                if(e.type == 'pinching') {
@@ -165,6 +165,7 @@ FmMobile.imgZoomViewerPg = {
                                option.destination.y = p_before.y - n * (p_before.y - option.destination.y) + (p_now.y - p_before.y);
                                
                                //zoom limit: width
+                                  
                                if(option.scope.w < canvas.width) {
                                option.destination.x = 0;
                                option.destination.y = (window.screen.height)*0.35;

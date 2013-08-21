@@ -19,34 +19,42 @@ FmMobile.customerQuestionPg = {
         // post customer question
         
         $("#customer_button").click(function(){
-            if(FmMobile.checkNetwork()){
-                var input_id=$("#input_id").val(); // input_id (影片代碼）
-                var question_text=$("#question_text").val(); //question_text 問題敘述
-                var select=$("#select option:selected").val(); //問題種類
-                console.log("click");
-                console.log("[question] # of video : " + input_id);
-                console.log("[question] description : " + question_text);
-                console.log("[question] type : " + select);
-                $.ajax({
-                   type: "POST",
-                   url: starServerURL+"/miix_service/"+memberId+"/questions",
-                   data: {
-                          
-                          "no":input_id,
-                          "question":question_text,
-                          "genre":select
-                        }
-                   }).done(function( result ) {
-                           
-                           FmMobile.showNotification("settingQaSend");
-                          
-                           $('#input_id').val("");
-                           
-                           $('#question_text').val("");
-                           console.log(result);
-                       });
-            }
-        });
+                                    
+                                    
+                                    if($("#question_text").val().length==0 ||$("#question_text").val()==" "){
+                                    FmMobile.showNotification("nullText");
+                                    return false;
+                                    }
+                    $(".customer_button_sent").hide("normal",function(){
+                                        if(FmMobile.checkNetwork()){
+                                        var input_id=$("#input_id").val(); // input_id (影片代碼）
+                                        var question_text=$("#question_text").val(); //question_text 問題敘述
+                                        var select=$("#select option:selected").val(); //問題種類
+                                        console.log("click");
+                                        console.log("[question] # of video : " + input_id);
+                                        console.log("[question] description : " + question_text);
+                                        console.log("[question] type : " + select);
+                                        $.ajax({
+                                               type: "POST",
+                                               url: starServerURL+"/miix_service/"+memberId+"/questions",
+                                               data: {
+                                               
+                                               "no":input_id,
+                                               "question":question_text,
+                                               "genre":select
+                                               }
+                                               }).done(function( result ) {
+                                                       
+                                                       FmMobile.showNotification("settingQaSend");
+                                                       
+                                                       $('#input_id').val("");
+                                                       
+                                                       $('#question_text').val("");
+                                                       console.log(result);
+                                                       });
+                                                                    }
+                                                                    });
+                                    });
 
         //get answer
         //TODO: get token from other place
