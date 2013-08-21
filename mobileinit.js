@@ -88,7 +88,7 @@ $(document).bind("mobileinit", function(){
                  */
                  
                  $("a").live("click", function(event){
-                    event.preventDefault();
+//                    event.preventDefault();
                     var url = document.getElementsByTagName("a")[0].getAttribute("url");
                     if(url != null){
                         FmMobile.openBrowser(url);
@@ -1289,6 +1289,14 @@ FmMobile.showNotification = function(fun){
         case "checkIn":
             navigator.notification.confirm("已成功在小巨蛋打卡！", FmMobile.Confirm(), appName, "確定");
             break;
+        case "sendCode":
+            navigator.notification.confirm("認證碼已送出。", FmMobile.Confirm(), appName, "確定");
+            break;
+        case "reSendCode":
+            navigator.notification.confirm("請於三分鐘後再發送一次認證碼請求,謝謝！", FmMobile.Confirm(), appName, "確定");
+            break;
+        case "wrongPhoneNumber":
+            navigator.notification.confirm("手機號碼輸入錯誤，請重新輸入", FmMobile.Confirm(), appName, "確定");
         default:
             console.log("ShowNotification is not worked");
     }
