@@ -114,7 +114,7 @@ TemplateMgr = (function(){
 			var templateList = [];
 			var _this = this;
 			async.waterfall([
-				function(cb1_series){
+				function(callback){
                     //read template_list.json
 					var settings = {
 							type: "GET",
@@ -122,15 +122,15 @@ TemplateMgr = (function(){
 							success: function(data, textStatus, jqXHR ){
 								//console.dir(data);
 								templateList = data;
-								cb1_series(null);
+								callback(null);
 							},
 							error: function(jqXHR, textStatus, errorThrown){
-								cb1_series(errorThrown);
+								callback(errorThrown);
 							}						
 					};
 					$.ajax(_this.path+'template_list.json',settings);
 				},
-				function(cb2_series){
+				function(callback){
 					//read template_description.json of each template
 					var iterator = function(aTemplate, cb_each){
 						var settings = {
@@ -150,14 +150,14 @@ TemplateMgr = (function(){
 					};
 					async.eachSeries(templateList, iterator, function(err, results){
                         if (!err){
-                            cb2_series(null);
+                            callback(null);
                         }
                         else {
-                            cb2_series('Failed to read template_description.json: '+err);
+                            callback('Failed to read template_description.json: '+err);
                         }
 					});
 				},
-				function(cb3_series){
+				function(callback){
                     //read dooh_preview_description.json of each template
                     var iterator = function(aTemplate, cb_each){
                         var settings = {
@@ -176,13 +176,36 @@ TemplateMgr = (function(){
                     };
                     async.eachSeries(templateList, iterator, function(err, results){
                         if (!err){
-                            cb3_series(null);
+                            callback(null);
                         }
                         else {
-                            cb3_series('Failed to read dooh_preview_description.json: '+err);
+                            callback('Failed to read dooh_preview_description.json: '+err);
                         }
                     });
-				}
+				},
+	            function(callback){
+	                //insert absolute path into the properties containing url (i.e. "xxxxUrlxx")
+	                for(var mainTemplateId in _this.templates) {
+	                    //alert(propt + ': ' + obj[propt]);
+	                    var aMainTemplate = _this.templates[mainTemplateId];
+	                    for(var propertyOfMainTemplate in aMainTemplate) {
+	                        if (propertyOfMainTemplate.indexOf('Url')>=0) {
+	                            aMainTemplate[propertyOfMainTemplate] = _this.path + aMainTemplate[propertyOfMainTemplate];
+	                        }
+	                    }
+	                    for(var subTemplateId in aMainTemplate.subTemplate) {
+	                        var aSubTemplate = aMainTemplate.subTemplate[subTemplateId];
+	                        for(var propertyOfSubTemplate in aSubTemplate) {
+	                            if (propertyOfSubTemplate.indexOf('Url')>=0) {
+	                                aSubTemplate[propertyOfSubTemplate] = _this.path + aSubTemplate[propertyOfSubTemplate];
+	                            }
+	                        }
+	                    }
+	                }
+	                
+	                callback(null);
+	            }
+
 			], 
 			function (err, result) {
 				if (!err){
@@ -214,7 +237,7 @@ TemplateMgr = (function(){
             },
             function(callback){
                 //load remote templates
-                remoteTemplateGroup = new TemplateGroup(starServerURL+'/contents/remote_template/', true);
+                remoteTemplateGroup = new TemplateGroup(starServerURL+'/contents/template/', true);
                 remoteTemplateGroup.load(function(err){
                     callback(null);
                 });

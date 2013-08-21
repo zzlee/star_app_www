@@ -1,21 +1,21 @@
 {
     "selected":"mood",
     "name":"心情",
-    "topBarImageUrl":"template/template_resource/mood.png",
-    "representingImageUrl":"template/template_resource/script02.png",
-    "introdcutionContentUrl":"template/template_resource/mood_template_instruction.html",
+    "topBarImageUrl":"template_resource/mood.png",
+    "representingImageUrl":"template_resource/script02.png",
+    "introdcutionContentUrl":"template_resource/mood_template_instruction.html",
     "outputSize":{
         "width":720,
         "height":480
     },
     "subTemplate":{
         "picture_plus_text":{
-            "representingImageUrlSub":"template/template_resource/mood_01.png",
+            "representingImageUrlSub":"template_resource/mood_01.png",
             "selected":"picture_plus_text",
             "name":"版型一",
             "outputType":"image",
             "description":"一張圖 + 24個字",
-            "backgroundImageUrl":"template/template_resource/mood_text_and_pic.png",
+            "backgroundImageUrl":"template_resource/mood_text_and_pic.png",
             "customizableObjects":[
                 {
                     "id":"text0",
@@ -55,12 +55,12 @@
             ]
         },
         "picture_only":{
-            "representingImageUrlSub":"template/template_resource/mood_02.png",
+            "representingImageUrlSub":"template_resource/mood_02.png",
             "selected":"picture_only",
             "name":"版型二",
             "outputType":"image",
             "description":"一張圖",
-            "backgroundImageUrl":"template/template_resource/mood_pic.png",
+            "backgroundImageUrl":"template_resource/mood_pic.png",
             "customizableObjects":[
                 {
                     "id":"picture0",
@@ -89,12 +89,12 @@
             ]
         },
         "text_only":{
-            "representingImageUrlSub":"template/template_resource/mood_03.png",
+            "representingImageUrlSub":"template_resource/mood_03.png",
             "selected":"text_only",
             "name":"版型三",
             "outputType":"image",
             "description":"39個字",
-            "backgroundImageUrl":"template/template_resource/mood_text.png",
+            "backgroundImageUrl":"template_resource/mood_text.png",
             "customizableObjects":[
                 {
                     "id":"text0",

@@ -1,8 +1,8 @@
 {
     "selected":"check_in",
     "name":"打卡",
-    "representingImageUrl":"template/template_resource/script03.png",
-    "introdcutionContentUrl":"template/template_resource/mood_introdction.html",
+    "representingImageUrl":"template_resource/script03.png",
+    "introdcutionContentUrl":"template_resource/mood_introdction.html",
     "outputSize":{
         "width":720,
         "height":480
@@ -12,7 +12,7 @@
             "selected":"text_only",
             "name":"版型一",
             "description":"文：限39個中文字",
-            "backgroundImageUrl":"template/template_resource/checkin_text.png",
+            "backgroundImageUrl":"template_resource/checkin_text.png",
             "customizableObjects":[
                 {
                     "id":"text0",
@@ -46,7 +46,7 @@
             "selected":"picture_only",
             "name":"版型二",
             "description":"圖：上傳一張照片",
-            "backgroundImageUrl":"template/template_resource/test_bg.jpg",
+            "backgroundImageUrl":"template_resource/test_bg.jpg",
             "customizableObjects":[
                 {
                     "id":"picture0",

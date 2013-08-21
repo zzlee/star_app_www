@@ -1,7 +1,7 @@
 {
     "taipei_arena":{
         "text_only":{
-            "backgroundImageUrl":"template/template_resource/taipei_arena-checkin_text.png",
+            "backgroundImageUrl":"template_resource/taipei_arena-checkin_text.png",
             "customizableObjects":[
                 {
                     "id":"text0",
