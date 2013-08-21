@@ -1,16 +1,14 @@
 
 TemplateMgr = (function(){
-	var uInstance = null;
-	
-	
-	function constructor(cb_constructor){
-		
-		var templates = {};
-		var doohPreviewTemplates = {};
-		
-		var TEMPLATE_FOLDER_PATH = 'template'; //TODO: save path to an object member
-		
-		var obj = {
+    var uInstance = null;
+    
+    
+    function constructor(cb_constructor){
+        
+        var templates = {};
+        var doohPreviewTemplates = {};
+        
+        var obj = {
             //=== public services of TemplateMgr ===
             /**
              * List the main template 
@@ -182,29 +180,44 @@ TemplateMgr = (function(){
                             callback('Failed to read dooh_preview_description.json: '+err);
                         }
                     });
-				},
-	            function(callback){
-	                //insert absolute path into the properties containing url (i.e. "xxxxUrlxx")
-	                for(var mainTemplateId in _this.templates) {
-	                    //alert(propt + ': ' + obj[propt]);
-	                    var aMainTemplate = _this.templates[mainTemplateId];
-	                    for(var propertyOfMainTemplate in aMainTemplate) {
-	                        if (propertyOfMainTemplate.indexOf('Url')>=0) {
-	                            aMainTemplate[propertyOfMainTemplate] = _this.path + aMainTemplate[propertyOfMainTemplate];
-	                        }
-	                    }
-	                    for(var subTemplateId in aMainTemplate.subTemplate) {
-	                        var aSubTemplate = aMainTemplate.subTemplate[subTemplateId];
-	                        for(var propertyOfSubTemplate in aSubTemplate) {
-	                            if (propertyOfSubTemplate.indexOf('Url')>=0) {
-	                                aSubTemplate[propertyOfSubTemplate] = _this.path + aSubTemplate[propertyOfSubTemplate];
-	                            }
-	                        }
-	                    }
-	                }
-	                
-	                callback(null);
-	            }
+                },
+                function(callback){
+                    //insert absolute path into the properties containing url (i.e. "xxxxUrlxx")
+                    //-- UGC templates --
+                    for(var mainTemplateId in _this.templates) {
+                        var aMainTemplate = _this.templates[mainTemplateId];
+                        for(var propertyOfMainTemplate in aMainTemplate) {
+                            if (propertyOfMainTemplate.indexOf('Url')>=0) {
+                                aMainTemplate[propertyOfMainTemplate] = _this.path + aMainTemplate[propertyOfMainTemplate];
+                            }
+                        }
+                        for(var subTemplateId in aMainTemplate.subTemplate) {
+                            var aSubTemplate = aMainTemplate.subTemplate[subTemplateId];
+                            for(var propertyOfSubTemplate in aSubTemplate) {
+                                if (propertyOfSubTemplate.indexOf('Url')>=0) {
+                                    aSubTemplate[propertyOfSubTemplate] = _this.path + aSubTemplate[propertyOfSubTemplate];
+                                }
+                            }
+                        }
+                    }
+                    //--DOOH preview templates --
+                    for(var mainTemplateId in _this.doohPreviewTemplates) {
+                        var aMainTemplate = _this.doohPreviewTemplates[mainTemplateId];
+                        for (var doohId in aMainTemplate) {
+                            var aDooh = aMainTemplate[doohId];
+                            for(var subTemplateId in aDooh) {
+                                var aSubTemplate = aDooh[subTemplateId];
+                                for(var propertyOfSubTemplate in aSubTemplate) {
+                                    if (propertyOfSubTemplate.indexOf('Url')>=0) {
+                                        aSubTemplate[propertyOfSubTemplate] = _this.path + aSubTemplate[propertyOfSubTemplate];
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    callback(null);
+                }
 
 			], 
 			function (err, result) {

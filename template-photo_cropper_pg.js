@@ -33,6 +33,10 @@ var s_now = {
     v : 0
 };
 
+var WidthOfCustomizableImage = null;
+var HeightOfcustomizableImage = null;
+
+
 FmMobile.photoCropperPg = {
 
     //myPhotoCropper: null,
@@ -43,11 +47,30 @@ FmMobile.photoCropperPg = {
     load : function(event, data) {
 
         $("#nav-bar").show();
+        
+        //get the dimension of customizable image 
+        WidthOfCustomizableImage = null;
+        HeightOfcustomizableImage = null;
+        var customizableObjects = templateMgr.getSubTemplate(FmMobile.selectedTemplate, FmMobile.selectedSubTemplate).customizableObjects;
+        for (var i=0; i<customizableObjects.length; i++) {
+            if (customizableObjects[i].type == 'image') {
+                //WidthOfCustomizableImage = customizableObjects[i].width;
+                //HeightOfcustomizableImage = customizableObjects[i].height;
+                //TODO: get the dimensions of customizable image from templateMgr
+                WidthOfCustomizableImage = 1280;
+                HeightOfcustomizableImage = 722;
+                break;
+            }
+        }
+        if ( (!WidthOfCustomizableImage) || (!HeightOfcustomizableImage) ) {
+            return;
+        }
+        
 
         if (FmMobile.selectedTemplate == 'miix_it') {
 
             $("#submitPhotoBtn2").click(function() {
-                FmMobile.userContent.picture.urlOfOriginal = fileSelectedURI;
+                //FmMobile.userContent.picture.urlOfOriginal = fileSelectedURI;
                 FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
                 $.mobile.changePage("template-preview.html");
             });
@@ -83,7 +106,10 @@ FmMobile.photoCropperPg = {
     },
 
     show : function(event, data) {
-        FmMobile.userContent.picture.urlOfOriginal = fileSelectedURI;
+        //FmMobile.userContent.picture.urlOfOriginal = fileSelectedURI;
+        if ( (!WidthOfCustomizableImage) || (!HeightOfcustomizableImage) ) {
+            return;
+        }
 
         //JF - image initial
         canvas = document.getElementById('photoZoom');
@@ -97,9 +123,7 @@ FmMobile.photoCropperPg = {
 
         //canvas.width = screen.availWidth;
         canvas.width = $('.movie-pic-dummy').width();
-        canvas.height = canvas.width
-                / customizableObjectDimensions[fileObjectID].width
-                * customizableObjectDimensions[fileObjectID].height;
+        canvas.height = canvas.width / WidthOfCustomizableImage * HeightOfcustomizableImage;
 
         image.onload = function() {
 

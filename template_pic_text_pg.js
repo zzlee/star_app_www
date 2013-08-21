@@ -34,18 +34,6 @@ FmMobile.template_pic_text_pg = {
         }
         */
         
-        var url = $(this).data('url');
-        //var templateID = url.split("=")[1];
-        var templateID = "greeting";
-        //var templateID = "miixcard";
-        //var templateID = "rotate";
-        projectID = templateID +'-'+ userName +'-'+ (new Date()).toISOString().replace(/[-:.]/g, "");
-        customizedContent.projectID = projectID;
-        customizedContent.templateID = templateID;
-        customizedContent.userName = userName;
-        //customizedContent.ownerID = {_id: localStorage._id, fb_userID: localStorage.fb_userID, fb_name: localStorage.fb_name};
-        customizedContent.ownerID = localStorage._id;
-        customizedContent.ownerFbUserID = localStorage.fb_userID;
         
         
         var itemContentIsReady;
@@ -86,7 +74,7 @@ FmMobile.template_pic_text_pg = {
 
 
                 }
-                if(check_format[1] != undefined){
+                if(check_format[1] !== undefined){
                     if(check_format[1].length >8 ){
                     FmMobile.showNotification("moreWords");
                         return false;
@@ -94,7 +82,7 @@ FmMobile.template_pic_text_pg = {
                     }
                 }
                 
-                if(check_format[2] != undefined){
+                if(check_format[2] !== undefined){
                 if(check_format[2].length >8 ){
 FmMobile.showNotification("moreWords");
                     return false;
@@ -104,8 +92,8 @@ FmMobile.showNotification("moreWords");
                 
                 
             
-            fileObjectID = event.data.objectID;
-            console.log('[buttonClick_cb()] fileObjectID = %s', fileObjectID);
+            //fileObjectID = event.data.objectID;
+            //console.log('[buttonClick_cb()] fileObjectID = %s', fileObjectID);
             //alert('fileObjectID = '+fileObjectID );
             
             
@@ -116,7 +104,7 @@ FmMobile.showNotification("moreWords");
             
             var gotoPhotoCropper = function (imageURI) {
                 
-                fileSelectedURI = imageURI;
+                FmMobile.userContent.picture.urlOfOriginal = imageURI;
                 
                 if ( (device.version > "6") && (device.platform == "iPhone")) {
                     
@@ -146,9 +134,9 @@ FmMobile.showNotification("moreWords");
                 
                 console.log("version="+device.version);
                 
-            }
+            };
             
-            if ( event.data.PhotoSource == "album" ) {
+            if ( event.data.photoSource == "album" ) {
                 navigator.camera.getPicture(gotoPhotoCropper, getPhotoFail,{
                                             quality: 50,
                                             destinationType: navigator.camera.DestinationType.FILE_URI,
@@ -168,71 +156,12 @@ FmMobile.showNotification("moreWords");
             
             
             }
-        }
+        };
         
-        var getCustomizableObject_cb = function(xmlDoc) {
-            var customizableObjectsXml = xmlDoc.getElementsByTagName("customizable_object");
-            
-            itemContentIsReady = Array(customizableObjectsXml.length);
-            
-            for (var i=0; i<customizableObjectsXml.length; i++) {
-                var objID = customizableObjectsXml[i].getElementsByTagName("ID")[0].childNodes[0].nodeValue;
-                var objFormat = customizableObjectsXml[i].getElementsByTagName("format")[0].childNodes[0].nodeValue;
-                var objDescription = customizableObjectsXml[i].getElementsByTagName("description")[0].childNodes[0].nodeValue;
-                var objKeyFrame = customizableObjectsXml[i].getElementsByTagName("key_frame")[0].childNodes[0].nodeValue;
-                
-                customizableObjectDimensions[objID] = {
-                width: customizableObjectsXml[i].getElementsByTagName("original_width")[0].childNodes[0].nodeValue,
-                    height: customizableObjectsXml[i].getElementsByTagName("original_height")[0].childNodes[0].nodeValue };
-                
-                $('#movieKeyFrame').attr('src', './template/'+templateID+'/'+objKeyFrame);
-                
-                
-                $('#btnUseCamera').bind( "click", { objectID: objID, objectIndex: i, PhotoSource: "camera" }, buttonClick_cb);
-                $('#btnUseAlbum').bind( "click", { objectID: objID, objectIndex: i, PhotoSource: "album" }, buttonClick_cb);
-                
-                
-                customizableObjects[i] = new Object();
-                customizableObjects[i].ID = objID;
-                customizableObjects[i].format = objFormat;
-            }
-        }
+        $('#btnUseCamera').bind( "click", { photoSource: "camera" }, buttonClick_cb);
+        $('#btnUseAlbum').bind( "click", { photoSource: "album" }, buttonClick_cb);
+
         
-        
-        //console.log('enter movieCreatePg');
-        
-        
-        $.ajax({
-               url: './template/'+templateID+'/template_customizable_object_list.xml',
-               dataType: 'xml',
-               success: getCustomizableObject_cb		
-               });
-        
-        
-        
-       /*
-        var text_limit=33;
-        $("#ur_text").focusout(function(){
-                               
-                               if($("#ur_text").val().length>text_limit){
-                               //alert("超過6個中文字囉！");
-                               var num = $("#ur_text").val().substr(0, text_limit);
-                               $("#ur_text").val(num);
-                               }
-                               $("#now").text(text_limit - $("#ur_text").val().length);
-                               
-                               });
-        
-        $("#ur_text").keyup(function(){
-                             $("#ur_text").val().replace(/\n/g,"</br>");
-                            var curLength = $("#ur_text").val().length;
-                            if (curLength > text_limit) {
-                            var num = $("#ur_text").val().substr(0,text_limit);
-                            $("#ur_text").val(num);
-                            alert("超過"+text_limit+"字數限制，多出的字將被移除！");
-                            }
-                            });
-        */
         
         var textForUgcUtility;
         
@@ -275,25 +204,5 @@ FmMobile.showNotification("moreWords");
         */
         
         
-        /*
-         var btnSubmit1Click_cb = function () {
-         //console.dir(customizedContent);
-         $.post(starServerURL+'/miix/videos/user_content_description', customizedContent, function(result){
-         console.dir(result);
-         });
-         
-         //go back to home.html
-         //TODO: find a better way to go bakc to home.html
-         //$.mobile.changePage("home.html", {changeHash: false});
-         $('#movieCreatePg').live('pagehide',function(event, ui){
-         history.back();
-         });
-         history.back();
-         
-         }
-         
-         $('#btnSubmit1').bind( "click", btnSubmit1Click_cb);
-         $('#movieCreatePgFooter').hide();
-         */
     }
-}
+};

@@ -15,17 +15,18 @@ localhost = "http://localhost:3000",
 remotesite = starServerURL,
 domain = (local) ?  localhost : remotesite;
 
-var templateSelected;
-var fileSelectedURI, fileProcessedForCropperURI;
-var photoCroppedURI="./img/face.jpg";
-var fileObjectID;
-var projectID;
+//var templateSelected; //deprecated
+//var fileSelectedURI; //deprecated 
+var fileProcessedForCropperURI;
+//var photoCroppedURI="./img/face.jpg"; //deprecated 
+//var fileObjectID; //deprecated
+//var projectID; //deprecated
 var croppedArea;
-var customizableObjectDimensions = {};
-var customizedContent = {};
-var customizableObjects = [];
-var fileSelected;
-var myPhotoCropper;
+//var customizableObjectDimensions = {}; //deprecated
+//var customizedContent = {}; //deprecated
+//var customizableObjects = []; //deprecated
+//var fileSelected; //deprecated
+//var myPhotoCropper; //deprecated
 
 FmMobile.shareProjectID;
 
