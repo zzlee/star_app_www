@@ -983,6 +983,7 @@ init: function(){
             FM_LOG("[SignUp with FB]: ");
             if(response.data){
                 localStorage._id = response.data._id;
+                localStorage.miixToken = response.data.miixToken;
                 //localStorage.fb_user_pic=response.data.fb_user_pic;
                 localStorage.fb_accessToken = response.data.accessToken;
                 localStorage.verified = (response.data.verified) ? response.data.verified : 'false';
@@ -1019,6 +1020,7 @@ init: function(){
         recordUserAction("log out");
         var fb = FBConnect.install();
         delete localStorage._id;
+        delete localStorage.miixToken;
         delete localStorage.fb_userID;
         delete localStorage.fb_name;
         delete localStorage.fb_accessToken;
