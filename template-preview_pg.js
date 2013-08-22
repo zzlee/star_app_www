@@ -104,6 +104,10 @@ FmMobile.template_previewPg = {
                                                         $.mobile.changePage("my_ugc.html");
                                                      }else{
                                                          FmMobile.showNotification("uploadFailed");
+                                                         $('#clickImgEffect').show("normal");
+                                                         $('#afterClickBack').show("normal");
+                                                         $('#afterClickSent').show("normal");
+                                                         $.mobile.hidePageLoadingMsg();
                                                      }
 
                                                    });
@@ -175,6 +179,10 @@ FmMobile.template_previewPg = {
                                                   
                                                   }else{
                                                       FmMobile.showNotification("uploadFailed");
+                                                      $('#clickImgEffect').show("normal");
+                                                      $('#afterClickBack').show("normal");
+                                                      $('#afterClickSent').show("normal");
+                                                      $.mobile.hidePageLoadingMsg();
                                                   }//End of if(!err)
 
                             });//End of ImageUgc
@@ -214,7 +222,6 @@ FmMobile.template_previewPg = {
                                 contentGenre : mainTemplate,
                                 title : "today's mood"
                         };
-                                    
                         imageUgc.uploadToServer(ugcInfo,
                                                 function(err) {
                 //                                    console.log("err=" + err);
@@ -226,6 +233,10 @@ FmMobile.template_previewPg = {
                                                         $.mobile.changePage("my_ugc.html");
                                                     }else{
                                                         FmMobile.showNotification("uploadFailed");
+                                                        $('#clickImgEffect').show("normal");
+                                                        $('#afterClickBack').show("normal");
+                                                        $('#afterClickSent').show("normal");
+                                                        $.mobile.hidePageLoadingMsg();
                                                     }//end of if(!err)
                                                 
                                                 });//End of imageUgc

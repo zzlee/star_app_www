@@ -230,7 +230,7 @@ background: #000000; /* Old browsers */
 	padding: 0px;
 	position: absolute;
 	overflow: auto;
-	height: 91.31%;
+	height: 90%;
 	}
 .login_succes_container{
 	top:10%;
@@ -1051,7 +1051,7 @@ hr{
 	padding: 0px;
 	background-size: 100% 100%;
 	position: absolute;
-	overflow: auto;
+	overflow: hidden;
 	height: 100%;
 }
 .orientation_text{

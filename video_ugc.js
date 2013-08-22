@@ -106,7 +106,7 @@ VideoUgc = (function(){
                         };
                         
                         var uploadFail_cb = function(error) {
-                            FmMobile.showNotification("uploadFailed");
+//                            FmMobile.showNotification("uploadFailed");
                             console.log("upload error source " + error.source);
                             console.log("upload error target " + error.target);
                             callback("Failed to uplaod user content file to server: "+error.code);
