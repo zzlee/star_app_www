@@ -14,7 +14,7 @@ var myflag=true;
 FmMobile.authentication = {
     
     init: function(){
-        
+        //deprecated?
         if(localStorage.verified == 'true'){
             console.log("verified is true");
             $.mobile.changePage("booking_choose_movie.html");
@@ -38,7 +38,8 @@ FmMobile.authentication = {
         var phoneNum_int = parseInt(phoneNum);
         
         if(isNaN(phoneNum_int) || phoneNum_int < 900000000 || phoneNum_int > 999999999){
-             navigator.notification.alert("號碼錯囉...");
+//             navigator.notification.alert("號碼錯囉...");
+            FmMobile.showNotification("wrongPhoneNumber");
             $("#phoneNum_input").attr("value", "09XXXXXXXX");
             return;
         }else if(FmMobile.myflag){
@@ -53,19 +54,20 @@ FmMobile.authentication = {
 
                   //alert("test");
                   if(res.message){
-                  FmMobile.myflag=false;
-                  
-                  navigator.notification.alert(res.message);
-                  $.mobile.changePage("code_input.html");
+                      FmMobile.myflag=false;
+                      
+                      navigator.notification.alert(res.message);
+                      $.mobile.changePage("code_input.html");
                   setTimeout(function(){FmMobile.myflag=true},60000);
                   }else{
-                  navigator.notification.alert(res.error);
+                      console.log("[authentication.getCode] : " + res.error);
                   }
                   });
             
 
         }else{
-            navigator.notification.alert("請於三分鐘後再發送一次認證碼請求,謝謝！");
+//            navigator.notification.alert("請於三分鐘後再發送一次認證碼請求,謝謝！");
+            FmMobile.showNotification("reSendCode");
         
         }
       //  FmMobile.myflag=false;
@@ -93,12 +95,15 @@ FmMobile.authentication = {
         $.post(url, data, function(res){
            if(res.message){
                localStorage.verified = true;
-               navigator.notification.alert(res.message, function(){
-                                            $.mobile.changePage("login_success.html");
-                                            }, "認證");
+//               navigator.notification.alert(res.message, function(){
+//                                            $.mobile.changePage("login_success.html");
+//                                            }, "認證");
+               FmMobile.showNotification("sendCode");
+               $.mobile.changePage("login_success.html");
                
            }else{
-               navigator.notification.alert(res.error);
+//               navigator.notification.alert(res.error);
+               console.log("[authentication.sendCode] : " + res.error);
            }
         });
     },

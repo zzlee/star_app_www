@@ -76,21 +76,21 @@ FmMobile.template_subTemplatePg = {
         }
         
         $("#start_subTemplate > div > img").click(function(){
-                                          if(this.id=='text_only'){
-                                          FmMobile.selectedSubTemplate=this.id;
-                                          $.mobile.changePage("template-input_text.html");
-                                          }else if(this.id=='picture_only'){
-                                          FmMobile.selectedSubTemplate=this.id;
-                                          $.mobile.changePage("template-input_pic.html");
-                                          }else if(this.id=='picture_plus_text'){
-                                          FmMobile.selectedSubTemplate=this.id;
-                                          $.mobile.changePage("template-input_text_pic.html");
-                                          }else if(this.id=='miix_one_image'){
-                                          FmMobile.selectedSubTemplate=this.id;
-                                          $.mobile.changePage("template_input_miixit.html");
-                                          
-                                          }
-                                          });
+            if(this.id=='text_only'){
+                FmMobile.selectedSubTemplate=this.id;
+                $.mobile.changePage("template-input_text.html");
+            }else if(this.id=='picture_only'){
+                FmMobile.selectedSubTemplate=this.id;
+                $.mobile.changePage("template-input_pic.html");
+            }else if(this.id=='picture_plus_text'){
+                FmMobile.selectedSubTemplate=this.id;
+                $.mobile.changePage("template-input_text_pic.html");
+            }else if(this.id=='miix_one_image'){
+                FmMobile.selectedSubTemplate=this.id;
+                $.mobile.changePage("template_input_miixit.html");
+
+            }
+        });
          /*
         for(var i=0;i<templateMgr.getSubTemplateList(FmMobile.selectedTemplate).length;i++){
             

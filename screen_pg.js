@@ -106,15 +106,16 @@ FmMobile.screenPg = {
             switch(arryHighlight[i].Genre){
                 case "miix_story":
                 case "miix":
-                    if(typeof(arryHighlight[i].Url) != "undefined"){
+                    if(typeof(arryHighlight[i].Url.youtube) != "undefined"){
                         var ytVideoID = (arryHighlight[i].Url.youtube).split('/').pop();
                         console.log("youtubeID " + ytVideoID);
                         //set youtube
                         Thumbnail = $("<img>").attr({
-                                                              id: 'imgYouTube_'+ytVideoID,
-                                                              src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
-                                                              class: "content-movie-img"
-                                                              });
+                                                    id: 'imgYouTube_'+ytVideoID,
+                                                    src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
+                                                    class: "content-movie-img",
+                                                    style:"height:62%;margin-top:2.5%;"
+                                                      });
                         Thumbnail.appendTo(widget);
                         //set the owner'photo
                         ownerPhoto = $("<img>").attr({
@@ -132,7 +133,6 @@ FmMobile.screenPg = {
                     }else{
                         Thumbnail = $("<img>").attr({
                                                               id: 'imgError_' + i,
-                                                              src: "images/choose_movie.png",
                                                               class: "content-movie-img"
                                                               });
                         Thumbnail.appendTo(widget);

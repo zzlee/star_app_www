@@ -4,7 +4,7 @@ PAGE_ID: "template_miixitPg",
 show: function(){
     FmMobile.analysis.trackPage("/template_miixitPg");
     recordUserAction("enters template_miixitPg");
-    $('.content-movie-img').attr("height",$('.content-movie-img').width()/757*439);
+    //$('.content-movie-img').attr("height",$('.content-movie-img').width()/757*439);
 },
     
 init: function(){
