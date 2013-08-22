@@ -4,28 +4,25 @@ PAGE_ID: "template_miixitPg",
 show: function(){
     FmMobile.analysis.trackPage("/template_miixitPg");
     recordUserAction("enters template_miixitPg");
+    //$('.content-movie-img').attr("height",$('.content-movie-img').width()/757*439);
 },
     
 init: function(){
-    //$('.content-movie-img').height(
+    
     $('#nav-bar').show();
-   // $("#show_intro").show();
-    $('.content-movie-img').attr("height",$('.content-movie-img').width()/757*452);
+    
     if(localStorage[FmMobile.selectedTemplate]=='hasReadHint'){
         $("#show_intro").hide();
         $("#close").hide();
     }else{
         $("#show_intro").show();
-        
     }
-
     
     $("#close").click(function(){
-                      $("#show_intro").hide();
-                      $('#close').hide();
-                      localStorage[FmMobile.selectedTemplate]='hasReadHint';
-
-                      });
+              $("#show_intro").hide();
+              $('#close').hide();
+              localStorage[FmMobile.selectedTemplate]='hasReadHint';
+        });
     
     $('#back_main').click(function(){
               $.mobile.changePage("template-main_template.html");

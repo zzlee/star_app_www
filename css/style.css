@@ -506,7 +506,7 @@ padding:5% 5%;
 	position:relative;
 }
 .content-movie{
-	background-image:url(../images/big_frame.png);
+	background-image:url(../images/loading.png);
 	background-repeat:no-repeat;
 	background-size:100%;
 	width: 90%;
@@ -514,6 +514,26 @@ padding:5% 5%;
 	margin-left: 5%;
 	position:relative;
 }
+
+.content-movie-preview{
+	background-image:url(../images/loading.png);
+	background-repeat:no-repeat;
+	background-size:100%;
+	width: 90%;
+	margin-top: 5%;
+	margin-left: 5%;
+	position:relative;
+}
+.content-movie-preview{
+	background-image:url(../images/loading.png);
+ 	background-repeat:no-repeat;
+ 	background-size:100%;
+ 	width: 90%;
+ 	margin-top: 5%;
+ 	margin-left: 5%;
+ 	position:relative;
+ }
+
 .content-tanmu{
 	background-image:url(../images/tanmu_frame.png);
 	background-repeat:no-repeat;
@@ -540,7 +560,7 @@ padding:5% 5%;
     left: 0;
     right: 0;
 	width:95%;
-	margin-top:3%;
+	margin-top:5.5%;
 	margin-left:3%;
 }
 .content-movie-img-long{
@@ -878,7 +898,7 @@ padding:5% 5%;
     line-height: 125%;
     padding-bottom: 2%;
     }
-.preview-instruction{
+.preview_instruction{
     margin-top: 5%;
     margin-left: 5%;
     width: 90%;

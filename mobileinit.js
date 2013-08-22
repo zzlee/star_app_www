@@ -42,6 +42,7 @@ FmMobile.mycount;
 FmMobile.srcForMyUgcViewer;
 FmMobile.myflag=true;
 FmMobile.check_in_pic;
+FmMobile.checkinTextForFB;
 
 var templateMgr = null;
 
@@ -1135,7 +1136,7 @@ postCheckinMessage:function(){
     var params = {
         
     access_token: localStorage.fb_accessToken,
-    message: FmMobile.userContent.text,
+    message: FmMobile.checkinTextForFB,
     link:FmMobile.check_in_pic,
     place:"244200115678887"
         //picture:FmMobile.srcForMyUgcViewer,
@@ -1292,6 +1293,14 @@ FmMobile.showNotification = function(fun){
         case "checkIn":
             navigator.notification.confirm("已成功在小巨蛋打卡！", FmMobile.Confirm(), appName, "確定");
             break;
+        case "sendCode":
+            navigator.notification.confirm("認證碼已送出。", FmMobile.Confirm(), appName, "確定");
+            break;
+        case "reSendCode":
+            navigator.notification.confirm("請於三分鐘後再發送一次認證碼請求,謝謝！", FmMobile.Confirm(), appName, "確定");
+            break;
+        case "wrongPhoneNumber":
+            navigator.notification.confirm("手機號碼輸入錯誤，請重新輸入", FmMobile.Confirm(), appName, "確定");
         default:
             console.log("ShowNotification is not worked");
     }

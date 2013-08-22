@@ -14,6 +14,13 @@ FmMobile.myUgcPg = {
     },
     
     show: function(){
+        
+        
+        $("#btnMyUgc").children("img").attr({src:"images/m2-active.png"});
+        $("#btnTemplate").children("img").attr({src:"images/m1.png"});
+        $("#btnScreen").children("img").attr({src:"images/m3.png"});
+        $("#btnSetting").children("img").attr({src:"images/m4.png"});
+        
         FM_LOG("[myUgcPg] pageshow");
         $("#btnMiixMovie").click(function(){
              $("#btnMiixMovie>img").attr({src: "images/tab_ugc_active.png"});
