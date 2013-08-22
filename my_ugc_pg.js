@@ -185,7 +185,7 @@ FmMobile.myUgcPg = {
                                                       id: "imgS3_" +projectId,
                                                       src: s3Url,
                                                       class: "content-movie-img",
-                                                      style: "height: 90%;"  //fixed the image of height
+                                                      style: "height: 91.5%;margin-top:4.5%;"  //fixed the image of height
                                                       });
                         
                         Thumbnail.appendTo(widget);
@@ -308,9 +308,10 @@ FmMobile.myUgcPg = {
                         dummyDiv.appendTo(widget);
                         Thumbnail = $("<img>").attr({
 
-                                                              id: 'imgYouTube_'+ytVideoID,
-                                                              src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
-                                                              class: "content-movie-img"
+                                                        id: 'imgYouTube_'+ytVideoID,
+                                                        src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
+                                                        class: "content-movie-img",
+                                                        style: "margin-top:4.5%;height:93%;"
                                                               });
                         
                         Thumbnail.appendTo(widget);

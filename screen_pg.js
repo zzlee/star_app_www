@@ -114,7 +114,7 @@ FmMobile.screenPg = {
                                                     id: 'imgYouTube_'+ytVideoID,
                                                     src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
                                                     class: "content-movie-img",
-                                                    style:"height:62%;margin-top:2.5%;"
+                                                    style:"height:63%;margin-top:2.5%;"
                                                       });
                         Thumbnail.appendTo(widget);
                         //set the owner'photo

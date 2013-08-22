@@ -88,7 +88,7 @@ $(document).bind("mobileinit", function(){
                  */
                  
                  $("a").live("click", function(event){
-//                    event.preventDefault();
+                    event.preventDefault();
                     var url = document.getElementsByTagName("a")[0].getAttribute("url");
                     if(url != null){
                         FmMobile.openBrowser(url);
@@ -1297,6 +1297,7 @@ FmMobile.showNotification = function(fun){
             break;
         case "wrongPhoneNumber":
             navigator.notification.confirm("手機號碼輸入錯誤，請重新輸入", FmMobile.Confirm(), appName, "確定");
+            break;
         default:
             console.log("ShowNotification is not worked");
     }
@@ -1305,6 +1306,7 @@ FmMobile.showNotification = function(fun){
 
 //Open external website
 FmMobile.openBrowser = function(url){
+    FM_LOG("[openBrowser] url: " + url);
     if(FmMobile.checkNetwork()){
         window.plugins.childBrowser.showWebPage(url);
     }
