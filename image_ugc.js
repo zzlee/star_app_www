@@ -39,10 +39,11 @@ ImageUgc = (function(){
              * @param cbOfUploadToServer
              */
             uploadToServer:function(ugcInfo, cbOfUploadToServer){
-                ugcProjectId = mainTemplateId +'-'+ ugcInfo.ownerId._id +'-'+ (new Date()).toISOString().replace(/[-:.]/g, "");
+                var ugcProjectId = mainTemplateId +'-'+ ugcInfo.ownerId._id +'-'+ (new Date()).toISOString().replace(/[-:.]/g, "");
                 var reultURI = ugcCanvas.toDataURL('image/png').replace('image/octet-stream');
                 var doohPreviewResultURI = doohPreview.getPreviewImageUrl().replace('image/octet-stream');
-
+                var dataJsonFile = null;
+                
                 async.series([
                     function(callback){
                         //upload original image user content file to server if there is one
@@ -135,6 +136,42 @@ ImageUgc = (function(){
                             }
                         });
                     }
+                    /*
+                    function(callback){
+                        //save uploading data to a json file
+                        var data = {
+                                imgBase64: reultURI,
+                                imgDoohPreviewBase64: doohPreviewResultURI,
+                                ownerId: ugcInfo.ownerId._id,
+                                ownerFbUserId: ugcInfo.ownerId.fbUserId,
+                                contentGenre: mainTemplateId,
+                                title: ugcInfo.title,
+                                customizableObjects: JSON.stringify(customizableObjects)
+                            };
+                        
+                        function gotFS(fileSystem) {
+                            fileSystem.root.getFile("data.json", {create: true, exclusive: false}, gotFileEntry, fail);
+                        }
+
+                        function gotFileEntry(fileEntry) {
+                            fileEntry.createWriter(gotFileWriter, fail);
+                        }
+
+                        function gotFileWriter(writer) {
+                            writer.onwriteend = function(evt) {
+                                callback(null);
+                            };
+                            writer.write(JSON.stringify(data));
+                        }
+
+                        function fail(error) {
+                            //console.log(error.code);
+                            callback("Failed to save the uploading data to a json file: "+error.code);
+                        }
+                        
+                        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+
+                    } */
                 ],
                 function(err, results){
                     if (cbOfUploadToServer){

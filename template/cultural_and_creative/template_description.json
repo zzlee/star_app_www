@@ -1,21 +1,21 @@
 {
     "selected":"cultural_and_creative",
     "name":"創作",
-    "topBarImageUrl":"template/template_resource/cultural.png",
-    "representingImageUrl":"template/template_resource/script01.png",
-    "introdcutionContentUrl":"template/template_resource/mood_introdction.html",
+    "topBarImageUrl":"template_resource/cultural.png",
+    "representingImageUrl":"template_resource/script01.png",
+    "introdcutionContentUrl":"template_resource/design_template_instruction.html",
     "outputSize":{
         "width":720,
         "height":480
     },
     "subTemplate":{
         "picture_plus_text":{
-            "representingImageUrlSub":"template/template_resource/cultural_01.png",
+            "representingImageUrlSub":"template_resource/cultural_01.png",
             "selected":"picture_plus_text",
             "name":"版型一",
             "outputType":"image",
             "description":"一張圖 + 24個字",
-            "backgroundImageUrl":"template/template_resource/design_text_and_pic.png",
+            "backgroundImageUrl":"template_resource/design_text_and_pic.png",
             "customizableObjects":[
                 {
                     "id":"text0",
@@ -75,12 +75,12 @@
             ]
         },
         "picture_only":{
-            "representingImageUrlSub":"template/template_resource/cultural_02.png",
+            "representingImageUrlSub":"template_resource/cultural_02.png",
             "selected":"picture_only",
             "name":"版型二",
             "outputType":"image",
             "description":"一張圖",
-            "backgroundImageUrl":"template/template_resource/design_pic.png",
+            "backgroundImageUrl":"template_resource/design_pic.png",
             "customizableObjects":[
                 {
                     "id":"picture0",
@@ -136,12 +136,12 @@
                                    }            ]
         },
         "text_only":{
-            "representingImageUrlSub":"template/template_resource/cultural_03.png",
+            "representingImageUrlSub":"template_resource/cultural_03.png",
             "selected":"text_only",
             "name":"版型三",
             "outputType":"image",
             "description":"39個字",
-            "backgroundImageUrl":"template/template_resource/design_text.png",
+            "backgroundImageUrl":"template_resource/design_text.png",
             "customizableObjects":[
                 {
                     "id":"text0",

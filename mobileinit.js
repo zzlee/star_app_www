@@ -15,17 +15,18 @@ localhost = "http://localhost:3000",
 remotesite = starServerURL,
 domain = (local) ?  localhost : remotesite;
 
-var templateSelected;
-var fileSelectedURI, fileProcessedForCropperURI;
-var photoCroppedURI="./img/face.jpg";
-var fileObjectID;
-var projectID;
+//var templateSelected; //deprecated
+//var fileSelectedURI; //deprecated 
+var fileProcessedForCropperURI;
+//var photoCroppedURI="./img/face.jpg"; //deprecated 
+//var fileObjectID; //deprecated
+//var projectID; //deprecated
 var croppedArea;
-var customizableObjectDimensions = {};
-var customizedContent = {};
-var customizableObjects = [];
-var fileSelected;
-var myPhotoCropper;
+//var customizableObjectDimensions = {}; //deprecated
+//var customizedContent = {}; //deprecated
+//var customizableObjects = []; //deprecated
+//var fileSelected; //deprecated
+//var myPhotoCropper; //deprecated
 
 FmMobile.shareProjectID;
 
@@ -218,7 +219,7 @@ $('#mapAreaNext').attr("coords","'"+FmMobile.or_pic_width+","+((FmMobile.or_pic_
 
 
 
-FmMobile.videoWorks = [];
+FmMobile.videoWorks = [];  //deprecated
 FmMobile.profile = null;
 FmMobile.ga = null;
 FmMobile.pushNotification = null;
@@ -241,6 +242,8 @@ FmMobile.userContent = {
     
 		}
 };
+FmMobile.imageUgc = null;
+FmMobile.videoUgc = null;
 
 //For my_ugc contents
 FmMobile.myContents = null;
@@ -1298,6 +1301,7 @@ FmMobile.showNotification = function(fun){
             break;
         case "wrongPhoneNumber":
             navigator.notification.confirm("手機號碼輸入錯誤，請重新輸入", FmMobile.Confirm(), appName, "確定");
+            break;
         default:
             console.log("ShowNotification is not worked");
     }
@@ -1306,6 +1310,7 @@ FmMobile.showNotification = function(fun){
 
 //Open external website
 FmMobile.openBrowser = function(url){
+    FM_LOG("[openBrowser] url: " + url);
     if(FmMobile.checkNetwork()){
         window.plugins.childBrowser.showWebPage(url);
     }
