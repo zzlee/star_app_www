@@ -24,6 +24,7 @@ init: function(){
                 var checkImgType = FmMobile.srcForMyUgcViewer.split('_');
                 if(checkImgType[checkImgType.length - 1] != "preview.png"){
                     var shareContent = $("#share_content");
+                    shareContent.attr({class: "content-movie-long",style:"margin-bottom:0;margin-top:0;"});
                     shareContent.html("");
                     var dummyDivLong = $("<div>").attr({class:"movie-pic-dummy-long"});
     //                var widget = $("<div>").attr({class: "content-movie-long"});
