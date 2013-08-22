@@ -40,7 +40,7 @@ FmMobile.indexPg = {
         
        
         
-        //$.mobile.changePage("imgZoomViewer.html");
+        //$.mobile.changePage("login_success.html");
         //$.mobile.changePage("template_input_checkin.html");
        // $.mobile.changePage("template-sub-miixit.html");
         // $.mobile.changePage("template_input_miixit.html");
