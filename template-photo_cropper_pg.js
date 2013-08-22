@@ -141,6 +141,7 @@ FmMobile.photoCropperPg = {
         
         $('.content-movie-img').css({
             'width' : change_css,
+            'margin-top' : '5.5%'
         });
 
         //canvas.width = screen.availWidth;
