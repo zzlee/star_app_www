@@ -28,7 +28,7 @@ FmMobile.template_checkinPg = {
                 //alert(location.coords.longitude.toFixed(5)+"\n"+location.coords.latitude.toFixed(5));
                 alert("longitude : "+longitude_g+"\nlatitude : "+latitude_g);
 
-                if((121.5483<longitude_g && longitude_g<121.5510) && (25.0500<latitude_g && latitude_g<25.0520)){
+                if((121.5483<longitude_g && longitude_g<121.5517) && (25.0500<latitude_g && latitude_g<25.0522)){
                    // alert("在夢蝶");
                     rightLocation=true;
                 }else{
