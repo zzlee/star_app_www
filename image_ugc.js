@@ -48,13 +48,14 @@ ImageUgc = (function(){
                     function(callback){
                         //upload original image user content file to server if there is one
                         var iterator = function(aCustomizableObject, cbOfIterator) {
+                              console.dir(aCustomizableObject);
                             if ((aCustomizableObject.type=="image") || (aCustomizableObject.type=="video") ) { 
                                 var options = new FileUploadOptions();
                                 options.fileKey = "file";
                                 options.fileName = aCustomizableObject.content;
                                 options.mimeType = "image/jpeg"; //TODO: to have mimeType customizable? 
                                 options.chunkedMode = true;
-                                
+                              
                                 var templateCustomizableObjects = template.customizableObjects;
                                 var imageCustomizableObjectWidth = null;
                                 var imageCustomizableObjectHeight = null;
@@ -96,6 +97,13 @@ ImageUgc = (function(){
                                 };
                                 
                                 var uploadFail_cb = function(error) {
+//                                    if(aCustomizableObject.type == "text"){
+//                                        FmMobile.showNotification("uploadFailed");
+//                                        $('#clickImgEffect').show("normal");
+//                                        $('#afterClickBack').show("normal");
+//                                        $('#afterClickSent').show("normal");
+//                                        $.mobile.hidePageLoadingMsg();
+//                                    }
                                     console.log("upload error source " + error.source);
                                     console.log("upload error target " + error.target);
                                     cbOfIterator("Failed to uplaod user content file to server: "+error.code);

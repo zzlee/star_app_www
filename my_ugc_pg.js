@@ -252,6 +252,7 @@ FmMobile.myUgcPg = {
             var dummyDiv = $("<div>").attr({class: "movie-pic-dummy"});
             var dummyDivLong = $("<div>").attr({class:"movie-pic-dummy-long"});
             //For item info ex. Copy Youtube'url, Share on FB and # of video/image
+
             var infoPreview = $("<div>").attr({id:"my-content-info"});
             var info = $("<div>").attr({id: "my-content-info"});
             
@@ -264,7 +265,8 @@ FmMobile.myUgcPg = {
             var Thumbnail = null;
             var shareYoutubeDiv = null;
             var shareFbDiv = null;
-            
+            var tanmuSize = $("<div>").attr({class:"tanmu-instraction",style:"text-align:center;"});
+            tanmuSize.html("天幕尺寸：100公尺×16公尺");
             //Set Preview
             if(typeof(arryContents[i].PreviewUrl) != "undefined"){
                 widgetPreview = $("<div>").attr({id: "preview_" + projectId, class: "content-movie-preview"});
@@ -322,7 +324,6 @@ FmMobile.myUgcPg = {
                                                               });
                         
                         Thumbnail.appendTo(widget);
-                        
                         shareYoutubeDiv = $("<img>").attr({
                                                                id: "copyUrl_" + ytVideoID,
                                                                class: "share",
@@ -371,6 +372,7 @@ FmMobile.myUgcPg = {
                                                               });
                         
                         Thumbnail.appendTo(widget);
+                        tanmuSize.appendTo(info);
                         shareYoutubeDiv = $("<img>").attr({
                                                                id: "copyUrlS3_" + projectId,
                                                                class: "share",

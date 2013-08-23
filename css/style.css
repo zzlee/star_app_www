@@ -230,7 +230,7 @@ background: #000000; /* Old browsers */
 	padding: 0px;
 	position: absolute;
 	overflow: auto;
-	height: 91.31%;
+	height: 90%;
 	}
 .login_succes_container{
 	top:10%;
@@ -570,7 +570,7 @@ padding:5% 5%;
     left: 0;
     right: 0;
 	width:95%;
-	margin-top:15%;
+	margin-top:9%;
 	margin-left:3%;
 }
 .content-movie-img-tanmu{
@@ -1051,7 +1051,7 @@ hr{
 	padding: 0px;
 	background-size: 100% 100%;
 	position: absolute;
-	overflow: auto;
+	overflow: hidden;
 	height: 100%;
 }
 .orientation_text{
