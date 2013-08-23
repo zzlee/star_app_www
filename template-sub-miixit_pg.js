@@ -18,6 +18,14 @@ init: function(){
         $("#show_intro").show();
     }
     
+    if(device.platform == "Android"){
+    	//replace the <video> with <iframe>
+    	$("#video_iOS").hide();
+    	$("#iframe_Android").show();
+    }else{
+    	$("#video_iOS").show();
+    	$("#iframe_Android").hide();
+    }
     $("#close").click(function(){
               $("#show_intro").hide();
               $('#close').hide();

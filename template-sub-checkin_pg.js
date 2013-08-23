@@ -15,7 +15,7 @@ FmMobile.template_checkinPg = {
             function errorHandler (error) {
                 $.mobile.changePage("template-main_template.html");
                 FmMobile.showNotification("gpsDeny");
-               
+                alert('Attempt to get location failed: ' + error.message);
 
                 //alert('Attempt to get location failed: ' + error.message);
             }
@@ -42,7 +42,7 @@ FmMobile.template_checkinPg = {
             var options = {
             enableHighAccuracy: true,
             maximumAge: 0,
-            timeout: 1000
+            timeout: 5000
             };
             
             navigator.geolocation.getCurrentPosition(successHandler, errorHandler, options);
