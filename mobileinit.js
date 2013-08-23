@@ -1246,7 +1246,7 @@ FmMobile.showNotification = function(fun){
     
     switch(fun){
         case "uploadUgc":
-            navigator.notification.confirm("投件成功！", FmMobile.Confirm(), appName, "確定");
+            navigator.notification.confirm("上傳完成！", FmMobile.Confirm(), appName, "確定");
             break;
         case "copyUrl":
             navigator.notification.confirm("已複製連結！", FmMobile.Confirm(), appName, "確定");
@@ -1285,10 +1285,10 @@ FmMobile.showNotification = function(fun){
             navigator.notification.confirm("本服務必須連接網路，請檢查您的網路環境。", FmMobile.Confirm(), appName, "確定");
             break;
         case "uploadFailed":
-            navigator.notification.confirm("投件失敗，請重新再試。", FmMobile.Confirm(), appName, "確定");
+            navigator.notification.confirm("上傳失敗，請重新再試。", FmMobile.Confirm(), appName, "確定");
             break;
         case "share":
-            navigator.notification.confirm("分享成功！", FmMobile.Confirm(), appName, "確定");
+            navigator.notification.confirm("分享完成！", FmMobile.Confirm(), appName, "確定");
             break;
         case "checkIn":
             navigator.notification.confirm("已成功在小巨蛋打卡！", FmMobile.Confirm(), appName, "確定");
