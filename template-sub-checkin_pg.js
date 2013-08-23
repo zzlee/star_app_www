@@ -21,17 +21,14 @@ FmMobile.template_checkinPg = {
             }
             
             function successHandler (location) {
-                //var longitude_g;
-                //var latitude_g;
-                //longitude_g=location.coords.longitude;
-                //latitude_g=location.coords.latitude;
-                //alert(typeof(latitude_g));
+                
                 var longitude_g=location.coords.longitude;
                 var latitude_g=location.coords.latitude;
-                //alert(longitude_g+"\n"+latitude_g);
-                alert(location.coords.longitude.toFixed(5)+"\n"+location.coords.latitude.toFixed(5));
-                //121.532<longitude_g && longitude_g<121.536) && (25.036<latitude_g && latitude_g<25.040
-                if((121.5483<longitude_g && longitude_g<121.5510) && (25.0512<latitude_g && latitude_g<25.0520)){
+                
+                //alert(location.coords.longitude.toFixed(5)+"\n"+location.coords.latitude.toFixed(5));
+                alert("longitude : "+longitude_g+"\nlatitude : "+latitude_g);
+
+                if((121.5483<longitude_g && longitude_g<121.5510) && (25.0500<latitude_g && latitude_g<25.0520)){
                    // alert("在夢蝶");
                     rightLocation=true;
                 }else{

@@ -1138,7 +1138,7 @@ postCheckinMessage:function(){
     access_token: localStorage.fb_accessToken,
     message: FmMobile.checkinTextForFB,
     link:FmMobile.check_in_pic,
-    place:"244200115678887"
+    place:"157142054372631"
         //picture:FmMobile.srcForMyUgcViewer,
         //privacy:{'value':'SELF'},
         
