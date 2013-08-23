@@ -13,8 +13,13 @@ FmMobile.template_checkinPg = {
         if (navigator.geolocation) {
             
             function errorHandler (error) {
-                $.mobile.changePage("template-main_template.html");
-                FmMobile.showNotification("gpsDeny");
+                if(device.platform == "iPhone"){
+                    $.mobile.changePage("template-main_template.html");
+                    FmMobile.showNotification("gpsDeny");
+                }else{
+                    $.mobile.changePage("template-main_template.html");
+                    FmMobile.showNotification("gpsDenyAndroid");
+                }
                
 
                 //alert('Attempt to get location failed: ' + error.message);
@@ -42,7 +47,7 @@ FmMobile.template_checkinPg = {
             var options = {
             enableHighAccuracy: true,
             maximumAge: 0,
-            timeout: 5000
+            timeout: 15000
             };
             
             navigator.geolocation.getCurrentPosition(successHandler, errorHandler, options);
