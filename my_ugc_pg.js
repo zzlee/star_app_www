@@ -202,7 +202,7 @@ FmMobile.myUgcPg = {
                                                       id: "imgS3_" +projectId,
                                                       src: s3Url,
                                                       class: "content-movie-img",
-                                                      style: "height: 91.5%;margin-top:4.5%;"  //fixed the image of height
+                                                      style: "height: 63%;margin-top:3.5%;"  //fixed the image of height
                                                       });
                         
                         Thumbnail.appendTo(widget);
