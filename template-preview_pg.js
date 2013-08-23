@@ -67,6 +67,8 @@ FmMobile.template_previewPg = {
                 VideoUgc.getInstance('miix_it', 'miix_one_image', FmMobile.userContent, function(err, _videoUgc) {
                     if (!err) {
                         videoUgc = _videoUgc;
+                                     FmMobile.viewerBackFlag='backPreview';
+                                     FmMobile.imgForFullPageViewer=videoUgc.getDoohPreviewImageUrl();
                         $("#show").attr("src", videoUgc.getDoohPreviewImageUrl());
                         //$.mobile.hidePageLoadingMsg();
                     }else{

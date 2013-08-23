@@ -26,9 +26,9 @@ FmMobile.template_checkinPg = {
                 var latitude_g=location.coords.latitude;
                 
                 //alert(location.coords.longitude.toFixed(5)+"\n"+location.coords.latitude.toFixed(5));
-                alert("longitude : "+longitude_g+"\nlatitude : "+latitude_g);
+                //alert("longitude : "+longitude_g+"\nlatitude : "+latitude_g);
 
-                if((121.5483<longitude_g && longitude_g<121.5517) && (25.0500<latitude_g && latitude_g<25.0522)){
+                if((121.5475<longitude_g && longitude_g<121.5530) && (25.0485<latitude_g && latitude_g<25.0522)){
                    // alert("在夢蝶");
                     rightLocation=true;
                 }else{
@@ -42,7 +42,7 @@ FmMobile.template_checkinPg = {
             var options = {
             enableHighAccuracy: true,
             maximumAge: 0,
-            timeout: 1000
+            timeout: 5000
             };
             
             navigator.geolocation.getCurrentPosition(successHandler, errorHandler, options);
