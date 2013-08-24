@@ -14,7 +14,8 @@ FmMobile.myUgcPg = {
     },
     
     show: function(){
-        
+        FmMobile.analysis.trackPage("/myUgcPg");
+        recordUserAction("enters myUgcPg");
         
         $("#btnMyUgc").children("img").attr({src:"images/m2-active.png"});
         $("#btnTemplate").children("img").attr({src:"images/m1.png"});

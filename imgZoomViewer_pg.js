@@ -15,7 +15,7 @@ canvasInnerMargins = { top: 0, left: 0, right: 0, bottom: 0};
 
 FmMobile.imgZoomViewerPg = {
 	//  Page constants.
-    PAGE_ID: "photoCropperPg",
+    PAGE_ID: "imgZoomViewerPg",
 	
 	//myPhotoCropper: null,
     stageAllowableWidth: 0,
@@ -270,8 +270,8 @@ FmMobile.imgZoomViewerPg = {
             drawTansparentBorder();
         };
         
-        FmMobile.analysis.trackPage("/photoCropperPg");
-        recordUserAction("enters photoCropperPg");
+        FmMobile.analysis.trackPage("/imgZoomViewerPg");
+        recordUserAction("enters imgZoomViewerPg");
     }
 }
 
