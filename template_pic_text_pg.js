@@ -38,7 +38,7 @@ load: function(event, data){
                           });
     
     
-    $('#template_top_img_pic').attr({src:FmMobile.selectedTemplateBarImg});
+    $('#template_top_img_text_pic').attr({src:FmMobile.selectedTemplateBarImg});
     
     
     
