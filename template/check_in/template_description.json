@@ -17,8 +17,8 @@
                 {
                     "id":"text0",
                     "type":"text",
-                    "x":"800",
-                    "y":"100",
+                    "x":"770",
+                    "y":"90",
                     "width":"235",
                     "lineHeight":"68",
                     "angle":"0",
@@ -36,10 +36,10 @@
                     "description":"大頭貼",
                     "description":"大頭貼",
                     "fb_x":"1530",
-                    "fb_y":"100",
+                    "fb_y":"120",
                     "fb_angle":"0",
                     "fb_color":"white",
-                                   "fbNameWidth":"100",
+                                   "fbNameWidth":"175",
                                    "lineHeight":"50"
                 },
                                    {
@@ -52,11 +52,11 @@
                                    "angle":"0",
                                    "description":"大頭貼",
                                    "description":"大頭貼",
-                                   "fb_x":"63",
-                                   "fb_y":"100",
+                                   "fb_x":"25",
+                                   "fb_y":"125",
                                    "fb_angle":"0",
                                    "fb_color":"white",
-                                   "fbNameWidth":"100",
+                                   "fbNameWidth":"210",
                                    "lineHeight":"50"
                                    }
             ]
