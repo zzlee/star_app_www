@@ -2,12 +2,15 @@ FmMobile.template_mainTemplatePg = {
 PAGE_ID: "template_mainTemplatePg",
   
     show: function(){
+        
+
         FmMobile.analysis.trackPage("/template_mainTemplatePg");
         recordUserAction("enters template_mainTemplatePg");
     },
         
     init: function(){
         
+        FmMobile.myUgcScroll_y=0;
             TemplateMgr.getInstance(function(err, _templateMgr){
             if (!err) {
                     templateMgr = _templateMgr;
