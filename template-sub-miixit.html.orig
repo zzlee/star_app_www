@@ -66,7 +66,10 @@
                         <video class="content-movie-img" style="height:92%; margin-top:4.5%">
                             <source src="images/template_preview.mp4" type="video/mp4">
                         </video>
+<<<<<<< HEAD
+=======
                         <iframe id="iframe_Android" class="content-movie-img" style="height:92%;" src="http://www.youtube.com/embed/_nhbXtESomM?rel=0&showinfo=0&modestbranding=1&controls=1&autoplay=1"></iframe>
+>>>>>>> Jean_Ondascreen
                     </div>
                     
                     <div class="template_instruction">

@@ -329,9 +329,9 @@ onResume: function(){
 //    	FmMobile.ajaxContents();
 //    	FmMobile.ajaxLiveContents();
 //    	FmMobile.ajaxHighlightContents();
-        FmMobile.isResume = true;
+        
       if(device.platform == "iPhone"){
-          
+    	  FmMobile.isResume = true;
       	FmMobile.apn.getPendingNotification();
 //      	recordUserAction("resumes MiixCard app");
 //          $.mobile.changePage("my_ugc.html");
@@ -698,7 +698,7 @@ FmMobile.gcm = {
 				// In my case on registered I have EVENT, MSG and MSGCNT defined
 				FM_LOG("[GCM.message] " + JSON.stringify(e));
 //				FmMobile.ajaxNewVideos();
-                var jsonMessage = JSON.stringify(e);
+                var jsonMessage = JSON.parse(JSON.stringify(e));
                 if(jsonMessage.message){
                     FmMobile.pushNotificationHandler(jsonMessage.message);
                 }
@@ -1213,6 +1213,7 @@ FmMobile.pushNotificationHandler = function(pushMsg){
     FM_LOG("[pushNotficationHandler]:");
     FM_LOG("[pushNotficationHandler] Platform : " + device.platform);
     FM_LOG("[pushNotficationHandler] Message : " + pushMsg);
+    FM_LOG("[pushNotficationHandler] isResume : " + FmMobile.isResume);
     switch(pushMsg){
         case "您有一個新影片！":
             if(FmMobile.isResume && ($.mobile.activePage.attr('id') == "myUgcPg")){
