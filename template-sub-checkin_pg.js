@@ -13,9 +13,15 @@ FmMobile.template_checkinPg = {
         if (navigator.geolocation) {
             
             function errorHandler (error) {
-                $.mobile.changePage("template-main_template.html");
-                FmMobile.showNotification("gpsDeny");
-                alert('Attempt to get location failed: ' + error.message);
+                if(device.platform == "iPhone"){
+                    $.mobile.changePage("template-main_template.html");
+                    FmMobile.showNotification("gpsDeny");
+                }else{
+                    $.mobile.changePage("template-main_template.html");
+                    FmMobile.showNotification("gpsDenyAndroid");
+                }
+               
+
 
                 //alert('Attempt to get location failed: ' + error.message);
             }
@@ -26,9 +32,9 @@ FmMobile.template_checkinPg = {
                 var latitude_g=location.coords.latitude;
                 
                 //alert(location.coords.longitude.toFixed(5)+"\n"+location.coords.latitude.toFixed(5));
-                alert("longitude : "+longitude_g+"\nlatitude : "+latitude_g);
+                //alert("longitude : "+longitude_g+"\nlatitude : "+latitude_g);
 
-                if((121.5483<longitude_g && longitude_g<121.5510) && (25.0500<latitude_g && latitude_g<25.0520)){
+                if((121.5475<longitude_g && longitude_g<121.5530) && (25.0485<latitude_g && latitude_g<25.0522)){
                    // alert("在夢蝶");
                     rightLocation=true;
                 }else{
@@ -42,7 +48,7 @@ FmMobile.template_checkinPg = {
             var options = {
             enableHighAccuracy: true,
             maximumAge: 0,
-            timeout: 5000
+            timeout: 15000
             };
             
             navigator.geolocation.getCurrentPosition(successHandler, errorHandler, options);

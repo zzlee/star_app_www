@@ -58,7 +58,7 @@ FmMobile.orientationPg = {
 
 
        // alert(or_pic_height);
-        //FmMobile.analysis.trackPage("/orientationPg");
+        FmMobile.analysis.trackPage("/orientationPg");
         //FmMobile.push.registerDevice();
     },
 };

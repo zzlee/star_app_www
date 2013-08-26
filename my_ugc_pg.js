@@ -6,15 +6,20 @@ FmMobile.myUgcPg = {
     Type: null,
         
     init: function(){
+
         FM_LOG("[myUgcPg] pageinit");
         $('#nav-bar').show();
         FmMobile.viewerBackFlag=null;
+
                
         
     },
     
     show: function(){
+        FmMobile.analysis.trackPage("/myUgcPg");
+        recordUserAction("enters myUgcPg");
         
+
         
         $("#btnMyUgc").children("img").attr({src:"images/m2-active.png"});
         $("#btnTemplate").children("img").attr({src:"images/m1.png"});
@@ -267,6 +272,9 @@ FmMobile.myUgcPg = {
         /** Set data to List */
         for(var i = 0; i < arryLenContent; i++){
             
+            if(i==(arryLenContent-1)){
+                $.mobile.silentScroll(FmMobile.myUgcScroll_y);
+            }
             var dummyDivPreview = $("<div>").attr({class: "movie-pic-dummy"});
             var dummyDiv = $("<div>").attr({class: "movie-pic-dummy"});
             var dummyDivLong = $("<div>").attr({class:"movie-pic-dummy-long"});
@@ -446,7 +454,7 @@ FmMobile.myUgcPg = {
     ClickEvent: function(){
         /**  Video play  */
         FM_LOG("[myUgcPg.ClickEvent]");
-        $('#my-video-list>div>img').click(function(){
+        $('#my-video-list>div>img').click(function(e){
         //            console.log("click" + this);
 
 
@@ -498,6 +506,7 @@ FmMobile.myUgcPg = {
                 break;
             case "imgS3":
             case "imgPreview":
+                                          FmMobile.myUgcScroll_y=e.pageY;
                 FmMobile.srcForMyUgcViewer=this.src;
                 $.mobile.changePage('imgZoomViewer.html');
 
@@ -510,7 +519,7 @@ FmMobile.myUgcPg = {
         });
 
         /** Copy youtube url and share to FB */
-        $('#my-content-info>img').click(function(){
+        $('#my-content-info>img').click(function(e){
             //var imgID = this.id;
             var tmpIDArray = this.id.split('_');
 
