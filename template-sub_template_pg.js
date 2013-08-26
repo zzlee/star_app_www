@@ -9,9 +9,10 @@ FmMobile.template_subTemplatePg = {
     },
         
     init: function(){
-        
-
-		$('#nav-bar').show();
+        $('body').css({
+                     "position":"fixed"
+                        });
+        		$('#nav-bar').show();
         
         var settings = {
             type: "GET",
@@ -28,6 +29,10 @@ FmMobile.template_subTemplatePg = {
         $.ajax(templateMgr.getTemplate(FmMobile.selectedTemplate).introdcutionContentUrl,settings);
         
         if(localStorage[FmMobile.selectedTemplate]=='hasReadHint'){
+            $('body').css({
+                          "position":""
+                          });
+
             $("#show_intro").hide();
             $("#close").hide();
         }else{
@@ -35,6 +40,11 @@ FmMobile.template_subTemplatePg = {
 
         }
         $("#close").click(function(){
+                          
+                          $('body').css({
+                                        "position":""
+                                        });
+                          
                       $("#show_intro").hide();
                           $('#close').hide();
                           localStorage[FmMobile.selectedTemplate]='hasReadHint';
