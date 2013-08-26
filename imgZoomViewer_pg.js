@@ -57,9 +57,9 @@ FmMobile.imgZoomViewerPg = {
         
         var limit = 0;
         
-        canvas.width = screen.availWidth;
+canvas.width = $(document).width();
         //canvas.height = canvas.width / customizableObjectDimensions[fileObjectID].width * customizableObjectDimensions[fileObjectID].height;
-        canvas.height = screen.availHeight;
+        canvas.height = $(document).height();
         
         //input control to inner square in canvas (0.96)
         canvasInner.width = canvas.width * 0.96;
@@ -168,7 +168,8 @@ FmMobile.imgZoomViewerPg = {
                                   
                                if(option.scope.w < canvas.width) {
                                option.destination.x = 0;
-                               option.destination.y = (window.screen.height)*0.35;
+                                  option.destination.y = $(document).height()*0.35;
+
                                option.scope.w = canvas.width;
                                option.scope.h = image.height / image.width * canvas.width;
                                }
