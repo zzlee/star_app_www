@@ -306,7 +306,7 @@ FmMobile.myUgcPg = {
                                                         class: "content-movie-img"
                                                         });
                 Thumbnail.appendTo(widgetPreview);
-                
+                infoPreview.attr({style:"margin-bottom:26%;"});
                 //var ytVideoID = i;
                 shareYoutubeDiv = $("<img>").attr({
                                                        id: "copyPreUrl_" + projectId,
@@ -321,9 +321,14 @@ FmMobile.myUgcPg = {
                                                   src: "images/facebook.png"
                                                   });
                 shareFbDiv.appendTo(infoPreview);
-                
+                if(typeof(arryContents[i].Url) == "undefined"){
+                    FM_LOG("number: " + number);
+                    numberDiv.html("試鏡編號：" + number);
+                    numberDiv.appendTo(infoPreview);
+                }
                 infoPreview.appendTo(widgetPreview);
                 widgetPreview.appendTo(parent);
+
             }else{
                 widgetPreview = $("<div>").attr({id: "previewError_" + i, class: "content-movie-preview"});
                 dummyDivPreview.appendTo(widgetPreview);
@@ -371,19 +376,19 @@ FmMobile.myUgcPg = {
                         numberDiv.appendTo(info);
                         info.appendTo(widget);
                         widget.appendTo(parent);
-                        
-                    }else{
-                        widget = $("<div>").attr({id: projectId, class: "content-movie", style: "margin-top: 18%;"});
-                        dummyDiv.appendTo(widget);
-                        Thumbnail = $("<img>").attr({
-                                                              id: 'imgError_' + i,
-                                                              src: "images/waiting.png",
-                                                              class: "content-movie-img"
-                                                              });
-                        Thumbnail.appendTo(widget);
-                        widget.appendTo(parent);
-                        
                     }
+//                    }else{
+//                        widget = $("<div>").attr({id: projectId, class: "content-movie", style: "margin-top: 18%;"});
+//                        dummyDiv.appendTo(widget);
+//                        Thumbnail = $("<img>").attr({
+//                                                              id: 'imgError_' + i,
+//                                                              src: "images/waiting.png",
+//                                                              class: "content-movie-img"
+//                                                              });
+//                        Thumbnail.appendTo(widget);
+//                        widget.appendTo(parent);
+//                        
+//                    }
                     //                    parent.append("<hr>");
                     
                     break;
