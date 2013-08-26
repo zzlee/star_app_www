@@ -51,7 +51,7 @@ FmMobile.template_photoCropperPg = {
         //get the dimension of customizable image 
         WidthOfCustomizableImage = null;
         HeightOfcustomizableImage = null;
-        
+        /*
         if ( FmMobile.selectedTemplate == "miix_it" ) {
             //TODO: parse templateMgr.getSubTemplate(FmMobile.selectedTemplate, FmMobile.selectedSubTemplate).customizableObjectsXml 
             // hard coded them for now
@@ -71,12 +71,12 @@ FmMobile.template_photoCropperPg = {
                 }
             }
         }
-            
-        
+         */
+        /*
         if ( (!WidthOfCustomizableImage) || (!HeightOfcustomizableImage) ) {
             return;
         }
-        
+        */
 
         
 
@@ -127,11 +127,11 @@ FmMobile.template_photoCropperPg = {
 
     show : function(event, data) {
         FM_LOG("[photoCropperPg]show");
-        
+        /*
         if ( (!WidthOfCustomizableImage) || (!HeightOfcustomizableImage) ) {
             return;
         }
-
+*/
         //JF - image initial
         canvas = document.getElementById('photoZoom');
         context = canvas.getContext('2d');
@@ -141,12 +141,12 @@ FmMobile.template_photoCropperPg = {
         
         $('.content-movie-img').css({
             'width' : change_css,
-            'margin-top' : '5.5%'
+            //'margin-top' : '5.5%'
         });
 
         //canvas.width = screen.availWidth;
         canvas.width = $('.movie-pic-dummy').width();
-        canvas.height = canvas.width / WidthOfCustomizableImage * HeightOfcustomizableImage;
+        canvas.height = canvas.width / 1280 * 735;
 
         image.onload = function() {
 

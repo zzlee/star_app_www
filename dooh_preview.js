@@ -104,7 +104,7 @@ DoohPreview = (function(){
                     }
                     else if (aCustomizableObject.type == "thumbnail"){
                         imageUrl = userContent.thumbnail.url;
-                        ugcUtility.drawChineseText( context, localStorage.fb_name, aCustomizableObject.fb_x, aCustomizableObject.fb_y, aCustomizableObject.width, aCustomizableObject.lineHeight, aCustomizableObject.fb_angle, aCustomizableObject.fb_color, aCustomizableObject.fb_font);
+                        ugcUtility.drawFbNameText( context, localStorage.fb_name, aCustomizableObject.fb_x, aCustomizableObject.fb_y, aCustomizableObject.width, aCustomizableObject.lineHeight, aCustomizableObject.fb_angle, aCustomizableObject.fb_color, aCustomizableObject.fb_font);
                         drawQuadrilateralImage( context, imageUrl, aCustomizableObject.quadrilateral, function(errOfDrawQuadrilateralImage){
                             if(aCustomizableObject.quadrilateral2){
                                 drawQuadrilateralImage( context, imageUrl, aCustomizableObject.quadrilateral2, function(errOfDrawQuadrilateralImage){

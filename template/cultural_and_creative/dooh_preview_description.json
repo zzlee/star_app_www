@@ -7,7 +7,7 @@
                     "id":"text0",
                     "type":"text",
                     "x":"293",
-                    "y":"265",
+                    "y":"300",
                     "width":"700",
                     "lineHeight":"68",
                     "angle":"0",
@@ -31,7 +31,9 @@
                     "fb_y":"346",
                     "fb_angle":"0",
                     "fb_color":"white",
-                    "fb_font":"36pt AdobeFanHeitiStd-Bold"
+                    "fb_font":"30pt AdobeFanHeitiStd-Bold",
+                                   "width":"190",
+                                   "lineHeight":"60"
                 }
             ]
         },
@@ -79,7 +81,9 @@
                     "fb_y":"338",
                     "fb_angle":"0",
                     "fb_color":"white",
-                    "fb_font":"36pt AdobeFanHeitiStd-Bold"
+                    "fb_font":"30pt AdobeFanHeitiStd-Bold",
+                                   "width":"185",
+                                   "lineHeight":"60"
                 }
             ]
         },
@@ -90,7 +94,7 @@
                     "id":"text0",
                     "type":"text",
                     "x":"588",
-                    "y":"260",
+                    "y":"290",
                     "width":"296",
                     "lineHeight":"68",
                     "angle":"0",
@@ -128,7 +132,9 @@
                     "fb_y":"338",
                     "fb_angle":"0",
                     "fb_color":"white",
-                    "fb_font":"36pt AdobeFanHeitiStd-Bold"
+                    "fb_font":"30pt AdobeFanHeitiStd-Bold",
+                                   "width":"150",
+                                   "lineHeight":"60"
                 }
             ]
         }
