@@ -1,6 +1,9 @@
 FmMobile.setting_MainPg = {
  
     init: function(){
+        $('body').css({
+                      "position":""
+                      });
         FmMobile.myUgcScroll_y=0;
     	$('#nav-bar').show();
         //console.dir(templateMgr.getTemplateList());
