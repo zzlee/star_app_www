@@ -24,13 +24,15 @@
                         "x_ll":"786",
                         "y_ll":"393",
                         "x_lr":"932",
-                        "y_lr":"405"
+                        "y_lr":"435"
                     },
                     "fb_x":"1002",
-                    "fb_y":"346",
+                    "fb_y":"320",
                     "fb_angle":"0",
                     "fb_color":"#603913",
-                    "fb_font":"36pt AdobeFanHeitiStd-Bold"
+                    "fb_font":"30pt AdobeFanHeitiStd-Bold",
+                                   "width":"135",
+                                   "lineHeight":"60"
                 }
             ]
         },
@@ -41,14 +43,14 @@
                     "id":"picture0",
                     "type":"image",
                     "quadrilateral":{
-                        "x_ul":"352",
+                        "x_ul":"330",
                         "y_ul":"216",
                         "x_ur":"683",
                         "y_ur":"210",
-                        "x_ll":"351",
-                        "y_ll":"445",
+                        "x_ll":"330",
+                        "y_ll":"455",
                         "x_lr":"681",
-                        "y_lr":"451"
+                        "y_lr":"455"
                     }
                 },
                 {
@@ -64,11 +66,13 @@
                         "x_lr":"1076",
                         "y_lr":"413"
                     },
-                    "fb_x":"768",
+                    "fb_x":"730",
                     "fb_y":"339",
                     "fb_angle":"0",
                     "fb_color":"#603913",
-                    "fb_font":"36pt AdobeFanHeitiStd-Bold"
+                    "fb_font":"30pt AdobeFanHeitiStd-Bold",
+                   "width":"150",
+                    "lineHeight":"60"
                 }
             ]
         },
@@ -94,9 +98,9 @@
                         "x_ur":"553",
                         "y_ur":"208",
                         "x_ll":"220",
-                        "y_ll":"444",
+                        "y_ll":"470",
                         "x_lr":"551",
-                        "y_lr":"452"
+                        "y_lr":"470"
                     }
                 },
                 {
@@ -116,7 +120,9 @@
                     "fb_y":"346",
                     "fb_angle":"0",
                     "fb_color":"#603913",
-                    "fb_font":"36pt 華康歐陽詢體W5"
+                    "fb_font":"30pt 華康歐陽詢體W5",
+                                   "width":"150",
+                                   "lineHeight":"60"
                 }
             ]
         }

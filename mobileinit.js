@@ -44,6 +44,8 @@ FmMobile.myflag=true;
 FmMobile.check_in_pic;
 FmMobile.checkinTextForFB;
 
+FmMobile.myUgcScroll_y=0;
+
 var templateMgr = null;
 
 $(document).bind("mobileinit", function(){
@@ -66,6 +68,8 @@ $(document).bind("mobileinit", function(){
                  
                  $('#goOrientation2').live("click",function(){
                                            $.mobile.changePage("orientation_2.html");
+                                           FmMobile.analysis.trackPage("/orientation2");
+
                                            });
                  $('#goOrientation1').live("click",function(){
                                            $.mobile.changePage("orientation_1.html");
@@ -131,8 +135,8 @@ $('#mapAreaNext').attr("coords","'"+FmMobile.or_pic_width+","+((FmMobile.or_pic_
                  $("#phoneNumInputPg").live("pageshow", FmMobile.phoneNumInputPg.show);
                  $("#codeInputPg").live("pageinit", FmMobile.codeInputPg.init);
                  $("#codeInputPg").live("pageshow", FmMobile.codeInputPg.show);
-                 $("#photoCropperPg").live("pageinit", FmMobile.photoCropperPg.load);
-                 $("#photoCropperPg").live("pageshow", FmMobile.photoCropperPg.show);
+                 $("#template_photoCropperPg").live("pageinit", FmMobile.template_photoCropperPg.load);
+                 $("#template_photoCropperPg").live("pageshow", FmMobile.template_photoCropperPg.show);
                  
                  $("#settingAboutPg").live("pageinit", FmMobile.settingAboutPg.init);
                  $("#settingAboutPg").live("pageshow", FmMobile.settingAboutPg.show);
@@ -147,8 +151,8 @@ $('#mapAreaNext').attr("coords","'"+FmMobile.or_pic_width+","+((FmMobile.or_pic_
                  
                  
                  
-                 $("#fullPageViewerPg").live("pageinit", FmMobile.fullPageViewerPg.load);
-                 $("#fullPageViewerPg").live("pageshow", FmMobile.fullPageViewerPg.show);
+                 //$("#fullPageViewerPg").live("pageinit", FmMobile.fullPageViewerPg.load);
+                 //$("#fullPageViewerPg").live("pageshow", FmMobile.fullPageViewerPg.show);
                  
                  $("#template_mainTemplatePg").live("pageinit", FmMobile.template_mainTemplatePg.init);
                  $("#template_mainTemplatePg").live("pageshow", FmMobile.template_mainTemplatePg.show);
@@ -174,8 +178,8 @@ $('#mapAreaNext').attr("coords","'"+FmMobile.or_pic_width+","+((FmMobile.or_pic_
                  $("#cellphoneLoginPg").live("pageshow", FmMobile.cellphoneLoginPg.show);
                  $("#fbLoginSuccessPg").live("pageinit", FmMobile.fbLoginSuccessPg.init);
                  $("#fbLoginSuccessPg").live("pageshow", FmMobile.fbLoginSuccessPg.show);
-                 $("#template_input_checkin").live("pageinit", FmMobile.template_input_checkin.init);
-                 $("#template_input_checkin").live("pageshow", FmMobile.template_input_checkin.show);
+                 //$("#template_input_checkin").live("pageinit", FmMobile.template_input_checkin.init);
+                 //$("#template_input_checkin").live("pageshow", FmMobile.template_input_checkin.show);
                  $("#settingTocPg").live("pageinit", FmMobile.settingTocPg.init);
                  $("#settingTocPg").live("pageshow", FmMobile.settingTocPg.show);
                  $("#settingTermPg").live("pageinit", FmMobile.settingTermPg.init);
@@ -238,7 +242,7 @@ FmMobile.userContent = {
 			crop: {_x:0, _y:0, _w:0, _h:0},  // _x=x_crop/width_picture; _y=y_crop/height_picture; _w=width_crop/width_picture;  _h=height_crop/height_picture
 		},
 		thumbnail:{
-			url:'https://graph.facebook.com/'+localStorage.fb_userID+'/picture/'
+			url:'https://graph.facebook.com/'+localStorage.fb_userID+'/picture?width=200&height=200'
     
 		}
 };

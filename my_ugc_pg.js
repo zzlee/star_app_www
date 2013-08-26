@@ -6,15 +6,20 @@ FmMobile.myUgcPg = {
     Type: null,
         
     init: function(){
+
         FM_LOG("[myUgcPg] pageinit");
         $('#nav-bar').show();
         FmMobile.viewerBackFlag=null;
+
                
         
     },
     
     show: function(){
+        FmMobile.analysis.trackPage("/myUgcPg");
+        recordUserAction("enters myUgcPg");
         
+
         
         $("#btnMyUgc").children("img").attr({src:"images/m2-active.png"});
         $("#btnTemplate").children("img").attr({src:"images/m1.png"});
@@ -125,6 +130,10 @@ FmMobile.myUgcPg = {
         
         /** Set data to List */
         for(var i = 0; i < arryLen; i++){
+            if(i==(arryLen-1)){
+                $.mobile.silentScroll(FmMobile.myUgcScroll_y);
+            }
+
             
             var projectId = arryHighlightContents[i].ProjectId;
             console.log("projectId " + projectId);
@@ -132,7 +141,7 @@ FmMobile.myUgcPg = {
             var dummyDiv = $("<div>").attr({class: "movie-pic-dummy"});
             
             //For item info ex. Copy Youtube'url, Share on FB and # of video/image
-            var info = $("<div>").attr({id: "my-content-info"});
+            var info = $("<div>").attr({id: "my-content-info", style:"margin-bottom:27%;"});
             var Thumbnail = null;   //For content
             var shareYoutubeDiv = null;
             var shareFbDiv = null;
@@ -267,6 +276,9 @@ FmMobile.myUgcPg = {
         /** Set data to List */
         for(var i = 0; i < arryLenContent; i++){
             
+            if(i==(arryLenContent-1)){
+                $.mobile.silentScroll(FmMobile.myUgcScroll_y);
+            }
             var dummyDivPreview = $("<div>").attr({class: "movie-pic-dummy"});
             var dummyDiv = $("<div>").attr({class: "movie-pic-dummy"});
             var dummyDivLong = $("<div>").attr({class:"movie-pic-dummy-long"});
@@ -298,7 +310,7 @@ FmMobile.myUgcPg = {
                                                         class: "content-movie-img"
                                                         });
                 Thumbnail.appendTo(widgetPreview);
-                
+                infoPreview.attr({style:"margin-bottom:26%;"});
                 //var ytVideoID = i;
                 shareYoutubeDiv = $("<img>").attr({
                                                        id: "copyPreUrl_" + projectId,
@@ -313,9 +325,14 @@ FmMobile.myUgcPg = {
                                                   src: "images/facebook.png"
                                                   });
                 shareFbDiv.appendTo(infoPreview);
-                
+                if(typeof(arryContents[i].Url) == "undefined"){
+                    FM_LOG("number: " + number);
+                    numberDiv.html("試鏡編號：" + number);
+                    numberDiv.appendTo(infoPreview);
+                }
                 infoPreview.appendTo(widgetPreview);
                 widgetPreview.appendTo(parent);
+
             }else{
                 widgetPreview = $("<div>").attr({id: "previewError_" + i, class: "content-movie-preview"});
                 dummyDivPreview.appendTo(widgetPreview);
@@ -363,19 +380,19 @@ FmMobile.myUgcPg = {
                         numberDiv.appendTo(info);
                         info.appendTo(widget);
                         widget.appendTo(parent);
-                        
-                    }else{
-                        widget = $("<div>").attr({id: projectId, class: "content-movie", style: "margin-top: 18%;"});
-                        dummyDiv.appendTo(widget);
-                        Thumbnail = $("<img>").attr({
-                                                              id: 'imgError_' + i,
-                                                              src: "images/waiting.png",
-                                                              class: "content-movie-img"
-                                                              });
-                        Thumbnail.appendTo(widget);
-                        widget.appendTo(parent);
-                        
                     }
+//                    }else{
+//                        widget = $("<div>").attr({id: projectId, class: "content-movie", style: "margin-top: 18%;"});
+//                        dummyDiv.appendTo(widget);
+//                        Thumbnail = $("<img>").attr({
+//                                                              id: 'imgError_' + i,
+//                                                              src: "images/waiting.png",
+//                                                              class: "content-movie-img"
+//                                                              });
+//                        Thumbnail.appendTo(widget);
+//                        widget.appendTo(parent);
+//                        
+//                    }
                     //                    parent.append("<hr>");
                     
                     break;
@@ -446,7 +463,7 @@ FmMobile.myUgcPg = {
     ClickEvent: function(){
         /**  Video play  */
         FM_LOG("[myUgcPg.ClickEvent]");
-        $('#my-video-list>div>img').click(function(){
+        $('#my-video-list>div>img').click(function(e){
         //            console.log("click" + this);
 
 
@@ -498,6 +515,7 @@ FmMobile.myUgcPg = {
                 break;
             case "imgS3":
             case "imgPreview":
+                                          FmMobile.myUgcScroll_y=e.pageY;
                 FmMobile.srcForMyUgcViewer=this.src;
                 $.mobile.changePage('imgZoomViewer.html');
 
@@ -510,7 +528,7 @@ FmMobile.myUgcPg = {
         });
 
         /** Copy youtube url and share to FB */
-        $('#my-content-info>img').click(function(){
+        $('#my-content-info>img').click(function(e){
             //var imgID = this.id;
             var tmpIDArray = this.id.split('_');
 
@@ -564,6 +582,7 @@ FmMobile.myUgcPg = {
                     FmMobile.shareFbType="video";
                     FmMobile.srcForMyUgcViewer="http://img.youtube.com/vi/"+tmpIDArray[1]+"/mqdefault.jpg";
                     FmMobile.youtubeVideoUrl="http://www.youtube.com/embed/" +tmpIDArray[1] + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1";
+                                         FmMobile.myUgcScroll_y=e.pageY;
                     $.mobile.changePage('facebook_share.html');
 
                     break;
@@ -577,6 +596,8 @@ FmMobile.myUgcPg = {
                     }else if(FmMobile.myUgcPg.Type == "live"){
                         FmMobile.srcForMyUgcViewer= s3Url + ".jpg";
                     }
+                                        FmMobile.myUgcScroll_y=e.pageY;
+
                     $.mobile.changePage('facebook_share.html');
                     break;
                 case "sharePreFb":
@@ -584,6 +605,8 @@ FmMobile.myUgcPg = {
                                         
                     FmMobile.shareFbType="image";
                     FmMobile.srcForMyUgcViewer= s3Url + "_dooh_preview.png";
+                                        FmMobile.myUgcScroll_y=e.pageY;
+
                     $.mobile.changePage('facebook_share.html');
                     break;
             case "copyUrlS3":

@@ -27,6 +27,13 @@ FmMobile.template_previewPg = {
         /* ends of 點下去跳到full screen */
         
         /* 判斷按上一步要回哪一頁 */
+        
+        $("#cancelBtnToCropper").click(function() {
+                              history.back();
+                              return false;
+                              });
+        
+        /*
         if(FmMobile.selectedSubTemplate=='text_only' && FmMobile.selectedTemplate != "check_in"){
             $('#cancelBtnToCropper').click(function(){
                 $.mobile.changePage("template-input_text.html");
@@ -42,8 +49,10 @@ FmMobile.template_previewPg = {
                  $.mobile.changePage("template-photo_cropper.html");
             });
         }
+         */
+        
         /* ends of 判斷按上一步要回哪一頁 */
-
+    
         
         /* preview page title bar text 影片根其他不一樣*/
         if(FmMobile.selectedTemplate == 'miix_it'){

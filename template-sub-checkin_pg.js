@@ -22,6 +22,7 @@ FmMobile.template_checkinPg = {
                 }
                
 
+
                 //alert('Attempt to get location failed: ' + error.message);
             }
             

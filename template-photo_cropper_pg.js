@@ -37,7 +37,7 @@ var WidthOfCustomizableImage = null;
 var HeightOfcustomizableImage = null;
 
 
-FmMobile.photoCropperPg = {
+FmMobile.template_photoCropperPg = {
 
     //myPhotoCropper: null,
     stageAllowableWidth : 0,
@@ -45,13 +45,13 @@ FmMobile.photoCropperPg = {
 
     //  Page methods.
     load : function(event, data) {
-        FM_LOG("[photoCropperPg]load");
+        FM_LOG("[template_photoCropperPg]load");
         $("#nav-bar").show();
         
         //get the dimension of customizable image 
         WidthOfCustomizableImage = null;
         HeightOfcustomizableImage = null;
-        
+        /*
         if ( FmMobile.selectedTemplate == "miix_it" ) {
             //TODO: parse templateMgr.getSubTemplate(FmMobile.selectedTemplate, FmMobile.selectedSubTemplate).customizableObjectsXml 
             // hard coded them for now
@@ -71,12 +71,12 @@ FmMobile.photoCropperPg = {
                 }
             }
         }
-            
-        
+         */
+        /*
         if ( (!WidthOfCustomizableImage) || (!HeightOfcustomizableImage) ) {
             return;
         }
-        
+        */
 
         
 
@@ -118,7 +118,7 @@ FmMobile.photoCropperPg = {
         });
 
         //Rewrite #submitBtn click function
-        $('#submitBtn').click(function() {
+        $('#submitBtnToPreview').click(function() {
             FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
             $.mobile.changePage("template-preview.html");
         });
@@ -127,11 +127,11 @@ FmMobile.photoCropperPg = {
 
     show : function(event, data) {
         FM_LOG("[photoCropperPg]show");
-        
+        /*
         if ( (!WidthOfCustomizableImage) || (!HeightOfcustomizableImage) ) {
             return;
         }
-
+*/
         //JF - image initial
         canvas = document.getElementById('photoZoom');
         context = canvas.getContext('2d');
@@ -141,12 +141,12 @@ FmMobile.photoCropperPg = {
         
         $('.content-movie-img').css({
             'width' : change_css,
-            'margin-top' : '5.5%'
+            //'margin-top' : '5.5%'
         });
 
         //canvas.width = screen.availWidth;
         canvas.width = $('.movie-pic-dummy').width();
-        canvas.height = canvas.width / WidthOfCustomizableImage * HeightOfcustomizableImage;
+        canvas.height = canvas.width / 1280 * 735;
 
         image.onload = function() {
 
@@ -317,8 +317,8 @@ FmMobile.photoCropperPg = {
                     option.destination.y, option.scope.w, option.scope.h);
         };
 
-        FmMobile.analysis.trackPage("/photoCropperPg");
-        recordUserAction("enters photoCropperPg");
+        FmMobile.analysis.trackPage("/template_photoCropperPg");
+        recordUserAction("enters template_photoCropperPg");
         FmMobile.dummyDiv();
     }
    
