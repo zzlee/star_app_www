@@ -130,6 +130,10 @@ FmMobile.myUgcPg = {
         
         /** Set data to List */
         for(var i = 0; i < arryLen; i++){
+            if(i==(arryLen-1)){
+                $.mobile.silentScroll(FmMobile.myUgcScroll_y);
+            }
+
             
             var projectId = arryHighlightContents[i].ProjectId;
             console.log("projectId " + projectId);
@@ -573,6 +577,7 @@ FmMobile.myUgcPg = {
                     FmMobile.shareFbType="video";
                     FmMobile.srcForMyUgcViewer="http://img.youtube.com/vi/"+tmpIDArray[1]+"/mqdefault.jpg";
                     FmMobile.youtubeVideoUrl="http://www.youtube.com/embed/" +tmpIDArray[1] + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1";
+                                         FmMobile.myUgcScroll_y=e.pageY;
                     $.mobile.changePage('facebook_share.html');
 
                     break;
@@ -586,6 +591,8 @@ FmMobile.myUgcPg = {
                     }else if(FmMobile.myUgcPg.Type == "live"){
                         FmMobile.srcForMyUgcViewer= s3Url + ".jpg";
                     }
+                                        FmMobile.myUgcScroll_y=e.pageY;
+
                     $.mobile.changePage('facebook_share.html');
                     break;
                 case "sharePreFb":
@@ -593,6 +600,8 @@ FmMobile.myUgcPg = {
                                         
                     FmMobile.shareFbType="image";
                     FmMobile.srcForMyUgcViewer= s3Url + "_dooh_preview.png";
+                                        FmMobile.myUgcScroll_y=e.pageY;
+
                     $.mobile.changePage('facebook_share.html');
                     break;
             case "copyUrlS3":
