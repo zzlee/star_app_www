@@ -698,7 +698,7 @@ FmMobile.gcm = {
 				// In my case on registered I have EVENT, MSG and MSGCNT defined
 				FM_LOG("[GCM.message] " + JSON.stringify(e));
 //				FmMobile.ajaxNewVideos();
-                var jsonMessage = JSON(stringify(JSON.stringify(e));
+                var jsonMessage = JSON.parse(JSON.stringify(e));
                 if(jsonMessage.message){
                     FmMobile.pushNotificationHandler(jsonMessage.message);
                 }
