@@ -13,24 +13,27 @@ FmMobile.template_checkinPg = {
         if (navigator.geolocation) {
             
             function errorHandler (error) {
-                FmMobile.showNotification("gpsDeny");
-                $.mobile.changePage("template-main_template.html");
+                if(device.platform == "iPhone"){
+                    $.mobile.changePage("template-main_template.html");
+                    FmMobile.showNotification("gpsDeny");
+                }else{
+                    $.mobile.changePage("template-main_template.html");
+                    FmMobile.showNotification("gpsDenyAndroid");
+                }
+               
 
                 //alert('Attempt to get location failed: ' + error.message);
             }
             
             function successHandler (location) {
-                var longitude_g;
-                var latitude_g;
-                //alert(location.coords.longitude);
-                //alert(location.coords.latitude);
-                longitude_g=location.coords.longitude;
-                latitude_g=location.coords.latitude;
-                //alert(typeof(latitude_g));
+                
                 var longitude_g=location.coords.longitude;
                 var latitude_g=location.coords.latitude;
-                //121.532<longitude_g && longitude_g<121.536) && (25.036<latitude_g && latitude_g<25.040
-                if((121.532<longitude_g && longitude_g<121.536) && (25.036<latitude_g && latitude_g<25.040)){
+                
+                //alert(location.coords.longitude.toFixed(5)+"\n"+location.coords.latitude.toFixed(5));
+                //alert("longitude : "+longitude_g+"\nlatitude : "+latitude_g);
+
+                if((121.5475<longitude_g && longitude_g<121.5530) && (25.0485<latitude_g && latitude_g<25.0522)){
                    // alert("在夢蝶");
                     rightLocation=true;
                 }else{
@@ -43,8 +46,8 @@ FmMobile.template_checkinPg = {
             
             var options = {
             enableHighAccuracy: true,
-            maximumAge: 60000,
-            timeout: 45000
+            maximumAge: 0,
+            timeout: 15000
             };
             
             navigator.geolocation.getCurrentPosition(successHandler, errorHandler, options);
@@ -104,10 +107,10 @@ FmMobile.template_checkinPg = {
                                    
                                    
                                    if(rightLocation==false){
-                                   
+                                   $.mobile.changePage("template-main_template.html");
+
                                    FmMobile.showNotification("wrongPlace");
-                                   
-                                   //alert("你不在附近...");
+                                                                      //alert("你不在附近...");
                                    return false;
                                    }
             var finalTextOfCheckin=$('#checkin_text_1').val()+"<n>路經貴寶地<n>"+$('#checkin_text_2').val();

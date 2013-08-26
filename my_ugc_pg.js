@@ -44,6 +44,7 @@ FmMobile.myUgcPg = {
                                         $.each(response, function(i, item){
                                            var data ={
                                                ProjectId: item.projectId,
+                                               No: item.no,
                                                Genre: item.genre,
                                                Url : item.url,
                                            };
@@ -130,16 +131,15 @@ FmMobile.myUgcPg = {
             var widget = null;
             var dummyDiv = $("<div>").attr({class: "movie-pic-dummy"});
             
-
-            
-            
-            
             //For item info ex. Copy Youtube'url, Share on FB and # of video/image
             var info = $("<div>").attr({id: "my-content-info"});
             var Thumbnail = null;   //For content
             var shareYoutubeDiv = null;
             var shareFbDiv = null;
-
+            var number = arryHighlightContents[i].No;
+            var numberDiv = $("<div>").attr({class: "my-video-number"});
+            var divhr = $("<div>");
+            var hr = null;
 //            if(typeof(arryHighlightContents[i].Url) != "undefined"){
                 switch(arryHighlightContents[i].Genre){
                     case "miix_story":
@@ -148,7 +148,7 @@ FmMobile.myUgcPg = {
                             if(countContent === 1){
                                 widget = $("<div>").attr({id: projectId, class: "content-movie"});
                             }else{
-                                widget = $("<div>").attr({id: projectId, class: "content-movie", style: "margin-top:20%;"}); //TODO: don't use margin-top with percentage in this case
+                                widget = $("<div>").attr({id: projectId, class: "content-movie", style: "margin-top:5%;"}); //TODO: don't use margin-top with percentage in this case
                             }
                             dummyDiv.appendTo(widget);
                             var ytVideoID = (arryHighlightContents[i].Url.youtube).split('/').pop();
@@ -156,7 +156,7 @@ FmMobile.myUgcPg = {
                             Thumbnail= $("<iframe>").attr({
                                                         id: ytVideoID,
                                                         src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
-                                                        class: "content-movie-img",
+                                                        class: "content-movie-img-iframe",
                                                         frameborder: "0"
                                                       });
                             Thumbnail.appendTo(widget);
@@ -174,8 +174,18 @@ FmMobile.myUgcPg = {
                                                           src: "images/facebook.png"
                                                           });
                             shareFbDiv.appendTo(info);
+                            numberDiv.html("演出編號：" + number);
+                            numberDiv.appendTo(info);
+                            
+                            hr = $("<hr>").attr({style:"margin-top:27%;"});
+                            hr.appendTo(divhr);
+
                             info.appendTo(widget);
+                            divhr.appendTo(widget);
                             widget.appendTo(parent);
+
+
+
                         }
                         break;
                     case "miix_image_live_photo":
@@ -184,7 +194,7 @@ FmMobile.myUgcPg = {
                         if(countContent === 1){
                             widget = $("<div>").attr({id: projectId, class: "content-movie"});
                         }else{
-                            widget = $("<div>").attr({id: projectId, class: "content-movie", style: "margin-top:20%;"}); //TODO: don't use margin-top with percentage in this case
+                            widget = $("<div>").attr({id: projectId, class: "content-movie", style: "margin-top:5%;"}); //TODO: don't use margin-top with percentage in this case
                         }
                         dummyDiv.appendTo(widget);
                         var s3Url = "https://s3.amazonaws.com/miix_content" + arryHighlightContents[i].Url.s3;
@@ -192,7 +202,7 @@ FmMobile.myUgcPg = {
                                                       id: "imgS3_" +projectId,
                                                       src: s3Url,
                                                       class: "content-movie-img",
-                                                      style: "height: 91.5%;margin-top:4.5%;"  //fixed the image of height
+                                                      style: "height: 63%;margin-top:3.5%;"  //fixed the image of height
                                                       });
                         
                         Thumbnail.appendTo(widget);
@@ -209,14 +219,23 @@ FmMobile.myUgcPg = {
                                                       src: "images/facebook.png"
                                                       });
                         shareFbDiv.appendTo(info);
-                        info.appendTo(widget);
-                        widget.appendTo(parent);
+                        numberDiv.html("演出編號：" + number);
                         
+                        numberDiv.appendTo(info);
+                        
+                        hr = $("<hr>").attr({style:"margin-top:27%;"});
+                        hr.appendTo(divhr);
+                        
+                        info.appendTo(widget);
+                        divhr.appendTo(widget);
+                        widget.appendTo(parent);
+
                         break;
                         
                     default :
-                        console.log("Eroor : no Genre");
+                        console.log("Error : no Genre");
                 }//End of switch
+            
 //            }else{
 //                Thumbnail = $("<img>").attr({
 //                                              id: 'imgError_' + i,
@@ -258,6 +277,7 @@ FmMobile.myUgcPg = {
             
             var projectId = arryContents[i].ProjectId;
             var number = arryContents[i].No;
+            var numberDiv = $("<div>").attr({class: "my-video-number"});
             var widgetPreview = null;
             var widget = null;
             
@@ -338,7 +358,7 @@ FmMobile.myUgcPg = {
                                                           });
                         shareFbDiv.appendTo(info);
                         
-                        var numberDiv = $("<div>").attr({class: "my-video-number"});
+                        
                         numberDiv.html("試鏡編號：" + number);
                         numberDiv.appendTo(info);
                         info.appendTo(widget);
