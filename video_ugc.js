@@ -86,6 +86,7 @@ VideoUgc = (function(){
                         //for server side to zoom the user content image to the same size as original footage image
                         params.obj_OriginalWidth = customizableObjectDimensions[ImageCustomizableObjectId].width;
                         params.obj_OriginalHeight = customizableObjectDimensions[ImageCustomizableObjectId].height;
+                        params.miixToken = localStorage.miixToken;
                         
                         options.params = params;
                         options.chunkedMode = true;
@@ -139,6 +140,7 @@ VideoUgc = (function(){
                                 //contentGenre: "greeting",  //TODO: for test. Need to change back
                                 title: ugcInfo.title,
                                 customizableObjects: JSON.stringify(customizableObjects),
+                                miixToken: localStorage.miixToken,
                                 time: (new Date()).toISOString() //only for avoiding Safari's cache mechanism
                             },
                             success: function(data, textStatus, jqXHR ){
@@ -180,6 +182,7 @@ VideoUgc = (function(){
                 $.ajax({
                     url: templateMgr.getTemplateFolderPath(mainTemplateId)+mainTemplateId+'/'+subTemplateId+'/template_customizable_object_list.xml', //TODO: TemplateMgr output cleaner url
                     dataType: 'xml',
+                    data:{ miixToken: localStorage.miixToken },
                     success: function(xmlDoc){
                         var customizableObjectsXml = xmlDoc.getElementsByTagName("customizable_object");
                     

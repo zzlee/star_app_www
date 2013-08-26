@@ -58,6 +58,7 @@ FmMobile.screenPg = {
             $.ajax({
                    url: url,
                    dataType: 'json',
+                   data:{ miixToken: localStorage.miixToken },
                    success: function(response){
                                    if(response){
                                        $.each(response, function(i, item){

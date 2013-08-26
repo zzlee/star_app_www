@@ -46,6 +46,7 @@ FmMobile.myUgcPg = {
              $.ajax({
                     url: urlLiveContents,
                     dataType: 'json',
+                    data:{ miixToken: localStorage.miixToken },
                     success: function(response){
                                     if(response){
                                         $.each(response, function(i, item){
@@ -85,6 +86,7 @@ FmMobile.myUgcPg = {
                 $.ajax({
                        url: url,
                        dataType: 'json',
+                       data:{ miixToken: localStorage.miixToken },
                        success: function(response){
                                        if(response){
                                            $.each(response, function(i, item){

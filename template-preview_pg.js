@@ -167,16 +167,17 @@ FmMobile.template_previewPg = {
                                                           $.ajax({
                                                                  url: url,
                                                                  dataType: 'json',
+                                                                 data:{ miixToken: localStorage.miixToken },
                                                                  success: function(response){
-                                                                 if(response){
-                                                                 console.log(response[0].url.s3);
-                                                                 FmMobile.check_in_pic=response[0].url.s3;
-                                                                 FmMobile.shareProjectID= response[0].projectId;
-                                                                 FmMobile.authPopup.postCheckinMessage();
-                                                                 
-                                                                 }else{
-                                                                 console.log("[error] : " + response.error);
-                                                                 }
+                                                                     if(response){
+                                                                     console.log(response[0].url.s3);
+                                                                     FmMobile.check_in_pic=response[0].url.s3;
+                                                                     FmMobile.shareProjectID= response[0].projectId;
+                                                                     FmMobile.authPopup.postCheckinMessage();
+                                                                     
+                                                                     }else{
+                                                                     console.log("[error] : " + response.error);
+                                                                     }
                                                                  }
                                                                  });
                                                   
