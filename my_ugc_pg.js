@@ -6,7 +6,9 @@ FmMobile.myUgcPg = {
     Type: null,
         
     init: function(){
-
+        $('body').css({
+                      "position":""
+                      });
         FM_LOG("[myUgcPg] pageinit");
         $('#nav-bar').show();
         FmMobile.viewerBackFlag=null;

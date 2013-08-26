@@ -13,6 +13,9 @@ FmMobile.screenPg = {
     highLightContent:null,
     
     init: function(){
+        $('body').css({
+                      "position":""
+                      });
         FmMobile.myUgcScroll_y=0;
         FM_LOG("[screenPg] pageinit");
         $('#nav-bar').show();

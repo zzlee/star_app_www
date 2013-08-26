@@ -81,7 +81,7 @@ canvas.width = $(document).width();
             // option.destination.y=(document.body.clientHeight)*0.3;
             //window.screen.height
             
-            option.destination.y=(window.screen.height)*0.35;
+            option.destination.y=$(document).height()*0.35;
             //context.drawImage(image,
             //option.destination.x, option.destination.y,
             //option.scope.w, option.scope.h);
