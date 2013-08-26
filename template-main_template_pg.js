@@ -85,7 +85,7 @@ PAGE_ID: "template_mainTemplatePg",
         
                        
 		$('#nav-bar').show();
-		$('#mainTemplateList').css("padding-bottom",$('#nav-bar').height());
+		$('#mainTemplateList').css("padding-bottom",$('#nav-bar').height()*0.95);
         
     },
 };
