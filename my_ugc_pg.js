@@ -137,7 +137,7 @@ FmMobile.myUgcPg = {
             var dummyDiv = $("<div>").attr({class: "movie-pic-dummy"});
             
             //For item info ex. Copy Youtube'url, Share on FB and # of video/image
-            var info = $("<div>").attr({id: "my-content-info"});
+            var info = $("<div>").attr({id: "my-content-info", style:"margin-bottom:27%;"});
             var Thumbnail = null;   //For content
             var shareYoutubeDiv = null;
             var shareFbDiv = null;
