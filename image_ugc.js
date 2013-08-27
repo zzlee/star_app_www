@@ -77,6 +77,7 @@ ImageUgc = (function(){
                                 //for server side to zoom the user content image to the same size as original footage image
                                 params.obj_OriginalWidth = imageCustomizableObjectWidth;
                                 params.obj_OriginalHeight = imageCustomizableObjectHeight;
+                                params.miixToken = localStorage.miixToken;
                                 
                                 options.params = params;
                                 options.chunkedMode = true;
@@ -132,6 +133,7 @@ ImageUgc = (function(){
                                 contentGenre: mainTemplateId,
                                 title: ugcInfo.title,
                                 customizableObjects: JSON.stringify(customizableObjects),
+                                miixToken: localStorage.miixToken,
                                 time: (new Date()).getTime()
                             },
                             success: function(data, textStatus, jqXHR ){

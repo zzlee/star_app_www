@@ -47,7 +47,8 @@ FmMobile.authentication = {
             data = {
             phoneNum: phoneNum,
             fb_userID: localStorage.fb_userID,
-            userID: localStorage._id
+            userID: localStorage._id,
+            miixToken: localStorage.miixToken
             };
             
             $.get(url, data, function(res){
@@ -91,7 +92,8 @@ FmMobile.authentication = {
             data = {
                 code: code,
                 userID: localStorage._id,
-                fb_userID: localStorage.fb_userID
+                fb_userID: localStorage.fb_userID,
+                miixToken: localStorage.miixToken
             };
         
         $.post(url, data, function(res){

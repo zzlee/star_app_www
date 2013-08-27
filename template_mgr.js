@@ -117,6 +117,7 @@ TemplateMgr = (function(){
 					var settings = {
 							type: "GET",
 							dataType: "json",
+							data:{ miixToken: localStorage.miixToken },
 							success: function(data, textStatus, jqXHR ){
 								//console.dir(data);
 								templateList = data;
@@ -134,6 +135,7 @@ TemplateMgr = (function(){
 						var settings = {
 								type: "GET",
 								dataType: "json",
+								data:{ miixToken: localStorage.miixToken },
 								success: function(data, textStatus, jqXHR ){
 									//console.dir(data);
 									_this.templates[aTemplate] = data;
@@ -161,6 +163,7 @@ TemplateMgr = (function(){
                         var settings = {
                                 type: "GET",
                                 dataType: "json",
+                                data:{ miixToken: localStorage.miixToken },
                                 success: function(data, textStatus, jqXHR ){
                                     //console.dir(data);
                                     _this.doohPreviewTemplates[aTemplate] = data;

@@ -329,9 +329,9 @@ onResume: function(){
 //    	FmMobile.ajaxContents();
 //    	FmMobile.ajaxLiveContents();
 //    	FmMobile.ajaxHighlightContents();
-        FmMobile.isResume = true;
+        
       if(device.platform == "iPhone"){
-          
+    	  FmMobile.isResume = true;
       	FmMobile.apn.getPendingNotification();
 //      	recordUserAction("resumes MiixCard app");
 //          $.mobile.changePage("my_ugc.html");
@@ -357,6 +357,7 @@ onPause: function(){
             var data = {
                 "_id": localStorage._id,
                 "fb_id": localStorage.fb_userID,
+                "miixToken": localStorage.miixToken,
                 "timestamp": Date.now(),
             };
             
@@ -387,6 +388,7 @@ FmMobile.addProcessingWork = function(pid){
         "_id": localStorage._id,
         "userID": localStorage.fb_userID,
         "pid": pid,
+        "miixToken": localStorage.miixToken,
         "timestamp": Date.now()
     };
     
@@ -411,6 +413,7 @@ FmMobile.ajaxContents = function(){
     $.ajax({
            url: url,
            dataType: 'json',
+           data:{ miixToken: localStorage.miixToken },
            success: function(response){
                if(response){
                    $.each(response, function(i, item){
@@ -443,6 +446,7 @@ FmMobile.ajaxLiveContents = function(){
     $.ajax({
            url: urlLiveContents,
            dataType: 'json',
+           data:{ miixToken: localStorage.miixToken },
            success: function(response){
                        if(response){
                            $.each(response, function(i, item){
@@ -472,6 +476,7 @@ FmMobile.ajaxHighlightContents = function(){
     $.ajax({
         	url: url,
         	dataType: 'json',
+        	data:{ miixToken: localStorage.miixToken },
         	success: function(response){
                         if(response){
                             $.each(response, function(i, item){
@@ -513,6 +518,7 @@ FmMobile.ajaxNewVideos = function(){
             "userID": localStorage.fb_userID,
             "timestamp": Date.now(),
             "after": after,
+            "miixToken": localStorage.miixToken,
             "genre": 'miix'
         };
         
@@ -575,6 +581,7 @@ FmMobile.ajaxNewStoryVideos = function(){
         "userID": localStorage.fb_userID,
         "timestamp": Date.now(),
         "after": after,
+        "miixToken": localStorage.miixToken,
         "genre": 'miix_story'
     };
     
@@ -627,6 +634,7 @@ FmMobile.submitDooh = function(){
         "accessToken": localStorage.fb_accessToken,
         "userID": localStorage.fb_userID,
         "timestamp": Date.now(),
+        "miixToken": localStorage.miixToken,
         "pid": pid
     };
     
@@ -675,7 +683,8 @@ FmMobile.gcm = {
 						var data = { 
 							"userID": localStorage._id,
 							"platform": device.platform,
-							"deviceToken": localStorage.deviceToken
+							"deviceToken": localStorage.deviceToken,
+							"miixToken": localStorage.miixToken
 							};
 						FM_LOG(JSON.stringify(data));
 						$.ajax({
@@ -698,7 +707,7 @@ FmMobile.gcm = {
 				// In my case on registered I have EVENT, MSG and MSGCNT defined
 				FM_LOG("[GCM.message] " + JSON.stringify(e));
 //				FmMobile.ajaxNewVideos();
-                var jsonMessage = JSON.stringify(e);
+                var jsonMessage = JSON.parse(JSON.stringify(e));
                 if(jsonMessage.message){
                     FmMobile.pushNotificationHandler(jsonMessage.message);
                 }
@@ -987,6 +996,7 @@ init: function(){
             FM_LOG("[SignUp with FB]: ");
             if(response.data){
                 localStorage._id = response.data._id;
+                localStorage.miixToken = response.data.miixToken;
                 //localStorage.fb_user_pic=response.data.fb_user_pic;
                 localStorage.fb_accessToken = response.data.accessToken;
                 localStorage.verified = (response.data.verified) ? response.data.verified : 'false';
@@ -1023,6 +1033,7 @@ init: function(){
         recordUserAction("log out");
         var fb = FBConnect.install();
         delete localStorage._id;
+        delete localStorage.miixToken;
         delete localStorage.fb_userID;
         delete localStorage.fb_name;
         delete localStorage.fb_accessToken;
@@ -1054,6 +1065,7 @@ sendDeviceToken: function(){
         "deviceToken": localStorage.deviceToken,
         "devicePlatform": device.platfom,
         "device": device.uuid,
+        "miixToken": localStorage.miixToken,
         "timestamp": Date.now()
     }};
     
@@ -1082,15 +1094,16 @@ postFbMessage:function(){
            $.ajax( starServerURL+"/miix/fb_ugcs/"+ugcProjectId, {
                   type: "PUT",
                   data: {
-                  fb_postId:response.id
+                      fb_postId:response.id,
+                      miixToken: localStorage.miixToken
                   },
                   success: function(data, textStatus, jqXHR ){
-                  console.log("Successfully upload projectID and FBpost id to server.");
-                  callback(null);
+                      console.log("Successfully upload projectID and FBpost id to server.");
+                      callback(null);
                   },
                   error: function(jqXHR, textStatus, errorThrown){
-                  console.log("Failed to upload image UGC to server: "+errorThrown);
-                  callback("Failed to upload image UGC to server: "+errorThrown);
+                      console.log("Failed to upload image UGC to server: "+errorThrown);
+                      callback("Failed to upload image UGC to server: "+errorThrown);
                   }
                   
                   
@@ -1119,15 +1132,16 @@ postFbVideoMessage:function(){
            $.ajax( starServerURL+"/miix/fb_ugcs/"+ugcProjectId, {
                   type: "PUT",
                   data: {
-                  fb_postId:response.id
+                      fb_postId:response.id,
+                      miixToken: localStorage.miixToken
                   },
                   success: function(data, textStatus, jqXHR ){
-                  console.log("Successfully upload result image UGC to server.");
-                  callback("haha");
+                      console.log("Successfully upload result image UGC to server.");
+                      callback("haha");
                   },
                   error: function(jqXHR, textStatus, errorThrown){
-                  console.log("Failed to upload image UGC to server: "+errorThrown);
-                  callback("Failed to upload image UGC to server: "+errorThrown);
+                      console.log("Failed to upload image UGC to server: "+errorThrown);
+                      callback("Failed to upload image UGC to server: "+errorThrown);
                   }
                   
                   
@@ -1155,15 +1169,16 @@ postCheckinMessage:function(){
            $.ajax( starServerURL+"/miix/fb_ugcs/"+ugcProjectId, {
                   type: "PUT",
                   data: {
-                  fb_postId:response.id
+                      fb_postId:response.id,
+                      miixToken: localStorage.miixToken
                   },
                   success: function(data, textStatus, jqXHR ){
-                  console.log("Successfully upload result image UGC to server.");
-                  callback("haha");
+                      console.log("Successfully upload result image UGC to server.");
+                      callback("haha");
                   },
                   error: function(jqXHR, textStatus, errorThrown){
-                  console.log("Failed to upload image UGC to server: "+errorThrown);
-                  callback("Failed to upload image UGC to server: "+errorThrown);
+                      console.log("Failed to upload image UGC to server: "+errorThrown);
+                      callback("Failed to upload image UGC to server: "+errorThrown);
                   }
                   
                   
@@ -1213,6 +1228,7 @@ FmMobile.pushNotificationHandler = function(pushMsg){
     FM_LOG("[pushNotficationHandler]:");
     FM_LOG("[pushNotficationHandler] Platform : " + device.platform);
     FM_LOG("[pushNotficationHandler] Message : " + pushMsg);
+    FM_LOG("[pushNotficationHandler] isResume : " + FmMobile.isResume);
     switch(pushMsg){
         case "您有一個新影片！":
             if(FmMobile.isResume && ($.mobile.activePage.attr('id') == "myUgcPg")){

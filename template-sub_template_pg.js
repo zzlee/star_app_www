@@ -17,7 +17,7 @@ FmMobile.template_subTemplatePg = {
         var settings = {
             type: "GET",
             dataType: "html",
-                
+            data:{ miixToken: localStorage.miixToken },    
             success: function(data, textStatus, jqXHR ){
                 $("#show_intro").html(data);
             },

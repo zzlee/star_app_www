@@ -41,7 +41,8 @@ FmMobile.customerQuestionPg = {
                                                
                                                "no":input_id,
                                                "question":question_text,
-                                               "genre":select
+                                               "genre":select,
+                                               "miixToken": localStorage.miixToken
                                                }
                                                }).done(function( result ) {
                                                        
@@ -60,7 +61,7 @@ FmMobile.customerQuestionPg = {
         //TODO: get token from other place
         //
         if(FmMobile.checkNetwork()){
-            $.get(starServerURL+"/miix_service/"+memberId+"/questions",{token:"53768608"},function(data,status){
+            $.get(starServerURL+"/miix_service/"+memberId+"/questions",{miixToken: localStorage.miixToken},function(data,status){
                 //alert("get"+status);
                 //alert(data[1].question);
                 console.log(data);

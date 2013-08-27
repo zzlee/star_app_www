@@ -80,7 +80,8 @@ FmMobile.imageTestPg = {
                        type: "POST",
                        url: starServerURL+"/miix/ugc_base64_contents",
                        data: {
-                           imgBase64: reultURI
+                           imgBase64: reultURI,
+                           miixToken: localStorage.miixToken
                        }
                        }).done(function(o) {
                                console.log('saved');

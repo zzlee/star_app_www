@@ -29,6 +29,7 @@ DoohInfo = (function(){
         var settings = {
                 type: "GET",
                 dataType: "json",
+                data:{ miixToken: localStorage.miixToken },
                 success: function(data, textStatus, jqXHR ){
                     //console.dir(data);
                     doohDescriptions = data;
