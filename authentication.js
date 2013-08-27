@@ -56,8 +56,9 @@ FmMobile.authentication = {
                   //alert("test");
                   if(res.message){
                       FmMobile.myflag=false;
-                      
-                      navigator.notification.alert(res.message);
+                  console.log(res.message);
+                  FmMobile.showNotification("waitForCode");
+                  //navigator.notification.alert(res.message);
                       $.mobile.changePage("code_input.html");
                   setTimeout(function(){FmMobile.myflag=true},60000);
                   }else{
@@ -82,6 +83,7 @@ FmMobile.authentication = {
         var code_int = parseInt(code);
         
         if(isNaN(code_int) || code_int > 9999){
+             FmMobile.showNotification('inputWrongCode');
             $("#code_input").attr("value", "");
             return;
         }
@@ -100,10 +102,13 @@ FmMobile.authentication = {
 //               navigator.notification.alert(res.message, function(){
 //                                            $.mobile.changePage("login_success.html");
 //                                            }, "認證");
-               FmMobile.showNotification("sendCode");
+                console.log("[authentication.sendCode] : " + res.message);
+               FmMobile.showNotification("codeVerifySuccess");
                $.mobile.changePage("login_success.html");
                
            }else{
+               FmMobile.showNotification('inputWrongCode');
+
 //               navigator.notification.alert(res.error);
                console.log("[authentication.sendCode] : " + res.error);
            }

@@ -1327,7 +1327,16 @@ FmMobile.showNotification = function(fun){
             navigator.notification.confirm("請於三分鐘後再發送一次認證碼請求,謝謝！", FmMobile.Confirm(), appName, "確定");
             break;
         case "wrongPhoneNumber":
-            navigator.notification.confirm("手機號碼輸入錯誤，請重新輸入", FmMobile.Confirm(), appName, "確定");
+            navigator.notification.confirm("手機號碼好像不是長這樣喔...請重新輸入", FmMobile.Confirm(), appName, "確定");
+            break;
+        case "inputWrongCode":
+            navigator.notification.confirm("手機認證碼不太對喔...請重新輸入", FmMobile.Confirm(), appName, "確定");
+            break;
+        case "waitForCode":
+            navigator.notification.confirm("手機號碼合格！即將發送認證碼4碼\n請稍候謝謝！", FmMobile.Confirm(), appName, "確定");
+            break;
+        case "codeVerifySuccess":
+            navigator.notification.confirm("恭喜電話認證成功！\n準備上大螢幕吧！！", FmMobile.Confirm(), appName, "確定");
             break;
         default:
             console.log("ShowNotification is not worked");
