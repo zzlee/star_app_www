@@ -330,7 +330,7 @@ onResume: function(){
 //    	FmMobile.ajaxLiveContents();
 //    	FmMobile.ajaxHighlightContents();
         
-      if(device.platform == "iPhone"){
+      if((device.platform == "iPhone") || (device.platform == "iPad") || (device.platform == "iPod touch")){
     	  FmMobile.isResume = true;
       	FmMobile.apn.getPendingNotification();
 //      	recordUserAction("resumes MiixCard app");
@@ -766,7 +766,7 @@ FmMobile.apn = {
     
     init: function(){
         FM_LOG("[APN.init]");
-        if(device.platform == "iPhone"){
+        if((device.platform == "iPhone") || (device.platform == "iPad") || (device.platform == "iPod touch")){
             FmMobile.pushNotification = window.plugins.pushNotification;
             FmMobile.apn.registerDevice();
             FmMobile.apn.getPendingNotification();
@@ -1232,16 +1232,27 @@ FmMobile.pushNotificationHandler = function(pushMsg){
     switch(pushMsg){
         case "您有一個新影片！":
             if(FmMobile.isResume && ($.mobile.activePage.attr('id') == "myUgcPg")){
-                FmMobile.myUgcPg.Type = "content";
-                $.mobile.changePage("my_ugc.html", { reloadPage : true });
-                FmMobile.isResume = false;
+                if(FmMobile.myUgcPg.Type == "content"){
+                    //isResume and my_ugc_pg(content)
+                    $.mobile.changePage("my_ugc.html", { reloadPage : true });
+                    FmMobile.isResume = false;
+                }else if(FmMobile.myUgcPg.Type == "live"){
+                   FmMobile.isResume = false; 
+                }
             }else if(FmMobile.isResume && ($.mobile.activePage.attr('id') != "myUgcPg")){
+                //isResume but !my_ugc_pg
                 FmMobile.myUgcPg.Type = "content";
                 $.mobile.changePage("my_ugc.html");
                 FmMobile.isResume = false;
-            }else if($.mobile.activePage.attr('id') == "myUgcPg"){
-                FmMobile.showNotification("newUgc");
-                $.mobile.changePage('my_ugc.html', { reloadPage : true });
+            }else if(($.mobile.activePage.attr('id') == "myUgcPg")){
+                if(FmMobile.myUgcPg.Type == "content"){
+                    //my_ugc(content)
+                    FmMobile.showNotification("newUgc");
+                    $.mobile.changePage('my_ugc.html', { reloadPage : true });
+                }else if(FmMobile.myUgcPg.Type == "live"){
+                    FmMobile.showNotification("newUgc");
+                }
+                
             }else{
                 FmMobile.showNotification("newUgc");
             }

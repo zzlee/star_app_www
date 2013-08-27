@@ -65,7 +65,7 @@ load: function(event, data){
             
             FmMobile.userContent.picture.urlOfOriginal = imageURI;
             
-            if ( (device.version > "6") && (device.platform == "iPhone") ) {
+            if ( (device.version > "6") && ((device.platform == "iPhone") || (device.platform == "iPad") || (device.platform == "iPod touch")) ) {
                 FM_LOG("subsampling");
                 //Here is the workaround for iOS 6.0 and 6.0.1 subsampling issue (when drawing from a more-than-2M jpg to canvas)
                 var tempImg = new Image();

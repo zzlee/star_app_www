@@ -565,7 +565,7 @@ FmMobile.myUgcPg = {
 
             switch(tmpIDArray[0]){
                 case "copyUrl":
-                    if(device.platform == "iPhone"){
+                    if((device.platform == "iPhone") || (device.platform == "iPad") || (device.platform == "iPod touch")){
                         /**iOS Plugin */
                         window.clipboardPluginCopy("https://www.youtube.com/watch?feature=player_embedded&v=" + tmpIDArray[1],
                                                    function() {FmMobile.showNotification("copyUrl");},
@@ -617,7 +617,7 @@ FmMobile.myUgcPg = {
 
                 console.log("S3 URL " + tmpIDArray[1]);
                 if(FmMobile.myUgcPg.Type == "content"){
-                    if(device.platform == "iPhone"){
+                    if((device.platform == "iPhone") || (device.platform == "iPad") || (device.platform == "iPod touch")){
                         window.clipboardPluginCopy(s3Url + ".png",
                                                    function() { FmMobile.showNotification("copyUrl");},
                                                    function(e){ FmMobile.showNotification("error");
@@ -631,7 +631,7 @@ FmMobile.myUgcPg = {
                                                     );
                     }
                 }else if(FmMobile.myUgcPg.Type == "live"){
-                    if(device.platform == "iPhone"){
+                    if((device.platform == "iPhone") || (device.platform == "iPad") || (device.platform == "iPod touch")){
                         window.clipboardPluginCopy(s3Url + ".jpg",
                                                    function(){ FmMobile.showNotification("copyUrl");},
                                                    function(e){FmMobile.showNotification("error");
@@ -647,7 +647,7 @@ FmMobile.myUgcPg = {
                 }
                 break;
             case "copyPreUrl":
-                if(device.platform == "iPhone"){
+                if((device.platform == "iPhone") || (device.platform == "iPad") || (device.platform == "iPod touch")){
                     window.clipboardPluginCopy(s3Url + "_dooh_preview.png" ,
                                                function() { FmMobile.showNotification("copyUrl"); },
                                                function(e){FmMobile.showNotification("error");
