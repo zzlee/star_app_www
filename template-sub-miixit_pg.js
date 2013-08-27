@@ -22,7 +22,7 @@ init: function(){
     	//replace the <video> with <iframe>
     	$("#video_iOS").hide();
     	$("#iframe_Android").show();
-    }else{
+    }else if(device.platform == "iPhone"){
     	$("#video_iOS").show();
     	$("#iframe_Android").hide();
     }
