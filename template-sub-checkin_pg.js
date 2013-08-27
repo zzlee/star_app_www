@@ -13,7 +13,7 @@ FmMobile.template_checkinPg = {
         if (navigator.geolocation) {
             
             function errorHandler (error) {
-                if(device.platform == "iPhone"){
+                if((device.platform == "iPhone") || (device.platform == "iPad") || (device.platform == "iPod touch")){
                     $.mobile.changePage("template-main_template.html");
                     FmMobile.showNotification("gpsDeny");
                 }else{

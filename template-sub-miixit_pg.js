@@ -22,7 +22,7 @@ init: function(){
     	//replace the <video> with <iframe>
     	$("#video_iOS").hide();
     	$("#iframe_Android").show();
-    }else if(device.platform == "iPhone"){
+    }else if((device.platform == "iPhone") || (device.platform == "iPad") || (device.platform == "iPod touch")){
     	$("#video_iOS").show();
     	$("#iframe_Android").hide();
     }
