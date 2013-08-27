@@ -465,7 +465,7 @@ padding:5% 5%;
 	color:#dcd586;
 	}
 .login_success_text{
-	margin-top:20%;
+	//margin-top:20%;
 	position:absolute;
 	width:100%;
 	text-align:center;
@@ -475,7 +475,7 @@ padding:5% 5%;
 	color:#dcd586;
 	}
 .login_success_button{
-	margin-top:25%;
+	//margin-top:25%;
 	width:100%;}
 
 

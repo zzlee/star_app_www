@@ -32,7 +32,7 @@ FmMobile.indexPg = {
         else {
             $.mobile.changePage("orientation_1.html");
         }
-         
+        
          
 
          
@@ -40,7 +40,7 @@ FmMobile.indexPg = {
         
        
         
-        //$.mobile.changePage("login_success.html");
+       // $.mobile.changePage("login_success.html");
         //$.mobile.changePage("template_input_checkin.html");
        // $.mobile.changePage("template-sub-miixit.html");
         // $.mobile.changePage("template_input_miixit.html");
