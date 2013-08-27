@@ -744,7 +744,6 @@ FmMobile.checkNetwork = function(){
     $.ajax({
            url: remotesite + "/connectStarServer",
            dataType: 'json',
-           data:{ miixToken: localStorage.miixToken },
            success: function(response){
                if(response == 200)
                    connectServerStatus = true;
@@ -988,7 +987,6 @@ init: function(){
             "deviceToken": localStorage.deviceToken,
             "devicePlatform": device.platform,
             "device": device.uuid,
-            "miixToken": localStorage.miixToken,
             "timestamp": Date.now()
             }
         };
