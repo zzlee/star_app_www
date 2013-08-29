@@ -142,6 +142,7 @@ FmMobile.myUgcPg = {
             var projectId = arryHighlightContents[i].ProjectId;
             console.log("projectId " + projectId);
             var widget = null;
+            var number = arryHighlightContents[i].No;
             var dummyDiv = $("<div>").attr({class: "movie-pic-dummy"});
             
             //For item info ex. Copy Youtube'url, Share on FB and # of video/image
@@ -177,14 +178,16 @@ FmMobile.myUgcPg = {
                             shareYoutubeDiv = $("<img>").attr({
                                                                id: "copyUrl_" + ytVideoID,
                                                                class: "share",
-                                                               src: "images/youtube.png"
+                                                               src: "images/youtube.png",
+                                                              title:number
                                                                });
                             shareYoutubeDiv.appendTo(info);
                             
                             shareFbDiv = $("<img>").attr({
                                                           id: "shareFb_" + ytVideoID,
                                                           class: "share",
-                                                          src: "images/facebook.png"
+                                                          src: "images/facebook.png",
+                                                         title:number
                                                           });
                             shareFbDiv.appendTo(info);
                             numberDiv.html("演出編號：" + number);
@@ -311,7 +314,8 @@ FmMobile.myUgcPg = {
                 Thumbnail = $("<img>").attr({
                                                         id: 'imgPreview_' + projectId,
                                                         src: previewUrl,
-                                                        class: "content-movie-img"
+                                                        class: "content-movie-img",
+                                            title:number
                                                         });
                 Thumbnail.appendTo(widgetPreview);
                 infoPreview.attr({style:"margin-bottom:26%;"});
@@ -319,14 +323,16 @@ FmMobile.myUgcPg = {
                 shareYoutubeDiv = $("<img>").attr({
                                                        id: "copyPreUrl_" + projectId,
                                                        class: "share",
-                                                       src: "images/youtube.png"
+                                                       src: "images/youtube.png",
+                                                  title:number
                                                        });
                 shareYoutubeDiv.appendTo(infoPreview);
                 
                 shareFbDiv = $("<img>").attr({
                                                   id: "sharePreFb_" + projectId,
                                                   class: "share",
-                                                  src: "images/facebook.png"
+                                                  src: "images/facebook.png",
+                                             title:number
                                                   });
                 shareFbDiv.appendTo(infoPreview);
                 if(typeof(arryContents[i].Url) == "undefined"){
@@ -368,14 +374,16 @@ FmMobile.myUgcPg = {
                         shareYoutubeDiv = $("<img>").attr({
                                                                id: "copyUrl_" + ytVideoID,
                                                                class: "share",
-                                                               src: "images/youtube.png"
+                                                               src: "images/youtube.png",
+                                                           title:number
                                                                });
                         shareYoutubeDiv.appendTo(info);
                         
                         shareFbDiv = $("<img>").attr({
                                                           id: "shareFb_" + ytVideoID,
                                                           class: "share",
-                                                          src: "images/facebook.png"
+                                                          src: "images/facebook.png",
+                                                      title:number
                                                           });
                         shareFbDiv.appendTo(info);
                         
@@ -417,14 +425,16 @@ FmMobile.myUgcPg = {
                         shareYoutubeDiv = $("<img>").attr({
                                                                id: "copyUrlS3_" + projectId,
                                                                class: "share",
-                                                               src: "images/youtube.png"
+                                                               src: "images/youtube.png",
+                                                           title:number
                                                                });
                         shareYoutubeDiv.appendTo(info);
                         
                         shareFbDiv = $("<img>").attr({
                                                           id: "shareImgFb_" + projectId,
                                                           class: "share",
-                                                          src: "images/facebook.png"
+                                                          src: "images/facebook.png",
+                                                      title:number
                                                           });
                         shareFbDiv.appendTo(info);
                         
@@ -581,7 +591,8 @@ FmMobile.myUgcPg = {
                     }
                     break;
                 case "shareFb":
-                    FmMobile.shareProjectID=this.parentElement.parentElement.id;                   
+                        FmMobile.finishNumber=this.title;
+                    FmMobile.shareProjectID=this.parentElement.parentElement.id;
                     
                     FmMobile.shareFbType="video";
                     FmMobile.srcForMyUgcViewer="http://img.youtube.com/vi/"+tmpIDArray[1]+"/mqdefault.jpg";
@@ -591,6 +602,7 @@ FmMobile.myUgcPg = {
 
                     break;
                 case "shareImgFb":
+                                        FmMobile.finishNumber=this.title;
                     FmMobile.shareFbType="image";
                                         
                FmMobile.shareProjectID=tmpIDArray[1];
@@ -605,6 +617,7 @@ FmMobile.myUgcPg = {
                     $.mobile.changePage('facebook_share.html');
                     break;
                 case "sharePreFb":
+                                        FmMobile.finishNumber=this.title;
                     FmMobile.shareProjectID=tmpIDArray[1];
                                         
                     FmMobile.shareFbType="image";

@@ -43,6 +43,7 @@ FmMobile.srcForMyUgcViewer;
 FmMobile.myflag=true;
 FmMobile.check_in_pic;
 FmMobile.checkinTextForFB;
+FmMobile.finishNumber;
 
 FmMobile.myUgcScroll_y=0;
 
@@ -1082,6 +1083,8 @@ postFbMessage:function(){
     access_token: localStorage.fb_accessToken,
     message: FmMobile.userContent.text,
     link:FmMobile.srcForMyUgcViewer,
+    name:"這是"+localStorage.fb_name+"的試鏡編號"+FmMobile.finishNumber+"作品。",
+        description:"上大螢幕APP 敬上。"
    //picture:FmMobile.srcForMyUgcViewer,
     //privacy:{'value':'SELF'},
     
@@ -1119,6 +1122,8 @@ postFbVideoMessage:function(){
     access_token: localStorage.fb_accessToken,
     message: FmMobile.userContent.text,
     link:FmMobile.youtubeVideoUrl,
+        name:"這是"+localStorage.fb_name+"的試鏡編號"+FmMobile.finishNumber+"作品。",
+    description:"上大螢幕APP 敬上。"
         //picture:FmMobile.srcForMyUgcViewer,
         //privacy:{'value':'SELF'},
         
@@ -1152,9 +1157,10 @@ postFbVideoMessage:function(){
 postCheckinMessage:function(){
     var url = 'https://graph.facebook.com/me/feed';
     var params = {
-        
+    name:"路經貴寶地",
+    
     access_token: localStorage.fb_accessToken,
-    message: FmMobile.checkinTextForFB,
+    //message: FmMobile.checkinTextForFB,
     link:FmMobile.check_in_pic,
     place:"157142054372631"
         //picture:FmMobile.srcForMyUgcViewer,

@@ -171,7 +171,7 @@ FmMobile.template_previewPg = {
                                                                  success: function(response){
                                                                      if(response){
                                                                      console.log(response[0].url.s3);
-                                                                     FmMobile.check_in_pic=response[0].url.s3;
+                                                                 FmMobile.check_in_pic= response[0].doohPreviewUrl;
                                                                      FmMobile.shareProjectID= response[0].projectId;
                                                                      FmMobile.authPopup.postCheckinMessage();
                                                                      
