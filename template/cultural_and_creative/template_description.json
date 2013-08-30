@@ -149,7 +149,7 @@
                     "id":"text0",
                     "type":"text",
                     "x":"835.952",
-                    "y":"63.128px",
+                    "y":"93",
                     "width":"470",
                     "lineHeight":"68",
                     "angle":"0",
@@ -170,7 +170,7 @@
                     "fb_y":"132.986",
                     "fb_angle":"0",
                     "fb_color":"white",
-                                   "fbNameWidth":"220",
+                                   "fbNameWidth":"130",
                                    "lineHeight":"50"
                 },
                {
@@ -186,7 +186,7 @@
                "fb_y":"134",
                "fb_angle":"0",
                "fb_color":"white",
-                                   "fbNameWidth":"180",
+                                   "fbNameWidth":"165",
                                    "lineHeight":"50"
                }
 
