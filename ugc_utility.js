@@ -62,11 +62,12 @@ ugcUtility.drawChineseText = function(context, text, x, y, maxWidth, lineHeight,
     context.translate(x,y);
     context.rotate(angle*Math.PI/180);
     if (font){
-        context.font = font; 
+       // context.font = font;
+    context.font = '36px 華康歐陽詢體W5';
     }
     else {
-       context.font = '36px JT1-47U';
-        // context.font = '36px 華康歐陽詢體W5';
+      // context.font = '36px';
+         context.font = '36px 華康歐陽詢體W5';
     }
     
     for(var n = 0; n < words.length; n++) {
