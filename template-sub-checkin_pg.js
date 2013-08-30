@@ -96,12 +96,12 @@ FmMobile.template_checkinPg = {
         
         $('#checkinPreview').click(function(){
                                    
-                                   if($("#checkin_text_2").val().length==0 ||$("#ur_text").val()==" "){
+                                   if($("#checkin_text_2").val().length==0 ||$("#checkin_text_2").val()==" " ){
                                    FmMobile.showNotification("nullText");
                                    return false;
                                    }
                                    
-                                   if($("#checkin_text_1").val().length==0 ||$("#ur_text").val()==" "){
+                                   if($("#checkin_text_1").val().length==0 ||$("#checkin_text_1").val()==" "){
                                    FmMobile.showNotification("nullText");
                                    return false;
                                    }
