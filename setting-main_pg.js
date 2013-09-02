@@ -17,7 +17,7 @@ FmMobile.setting_MainPg = {
 			}else if(this.id=="itemFAQ"){
 				$.mobile.changePage("setting-faq.html");
 			}else if (this.id == "itemOrientation") {
-				$.mobile.changePage("orientation_1.html");
+				$.mobile.changePage("orientation_0.html");
 			}
                                   
             else if (this.id == "itemAboutMiixIt"){

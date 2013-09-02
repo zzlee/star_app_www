@@ -30,7 +30,7 @@ FmMobile.indexPg = {
             $.mobile.changePage("template-main_template.html");
         }
         else {
-            $.mobile.changePage("orientation_1.html");
+            $.mobile.changePage("orientation_0.html");
         }
         
          
