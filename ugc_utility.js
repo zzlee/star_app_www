@@ -78,6 +78,8 @@ ugcUtility.drawChineseText = function(context, text, x, y, maxWidth, lineHeight,
         
         if(FmMobile.selectedTemplate=="check_idn"){
             if (testWidth > maxWidth && n > 0) {
+                //context.textAlign="center";
+
                 context.fillText(line, cursorX, cursorY);
                 line = words[n];
                 cursorY += lineHeight;
@@ -92,7 +94,15 @@ ugcUtility.drawChineseText = function(context, text, x, y, maxWidth, lineHeight,
                 if(changePerLine.length>1){
                     for(var i=0;i<changePerLine.length;i++){
                         line=changePerLine[i];
+                        if(FmMobile.selectedTemplate=="check_in"){
+                            context.textAlign="center";
+                            context.fillText(line, cursorX+228, cursorY);
+
+                        }else{
+                             
                         context.fillText(line, cursorX, cursorY);
+                        }
+                       
                     }
                     cursorY += lineHeight;
                 }else{
@@ -109,13 +119,20 @@ ugcUtility.drawChineseText = function(context, text, x, y, maxWidth, lineHeight,
             cursorY += lineHeight;
         }else
          */
-         
+        // ctx.fillText("textAlign=center",300,120);
         context.fillStyle = fontColor;
     }
     
     
+    if(FmMobile.selectedTemplate=="check_in"){
+        //context.textAlign="center";
+        context.fillText(line, cursorX+228, cursorY);
+        
+    }else{
+        
+        context.fillText(line, cursorX, cursorY);
+    }
     
-    context.fillText(line, cursorX, cursorY);
     
     context.restore();
 };
