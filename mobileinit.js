@@ -1266,7 +1266,8 @@ FmMobile.pushNotificationHandler = function(pushMsg){
 
         break;
         default:
-            FM_LOG("[pushNotficationHandler] Your push notification is not exist.");
+//            FM_LOG("[pushNotficationHandler] Your push notification is not exist.");
+            FmMobile.showNotification(pushMsg);
     }
 
 
@@ -1357,7 +1358,8 @@ FmMobile.showNotification = function(fun){
             navigator.notification.confirm("恭喜電話認證成功！\n準備上大螢幕吧！！", FmMobile.Confirm(), appName, "確定");
             break;
         default:
-            console.log("ShowNotification is not worked");
+//            console.log("ShowNotification is not worked");
+            navigator.notification.confirm(fun, FmMobile.Confirm(), appName, "確定");
     }
     
 };
