@@ -28,6 +28,7 @@ FmMobile.indexPg = {
         
         if(localStorage.fb_userID && localStorage.verified=='true'){
             $.mobile.changePage("template-main_template.html");
+            
         }
         else {
             $.mobile.changePage("orientation_0.html");
