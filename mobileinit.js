@@ -107,6 +107,8 @@ $(document).bind("mobileinit", function(){
                  $("#indexPg").live("pageshow", FmMobile.indexPg.show);
                  $("#orie_0").live("pagebeforeshow", FmMobile.orientationPg.init);
                  $("#orie_0").live("pageshow", FmMobile.orientationPg.show);
+                 $("#orie_1").live("pagebeforeshow", FmMobile.orientationPg.init);
+                 $("#orie_1").live("pageshow", FmMobile.orientationPg.show);
                  $('div[id^="orie"]').live("swipeleft ", FmMobile.orientationPg.swipeleft);
                  $('div[id^="orie"]').live("swiperight", FmMobile.orientationPg.swiperight);
                  $('div[id^="orie"]').live("pageshow", function(){

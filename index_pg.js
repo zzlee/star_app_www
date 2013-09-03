@@ -31,7 +31,12 @@ FmMobile.indexPg = {
             
         }
         else {
-            $.mobile.changePage("orientation_0.html");
+        	if(device.platform == "Android"){
+        		$.mobile.changePage("orientation_1.html");
+        	}else{
+        		$.mobile.changePage("orientation_0.html");	
+        	}
+            
         }
         
          

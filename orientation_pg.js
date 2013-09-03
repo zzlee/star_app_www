@@ -1,7 +1,7 @@
 FmMobile.orientationPg = {
     PAGE_ID: "orie_1",
-    idx: 1,
-    max: 3,
+    idx: null,
+    max: null,
         
     swipeleft: function(){
         if( ++FmMobile.orientationPg.idx > FmMobile.orientationPg.max){
@@ -25,7 +25,11 @@ FmMobile.orientationPg = {
         
     swiperight: function(){
         if( --FmMobile.orientationPg.idx < 1){
-            FmMobile.orientationPg.idx = 0;
+        	if(device.platform == "Android"){
+        		FmMobile.orientationPg.idx = 1;
+        	}else{
+        		FmMobile.orientationPg.idx = 0;	
+        	}
         }else{
             $.mobile.changePage(("orientation_" + FmMobile.orientationPg.idx+".html")
                                 , { transition: "slide",
@@ -34,7 +38,14 @@ FmMobile.orientationPg = {
     },
         
     init: function(){
-        FmMobile.orientationPg.idx = 0;
+    	if(device.platform == "Android"){
+    		FmMobile.orientationPg.idx = 1;
+    		FmMobile.orientationPg.max = 2;
+    	}else{
+    		FmMobile.orientationPg.idx = 0;
+    		FmMobile.orientationPg.max = 3;
+    	}
+        
         $('#nav-bar').hide();
         //$('#mapArea').attr("coords","0,0,100,100");
         //var or_pic_width = ($('#or_pic').width());
