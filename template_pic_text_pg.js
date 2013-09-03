@@ -10,6 +10,22 @@ show: function(){
 },
     
 load: function(event, data){
+	
+	document.addEventListener("showkeyboard", function() {
+		 if((device.platform == "iPhone") || (device.platform == "iPad") || (device.platform == "iPod touch")){
+		 }else{
+		 	$("#nav-bar").hide();
+		 }
+}, false);
+
+document.addEventListener("hidekeyboard", function() {
+        if((device.platform == "iPhone") || (device.platform == "iPad") || (device.platform == "iPod touch")){
+		 }else{
+		 	$("#nav-bar").show();
+		 }
+}, false);
+    
+
    // FmMobile.userContent.text="aa";
     var textForUgcUtility;
     
