@@ -105,8 +105,8 @@ $(document).bind("mobileinit", function(){
                  $("#indexPg").live("pageinit", FmMobile.indexPg.init);
                  $("#indexPg").live("pagebeforeshow", FmMobile.indexPg.beforeshow);
                  $("#indexPg").live("pageshow", FmMobile.indexPg.show);
-                 $("#orie_0").live("pagebeforeshow", FmMobile.orientationPg.init);
-                 $("#orie_0").live("pageshow", FmMobile.orientationPg.show);
+//                 $("#orie_0").live("pagebeforeshow", FmMobile.orientationPg.init);
+//                 $("#orie_0").live("pageshow", FmMobile.orientationPg.show);
                  $("#orie_1").live("pagebeforeshow", FmMobile.orientationPg.init);
                  $("#orie_1").live("pageshow", FmMobile.orientationPg.show);
                  $('div[id^="orie"]').live("swipeleft ", FmMobile.orientationPg.swipeleft);
@@ -200,7 +200,7 @@ $('#mapAreaNext').attr("coords","'"+FmMobile.or_pic_width+","+((FmMobile.or_pic_
                
                                  
                  $.mobile.page.prototype.options.addBackBtn = true;
-                  $.mobile.page.prototype.options.addBackBtn = true;
+//                  $.mobile.page.prototype.options.addBackBtn = true;
                  /*
                  TemplateMgr.getInstance(function(err, _templateMgr){
                                          //alert("templatmgr");
