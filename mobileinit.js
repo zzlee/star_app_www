@@ -1380,3 +1380,21 @@ FmMobile.dummyDiv = function(){
     var paddingBottomDiv = $('[data-role="page"]').height() * 0.1847;
     $('[data-role="content"]').attr({style:"padding-bottom:" + paddingBottomDiv + "px;"});
 };
+
+//Hide keyboard for Android
+FmMobile.hideKeyboard = function(){
+	document.addEventListener("hidekeyboard", function() {
+		if(device.platform == "Android"){
+			$("#nav-bar").show();
+		}
+	}, false);
+};
+
+//Show keyboard for Android
+FmMobile.showKeyboard = function(){
+	document.addEventListener("showkeyboard", function() {
+		if(device.platform == "Android"){
+			$("#nav-bar").hide();
+		}
+	}, false);
+};

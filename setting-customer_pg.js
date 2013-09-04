@@ -56,7 +56,7 @@ FmMobile.customerQuestionPg = {
                                                                     }
                                                                     });
                                     });
-
+        
         //get answer
         //TODO: get token from other place
         //

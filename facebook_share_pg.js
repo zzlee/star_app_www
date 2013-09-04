@@ -13,7 +13,6 @@ init: function(){
             $("#nav-bar").hide();
             $('#youtubePlay').hide();
             $('#shareFbPhoto').hide();
-
         if(FmMobile.shareFbType=="video"){
             $('#youtubePlay').attr({src:FmMobile.youtubeVideoUrl, style: "height: 90%;"});
             $('#youtubePlay').show();
