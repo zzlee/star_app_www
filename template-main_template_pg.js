@@ -51,7 +51,7 @@ PAGE_ID: "template_mainTemplatePg",
                         }
                    */
                          
-                            $("#start_mainTemplate > div >img ").click(function(){
+                            $("#start_mainTemplate > div >img").click(function(){
                                       
                                      FmMobile.selectedTemplateBarImg=this.title;
                                      FmMobile.selectedTemplate=this.id;

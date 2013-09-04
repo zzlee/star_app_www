@@ -62,15 +62,13 @@ FmMobile.template_subTemplatePg = {
         
         
         for(var i=0;i<templateMgr.getSubTemplateList(FmMobile.selectedTemplate).length;i++){
-            var mainStyle = $("<div>").attr({class: "style"});
+            var mainStyle = $("<div>").attr({class: "style", id:templateMgr.getSubTemplateList(FmMobile.selectedTemplate)[i].id});
             var sub_number= $("<div>").attr({class: "buttonlong_text"});
             var sub__button_img = $("<img>").attr({class:"label-img",
-                                                   src:"images/button_long2.png",
-                                                   id:templateMgr.getSubTemplateList(FmMobile.selectedTemplate)[i].id
+                                                   src:"images/button_long2.png"
                                                   });
             var sub_img = $("<img>").attr({class:"style-img",
-                                           src:templateMgr.getSubTemplateList(FmMobile.selectedTemplate)[i].representingImageUrlSub,
-                                           id:templateMgr.getSubTemplateList(FmMobile.selectedTemplate)[i].id
+                                           src:templateMgr.getSubTemplateList(FmMobile.selectedTemplate)[i].representingImageUrlSub
                                           
                                           });
             var sub_des = $("<div>").attr({class:"style_text"});
@@ -89,7 +87,7 @@ FmMobile.template_subTemplatePg = {
 
         }
         
-        $("#start_subTemplate > div > img").click(function(){
+        $("#start_subTemplate > div").click(function(){
             if(this.id=='text_only'){
                 FmMobile.selectedSubTemplate=this.id;
                 $.mobile.changePage("template-input_text.html");
