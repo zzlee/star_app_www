@@ -147,6 +147,14 @@ FmMobile.template_photoCropperPg = {
         //canvas.width = screen.availWidth;
         canvas.width = $('.movie-pic-dummy').width();
         canvas.height = canvas.width / 1280 * 735;
+        
+        
+        // image.src = fileProcessedForCropperURI;
+        //$('#try').click(function(){});
+        
+        subsamplingResize(fileProcessedForCropperURI, { maxWidth: 960, maxHeight: 960, orientation: 6 }, function(resultURI){
+                                                       image.src = resultURI;
+                                                       });
 
         image.onload = function() {
 
@@ -176,7 +184,7 @@ FmMobile.template_photoCropperPg = {
 
         //image.src = "images/test.jpg";  //for test
 
-        image.src = fileProcessedForCropperURI;
+       
         // FmMobile.userContent.picture.url=fileProcessedForCropperURI;
 
         //JF - image event
