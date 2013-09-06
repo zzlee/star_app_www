@@ -118,7 +118,7 @@ FmMobile.template_photoCropperPg = {
         });
 
         //Rewrite #submitBtn click function
-        $('#joytest').click(function() {
+        $('#submitBtnToPreview').click(function() {
             FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
             $.mobile.changePage("template-preview.html");
         });

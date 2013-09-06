@@ -109,7 +109,7 @@ document.addEventListener("hidekeyboard", function() {
             }
         
         var getPhotoFail = function (message) {
-            //alert('没有選到相片，請再選一次！');
+            //alert('瘝⊥��詨�貊�嚗��銝�活嚗�);
         }
         
         
@@ -136,8 +136,18 @@ document.addEventListener("hidekeyboard", function() {
                 
             }
             else {
-                fileProcessedForCropperURI = imageURI;
-                $.mobile.changePage("template-photo_cropper.html");
+               var tempImg = new Image();
+                    tempImg.src = imageURI;
+                    tempImg.onload = function() {
+                        EXIF.getData( tempImg, function(){
+                                     var orientation = EXIF.getTag(tempImg, "Orientation");
+                                     subsamplingResize(imageURI, { maxWidth: 960, maxHeight: 960, orientation: orientation }, function(resultURI){
+                                                       fileProcessedForCropperURI = resultURI;
+                                                       $.mobile.changePage("template-photo_cropper.html");
+                                                       });
+                                     });
+                        
+                    }; 
                 
             }
             
@@ -149,7 +159,9 @@ document.addEventListener("hidekeyboard", function() {
             navigator.camera.getPicture(gotoPhotoCropper, getPhotoFail,{
                                         quality: 50,
                                         destinationType: navigator.camera.DestinationType.FILE_URI,
-                                        sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
+                                        sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY,
+                                         targetWidth: 1500,
+                                            targetHeight: 1500
                                         });
             FmMobile.analysis.trackEvent("Button", "Click", "Album", 21);
         }
@@ -157,7 +169,9 @@ document.addEventListener("hidekeyboard", function() {
             navigator.camera.getPicture(gotoPhotoCropper, getPhotoFail,{
                                         quality: 50,
                                         destinationType: navigator.camera.DestinationType.FILE_URI,
-                                        sourceType: navigator.camera.PictureSourceType.CAMERA
+                                        sourceType: navigator.camera.PictureSourceType.CAMERA,
+                                         targetWidth: 1500,
+                                            targetHeight: 1500
                                         });
             FmMobile.analysis.trackEvent("Button", "Click", "Album", 22);
         }

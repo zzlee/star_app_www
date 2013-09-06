@@ -57,7 +57,7 @@ load: function(event, data){
         
         
         var getPhotoFail = function (message) {
-            //alert('æ²¡æœ‰é¸åˆ°ç›¸ç‰‡ï¼Œè«‹å†é¸ä¸€æ¬¡ï¼');
+            //alert('疆簡癒疆��冕怏蜆瓦冕把�繡癟�售�簿翹�癡竄�嘔乒��矇�繡瓣繡�珍汕玲￣純撢�);
         }
         
         
@@ -83,8 +83,22 @@ load: function(event, data){
                 
                 
             }else if(device.platform == "Android"){
-           		fileProcessedForCropperURI = imageURI;
-                $.mobile.changePage("template-photo_cropper.html");
+           		 var tempImg = new Image();
+                    tempImg.src = imageURI;
+                    tempImg.onload = function() {
+                        EXIF.getData( tempImg, function(){
+                                     var orientation = EXIF.getTag(tempImg, "Exif Version");
+                                     alert(orientation);
+                                     
+                                     subsamplingResize(imageURI, { maxWidth: 960, maxHeight: 960, orientation: orientation }, function(resultURI){
+                                                       alert(orientation);
+                                                       fileProcessedForCropperURI = resultURI;
+                                                       $.mobile.changePage("template-photo_cropper.html");
+                                                       });
+                                     });
+                        
+                    }; 
+                
                 
             }else{
             	
@@ -107,7 +121,9 @@ load: function(event, data){
             navigator.camera.getPicture(gotoPhotoCropper, getPhotoFail,{
                                         quality: 50,
                                         destinationType: navigator.camera.DestinationType.FILE_URI,
-                                        sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
+                                        sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY,
+                                         targetWidth: 1500,
+                                            targetHeight: 1500
                                         });
             FmMobile.analysis.trackEvent("Button", "Click", "Album", 21);
         }else {
@@ -115,7 +131,9 @@ load: function(event, data){
             navigator.camera.getPicture(gotoPhotoCropper, getPhotoFail,{
                                         quality: 50,
                                         destinationType: navigator.camera.DestinationType.FILE_URI,
-                                        sourceType: navigator.camera.PictureSourceType.CAMERA
+                                        sourceType: navigator.camera.PictureSourceType.CAMERA,
+                                         targetWidth: 1500,
+                                            targetHeight: 1500
                                         });
             FmMobile.analysis.trackEvent("Button", "Click", "Album", 22);
         }
