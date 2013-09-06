@@ -17,22 +17,9 @@ body{
 	background: -ms-linear-gradient(left,  #000000 0%,#970018 50%,#000000 100%); /* IE10+ */
 	background: linear-gradient(to right,  #000000 0%,#970018 50%,#000000 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000',GradientType=1 ); /* IE6-9 */
-	font-size:16px;
+
 }
 
-@media screen and (-webkit-device-pixel-ratio: 1.5) {
-    /* CSS for high-density screens */
-	body{
-		font-size:35px;
-	}
-}
-
-@media screen and (-webkit-device-pixel-ratio: 0.75) {
-    /* CSS for low-density screens */
-	body{
-		font-size:20px;
-	}
-}
 @font-face {
     font-family:"kaiu";
     src: url("../font/kaiu.ttf");
