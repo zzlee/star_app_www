@@ -48,7 +48,7 @@ FmMobile.template_checkinPg = {
             var options = {
             enableHighAccuracy: true,
             maximumAge: 0,
-            timeout: 15000
+            timeout: 4000
             };
             
             navigator.geolocation.getCurrentPosition(successHandler, errorHandler, options);

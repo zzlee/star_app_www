@@ -87,7 +87,7 @@ load: function(event, data){
                     tempImg.src = imageURI;
                     tempImg.onload = function() {
                         EXIF.getData( tempImg, function(){
-                                     var orientation = EXIF.getAllTags(tempImg);
+                                   var orientation = EXIF.getTag(tempImg, "Orientation");
                                      console.log("aaaaaaaaaaaaaaaaa");
                                      console.log(orientation);
                                      subsamplingResize(imageURI, { maxWidth: 960, maxHeight: 960, orientation: orientation }, function(resultURI){

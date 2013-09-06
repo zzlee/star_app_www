@@ -1318,7 +1318,7 @@ FmMobile.showNotification = function(fun){
             break;
             
         case "gpsDenyAndroid":
-            navigator.notification.confirm("完全沒有定位, 麻煩開啓一下GPS,多謝！", FmMobile.Confirm(), appName, "確定");
+            navigator.notification.confirm("I can't see you...\n 麻煩開啓一下GPS,或到空曠陰涼處,多謝！", FmMobile.Confirm(), appName, "確定");
             break;
 
             

@@ -106,7 +106,6 @@ FmMobile.template_pic_pg = {
                         
                     }; 
                 }
-                alert(device.platform);
                 console.log("version="+device.version);
                 
             };
