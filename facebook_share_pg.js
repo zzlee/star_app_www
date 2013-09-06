@@ -3,7 +3,7 @@ PAGE_ID: "facebookSharePg",
     
 show: function(){
     FmMobile.analysis.trackPage("/facebookSharePg");
-    recordUserAction("enters facebookSharePg");
+//    recordUserAction("enters facebookSharePg");
     
     
 },
@@ -14,14 +14,21 @@ init: function(){
             $('#youtubePlay').hide();
             $('#shareFbPhoto').hide();
         if(FmMobile.shareFbType=="video"){
+        	if(FmMobile.myUgcPg.Type == "live"){
+        		FmMobile.analysis.trackEvent("Content", "Share", "liveVideo", 2 );	
+        	}else{
+        		FmMobile.analysis.trackEvent("Content", "Share", "video", 2 );
+        	}
             $('#youtubePlay').attr({src:FmMobile.youtubeVideoUrl, style: "height: 90%;"});
             $('#youtubePlay').show();
         }else if(FmMobile.shareFbType=="image"){
             if(FmMobile.myUgcPg.Type == "live"){
+            	FmMobile.analysis.trackEvent("Content", "Share", "liveImage", 2 );
                 $('#shareFbPhoto').attr({src:FmMobile.srcForMyUgcViewer, style: "height: 90%;"});
             }else{
                 var checkImgType = FmMobile.srcForMyUgcViewer.split('_');
                 if(checkImgType[checkImgType.length - 1] != "preview.png"){
+                	FmMobile.analysis.trackEvent("Content", "Share", "longImage", 2 );
                     var shareContent = $("#share_content");
                     shareContent.attr({class: "content-movie-long",style:"margin-bottom:0;margin-top:0;"});
                     shareContent.html("");
@@ -36,7 +43,9 @@ init: function(){
                                                           });
                     
                     this.imageThumbnail.appendTo(shareContent);
+                    
                 }else{
+                	FmMobile.analysis.trackEvent("Content", "Share", "previewImage", 2 );
                     $('#shareFbPhoto').attr({src:FmMobile.srcForMyUgcViewer});
                 }
 
@@ -50,12 +59,14 @@ init: function(){
                     FmMobile.userContent.text=$('#ur_text').val();
                                        
                     if(FmMobile.shareFbType=="video"){
+                    	FmMobile.analysis.trackEvent("Button", "Share", "Video", 2 );
                         FmMobile.authPopup.postFbVideoMessage();
                     }else if(FmMobile.shareFbType=="image"){
+                    	FmMobile.analysis.trackEvent("Button", "Share", "Image", 2 );
                         FmMobile.authPopup.postFbMessage();
                                
                     }
-                
+                    
                     $.mobile.changePage('my_ugc.html');
                 }
             });

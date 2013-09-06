@@ -3,7 +3,7 @@ PAGE_ID: "settingTocPg",
     
 show: function(){
     FmMobile.analysis.trackPage("/settingTocPg");
-    recordUserAction("enters settingTocPg");
+//    recordUserAction("enters settingTocPg");
 },
     
 init: function(){

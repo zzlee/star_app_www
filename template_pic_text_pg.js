@@ -151,7 +151,7 @@ document.addEventListener("hidekeyboard", function() {
                                         destinationType: navigator.camera.DestinationType.FILE_URI,
                                         sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
                                         });
-            FmMobile.analysis.trackEvent("Button", "Click", "Album", 21);
+            FmMobile.analysis.trackEvent("Button", "Click", "album", 1);
         }
         else {
             navigator.camera.getPicture(gotoPhotoCropper, getPhotoFail,{
@@ -159,7 +159,7 @@ document.addEventListener("hidekeyboard", function() {
                                         destinationType: navigator.camera.DestinationType.FILE_URI,
                                         sourceType: navigator.camera.PictureSourceType.CAMERA
                                         });
-            FmMobile.analysis.trackEvent("Button", "Click", "Album", 22);
+            FmMobile.analysis.trackEvent("Button", "Click", "camera", 1);
         }
     
         }

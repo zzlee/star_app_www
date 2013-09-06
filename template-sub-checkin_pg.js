@@ -3,7 +3,7 @@ FmMobile.template_checkinPg = {
         
     show: function(){
         FmMobile.analysis.trackPage("/template_checkinPg");
-        recordUserAction("enters template_checkinPg");
+//        recordUserAction("enters template_checkinPg");
     },
         
     init: function(){

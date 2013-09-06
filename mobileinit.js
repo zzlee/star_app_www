@@ -61,38 +61,29 @@ $(document).bind("mobileinit", function(){
                  $("#cropperTestPg").live("pageinit", FmMobile.cropperTestPg.load);
                  $("#cropperTestPg").live("pageshow", FmMobile.cropperTestPg.show);
                  
-                 $("#ohohshit").live('click',function(){
-                                     alert("humm....");
-                                     });
+//                 $("#ohohshit").live('click',function(){
+//                                     alert("humm....");
+//                                     });
                  $("map > #mapAreaBack").live("click",FmMobile.orientationPg.swiperight);
                  $("map > #mapAreaNext").live("click",FmMobile.orientationPg.swipeleft);
                  
                  $('#goOrientation2').live("click",function(){
-                                           $.mobile.changePage("orientation_2.html");
-                                           FmMobile.analysis.trackPage("/orientation2");
+                	 FmMobile.analysis.trackPage("/orientation2");
+                	 $.mobile.changePage("orientation_2.html");
 
-                                           });
+                 });
                  $('#goOrientation1').live("click",function(){
-                                           $.mobile.changePage("orientation_1.html");
-                                           });
+                	 FmMobile.analysis.trackPage("/orientation1");
+                	 $.mobile.changePage("orientation_1.html");
+                 });
                  $('#goVerifyPage').live("click",function(){
-                                         if(!(localStorage.fb_userID && localStorage.verified=='true'))
-                                         {
-                                         $.mobile.changePage("login_toc.html", {transition: "slide"});
-                                         }
-                                         else {
-                                         $.mobile.changePage("setting-main.html");
-                                         }                                         });
+                                         if(!(localStorage.fb_userID && localStorage.verified=='true')){
+                                        	 $.mobile.changePage("login_toc.html", {transition: "slide"});
+                                         }else{
+                                        	 $.mobile.changePage("setting-main.html");
+                                         }                                         
+                 });
 
-                                  /*
-                 $('#mapArea').live('pagebeforeshow',function(){
-                                alert("no");
-                                      //var change_css = ($('body').width());
-                                     
-                                      //alert(change_css);
-                                      });
-
-                 */
                  
                  $("a").live("click", function(event){
                     event.preventDefault();
@@ -112,10 +103,9 @@ $(document).bind("mobileinit", function(){
                  $('div[id^="orie"]').live("swipeleft ", FmMobile.orientationPg.swipeleft);
                  $('div[id^="orie"]').live("swiperight", FmMobile.orientationPg.swiperight);
                  $('div[id^="orie"]').live("pageshow", function(){
-                                          // alert(FmMobile.or_pic_height);
-        $('#mapAreaBack').attr("coords","0,"+((FmMobile.or_pic_height)*0.5)+","+((FmMobile.or_pic_height)*0.25)+'"');
-$('#mapAreaNext').attr("coords","'"+FmMobile.or_pic_width+","+((FmMobile.or_pic_height)*0.5)+","+((FmMobile.or_pic_height)*0.25)+'"');
-                                           });
+                	 $('#mapAreaBack').attr("coords","0,"+((FmMobile.or_pic_height)*0.5)+","+((FmMobile.or_pic_height)*0.25)+'"');
+                	 $('#mapAreaNext').attr("coords","'"+FmMobile.or_pic_width+","+((FmMobile.or_pic_height)*0.5)+","+((FmMobile.or_pic_height)*0.25)+'"');
+                 });
                  $("#myUgcPg").live("pageinit", FmMobile.myUgcPg.init);
                  $("#myUgcPg").live("pageshow", FmMobile.myUgcPg.show);
 //                 $("#myUgcPg").live("pageloadlivevideo", FmMobile.myUgcPg.loadMyVideo);  //Deprecated
@@ -269,17 +259,17 @@ onBodyLoad: function(){
     FM_LOG("[Init.onDeviceReady]");
 
     document.addEventListener("deviceready", FmMobile.analysis.init, true);
+    
     document.addEventListener("deviceready", FmMobile.gcm.init, true);
     document.addEventListener("deviceready", FmMobile.apn.init, true);
     document.addEventListener("deviceready", FmMobile.init.isFBTokenValid, true);
-    
     document.addEventListener("resume", FmMobile.init.onResume, false);
     document.addEventListener("pause", FmMobile.init.onPause, false);
     document.addEventListener("push-notification", function(event){
 //                              FmMobile.ajaxNewVideos();
 //                              FmMobile.ajaxNewStoryVideos();
                               FM_LOG("push-notification:");
-                              console.dir(event);
+//                              console.dir(event);
                               localStorage.tmp = event.notification;
                               FmMobile.pushMessage = JSON.parse(JSON.stringify(event.notification));
                               FmMobile.pushNotificationHandler(FmMobile.pushMessage.aps.alert);
@@ -472,7 +462,6 @@ FmMobile.ajaxLiveContents = function(){
 
 
 };
-
 
 FmMobile.ajaxHighlightContents = function(){
 	FM_LOG("[ajaxHighlightContents]");
@@ -881,7 +870,7 @@ FmMobile.analysis = {
 	    
 	    init: function(){
 	        FM_LOG("[analysis.init]");
-	        var gaId = "UA-37288251-1"; 
+	        var gaId = "UA-43771072-2"; //OnDascreen
 	        //UA-37288251-4 : http://www.feltmeng.idv.tw
 	        //UA-37288251-1 : http://www.miix.tv
 	        FmMobile.ga = window.plugins.gaPlugin;
@@ -913,7 +902,7 @@ FmMobile.analysis = {
 	    	FM_LOG("[analysis.trackPage] url :" + url);
 	    	FmMobile.ga.trackPage(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, url);
 	    },
-	};
+};
 
 
 
@@ -1034,7 +1023,7 @@ init: function(){
     
     FBLogout: function() {
         FmMobile.analysis.trackEvent("Button", "Click", "Logout", 54);
-        recordUserAction("log out");
+//        recordUserAction("log out");
         var fb = FBConnect.install();
         delete localStorage._id;
         delete localStorage.miixToken;
@@ -1320,9 +1309,6 @@ FmMobile.showNotification = function(fun){
         case "gpsDenyAndroid":
             navigator.notification.confirm("完全沒有定位, 麻煩開啓一下GPS,多謝！", FmMobile.Confirm(), appName, "確定");
             break;
-
-            
-            
         case "wrongPlace":
             navigator.notification.confirm("其實你不在小巨蛋對吧...\n臺北市松山區南京東路4段2號\n歡迎來打卡！\n(請移動到眼睛看得到天幕的地方)", FmMobile.Confirm(), appName, "確定");
             break;
@@ -1376,7 +1362,7 @@ FmMobile.openBrowser = function(url){
 
 //Set a dive under the Page
 FmMobile.dummyDiv = function(){
-    FmMobile.analysis.trackPage("/dummyDiv");
+//    FmMobile.analysis.trackPage("/dummyDiv");
     var paddingBottomDiv = $('[data-role="page"]').height() * 0.1847;
     $('[data-role="content"]').attr({style:"padding-bottom:" + paddingBottomDiv + "px;"});
 };
@@ -1398,3 +1384,4 @@ FmMobile.showKeyboard = function(){
 		}
 	}, false);
 };
+

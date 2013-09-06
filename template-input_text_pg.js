@@ -3,7 +3,7 @@ PAGE_ID: "template_input_textPg",
     
 show: function(){
     FmMobile.analysis.trackPage("/template_input_textPg");
-    recordUserAction("enters template_input_textPg");
+//    recordUserAction("enters template_input_textPg");
     FmMobile.dummyDiv();
 },
     
@@ -13,8 +13,8 @@ init: function(){
     $('#template_top_img_text').attr({src:FmMobile.selectedTemplateBarImg});    
     
     $("#back_main").click(function(){
-                          $.mobile.changePage("template-sub_template.html");
-                          });
+    	$.mobile.changePage("template-sub_template.html");
+    });
     
     $("#go_preview").click(function(){
                            

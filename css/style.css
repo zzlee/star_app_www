@@ -17,7 +17,7 @@ body{
 	background: -ms-linear-gradient(left,  #000000 0%,#970018 50%,#000000 100%); /* IE10+ */
 	background: linear-gradient(to right,  #000000 0%,#970018 50%,#000000 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000',GradientType=1 ); /* IE6-9 */
-	font-size:16px;
+	
 }
 
 
@@ -26,6 +26,31 @@ body{
     src: url("../font/kaiu.ttf");
     text-shadow: none;
 } 
+
+
+@media screen and (min-width: 720px) and (max-width: 1280px) {
+    body{
+      font-size:40px;
+    }
+}
+
+@media screen and (min-width: 480px) and (max-width: 720px) {
+    body{
+      font-size:40px;
+    }
+}
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+    body{
+      font-size:16px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    body{
+      font-size:16px;
+    }
+}
 
 .text{
 	font-size:120%;

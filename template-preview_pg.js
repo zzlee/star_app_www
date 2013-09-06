@@ -3,7 +3,7 @@ FmMobile.template_previewPg = {
 
     show : function() {
         FmMobile.analysis.trackPage("/template_previewPg");
-        recordUserAction("enters template_previewPg");
+//        recordUserAction("enters template_previewPg");
         FmMobile.dummyDiv();
     },
 
@@ -109,6 +109,7 @@ FmMobile.template_previewPg = {
                                                     if (!err) {
                                                         // alert("success!");
                                                         FM_LOG("[templatePreview]Video uploads successfully.");
+                                                        FmMobile.analysis.trackEvent("Content", "Upload", "video", 1 );	
                                                         FmMobile.showNotification("uploadUgc");
                                                         $.mobile.hidePageLoadingMsg();
                                                         FmMobile.myUgcPg.Type = "content";
@@ -184,6 +185,7 @@ FmMobile.template_previewPg = {
                                                   
                                                         }//End of if
                                                         FM_LOG("[templatePreview]Image uploads successfully.");
+                                                        FmMobile.analysis.trackEvent("Content", "Upload", "checkIn", 1 );	
                                                         FmMobile.showNotification("uploadUgc");
                                                         $.mobile.hidePageLoadingMsg();
                                                         FmMobile.myUgcPg.Type = "content";
@@ -239,6 +241,7 @@ FmMobile.template_previewPg = {
                 //                                    console.log("err=" + err);
                                                     if (!err) {
                                                         FM_LOG("[templatePreview]Image uploads successfully.");
+                                                        FmMobile.analysis.trackEvent("Content", "Upload", "image", 1 );	
                                                         FmMobile.showNotification("uploadUgc");
                                                         $.mobile.hidePageLoadingMsg();
                                                         FmMobile.myUgcPg.Type = "content";
