@@ -280,14 +280,13 @@ onBodyLoad: function(){
 //                              FmMobile.ajaxNewStoryVideos();
                               FM_LOG("push-notification:");
                               console.dir(event);
-                              localStorage.tmp = event.notification;
                               FmMobile.pushMessage = JSON.parse(JSON.stringify(event.notification));
                               FmMobile.pushNotificationHandler(FmMobile.pushMessage.aps.alert);
                               //TODO:If device received the push notification and show the page
 //                              FmMobile.apn.getPendingNotification();
                               //alert(event);
     });
-    
+    localStorage.pixelRatio = window.devicePixelRatio;
     //TODO:
     //document.addEventListener("touchmove", function(e){ e.preventDefault(); }, true);
     
@@ -742,8 +741,18 @@ FmMobile.gcm = {
 /** Check network status */
 FmMobile.checkNetwork = function(){
     FM_LOG("[checkNetwork]");
-    var connectionType = navigator.connection.type;
+    var connectionType = null;
+    /*	In cordova2.2, navigator.network.connection.type replace with navigator.connection.type.
+     *	It works on iOS, but Android can't. We need use <2.2 API to handle these issue.
+     */
+    if(device.platform == "Android"){
+    	connectionType = navigator.network.connection.type;
+    }else{
+    	connectionType = navigator.connection.type;
+    }
+
     FM_LOG("[checkNetwork]Network Status : " + connectionType);
+    FM_LOG("[pixelRatio] : " + localStorage.pixelRatio);
     var connectServerStatus = false;
     $.ajax({
            url: remotesite + "/connectStarServer",
