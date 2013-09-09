@@ -3,7 +3,7 @@ FmMobile.settingAboutPg = {
         
     show: function(){
         FmMobile.analysis.trackPage("/settingAboutPg");
-        recordUserAction("enters settingAboutPg");
+//        recordUserAction("enters settingAboutPg");
     },
         
     init: function(){

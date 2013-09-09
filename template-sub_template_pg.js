@@ -4,15 +4,15 @@ FmMobile.template_subTemplatePg = {
     show: function(){
 
         FmMobile.analysis.trackPage("/template_subTemplatePg");
-        recordUserAction("enters template_subTemplatePg");
+//        recordUserAction("enters template_subTemplatePg");
         FmMobile.dummyDiv();
     },
         
     init: function(){
         $('body').css({
-                     "position":"fixed"
-                        });
-        		$('#nav-bar').show();
+        	"position":"fixed"
+        });
+        $('#nav-bar').show();
         
         var settings = {
             type: "GET",
@@ -89,15 +89,19 @@ FmMobile.template_subTemplatePg = {
         
         $("#start_subTemplate > div").click(function(){
             if(this.id=='text_only'){
+            	FmMobile.analysis.trackEvent("Template", FmMobile.selectedTemplate, this.id, 1 );
                 FmMobile.selectedSubTemplate=this.id;
                 $.mobile.changePage("template-input_text.html");
             }else if(this.id=='picture_only'){
+            	FmMobile.analysis.trackEvent("Template", FmMobile.selectedTemplate, this.id, 1 );
                 FmMobile.selectedSubTemplate=this.id;
                 $.mobile.changePage("template-input_pic.html");
             }else if(this.id=='picture_plus_text'){
+            	FmMobile.analysis.trackEvent("Template", FmMobile.selectedTemplate, this.id, 1 );
                 FmMobile.selectedSubTemplate=this.id;
                 $.mobile.changePage("template-input_text_pic.html");
             }else if(this.id=='miix_one_image'){
+            	FmMobile.analysis.trackEvent("Template", FmMobile.selectedTemplate, this.id, 1 );
                 FmMobile.selectedSubTemplate=this.id;
                 $.mobile.changePage("template_input_miixit.html");
 

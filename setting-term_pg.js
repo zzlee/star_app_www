@@ -3,7 +3,7 @@ PAGE_ID: "settingTermPg",
     
 show: function(){
     FmMobile.analysis.trackPage("/settingTermPg");
-    recordUserAction("enters settingTermPg");
+//    recordUserAction("enters settingTermPg");
 },
     
 init: function(){

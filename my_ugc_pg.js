@@ -12,14 +12,12 @@ FmMobile.myUgcPg = {
         FM_LOG("[myUgcPg] pageinit");
         $('#nav-bar').show();
         FmMobile.viewerBackFlag=null;
-
-               
         
     },
     
     show: function(){
-        FmMobile.analysis.trackPage("/myUgcPg");
-        recordUserAction("enters myUgcPg");
+    	FmMobile.analysis.trackPage("/myUgcPg");
+//        recordUserAction("enters myUgcPg");
         
 
         
@@ -30,13 +28,16 @@ FmMobile.myUgcPg = {
         
         FM_LOG("[myUgcPg] pageshow");
         $("#btnMiixMovie").click(function(){
+        	FmMobile.analysis.trackPage("/myUgcPg/myContents");
              $("#btnMiixMovie>img").attr({src: "images/tab_ugc_active.png"});
              $("#btnLiveMovie>img").attr({src: "images/tab_live.png"});
+             
              FmMobile.myUgcPg.Type = "content";
              FmMobile.myUgcPg.loadContents(FmMobile.myUgcPg.myContents);
          
          });
         $("#btnLiveMovie").click(function(){
+        	FmMobile.analysis.trackPage("/myUgcPg/myLiveContents");
              $("#btnLiveMovie>img").attr({src: "images/tab_live_active.png"});
              $("#btnMiixMovie>img").attr({src: "images/tab_ugc.png"});
              
@@ -122,6 +123,7 @@ FmMobile.myUgcPg = {
     },
         
     loadLiveContents: function(arryHighlightContents){
+    	
         FM_LOG("[myUgcPg] loadLiveContents: ");
         var parent = $("#my-video-list");
         parent.html("");
@@ -270,7 +272,6 @@ FmMobile.myUgcPg = {
         
     loadContents: function(arryContents){
         FM_LOG("[myUgcPg] loadContents");
-        
         var parent = $("#my-video-list");
         console.log("parent=");
         console.dir(parent);

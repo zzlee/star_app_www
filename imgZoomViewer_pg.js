@@ -272,7 +272,7 @@ canvas.width = $(document).width();
         };
         
         FmMobile.analysis.trackPage("/imgZoomViewerPg");
-        recordUserAction("enters imgZoomViewerPg");
+//        recordUserAction("enters imgZoomViewerPg");
     }
 }
 

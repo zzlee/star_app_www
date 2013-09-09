@@ -12,7 +12,7 @@ FmMobile.template_previewPg = {
         
         
         
-                /*  點下去跳到full screen  */
+                /*  點�跳�full screen  */
         $(".content-movie").bind('click',function(){
                                 
             if(FmMobile.checkNetwork()){
@@ -24,9 +24,9 @@ FmMobile.template_previewPg = {
                        $.mobile.changePage("fullPageViewer.html");
         });
          */
-        /* ends of 點下去跳到full screen */
+        /* ends of 點�跳�full screen */
         
-        /* 判斷按上一步要回哪一頁 */
+        /* �斷��一步�哪一*/
         
         $("#cancelBtnToCropper").click(function() {
                               history.back();
@@ -51,22 +51,22 @@ FmMobile.template_previewPg = {
         }
          */
         
-        /* ends of 判斷按上一步要回哪一頁 */
+        /* ends of �斷��一步�哪一*/
     
         
-        /* preview page title bar text 影片根其他不一樣*/
+        /* preview page title bar text 影�其他�一�/
         if(FmMobile.selectedTemplate == 'miix_it'){
-            $('.header-text').html("劇照模擬預覽");
-            $('#afterSendText').html('按下確定投件後,您將會收到APP的推播,通知您是目前第幾位試鏡者。若導演決定刊登您的作品,您會收到APP的推播與facebook預告,通知登場日期時間。名額稀少,導演優先挑選創意作品。');
+            $('.header-text').html("�照模擬�覽");
+            $('#afterSendText').html('��確�件徨�收�APP�推�知�是��第幾位試�者。若導�決�登��作�,��到APP�推��facebook��,�知�場����額��導��選��作�);
         }else if(FmMobile.selectedTemplate == 'check_in'){
-            $('#clickImgEffect').html("點擊可放大");
-            $('#afterSendText').html('按下確定投件後,這張作品將會發佈於您的facebook。此外您將會收到APP的推播,通知您 是目前第幾位試鏡者。若導演決定刊登您的作品, 您會收到APP的推播與facebook預告,通知登場日 期時間。名額稀少,導演優先挑選創意作品。');
+            $('#clickImgEffect').html("點�放�);
+            $('#afterSendText').html('��確�件徙張作�將��您�facebook�此外您將�到APP�推�知�目�第幾�試鏡�。若導�決�登��作�, ��到APP�推��facebook��,�知�場��。�額��導��選��作�);
         }
         else{
-            $('#clickImgEffect').html('點擊可放大');
-             $('#afterSendText').html('按下確定投件後,您將會收到APP的推播,通知您是目前第幾位試鏡者。若導演決定刊登您的作品,您會收到APP的推播與facebook預告,通知登場日期時間。名額稀少,導演優先挑選創意作品');
+            $('#clickImgEffect').html('點�放�);
+             $('#afterSendText').html('��確�件徨�收�APP�推�知�是��第幾位試�者。若導�決�登��作�,��到APP�推��facebook��,�知�場����額��導��選��作�');
         }
-       /* ends of preview page title bar text 影片根其他不一樣*/
+       /* ends of preview page title bar text 影�其他�一�/
         
         if(FmMobile.checkNetwork()){
             if (FmMobile.selectedTemplate == 'miix_it') {
@@ -109,6 +109,7 @@ FmMobile.template_previewPg = {
                                                     if (!err) {
                                                         // alert("success!");
                                                         FM_LOG("[templatePreview]Video uploads successfully.");
+                                                        FmMobile.analysis.trackEvent("Content", "Upload", "video", 1 );	
                                                         FmMobile.myUgcPg.Type = "content";
                                                         FmMobile.showNotification("uploadUgc");
 //                                                        $.mobile.hidePageLoadingMsg();
@@ -184,6 +185,7 @@ FmMobile.template_previewPg = {
                                                   
                                                         }//End of if
                                                         FM_LOG("[templatePreview]Image uploads successfully.");
+                                                        FmMobile.analysis.trackEvent("Content", "Upload", "checkIn", 1 );	
                                                         FmMobile.myUgcPg.Type = "content";
                                                         FmMobile.showNotification("uploadUgc");
 //                                                        $.mobile.hidePageLoadingMsg();
@@ -239,6 +241,7 @@ FmMobile.template_previewPg = {
                 //                                    console.log("err=" + err);
                                                     if (!err) {
                                                         FM_LOG("[templatePreview]Image uploads successfully.");
+                                                        FmMobile.analysis.trackEvent("Content", "Upload", "image", 1 );	
                                                         FmMobile.myUgcPg.Type = "content";
                                                         FmMobile.showNotification("uploadUgc");
 //                                                        $.mobile.hidePageLoadingMsg();

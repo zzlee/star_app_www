@@ -14,7 +14,7 @@ PAGE_ID: "codeInputPg",
         
     show: function(){
         FmMobile.analysis.trackPage("/codeInputPg");
-        recordUserAction("enters codeInputPg");
+//        recordUserAction("enters codeInputPg");
     },
 };
 

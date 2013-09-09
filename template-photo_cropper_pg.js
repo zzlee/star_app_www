@@ -389,7 +389,7 @@ rotation_tag=false;
         };
 
         FmMobile.analysis.trackPage("/template_photoCropperPg");
-        recordUserAction("enters template_photoCropperPg");
+//        recordUserAction("enters template_photoCropperPg");
         FmMobile.dummyDiv();
     }
    
