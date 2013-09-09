@@ -1290,13 +1290,18 @@ FmMobile.Confirm = function(){
     //Do nothing.
 };
 
+FmMobile.changePage = function(page){
+	//For FmMobile.showNotification to change page
+	$.mobile.changePage(page);
+};
+
 FmMobile.showNotification = function(fun){
     FM_LOG("[showNotification]");
     var appName = "上大螢幕";
     
     switch(fun){
         case "uploadUgc":
-            navigator.notification.confirm("上傳完成！", FmMobile.Confirm(), appName, "確定");
+            navigator.notification.confirm("上傳完成！", FmMobile.changePage("my_ugc.html"), appName, "確定");
             break;
         case "copyUrl":
             navigator.notification.confirm("已複製連結！", FmMobile.Confirm(), appName, "確定");
@@ -1325,13 +1330,9 @@ FmMobile.showNotification = function(fun){
         case "gpsDeny":
             navigator.notification.confirm("完全沒有定位, 想通時請至\n設定->隱私->定位服務\n交出你的坐標！", FmMobile.Confirm(), appName, "確定");
             break;
-            
         case "gpsDenyAndroid":
             navigator.notification.confirm("I can't see you...\n 麻煩開啓一下GPS,或到空曠陰涼處,多謝！", FmMobile.Confirm(), appName, "確定");
             break;
-
-            
-            
         case "wrongPlace":
             navigator.notification.confirm("其實你不在小巨蛋對吧...\n臺北市松山區南京東路4段2號\n歡迎來打卡！\n(請移動到眼睛看得到天幕的地方)", FmMobile.Confirm(), appName, "確定");
             break;

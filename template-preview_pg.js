@@ -3,7 +3,7 @@ FmMobile.template_previewPg = {
 
     show : function() {
         FmMobile.analysis.trackPage("/template_previewPg");
-        recordUserAction("enters template_previewPg");
+//        recordUserAction("enters template_previewPg");
         FmMobile.dummyDiv();
     },
 
@@ -109,10 +109,10 @@ FmMobile.template_previewPg = {
                                                     if (!err) {
                                                         // alert("success!");
                                                         FM_LOG("[templatePreview]Video uploads successfully.");
-                                                        FmMobile.showNotification("uploadUgc");
-                                                        $.mobile.hidePageLoadingMsg();
                                                         FmMobile.myUgcPg.Type = "content";
-                                                        $.mobile.changePage("my_ugc.html");
+                                                        FmMobile.showNotification("uploadUgc");
+//                                                        $.mobile.hidePageLoadingMsg();
+//                                                        $.mobile.changePage("my_ugc.html");
                                                      }else{
                                                          FmMobile.showNotification("uploadFailed");
                                                          $('#clickImgEffect').show("normal");
@@ -184,10 +184,10 @@ FmMobile.template_previewPg = {
                                                   
                                                         }//End of if
                                                         FM_LOG("[templatePreview]Image uploads successfully.");
-                                                        FmMobile.showNotification("uploadUgc");
-                                                        $.mobile.hidePageLoadingMsg();
                                                         FmMobile.myUgcPg.Type = "content";
-                                                        $.mobile.changePage("my_ugc.html");
+                                                        FmMobile.showNotification("uploadUgc");
+//                                                        $.mobile.hidePageLoadingMsg();
+//                                                        $.mobile.changePage("my_ugc.html");
                                                   
                                                   }else{
                                                       FmMobile.showNotification("uploadFailed");
@@ -239,10 +239,10 @@ FmMobile.template_previewPg = {
                 //                                    console.log("err=" + err);
                                                     if (!err) {
                                                         FM_LOG("[templatePreview]Image uploads successfully.");
-                                                        FmMobile.showNotification("uploadUgc");
-                                                        $.mobile.hidePageLoadingMsg();
                                                         FmMobile.myUgcPg.Type = "content";
-                                                        $.mobile.changePage("my_ugc.html");
+                                                        FmMobile.showNotification("uploadUgc");
+//                                                        $.mobile.hidePageLoadingMsg();
+//                                                        $.mobile.changePage("my_ugc.html");
                                                     }else{
                                                         FmMobile.showNotification("uploadFailed");
                                                         $('#clickImgEffect').show("normal");
