@@ -121,9 +121,9 @@ load: function(event, data){
                                         quality: 50,
                                         destinationType: navigator.camera.DestinationType.FILE_URI,
                                         sourceType: navigator.camera.PictureSourceType.SAVEDPHOTOALBUM,
-                                         targetWidth: 1500,
-                                            targetHeight: 1500,
-                                             encodingType: navigator.camera.EncodingType.PNG
+//                                         targetWidth: 1500,
+//                                            targetHeight: 1500,
+//                                             encodingType: navigator.camera.EncodingType.PNG
                                         });
             FmMobile.analysis.trackEvent("Button", "Click", "Album", 21);
         }else {

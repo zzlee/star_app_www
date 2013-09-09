@@ -752,7 +752,7 @@ FmMobile.checkNetwork = function(){
     }
 
     FM_LOG("[checkNetwork]Network Status : " + connectionType);
-    FM_LOG("[pixelRatio] : " + localStorage.pixelRatio);
+//    FM_LOG("[pixelRatio] : " + localStorage.pixelRatio);
     var connectServerStatus = false;
     $.ajax({
            url: remotesite + "/connectStarServer",
