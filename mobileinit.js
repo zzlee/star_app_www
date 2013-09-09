@@ -1277,8 +1277,8 @@ FmMobile.pushNotificationHandler = function(pushMsg){
 
         break;
         default:
-//            FM_LOG("[pushNotficationHandler] Your push notification is not exist.");
-            FmMobile.showNotification(pushMsg);
+            FM_LOG("[pushNotficationHandler] otherType :" + pushMsg);
+//            FmMobile.showNotification(pushMsg);
     }
 
 
@@ -1290,18 +1290,22 @@ FmMobile.Confirm = function(){
     //Do nothing.
 };
 
-FmMobile.changePage = function(page){
+FmMobile.changePageToMyUgc = function(button){
 	//For FmMobile.showNotification to change page
-	$.mobile.changePage(page);
+//	localStorage.button = button;
+	FM_LOG("[changePageToMyUgc] :" + button);
+	if(button == "undefined"){
+		$.mobile.changePage("my_ugc.html");
+	}
 };
 
 FmMobile.showNotification = function(fun){
-    FM_LOG("[showNotification]");
+    FM_LOG("[showNotification] :" + fun );
     var appName = "上大螢幕";
     
     switch(fun){
         case "uploadUgc":
-            navigator.notification.confirm("上傳完成！", FmMobile.changePage("my_ugc.html"), appName, "確定");
+            navigator.notification.confirm("上傳完成！", FmMobile.changePageToMyUgc(), appName, "確定");
             break;
         case "copyUrl":
             navigator.notification.confirm("已複製連結！", FmMobile.Confirm(), appName, "確定");
