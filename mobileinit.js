@@ -61,29 +61,38 @@ $(document).bind("mobileinit", function(){
                  $("#cropperTestPg").live("pageinit", FmMobile.cropperTestPg.load);
                  $("#cropperTestPg").live("pageshow", FmMobile.cropperTestPg.show);
                  
-//                 $("#ohohshit").live('click',function(){
-//                                     alert("humm....");
-//                                     });
+                 $("#ohohshit").live('click',function(){
+                                     alert("humm....");
+                                     });
                  $("map > #mapAreaBack").live("click",FmMobile.orientationPg.swiperight);
                  $("map > #mapAreaNext").live("click",FmMobile.orientationPg.swipeleft);
                  
                  $('#goOrientation2').live("click",function(){
-                	 FmMobile.analysis.trackPage("/orientation2");
-                	 $.mobile.changePage("orientation_2.html");
+                                           $.mobile.changePage("orientation_2.html");
+                                           FmMobile.analysis.trackPage("/orientation2");
 
-                 });
+                                           });
                  $('#goOrientation1').live("click",function(){
-                	 FmMobile.analysis.trackPage("/orientation1");
-                	 $.mobile.changePage("orientation_1.html");
-                 });
+                                           $.mobile.changePage("orientation_1.html");
+                                           });
                  $('#goVerifyPage').live("click",function(){
-                                         if(!(localStorage.fb_userID && localStorage.verified=='true')){
-                                        	 $.mobile.changePage("login_toc.html", {transition: "slide"});
-                                         }else{
-                                        	 $.mobile.changePage("setting-main.html");
-                                         }                                         
-                 });
+                                         if(!(localStorage.fb_userID && localStorage.verified=='true'))
+                                         {
+                                         $.mobile.changePage("login_toc.html", {transition: "slide"});
+                                         }
+                                         else {
+                                         $.mobile.changePage("setting-main.html");
+                                         }                                         });
 
+                                  /*
+                 $('#mapArea').live('pagebeforeshow',function(){
+                                alert("no");
+                                      //var change_css = ($('body').width());
+                                     
+                                      //alert(change_css);
+                                      });
+
+                 */
                  
                  $("a").live("click", function(event){
                     event.preventDefault();
@@ -103,9 +112,10 @@ $(document).bind("mobileinit", function(){
                  $('div[id^="orie"]').live("swipeleft ", FmMobile.orientationPg.swipeleft);
                  $('div[id^="orie"]').live("swiperight", FmMobile.orientationPg.swiperight);
                  $('div[id^="orie"]').live("pageshow", function(){
-                	 $('#mapAreaBack').attr("coords","0,"+((FmMobile.or_pic_height)*0.5)+","+((FmMobile.or_pic_height)*0.25)+'"');
-                	 $('#mapAreaNext').attr("coords","'"+FmMobile.or_pic_width+","+((FmMobile.or_pic_height)*0.5)+","+((FmMobile.or_pic_height)*0.25)+'"');
-                 });
+                                          // alert(FmMobile.or_pic_height);
+        $('#mapAreaBack').attr("coords","0,"+((FmMobile.or_pic_height)*0.5)+","+((FmMobile.or_pic_height)*0.25)+'"');
+$('#mapAreaNext').attr("coords","'"+FmMobile.or_pic_width+","+((FmMobile.or_pic_height)*0.5)+","+((FmMobile.or_pic_height)*0.25)+'"');
+                                           });
                  $("#myUgcPg").live("pageinit", FmMobile.myUgcPg.init);
                  $("#myUgcPg").live("pageshow", FmMobile.myUgcPg.show);
 //                 $("#myUgcPg").live("pageloadlivevideo", FmMobile.myUgcPg.loadMyVideo);  //Deprecated
@@ -259,17 +269,17 @@ onBodyLoad: function(){
     FM_LOG("[Init.onDeviceReady]");
 
     document.addEventListener("deviceready", FmMobile.analysis.init, true);
-    
     document.addEventListener("deviceready", FmMobile.gcm.init, true);
     document.addEventListener("deviceready", FmMobile.apn.init, true);
     document.addEventListener("deviceready", FmMobile.init.isFBTokenValid, true);
+    
     document.addEventListener("resume", FmMobile.init.onResume, false);
     document.addEventListener("pause", FmMobile.init.onPause, false);
     document.addEventListener("push-notification", function(event){
 //                              FmMobile.ajaxNewVideos();
 //                              FmMobile.ajaxNewStoryVideos();
                               FM_LOG("push-notification:");
-//                              console.dir(event);
+                              console.dir(event);
                               FmMobile.pushMessage = JSON.parse(JSON.stringify(event.notification));
                               FmMobile.pushNotificationHandler(FmMobile.pushMessage.aps.alert);
                               //TODO:If device received the push notification and show the page
@@ -462,6 +472,7 @@ FmMobile.ajaxLiveContents = function(){
 
 };
 
+
 FmMobile.ajaxHighlightContents = function(){
 	FM_LOG("[ajaxHighlightContents]");
 	highlightContents = new Array();
@@ -635,7 +646,7 @@ FmMobile.submitDooh = function(){
            navigator.notification.alert(res.message);
            $.jStorage.set("dooh_pid", null);
            }else {
-           navigator.notification.alert('���大螢幕失);
+           navigator.notification.alert('申請登上大螢幕失敗');
            console.log("[submitDooh]"+JSON.stringify(res));
            }
            });
@@ -800,7 +811,7 @@ FmMobile.apn = {
         FmMobile.pushNotification.getPendingNotifications(function(result) {
 //            FM_LOG("[pushNotification] " + JSON.stringify(result));
               /* result:
-                {"notifications":[{"messageFrom":"Miix.tv","applicationStateActive":"0","applicationLaunchNotification":"0","timestamp":1376554348.356165,"aps":{"alert":"��一�新影��,"sound":"ping.aiff","badge":1}}]
+                {"notifications":[{"messageFrom":"Miix.tv","applicationStateActive":"0","applicationLaunchNotification":"0","timestamp":1376554348.356165,"aps":{"alert":"您有一個新影片！","sound":"ping.aiff","badge":1}}]
                }
 
                */
@@ -879,7 +890,7 @@ FmMobile.analysis = {
 	    
 	    init: function(){
 	        FM_LOG("[analysis.init]");
-	        var gaId = "UA-43771072-2"; //OnDascreen
+	        var gaId = "UA-43771072-2"; 
 	        //UA-37288251-4 : http://www.feltmeng.idv.tw
 	        //UA-37288251-1 : http://www.miix.tv
 	        FmMobile.ga = window.plugins.gaPlugin;
@@ -911,7 +922,7 @@ FmMobile.analysis = {
 	    	FM_LOG("[analysis.trackPage] url :" + url);
 	    	FmMobile.ga.trackPage(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, url);
 	    },
-};
+	};
 
 
 
@@ -1005,7 +1016,7 @@ init: function(){
                 FmMobile.userContent.thumbnail.url='https://graph.facebook.com/'+localStorage.fb_userID+'/picture/';
                
                 FmMobile.userContent.fb_name=localStorage.fb_name;
-               //localStorage.verified='true';//此��測試�話認��
+               //localStorage.verified='true';//此行為了測試電話認證！
                 FM_LOG("localStorage" + JSON.stringify(localStorage));
                
                    // Each time of Login, pull all videos.
@@ -1031,8 +1042,8 @@ init: function(){
     },
     
     FBLogout: function() {
-        FmMobile.analysis.trackEvent("Button", "Click", "Logout", 54);
-//        recordUserAction("log out");
+        FmMobile.analysis.trackEvent("Button", "Click", "Logout", 5);
+        recordUserAction("log out");
         var fb = FBConnect.install();
         delete localStorage._id;
         delete localStorage.miixToken;
@@ -1084,14 +1095,14 @@ postFbMessage:function(){
     access_token: localStorage.fb_accessToken,
     message: FmMobile.userContent.text,
     link:FmMobile.srcForMyUgcViewer,
-    name:"�是"+localStorage.fb_name+"�試�編+FmMobile.finishNumber+"作�，�機�台�天幕LED�出��大螢幕APP��,
-        //description:"上大��APP ��
+    name:"這是"+localStorage.fb_name+"的試鏡編號"+FmMobile.finishNumber+"作品，有機會在台北天幕LED播出。上大螢幕APP敬上。",
+        //description:"上大螢幕APP 敬上。"
    //picture:FmMobile.srcForMyUgcViewer,
     //privacy:{'value':'SELF'},
     
     };
     $.post(url,params, function(response){
-           //alert("已���);
+           //alert("已打卡！！");
            FmMobile.showNotification("share");
            var ugcProjectId=FmMobile.shareProjectID;
            
@@ -1123,14 +1134,14 @@ postFbVideoMessage:function(){
     access_token: localStorage.fb_accessToken,
     message: FmMobile.userContent.text,
     link:FmMobile.youtubeVideoUrl,
-        name:"�是"+localStorage.fb_name+"�試�編+FmMobile.finishNumber+"作�，�機�台�天幕LED�出��大螢幕APP��,
-   // description:"上大��APP ��
+        name:"這是"+localStorage.fb_name+"的試鏡編號"+FmMobile.finishNumber+"作品，有機會在台北天幕LED播出。上大螢幕APP敬上。",
+   // description:"上大螢幕APP 敬上。"
         //picture:FmMobile.srcForMyUgcViewer,
         //privacy:{'value':'SELF'},
         
     };
     $.post(url,params, function(response){
-//           alert("已���);
+//           alert("已打卡！！");
            FmMobile.showNotification("share");
 
            var ugcProjectId=FmMobile.shareProjectID;
@@ -1158,7 +1169,7 @@ postFbVideoMessage:function(){
 postCheckinMessage:function(){
     var url = 'https://graph.facebook.com/me/feed';
     var params = {
-    name:"路�貴寶��"+localStorage.fb_name+"路��小巨��他�卡��在��天�LED�出，�大螢幕APP ��,
+    name:"路經貴寶地！"+localStorage.fb_name+"路過台北小巨蛋，他的打卡有機會在台北天幕LED播出，上大螢幕APP 敬上。",
     
     access_token: localStorage.fb_accessToken,
     //message: FmMobile.checkinTextForFB,
@@ -1169,7 +1180,7 @@ postCheckinMessage:function(){
         
     };
     $.post(url,params, function(response){
-//           alert("已���);
+//           alert("已打卡！！");
            FmMobile.showNotification("checkIn");
            var ugcProjectId=FmMobile.shareProjectID;
            
@@ -1237,7 +1248,7 @@ FmMobile.pushNotificationHandler = function(pushMsg){
     FM_LOG("[pushNotficationHandler] Message : " + pushMsg);
     FM_LOG("[pushNotficationHandler] isResume : " + FmMobile.isResume);
     switch(pushMsg){
-        case "��一�新影��:
+        case "您有一個新影片！":
             if(FmMobile.isResume && ($.mobile.activePage.attr('id') == "myUgcPg")){
                 if(FmMobile.myUgcPg.Type == "content"){
                     //isResume and my_ugc_pg(content)
@@ -1286,81 +1297,81 @@ FmMobile.changePage = function(page){
 
 FmMobile.showNotification = function(fun){
     FM_LOG("[showNotification]");
-    var appName = "上大��";
+    var appName = "上大螢幕";
     
     switch(fun){
         case "uploadUgc":
-            navigator.notification.confirm("上傳完��, FmMobile.changePage("my_ugc.html"), appName, "確�");
+            navigator.notification.confirm("上傳完成！", FmMobile.changePage("my_ugc.html"), appName, "確定");
             break;
         case "copyUrl":
-            navigator.notification.confirm("已�製��, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("已複製連結！", FmMobile.Confirm(), appName, "確定");
             break;
         case "error":
-            navigator.notification.confirm("�誤��，�知�們�", FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("錯誤發生，請通知我們！", FmMobile.Confirm(), appName, "確定");
             break;
         case "moreWords":
-            navigator.notification.confirm("超�每�制字數!", FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("超過每行限制字數!", FmMobile.Confirm(), appName, "確定");
             break;
         case "moreLines":
-            navigator.notification.confirm("超�3行��, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("超過3行囉！", FmMobile.Confirm(), appName, "確定");
             break;
         case "nullText":
-            navigator.notification.confirm("請輸��字�", FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("請輸入文字！", FmMobile.Confirm(), appName, "確定");
             break;
         case "newUgc":
-            navigator.notification.confirm("��一�新影��, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("您有一個新影片！", FmMobile.Confirm(), appName, "確定");
             break;
         case "informLiveTime":
-            navigator.notification.confirm("��件��上��, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("您的投件即將上映！", FmMobile.Confirm(), appName, "確定");
             break;
         case "settingQaSend":
-            navigator.notification.confirm("��已送出�, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("問題已送出！", FmMobile.Confirm(), appName, "確定");
             break;
         case "gpsDeny":
-            navigator.notification.confirm("完全沒�定�, �通�請至\n設�->��->定��\n交出你���, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("完全沒有定位, 想通時請至\n設定->隱私->定位服務\n交出你的坐標！", FmMobile.Confirm(), appName, "確定");
             break;
         case "gpsDenyAndroid":
-            navigator.notification.confirm("I can't see you...\n 麻煩��一下GPS,�到空�涼多��, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("I can't see you...\n 麻煩開啓一下GPS,或到空曠陰涼處,多謝！", FmMobile.Confirm(), appName, "確定");
             break;
         case "wrongPlace":
-            navigator.notification.confirm("�實你��巨�對吧...\n��市松山�京�路4殟\n歡�來��\n(請移�到���天幕�方)", FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("其實你不在小巨蛋對吧...\n臺北市松山區南京東路4段2號\n歡迎來打卡！\n(請移動到眼睛看得到天幕的地方)", FmMobile.Confirm(), appName, "確定");
             break;
         case "inAreaTextOver":
-            navigator.notification.confirm("超�三��第�行在天�上�不到��", FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("超過三行囉！第四行在天幕上看不到啦！", FmMobile.Confirm(), appName, "確定");
             break;
         case "enableNetwork":
-            navigator.notification.confirm("���逎�網路，�檢查��網路��, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("本服務必須連接網路，請檢查您的網路環境。", FmMobile.Confirm(), appName, "確定");
             break;
         case "uploadFailed":
-            navigator.notification.confirm("上傳失�，�新�試, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("上傳失敗，請重新再試。", FmMobile.Confirm(), appName, "確定");
             break;
         case "share":
-            navigator.notification.confirm("�享完��, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("分享完成！", FmMobile.Confirm(), appName, "確定");
             break;
         case "checkIn":
-            navigator.notification.confirm("已�在小巨���", FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("已成功在小巨蛋打卡！", FmMobile.Confirm(), appName, "確定");
             break;
         case "sendCode":
-            navigator.notification.confirm("認�碼已�出, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("認證碼已送出。", FmMobile.Confirm(), appName, "確定");
             break;
         case "reSendCode":
-            navigator.notification.confirm("請於三��發��次�證碼請�,謝��, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("請於三分鐘後再發送一次認證碼請求,謝謝！", FmMobile.Confirm(), appName, "確定");
             break;
         case "wrongPhoneNumber":
-            navigator.notification.confirm("��碼好�不是�這樣..請�輸, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("手機號碼好像不是長這樣喔...請重新輸入", FmMobile.Confirm(), appName, "確定");
             break;
         case "inputWrongCode":
-            navigator.notification.confirm("��認�碼�太�..請�輸, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("手機認證碼不太對喔...請重新輸入", FmMobile.Confirm(), appName, "確定");
             break;
         case "waitForCode":
-            navigator.notification.confirm("��碼�格！即將發��證碼4碼\n請��謝�", FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("手機號碼合格！即將發送認證碼4碼\n請稍候謝謝！", FmMobile.Confirm(), appName, "確定");
             break;
         case "codeVerifySuccess":
-            navigator.notification.confirm("��話認��！\n準�上大����, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("恭喜電話認證成功！\n準備上大螢幕吧！！", FmMobile.Confirm(), appName, "確定");
             break;
         default:
 //            console.log("ShowNotification is not worked");
-            navigator.notification.confirm(fun, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm(fun, FmMobile.Confirm(), appName, "確定");
     }
     
 };
@@ -1397,4 +1408,3 @@ FmMobile.showKeyboard = function(){
 		}
 	}, false);
 };
-
