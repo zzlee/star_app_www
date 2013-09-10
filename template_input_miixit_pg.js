@@ -73,6 +73,7 @@ load: function(event, data){
                 tempImg.onload = function() {
                     EXIF.getData( tempImg, function(){
                                  var orientation = EXIF.getTag(tempImg, "Orientation");
+                                  FmMobile.forCropperRotateVal=orientation;
                                  subsamplingResize(imageURI, { maxWidth: 960, maxHeight: 960, orientation: orientation }, function(resultURI){
                                                    fileProcessedForCropperURI = resultURI;
                                                    $.mobile.changePage("template-photo_cropper.html");
@@ -83,6 +84,7 @@ load: function(event, data){
                 
                 
             }else if(device.platform == "Android"){
+            	
            		 var tempImg = new Image();
                     tempImg.src = imageURI;
                     tempImg.onload = function() {
@@ -90,6 +92,8 @@ load: function(event, data){
                                    var orientation = EXIF.getTag(tempImg, "Orientation");
                                      console.log("aaaaaaaaaaaaaaaaa");
                                      console.log(orientation);
+                                     FmMobile.forCropperRotateVal=orientation;
+                                    // alert(orientation);
                                      subsamplingResize(imageURI, { maxWidth: 960, maxHeight: 960, orientation: orientation }, function(resultURI){
                                                        fileProcessedForCropperURI = resultURI;
                                                        $.mobile.changePage("template-photo_cropper.html");
@@ -97,7 +101,10 @@ load: function(event, data){
                                      });
                         
                     }; 
+                    
                 
+            	 // fileProcessedForCropperURI = imageURI;
+                //$.mobile.changePage("template-photo_cropper.html");
                 
             }else{
             	
@@ -118,12 +125,11 @@ load: function(event, data){
         	    FmMobile.userContent.picture.urlOfOriginalIsFromAndroidAlbum = false;
         	}
             navigator.camera.getPicture(gotoPhotoCropper, getPhotoFail,{
-                                        quality: 50,
-                                        destinationType: navigator.camera.DestinationType.FILE_URI,
-                                        sourceType: navigator.camera.PictureSourceType.SAVEDPHOTOALBUM,
-                                         targetWidth: 1500,
-                                            targetHeight: 1500,
-                                             encodingType: navigator.camera.EncodingType.PNG
+                                       quality: 50,
+                                            destinationType: navigator.camera.DestinationType.FILE_URI,
+                                            sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
+                                            //targetWidth: 2000,
+                                            //targetHeight: 2000
                                         });
             FmMobile.analysis.trackEvent("Button", "Click", "Album", 21);
         }else {
@@ -131,9 +137,9 @@ load: function(event, data){
             navigator.camera.getPicture(gotoPhotoCropper, getPhotoFail,{
                                         quality: 50,
                                         destinationType: navigator.camera.DestinationType.FILE_URI,
-                                        sourceType: navigator.camera.PictureSourceType.CAMERA,
-                                         targetWidth: 1500,
-                                            targetHeight: 1500
+                                        sourceType: navigator.camera.PictureSourceType.CAMERA
+                                         //targetWidth: 1500,
+                                         // targetHeight: 1500
                                         });
             FmMobile.analysis.trackEvent("Button", "Click", "Album", 22);
         }

@@ -114,6 +114,7 @@ FmMobile.template_previewPg = {
                                                         FmMobile.myUgcPg.Type = "content";
                                                         $.mobile.changePage("my_ugc.html");
                                                      }else{
+                                                     	 alert(err);
                                                          FmMobile.showNotification("uploadFailed");
                                                          $('#clickImgEffect').show("normal");
                                                          $('#afterClickBack').show("normal");

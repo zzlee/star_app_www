@@ -46,6 +46,10 @@ FmMobile.checkinTextForFB;
 FmMobile.finishNumber;
 
 FmMobile.myUgcScroll_y=0;
+FmMobile.rotateValue=0;
+FmMobile.selectAlbum;
+
+FmMobile.forCropperRotateVal;
 
 var templateMgr = null;
 

@@ -87,7 +87,7 @@ VideoUgc = (function(){
                         params.obj_OriginalWidth = customizableObjectDimensions[ImageCustomizableObjectId].width;
                         params.obj_OriginalHeight = customizableObjectDimensions[ImageCustomizableObjectId].height;
                         params.miixToken = localStorage.miixToken;
-                        
+                        params.croppedArea_rotate=FmMobile.rotateValue;
                         options.params = params;
                         options.chunkedMode = true;
                         
@@ -147,6 +147,8 @@ VideoUgc = (function(){
                                 callback(null);
                             },
                             error: function(jqXHR, textStatus, errorThrown){
+                            	//console.log(jqXHR);
+                            	//console.log(textStatus);
                                 callback(errorThrown);
                             }
                         });
@@ -155,6 +157,7 @@ VideoUgc = (function(){
                 ],
                 function(err, results){
                     if (cbOfAskServerToGenerate) {
+                    	//console.log(err);
                         cbOfAskServerToGenerate(err, results);
                     }
                 });
