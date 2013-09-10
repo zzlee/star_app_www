@@ -4,6 +4,7 @@ PAGE_ID: "fbLogoutPg",
 init: function(){
     
     $('#nav-bar').hide();
+    FmMobile.hideBack();
     $('#back_setting').click(function(){
                         $.mobile.changePage('setting-main.html');     
                              });

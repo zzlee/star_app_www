@@ -6,6 +6,7 @@ FmMobile.setting_MainPg = {
                       });
         FmMobile.myUgcScroll_y=0;
     	$('#nav-bar').show();
+    	FmMobile.hideBack();
         //console.dir(templateMgr.getTemplateList());
  
         $("#contentAboutMiixIt").hide();

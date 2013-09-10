@@ -1417,3 +1417,10 @@ FmMobile.showKeyboard = function(){
 		}
 	}, false);
 };
+
+//Hide back button for Android
+FmMobile.hideBack = function(){
+	if(device.platform == "Android"){
+		$("#back_setting").hide();
+	}
+}

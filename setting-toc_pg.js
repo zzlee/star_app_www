@@ -8,6 +8,7 @@ show: function(){
     
 init: function(){
     $('#nav-bar').show();
+    FmMobile.hideBack();
     $("#back_setting").click(function(){
          $.mobile.changePage("setting-main.html");
         });

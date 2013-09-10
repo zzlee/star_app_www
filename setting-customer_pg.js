@@ -9,7 +9,7 @@ FmMobile.customerQuestionPg = {
     init: function(){
         $('#nav-bar').show();
         $("#userQuesiotns").html('');
-
+        FmMobile.hideBack();
         $("#back_setting").click(function(){
                                  $.mobile.changePage("setting-main.html");
                                  });
