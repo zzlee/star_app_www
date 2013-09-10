@@ -10,7 +10,7 @@ show: function(){
 init: function(){
     
     $('#nav-bar').show();
-    
+    FmMobile.changeIntroduceBackground();
     if(localStorage[FmMobile.selectedTemplate]=='hasReadHint'){
         $("#show_intro").hide();
         $("#close").hide();

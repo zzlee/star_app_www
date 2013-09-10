@@ -1425,8 +1425,17 @@ FmMobile.hideBack = function(){
 	}
 };
 
+//Change setting background for Android
 FmMobile.changeBackground = function(){
 	if(device.platform == "Android"){
-		$("div[class^='setting-content']").attr({style:"background-image: url(../images/android_bg.png)"});
+		$("div[class^='setting-content']").attr({class:"setting-content-android"});
 	}
+};
+
+//Change introduce background for Android
+FmMobile.changeIntroduceBackground = function(){
+	if(device.platform == "Android"){
+		$("div[class^='template_introduce']").attr({class:"template_introduce-android"});
+	}
+	
 };

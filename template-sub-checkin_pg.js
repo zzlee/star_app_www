@@ -7,7 +7,7 @@ FmMobile.template_checkinPg = {
     },
         
     init: function(){
-        
+    	FmMobile.changeIntroduceBackground();
         var rightLocation=false;
         
         if (navigator.geolocation) {
