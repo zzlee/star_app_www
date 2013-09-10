@@ -286,7 +286,7 @@ onBodyLoad: function(){
 //                              FmMobile.apn.getPendingNotification();
                               //alert(event);
     });
-    localStorage.pixelRatio = window.devicePixelRatio;
+//    localStorage.pixelRatio = window.devicePixelRatio;
     //TODO:
     //document.addEventListener("touchmove", function(e){ e.preventDefault(); }, true);
     
@@ -1278,7 +1278,7 @@ FmMobile.pushNotificationHandler = function(pushMsg){
         break;
         default:
             FM_LOG("[pushNotficationHandler] otherType :" + pushMsg);
-//            FmMobile.showNotification(pushMsg);
+            FmMobile.showNotification(pushMsg);
     }
 
 
@@ -1290,14 +1290,7 @@ FmMobile.Confirm = function(){
     //Do nothing.
 };
 
-FmMobile.changePageToMyUgc = function(button){
-	//For FmMobile.showNotification to change page
-//	localStorage.button = button;
-	FM_LOG("[changePageToMyUgc] :" + button);
-	if(button == "undefined"){
-		$.mobile.changePage("my_ugc.html");
-	}
-};
+
 
 FmMobile.showNotification = function(fun){
     FM_LOG("[showNotification] :" + fun );
@@ -1305,7 +1298,7 @@ FmMobile.showNotification = function(fun){
     
     switch(fun){
         case "uploadUgc":
-            navigator.notification.confirm("上傳完成！", FmMobile.changePageToMyUgc(), appName, "確定");
+            navigator.notification.confirm("上傳完成！", FmMobile.Confirm(), appName, "確定");
             break;
         case "copyUrl":
             navigator.notification.confirm("已複製連結！", FmMobile.Confirm(), appName, "確定");
@@ -1378,6 +1371,18 @@ FmMobile.showNotification = function(fun){
             navigator.notification.confirm(fun, FmMobile.Confirm(), appName, "確定");
     }
     
+};
+
+FmMobile.changePageToMyUgc = function(buttonIndex){
+	//For FmMobile.showNotification to change page
+	//In Cordova 2.2 navigator.notification.confirm has the bug
+	
+//	localStorage.button = button;
+	alert('You selected ' + buttonIndex);
+//	FM_LOG("[changePageToMyUgc] :" + buttonIndex);
+//	if(button == "undefined"){
+//		$.mobile.changePage("my_ugc.html");
+//	}
 };
 
 //Open external website
