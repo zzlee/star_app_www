@@ -10,6 +10,22 @@ show: function(){
 },
     
 load: function(event, data){
+	
+	document.addEventListener("showkeyboard", function() {
+		 if((device.platform == "iPhone") || (device.platform == "iPad") || (device.platform == "iPod touch")){
+		 }else{
+		 	$("#nav-bar").hide();
+		 }
+}, false);
+
+document.addEventListener("hidekeyboard", function() {
+        if((device.platform == "iPhone") || (device.platform == "iPad") || (device.platform == "iPod touch")){
+		 }else{
+		 	$("#nav-bar").show();
+		 }
+}, false);
+    
+
    // FmMobile.userContent.text="aa";
     var textForUgcUtility;
     
@@ -93,7 +109,7 @@ load: function(event, data){
             }
         
         var getPhotoFail = function (message) {
-            //alert('没有選到相片，請再選一次！');
+            //alert('瘝⊥��詨�貊�嚗��銝�活嚗�);
         }
         
         
@@ -120,8 +136,18 @@ load: function(event, data){
                 
             }
             else {
-                fileProcessedForCropperURI = imageURI;
-                $.mobile.changePage("template-photo_cropper.html");
+               var tempImg = new Image();
+                    tempImg.src = imageURI;
+                    tempImg.onload = function() {
+                        EXIF.getData( tempImg, function(){
+                                     var orientation = EXIF.getTag(tempImg, "Orientation");
+                                     subsamplingResize(imageURI, { maxWidth: 960, maxHeight: 960, orientation: orientation }, function(resultURI){
+                                                       fileProcessedForCropperURI = resultURI;
+                                                       $.mobile.changePage("template-photo_cropper.html");
+                                                       });
+                                     });
+                        
+                    }; 
                 
             }
             
@@ -133,7 +159,9 @@ load: function(event, data){
             navigator.camera.getPicture(gotoPhotoCropper, getPhotoFail,{
                                         quality: 50,
                                         destinationType: navigator.camera.DestinationType.FILE_URI,
-                                        sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
+                                        sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY,
+                                         targetWidth: 1500,
+                                            targetHeight: 1500
                                         });
             FmMobile.analysis.trackEvent("Button", "Click", "Album", 21);
         }
@@ -141,7 +169,9 @@ load: function(event, data){
             navigator.camera.getPicture(gotoPhotoCropper, getPhotoFail,{
                                         quality: 50,
                                         destinationType: navigator.camera.DestinationType.FILE_URI,
-                                        sourceType: navigator.camera.PictureSourceType.CAMERA
+                                        sourceType: navigator.camera.PictureSourceType.CAMERA,
+                                         targetWidth: 1500,
+                                            targetHeight: 1500
                                         });
             FmMobile.analysis.trackEvent("Button", "Click", "Album", 22);
         }

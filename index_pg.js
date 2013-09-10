@@ -5,11 +5,6 @@ FmMobile.indexPg = {
     
     //  Page methods.
     init: function(){
-        
-        
-       
-        
-        
     	FM_LOG("[indexPg.init] ");
         // Query Availabe New Video in Background.
         if(localStorage.fb_userID){
@@ -22,29 +17,15 @@ FmMobile.indexPg = {
         
     show: function(){
         FM_LOG("[indexPg.show]");
-        //recordUserAction("starts MiixCard app", true);
-        
-        
-        
+        console.dir(localStorage);
         if(localStorage.fb_userID && localStorage.verified=='true'){
             $.mobile.changePage("template-main_template.html");
+            
         }
         else {
-            $.mobile.changePage("orientation_0.html");
+       		$.mobile.changePage("orientation_1.html");	
+            
         }
-        
-         
-
-         
-         
-        
-       
-        
-       // $.mobile.changePage("login_success.html");
-        //$.mobile.changePage("template_input_checkin.html");
-       // $.mobile.changePage("template-sub-miixit.html");
-        // $.mobile.changePage("template_input_miixit.html");
-        //$.mobile.changePage("template-input_text_pic.html");
 
         
     },

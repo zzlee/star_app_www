@@ -112,6 +112,7 @@
    */
   function transformCoordinate(canvas, width, height, orientation) {
     console.log(width, height);
+   
     switch (orientation) {
       case 5:
       case 6:
@@ -184,6 +185,7 @@
 			var imgWidth = srcImage.naturalWidth, imgHeight = srcImage.naturalHeight,
 				width = options.width, height = options.height,
 				maxWidth = options.maxWidth, maxHeight = options.maxHeight;
+				
 			if (width && !height) {
 				height = Math.floor(imgHeight * width / imgWidth);
 			} else if (height && !width) {
@@ -211,7 +213,7 @@
 		}
 		
 
-		if (!srcImage.naturalWidth && !srcImage.naturalHeight) {
+		if (true) {
 			srcImage.onload = onload_cb;
 		}
 	}

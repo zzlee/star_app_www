@@ -118,6 +118,7 @@ FmMobile.template_photoCropperPg = {
         });
 
         //Rewrite #submitBtn click function
+        
         $('#submitBtnToPreview').click(function() {
             FmMobile.userContent.picture.urlOfCropped = canvas.toDataURL();
             $.mobile.changePage("template-preview.html");
@@ -147,6 +148,76 @@ FmMobile.template_photoCropperPg = {
         //canvas.width = screen.availWidth;
         canvas.width = $('.movie-pic-dummy').width();
         canvas.height = canvas.width / 1280 * 735;
+        
+        var rotation_tag=false;
+         image.src = fileProcessedForCropperURI;
+        $('#rotation').click(function(){
+        	if(rotation_tag==false){
+         subsamplingResize(fileProcessedForCropperURI, { maxWidth: 960, maxHeight: 960, orientation: 6 }, function(resultURI){
+                                                       image.src = resultURI;
+                                                       
+                                                       image.onload = function() {
+
+            option.scope.w = canvas.width;
+            option.scope.h = image.height / image.width * canvas.width;
+
+            option.destination.x = 0;
+            option.destination.y = -0.5 * (option.scope.h - canvas.height);
+
+            context.drawImage(image, option.destination.x,
+                    option.destination.y, option.scope.w, option.scope.h);
+
+            croppedArea = {
+                x : -option.destination.x / option.scope.w, //fraction relative to its width
+                y : -option.destination.y / option.scope.h, //fraction relative to its height
+                width : canvas.width / option.scope.w, //fraction relative to its width
+                height : canvas.height / option.scope.h //fraction relative to its height
+            };
+            
+            FmMobile.userContent.picture.crop._x = croppedArea.x;
+            FmMobile.userContent.picture.crop._y = croppedArea.y;
+            FmMobile.userContent.picture.crop._w = croppedArea.width;
+            FmMobile.userContent.picture.crop._h = croppedArea.height;
+            //alert(croppedArea.x);
+
+        };
+
+                                                       rotation_tag=true;
+                                                       });
+        	}else{
+        	subsamplingResize(fileProcessedForCropperURI, { maxWidth: 960, maxHeight: 960, orientation: 1}, function(resultURI){
+                                                       image.src = resultURI;
+                                                       image.onload = function() {
+
+            option.scope.w = canvas.width;
+            option.scope.h = image.height / image.width * canvas.width;
+
+            option.destination.x = 0;
+            option.destination.y = -0.5 * (option.scope.h - canvas.height);
+
+            context.drawImage(image, option.destination.x,
+                    option.destination.y, option.scope.w, option.scope.h);
+
+            croppedArea = {
+                x : -option.destination.x / option.scope.w, //fraction relative to its width
+                y : -option.destination.y / option.scope.h, //fraction relative to its height
+                width : canvas.width / option.scope.w, //fraction relative to its width
+                height : canvas.height / option.scope.h //fraction relative to its height
+            };
+            
+            FmMobile.userContent.picture.crop._x = croppedArea.x;
+            FmMobile.userContent.picture.crop._y = croppedArea.y;
+            FmMobile.userContent.picture.crop._w = croppedArea.width;
+            FmMobile.userContent.picture.crop._h = croppedArea.height;
+            //alert(croppedArea.x);
+rotation_tag=false;
+        };
+
+                                                       });
+        	}
+        });
+        
+       
 
         image.onload = function() {
 
@@ -176,7 +247,7 @@ FmMobile.template_photoCropperPg = {
 
         //image.src = "images/test.jpg";  //for test
 
-        image.src = fileProcessedForCropperURI;
+       
         // FmMobile.userContent.picture.url=fileProcessedForCropperURI;
 
         //JF - image event

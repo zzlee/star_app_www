@@ -70,11 +70,35 @@ init: function(){
     
     var textForUgcUtility;
 
+   
     $("#ur_text").bind("blur",function(){
+    	
+    	 
+    	  
                        textForUgcUtility= $("#ur_text").val().replace(/\n/g,"<n>");
                        FmMobile.userContent.text=textForUgcUtility;
                        });
-
+                       
+                       
+              
+    FmMobile.hideKeyboard();
+    FmMobile.showKeyboard();
+       
+                      
+/** Move codes to mobileinit*/
+//document.addEventListener("showkeyboard", function() {
+//		 if((device.platform == "iPhone") || (device.platform == "iPad") || (device.platform == "iPod touch")){
+//		 }else{
+//		 	$("#nav-bar").hide();
+//		 }
+//}, false);
+//
+//document.addEventListener("hidekeyboard", function() {
+//        if((device.platform == "iPhone") || (device.platform == "iPad") || (device.platform == "iPod touch")){
+//		 }else{
+//		 	$("#nav-bar").show();
+//		 }
+//}, false);
     
     $("#ur_text").keyup(function(){
                         var moreLineInBox=$("#ur_text").val();

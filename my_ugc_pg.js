@@ -544,59 +544,36 @@ FmMobile.myUgcPg = {
         /** Copy youtube url and share to FB */
         $('#my-content-info>img').click(function(e){
             //var imgID = this.id;
-            var tmpIDArray = this.id.split('_');
+            var imgType = this.id.split('_')[0];
+            var tmpID = this.id.substring(this.id.split('_')[0].length + 1, this.id.length);
+            console.log("getID : " + this.id.substring(this.id.split('_')[0].length+1, this.id.length));
 
-            /** template naming
-             * copyUrlS3_template-xxxxxxx-xxxxxxxx
-             * type:
-             *     mood-xxxxxxx
-             *     check_in-xxxxxxxx
-             *     cultural_and_creative-xxxxxxx
-             *
-             * */
+            var s3Url = "https://s3.amazonaws.com/miix_content/user_project/" + tmpID + "/" + tmpID;
 
-            if(tmpIDArray.length == 2){
-                //For youtube and mood
-                tmpIDArray[1] = tmpIDArray[1];
-            }else if(tmpIDArray.length == 3){
-                //For check_in
-                tmpIDArray[1] = tmpIDArray[1] + "_" + tmpIDArray[2];
-            }else if(tmpIDArray.length == 4){
-                //For cultural_and_creative
-                tmpIDArray[1] = tmpIDArray[1] + "_" + tmpIDArray[2] + "_" + tmpIDArray[3];
-            }else if(tmpIDArray.length == 8){
-                tmpIDArray[1] = tmpIDArray[1] + "_" + tmpIDArray[2] + "_" + tmpIDArray[3]+ "_" + tmpIDArray[4]+ "_" + tmpIDArray[5]+ "_" + tmpIDArray[6]+ "_" + tmpIDArray[7];
-            }else{
-                //Type is wrong.
-                tmpIDarray[0] = "error";
-            }
-
-            var s3Url = "https://s3.amazonaws.com/miix_content/user_project/" + tmpIDArray[1] + "/" + tmpIDArray[1];
-
-            switch(tmpIDArray[0]){
+            switch(imgType){
                 case "copyUrl":
                     if((device.platform == "iPhone") || (device.platform == "iPad") || (device.platform == "iPod touch")){
                         /**iOS Plugin */
-                        window.clipboardPluginCopy("https://www.youtube.com/watch?feature=player_embedded&v=" + tmpIDArray[1],
+                        window.clipboardPluginCopy("https://www.youtube.com/watch?feature=player_embedded&v=" + tmpID,
                                                    function() {FmMobile.showNotification("copyUrl");},
                                                    function(e){alert(e);}
                                                    );
                     }else if(device.platform == "Android"){
                         /** Android Plugin */
                         window.clipboardManagerCopy(
-                                        "https://www.youtube.com/watch?feature=player_embedded&v=" + tmpIDArray[1],
+                                        "https://www.youtube.com/watch?feature=player_embedded&v=" + tmpID,
                                         function(r){ FmMobile.showNotification("copyUrl");},
                                         function(e){alert(e);}
                                         );
                     }
                     break;
                 case "shareFb":
-                        FmMobile.finishNumber=this.title;
+                    FmMobile.finishNumber=this.title;
                     FmMobile.shareProjectID=this.parentElement.parentElement.id;
                     
                     FmMobile.shareFbType="video";
-                    FmMobile.srcForMyUgcViewer="http://img.youtube.com/vi/"+tmpIDArray[1]+"/mqdefault.jpg";
-                    FmMobile.youtubeVideoUrl="http://www.youtube.com/embed/" +tmpIDArray[1] + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1";
+                    FmMobile.srcForMyUgcViewer="http://img.youtube.com/vi/" + tmpID +"/mqdefault.jpg";
+                    FmMobile.youtubeVideoUrl="http://www.youtube.com/embed/" + tmpID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1";
                                          FmMobile.myUgcScroll_y=e.pageY;
                     $.mobile.changePage('facebook_share.html');
 
@@ -605,7 +582,7 @@ FmMobile.myUgcPg = {
                                         FmMobile.finishNumber=this.title;
                     FmMobile.shareFbType="image";
                                         
-               FmMobile.shareProjectID=tmpIDArray[1];
+               FmMobile.shareProjectID=tmpID;
 
                     if(FmMobile.myUgcPg.Type == "content"){
                         FmMobile.srcForMyUgcViewer= s3Url + ".png";
@@ -618,7 +595,7 @@ FmMobile.myUgcPg = {
                     break;
                 case "sharePreFb":
                                         FmMobile.finishNumber=this.title;
-                    FmMobile.shareProjectID=tmpIDArray[1];
+                    FmMobile.shareProjectID=tmpID;
                                         
                     FmMobile.shareFbType="image";
                     FmMobile.srcForMyUgcViewer= s3Url + "_dooh_preview.png";
@@ -628,7 +605,7 @@ FmMobile.myUgcPg = {
                     break;
             case "copyUrlS3":
 
-                console.log("S3 URL " + tmpIDArray[1]);
+//                console.log("S3 URL " + tmpID);
                 if(FmMobile.myUgcPg.Type == "content"){
                     if((device.platform == "iPhone") || (device.platform == "iPad") || (device.platform == "iPod touch")){
                         window.clipboardPluginCopy(s3Url + ".png",

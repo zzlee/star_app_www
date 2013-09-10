@@ -105,8 +105,10 @@ $(document).bind("mobileinit", function(){
                  $("#indexPg").live("pageinit", FmMobile.indexPg.init);
                  $("#indexPg").live("pagebeforeshow", FmMobile.indexPg.beforeshow);
                  $("#indexPg").live("pageshow", FmMobile.indexPg.show);
-                 $("#orie_0").live("pagebeforeshow", FmMobile.orientationPg.init);
-                 $("#orie_0").live("pageshow", FmMobile.orientationPg.show);
+//                 $("#orie_0").live("pagebeforeshow", FmMobile.orientationPg.init);
+//                 $("#orie_0").live("pageshow", FmMobile.orientationPg.show);
+                 $("#orie_1").live("pagebeforeshow", FmMobile.orientationPg.init);
+                 $("#orie_1").live("pageshow", FmMobile.orientationPg.show);
                  $('div[id^="orie"]').live("swipeleft ", FmMobile.orientationPg.swipeleft);
                  $('div[id^="orie"]').live("swiperight", FmMobile.orientationPg.swiperight);
                  $('div[id^="orie"]').live("pageshow", function(){
@@ -198,7 +200,7 @@ $('#mapAreaNext').attr("coords","'"+FmMobile.or_pic_width+","+((FmMobile.or_pic_
                
                                  
                  $.mobile.page.prototype.options.addBackBtn = true;
-                  $.mobile.page.prototype.options.addBackBtn = true;
+//                  $.mobile.page.prototype.options.addBackBtn = true;
                  /*
                  TemplateMgr.getInstance(function(err, _templateMgr){
                                          //alert("templatmgr");
@@ -278,14 +280,13 @@ onBodyLoad: function(){
 //                              FmMobile.ajaxNewStoryVideos();
                               FM_LOG("push-notification:");
                               console.dir(event);
-                              localStorage.tmp = event.notification;
                               FmMobile.pushMessage = JSON.parse(JSON.stringify(event.notification));
                               FmMobile.pushNotificationHandler(FmMobile.pushMessage.aps.alert);
                               //TODO:If device received the push notification and show the page
 //                              FmMobile.apn.getPendingNotification();
                               //alert(event);
     });
-    
+    localStorage.pixelRatio = window.devicePixelRatio;
     //TODO:
     //document.addEventListener("touchmove", function(e){ e.preventDefault(); }, true);
     
@@ -740,8 +741,18 @@ FmMobile.gcm = {
 /** Check network status */
 FmMobile.checkNetwork = function(){
     FM_LOG("[checkNetwork]");
-    var connectionType = navigator.connection.type;
+    var connectionType = null;
+    /*	In cordova2.2, navigator.network.connection.type replace with navigator.connection.type.
+     *	It works on iOS, but Android can't. We need use <2.2 API to handle these issue.
+     */
+    if(device.platform == "Android"){
+    	connectionType = navigator.network.connection.type;
+    }else{
+    	connectionType = navigator.connection.type;
+    }
+
     FM_LOG("[checkNetwork]Network Status : " + connectionType);
+    FM_LOG("[pixelRatio] : " + localStorage.pixelRatio);
     var connectServerStatus = false;
     $.ajax({
            url: remotesite + "/connectStarServer",
@@ -1266,7 +1277,8 @@ FmMobile.pushNotificationHandler = function(pushMsg){
 
         break;
         default:
-            FM_LOG("[pushNotficationHandler] Your push notification is not exist.");
+//            FM_LOG("[pushNotficationHandler] Your push notification is not exist.");
+            FmMobile.showNotification(pushMsg);
     }
 
 
@@ -1315,7 +1327,7 @@ FmMobile.showNotification = function(fun){
             break;
             
         case "gpsDenyAndroid":
-            navigator.notification.confirm("完全沒有定位, 麻煩開啓一下GPS,多謝！", FmMobile.Confirm(), appName, "確定");
+            navigator.notification.confirm("I can't see you...\n 麻煩開啓一下GPS,或到空曠陰涼處,多謝！", FmMobile.Confirm(), appName, "確定");
             break;
 
             
@@ -1357,7 +1369,8 @@ FmMobile.showNotification = function(fun){
             navigator.notification.confirm("恭喜電話認證成功！\n準備上大螢幕吧！！", FmMobile.Confirm(), appName, "確定");
             break;
         default:
-            console.log("ShowNotification is not worked");
+//            console.log("ShowNotification is not worked");
+            navigator.notification.confirm(fun, FmMobile.Confirm(), appName, "確定");
     }
     
 };
@@ -1372,6 +1385,25 @@ FmMobile.openBrowser = function(url){
 
 //Set a dive under the Page
 FmMobile.dummyDiv = function(){
+    FmMobile.analysis.trackPage("/dummyDiv");
     var paddingBottomDiv = $('[data-role="page"]').height() * 0.1847;
     $('[data-role="content"]').attr({style:"padding-bottom:" + paddingBottomDiv + "px;"});
+};
+
+//Hide keyboard for Android
+FmMobile.hideKeyboard = function(){
+	document.addEventListener("hidekeyboard", function() {
+		if(device.platform == "Android"){
+			$("#nav-bar").show();
+		}
+	}, false);
+};
+
+//Show keyboard for Android
+FmMobile.showKeyboard = function(){
+	document.addEventListener("showkeyboard", function() {
+		if(device.platform == "Android"){
+			$("#nav-bar").hide();
+		}
+	}, false);
 };
