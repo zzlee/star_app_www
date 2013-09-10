@@ -391,7 +391,20 @@ padding:5% 5%;
 	overflow: auto;
 	background-image:url(../images/border_bg.png);
 }
-	
+.login_content_login_toc_android{
+	padding:5% 5%;
+	margin:5%;
+	position:absolute;
+	overflow:auto;
+	height:65.5%;
+	font-size: 120%;
+	font-family:"kaiu";
+    text-shadow: none;
+	color: #000;
+	line-height: 120%;
+	overflow: auto;
+	background-image:url(../images/border_bg.png);
+}	
 .apply_account_button{
 	top:95%;
 	position:absolute;

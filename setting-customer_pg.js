@@ -7,12 +7,13 @@ FmMobile.customerQuestionPg = {
     },
         
     init: function(){
+    	FmMobile.changeBackground();
         $('#nav-bar').show();
         $("#userQuesiotns").html('');
         FmMobile.hideBack();
         $("#back_setting").click(function(){
                                  $.mobile.changePage("setting-main.html");
-                                 });
+        });
         
         var memberId =localStorage._id;
 
