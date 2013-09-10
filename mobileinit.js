@@ -284,14 +284,13 @@ onBodyLoad: function(){
 //                              FmMobile.ajaxNewStoryVideos();
                               FM_LOG("push-notification:");
                               console.dir(event);
-                              localStorage.tmp = event.notification;
                               FmMobile.pushMessage = JSON.parse(JSON.stringify(event.notification));
                               FmMobile.pushNotificationHandler(FmMobile.pushMessage.aps.alert);
                               //TODO:If device received the push notification and show the page
 //                              FmMobile.apn.getPendingNotification();
                               //alert(event);
     });
-    
+//    localStorage.pixelRatio = window.devicePixelRatio;
     //TODO:
     //document.addEventListener("touchmove", function(e){ e.preventDefault(); }, true);
     
@@ -746,8 +745,18 @@ FmMobile.gcm = {
 /** Check network status */
 FmMobile.checkNetwork = function(){
     FM_LOG("[checkNetwork]");
-    var connectionType = navigator.connection.type;
+    var connectionType = null;
+    /*	In cordova2.2, navigator.network.connection.type replace with navigator.connection.type.
+     *	It works on iOS, but Android can't. We need use <2.2 API to handle these issue.
+     */
+    if(device.platform == "Android"){
+    	connectionType = navigator.network.connection.type;
+    }else{
+    	connectionType = navigator.connection.type;
+    }
+
     FM_LOG("[checkNetwork]Network Status : " + connectionType);
+//    FM_LOG("[pixelRatio] : " + localStorage.pixelRatio);
     var connectServerStatus = false;
     $.ajax({
            url: remotesite + "/connectStarServer",
@@ -885,7 +894,7 @@ FmMobile.analysis = {
 	    
 	    init: function(){
 	        FM_LOG("[analysis.init]");
-	        var gaId = "UA-37288251-1"; 
+	        var gaId = "UA-43771072-2"; 
 	        //UA-37288251-4 : http://www.feltmeng.idv.tw
 	        //UA-37288251-1 : http://www.miix.tv
 	        FmMobile.ga = window.plugins.gaPlugin;
@@ -1037,7 +1046,7 @@ init: function(){
     },
     
     FBLogout: function() {
-        FmMobile.analysis.trackEvent("Button", "Click", "Logout", 54);
+        FmMobile.analysis.trackEvent("Button", "Click", "Logout", 5);
         recordUserAction("log out");
         var fb = FBConnect.install();
         delete localStorage._id;
@@ -1272,7 +1281,7 @@ FmMobile.pushNotificationHandler = function(pushMsg){
 
         break;
         default:
-//            FM_LOG("[pushNotficationHandler] Your push notification is not exist.");
+            FM_LOG("[pushNotficationHandler] otherType :" + pushMsg);
             FmMobile.showNotification(pushMsg);
     }
 
@@ -1285,8 +1294,10 @@ FmMobile.Confirm = function(){
     //Do nothing.
 };
 
+
+
 FmMobile.showNotification = function(fun){
-    FM_LOG("[showNotification]");
+    FM_LOG("[showNotification] :" + fun );
     var appName = "上大螢幕";
     
     switch(fun){
@@ -1320,13 +1331,9 @@ FmMobile.showNotification = function(fun){
         case "gpsDeny":
             navigator.notification.confirm("完全沒有定位, 想通時請至\n設定->隱私->定位服務\n交出你的坐標！", FmMobile.Confirm(), appName, "確定");
             break;
-            
         case "gpsDenyAndroid":
             navigator.notification.confirm("I can't see you...\n 麻煩開啓一下GPS,或到空曠陰涼處,多謝！", FmMobile.Confirm(), appName, "確定");
             break;
-
-            
-            
         case "wrongPlace":
             navigator.notification.confirm("其實你不在小巨蛋對吧...\n臺北市松山區南京東路4段2號\n歡迎來打卡！\n(請移動到眼睛看得到天幕的地方)", FmMobile.Confirm(), appName, "確定");
             break;
@@ -1370,6 +1377,18 @@ FmMobile.showNotification = function(fun){
     
 };
 
+FmMobile.changePageToMyUgc = function(buttonIndex){
+	//For FmMobile.showNotification to change page
+	//In Cordova 2.2 navigator.notification.confirm has the bug
+	
+//	localStorage.button = button;
+	alert('You selected ' + buttonIndex);
+//	FM_LOG("[changePageToMyUgc] :" + buttonIndex);
+//	if(button == "undefined"){
+//		$.mobile.changePage("my_ugc.html");
+//	}
+};
+
 //Open external website
 FmMobile.openBrowser = function(url){
     FM_LOG("[openBrowser] url: " + url);
@@ -1380,7 +1399,7 @@ FmMobile.openBrowser = function(url){
 
 //Set a dive under the Page
 FmMobile.dummyDiv = function(){
-    FmMobile.analysis.trackPage("/dummyDiv");
+//    FmMobile.analysis.trackPage("/dummyDiv");
     var paddingBottomDiv = $('[data-role="page"]').height() * 0.1847;
     $('[data-role="content"]').attr({style:"padding-bottom:" + paddingBottomDiv + "px;"});
 };
@@ -1401,4 +1420,26 @@ FmMobile.showKeyboard = function(){
 			$("#nav-bar").hide();
 		}
 	}, false);
+};
+
+//Hide back button for Android
+FmMobile.hideBack = function(){
+	if(device.platform == "Android"){
+		$("#back_setting").hide();
+	}
+};
+
+//Change setting background for Android
+FmMobile.changeBackground = function(){
+	if(device.platform == "Android"){
+		$("div[class^='setting-content']").attr({class:"setting-content-android"});
+	}
+};
+
+//Change introduce background for Android
+FmMobile.changeIntroduceBackground = function(){
+	if(device.platform == "Android"){
+		$("div[class^='template_introduce']").attr({class:"template_introduce-android"});
+	}
+	
 };

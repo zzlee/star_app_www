@@ -17,9 +17,8 @@ body{
 	background: -ms-linear-gradient(left,  #000000 0%,#970018 50%,#000000 100%); /* IE10+ */
 	background: linear-gradient(to right,  #000000 0%,#970018 50%,#000000 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000',GradientType=1 ); /* IE6-9 */
-	font-size:16px;
+	font-size:20px;
 }
-
 
 @font-face {
     font-family:"kaiu";
@@ -723,6 +722,22 @@ padding:5% 5%;
     top:11%;
     bottom:18%;
 	}
+.template_introduce-android{
+	padding: 5% 5%;
+    margin: 0% 2.5% 2.5% 2.5%;
+    position: fixed;
+    overflow: auto;
+    font-size: 120%;
+ 	font-family:"kaiu";
+    color: #000;
+    line-height: 120%;
+    overflow: auto;
+    background-image: url(../images/border_bg.png);
+    z-index: 1;
+    text-shadow: none;
+    top:11%;
+    bottom:18%;
+}
 .close{
 	left: 82.5%;
 	top:7%;
@@ -1099,6 +1114,27 @@ hr{
     padding-top: 5%;
     padding-left: 8%;
     padding-right: 3.5%;
+}
+
+.setting-content-android{
+	margin-left: 2.5%;
+	margin-right: 2.5%;
+	position: absolute;
+	overflow: auto;
+	font-size: 120%;
+	text-shadow: none;
+	font-family: "kaiu";
+	color: #000;
+	line-height: 150%;
+	overflow: auto;
+	background-image: url(../images/border_bg.png);
+	z-index: 0;
+	width: 75%;
+    top:11%;
+    bottom:21%;
+    padding-top: 5%;
+    padding-left: 8%;
+    padding-right: 10%;
 }
 .setting-headline{
 	text-shadow: none;

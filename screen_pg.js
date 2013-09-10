@@ -1,11 +1,4 @@
 FmMobile.screenPg = {
-    /*
-     1. Get the video from our server when the user enter this page.
-     2. Set the info to UI
-     3. Play Youtube
-     */
-    
-    //TODO: 小巨蛋頁面 not finishoied
 
 
     PAGE_ID: "screenPg",
@@ -27,6 +20,7 @@ FmMobile.screenPg = {
         FM_LOG("[screenPg] pageshow");
         FmMobile.analysis.trackPage("/screenPg");
         $("#btnHighLights").click(function(){
+        	FmMobile.analysis.trackPage("/screenPg/highLights");
             $("#btnHighLights > img").attr({src: "images/tab_show_active.png"});
             $("#btnArena > img").attr({src: "images/tab_tanmu.png"});
             $("#intro").hide();
@@ -35,6 +29,7 @@ FmMobile.screenPg = {
         });
         
         $("#btnArena").click(function(){
+        	FmMobile.analysis.trackPage("/screenPg/tanmuIntro");
             $("#btnHighLights > img").attr({src: "images/tab_show.png"});
             $("#btnArena > img").attr({src: "images/tab_tanmu_active.png"});
             var parent = $("#my-video-list");

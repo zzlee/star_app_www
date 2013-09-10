@@ -10,7 +10,7 @@ PAGE_ID: "verificationPg",
         
     show: function(){
         FmMobile.analysis.trackPage("/verificationPg");
-        recordUserAction("enters verificationPg");
+//        recordUserAction("enters verificationPg");
     },
 };
 

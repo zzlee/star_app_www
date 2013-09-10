@@ -5,7 +5,7 @@ PAGE_ID: "template_mainTemplatePg",
         
 
         FmMobile.analysis.trackPage("/template_mainTemplatePg");
-        recordUserAction("enters template_mainTemplatePg");
+//        recordUserAction("enters template_mainTemplatePg");
     },
         
     init: function(){

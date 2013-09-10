@@ -3,13 +3,13 @@ FmMobile.customerQuestionPg = {
         
     show: function(){
         FmMobile.analysis.trackPage("/customerQuestionPg");
-        recordUserAction("enters customerQuestionPg");
+//        recordUserAction("enters customerQuestionPg");
     },
         
     init: function(){
         $('#nav-bar').show();
         $("#userQuesiotns").html('');
-
+        FmMobile.hideBack();
         $("#back_setting").click(function(){
                                  $.mobile.changePage("setting-main.html");
                                  });
@@ -53,9 +53,10 @@ FmMobile.customerQuestionPg = {
                                                        $('#question_text').val("");
                                                        console.log(result);
                                                        });
-                                                                    }
-                                                                    });
-                                    });
+                                                                    }//End of CheckNetwork
+                                        FmMobile.analysis.trackEvent("Button", "Ask", select, 4 );     
+                    });//End of .customer_button_sent
+        });
         
         //get answer
         //TODO: get token from other place
