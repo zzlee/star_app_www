@@ -1,6 +1,7 @@
 FmMobile.setting_MainPg = {
  
     init: function(){
+    	FmMobile.changeBackground();
         $('body').css({
                       "position":""
                       });

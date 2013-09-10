@@ -1423,4 +1423,10 @@ FmMobile.hideBack = function(){
 	if(device.platform == "Android"){
 		$("#back_setting").hide();
 	}
-}
+};
+
+FmMobile.changeBackground = function(){
+	if(device.platform == "Android"){
+		$("div[class^='setting-content']").attr({style:"background-image: url(../images/android_bg.png)"});
+	}
+};
