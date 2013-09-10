@@ -22,7 +22,7 @@ PAGE_ID: "phoneNumInputPg",
         
     show: function(){
         FmMobile.analysis.trackPage("/phoneNumInputPg");
-        recordUserAction("enters phoneNumInputPg");
+//        recordUserAction("enters phoneNumInputPg");
     },
 };
 

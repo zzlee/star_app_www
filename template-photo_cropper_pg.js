@@ -152,12 +152,22 @@ FmMobile.template_photoCropperPg = {
         var rotation_tag=false;
          image.src = fileProcessedForCropperURI;
         $('#rotation').click(function(){
-        	if(rotation_tag==false){
+        	if(rotation_tag==false ){
+        		if( FmMobile.forCropperRotateVal==6){
+        		FmMobile.rotateValue=180;
+        		}else{
+        		
+        		FmMobile.rotateValue=90;
+        		}
+        		
          subsamplingResize(fileProcessedForCropperURI, { maxWidth: 960, maxHeight: 960, orientation: 6 }, function(resultURI){
                                                        image.src = resultURI;
                                                        
                                                        image.onload = function() {
 
+                                                       	 
+                                  
+                                     
             option.scope.w = canvas.width;
             option.scope.h = image.height / image.width * canvas.width;
 
@@ -185,6 +195,7 @@ FmMobile.template_photoCropperPg = {
                                                        rotation_tag=true;
                                                        });
         	}else{
+        		FmMobile.rotateValue=0;
         	subsamplingResize(fileProcessedForCropperURI, { maxWidth: 960, maxHeight: 960, orientation: 1}, function(resultURI){
                                                        image.src = resultURI;
                                                        image.onload = function() {
@@ -313,6 +324,7 @@ rotation_tag=false;
                 });
 
         $$('#photoZoom').pinch(function(e) {
+        	
             p_before.status = 0;
 
             croppedArea = {
@@ -389,7 +401,7 @@ rotation_tag=false;
         };
 
         FmMobile.analysis.trackPage("/template_photoCropperPg");
-        recordUserAction("enters template_photoCropperPg");
+//        recordUserAction("enters template_photoCropperPg");
         FmMobile.dummyDiv();
     }
    

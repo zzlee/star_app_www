@@ -109,12 +109,17 @@ FmMobile.template_previewPg = {
                                                     if (!err) {
                                                         // alert("success!");
                                                         FM_LOG("[templatePreview]Video uploads successfully.");
-                                                        FmMobile.myUgcPg.Type = "content";
+<<<<<<< HEAD
+=======
+                                                        FmMobile.analysis.trackEvent("Content", "Upload", "video", 1 );	
                                                         FmMobile.showNotification("uploadUgc");
                                                         $.mobile.hidePageLoadingMsg();
-                                                        $.mobile.changePage("my_ugc.html");
+>>>>>>> origin/Jean_GA
+                                                        FmMobile.myUgcPg.Type = "content";
+                                                        FmMobile.showNotification("uploadUgc");
+//                                                        $.mobile.hidePageLoadingMsg();
+//                                                        $.mobile.changePage("my_ugc.html");
                                                      }else{
-                                                     	 alert(err);
                                                          FmMobile.showNotification("uploadFailed");
                                                          $('#clickImgEffect').show("normal");
                                                          $('#afterClickBack').show("normal");
@@ -185,10 +190,16 @@ FmMobile.template_previewPg = {
                                                   
                                                         }//End of if
                                                         FM_LOG("[templatePreview]Image uploads successfully.");
-                                                        FmMobile.myUgcPg.Type = "content";
+<<<<<<< HEAD
+=======
+                                                        FmMobile.analysis.trackEvent("Content", "Upload", "checkIn", 1 );	
                                                         FmMobile.showNotification("uploadUgc");
                                                         $.mobile.hidePageLoadingMsg();
-                                                        $.mobile.changePage("my_ugc.html");
+>>>>>>> origin/Jean_GA
+                                                        FmMobile.myUgcPg.Type = "content";
+                                                        FmMobile.showNotification("uploadUgc");
+//                                                        $.mobile.hidePageLoadingMsg();
+//                                                        $.mobile.changePage("my_ugc.html");
                                                   
                                                   }else{
                                                       FmMobile.showNotification("uploadFailed");
@@ -240,10 +251,16 @@ FmMobile.template_previewPg = {
                 //                                    console.log("err=" + err);
                                                     if (!err) {
                                                         FM_LOG("[templatePreview]Image uploads successfully.");
-                                                        FmMobile.myUgcPg.Type = "content";
+<<<<<<< HEAD
+=======
+                                                        FmMobile.analysis.trackEvent("Content", "Upload", "image", 1 );	
                                                         FmMobile.showNotification("uploadUgc");
                                                         $.mobile.hidePageLoadingMsg();
-                                                        $.mobile.changePage("my_ugc.html");
+>>>>>>> origin/Jean_GA
+                                                        FmMobile.myUgcPg.Type = "content";
+                                                        FmMobile.showNotification("uploadUgc");
+//                                                        $.mobile.hidePageLoadingMsg();
+//                                                        $.mobile.changePage("my_ugc.html");
                                                     }else{
                                                         FmMobile.showNotification("uploadFailed");
                                                         $('#clickImgEffect').show("normal");

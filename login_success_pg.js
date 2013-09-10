@@ -14,7 +14,7 @@ init: function(){
     
 show: function(){
     FmMobile.analysis.trackPage("/fbLoginSuccessPg");
-    recordUserAction("enters fbLoginSuccessPg");
+//    recordUserAction("enters fbLoginSuccessPg");
 },
 };
 

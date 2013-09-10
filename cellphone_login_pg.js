@@ -15,6 +15,6 @@ init: function(){
     
 show: function(){
     FmMobile.analysis.trackPage("/cellphoneLoginPg");
-    recordUserAction("enters cellphoneLoginPg");
+//    recordUserAction("enters cellphoneLoginPg");
 },
 };

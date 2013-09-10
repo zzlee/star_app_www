@@ -1,11 +1,13 @@
 FmMobile.setting_MainPg = {
  
     init: function(){
+    	FmMobile.changeBackground();
         $('body').css({
                       "position":""
                       });
         FmMobile.myUgcScroll_y=0;
     	$('#nav-bar').show();
+    	FmMobile.hideBack();
         //console.dir(templateMgr.getTemplateList());
  
         $("#contentAboutMiixIt").hide();
@@ -42,7 +44,7 @@ FmMobile.setting_MainPg = {
     
     show: function(){
         FmMobile.analysis.trackPage("/setting_MainPg");
-        recordUserAction("enters setting_MainPg");
+//        recordUserAction("enters setting_MainPg");
     },
 };
 
