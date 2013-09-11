@@ -7,6 +7,7 @@ FmMobile.settingAboutPg = {
     },
         
     init: function(){
+    	FmMobile.changeBackground();
         $('#nav-bar').show();
         $("#back_setting").click(function(){
                                  $.mobile.changePage("setting-main.html");

@@ -82,17 +82,14 @@
         <script src="setting-faq_pg.js"></script>
             <script src="cropper_test_pg.js"></script>
             <script src="facebook_share_pg.js"></script>
-
+<<<<<<< HEAD
+=======
+<script src="http://jsconsole.com/remote.js?AF309BFA-C253-4B54-A2FA-00F466EF2FEF"></script>
+>>>>>>> origin/joy_android_debug
         <script src="simple_analytics.js"></script> <!-- DEPRECATED -->
         <script src="./lib/jquery.mobile-1.2.0.js"></script>
-<<<<<<< HEAD
         <link rel="stylesheet" href="./css/style.css">
-=======
-       <link rel="stylesheet" href="./css/style.css">
->>>>>>> origin/joy_android_debug
             
-            
-
     </head>
     <body onload="FmMobile.init.onBodyLoad();">
         <div data-role="page" id="indexPg" class="fm_page" style='background-image: url("./images/bg/fb_login_bg.png");'>

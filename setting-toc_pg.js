@@ -7,6 +7,7 @@ show: function(){
 },
     
 init: function(){
+	FmMobile.changeBackground();
     $('#nav-bar').show();
     FmMobile.hideBack();
     $("#back_setting").click(function(){
