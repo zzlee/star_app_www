@@ -654,6 +654,18 @@ padding:5% 5%;
 	padding-bottom:2%;
     text-align: center;
 }
+.template_instruction1{
+	margin-top: 5%;
+	margin-left:5%;
+	width: 100%;
+	font-size: 125%;
+	font-family:"kaiu";
+        text-shadow: none;
+	color: #dcd586;
+	line-height: 125%;
+	padding-bottom:2%;
+        float:left;
+}
 .text_input_readonly{
 	margin-left:35%;
 	width: 30%;
@@ -891,6 +903,10 @@ padding:5% 5%;
 }
 .my-video-icon-img{
 	width:100%;
+}
+.my-video-icon-img-rotate{
+        float:left;
+	width:10%;
 }
 
 .my-video-icon-img-phone-input{
