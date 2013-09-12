@@ -342,11 +342,11 @@ onBodyLoad: function(){
 
 platformRotate:function(){
 	if(device.platform == "Android"){
-		FmMobile.rotateValue=0;
+		FmMobile.rotateValue=null;
 		}else{
 			FmMobile.rotateValue=null;
 		}
-		    alert(FmMobile.rotateValue);
+		   // alert(FmMobile.rotateValue);
 	
 },
     

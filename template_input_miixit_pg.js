@@ -94,6 +94,13 @@ load: function(event, data){
                                      console.log(orientation);
                                      FmMobile.forCropperRotateVal=orientation;
                                     // alert(orientation);
+                                     
+                                     if( FmMobile.forCropperRotateVal==6){
+        		FmMobile.rotateValue=90;
+        		}else{
+        		
+        		FmMobile.rotateValue=0;
+        		}
                                      subsamplingResize(imageURI, { maxWidth: 960, maxHeight: 960, orientation: orientation }, function(resultURI){
                                                        fileProcessedForCropperURI = resultURI;
                                                        $.mobile.changePage("template-photo_cropper.html");
