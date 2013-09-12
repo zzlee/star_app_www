@@ -285,7 +285,7 @@ FmMobile.init = {
 onBodyLoad: function(){
     
     FM_LOG("[Init.onDeviceReady]");
-
+    document.addEventListener("deviceready", FmMobile.init.platformRotate, true);
     document.addEventListener("deviceready", FmMobile.analysis.init, true);
     document.addEventListener("deviceready", FmMobile.gcm.init, true);
     document.addEventListener("deviceready", FmMobile.apn.init, true);
@@ -337,14 +337,18 @@ onBodyLoad: function(){
      };
      $.jStorage.set("fb_profile", metadata);*/
     
-    if(device.platform == "Android"){
-FmMobile.rotateValue=0;
-}else{
-	FmMobile.rotateValue=null;
-}
     
 },
 
+platformRotate:function(){
+	if(device.platform == "Android"){
+		FmMobile.rotateValue=0;
+		}else{
+			FmMobile.rotateValue=null;
+		}
+		    alert(FmMobile.rotateValue);
+	
+},
     
 onResume: function(){
     FM_LOG("[Init.onResume]");
