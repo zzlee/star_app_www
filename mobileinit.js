@@ -1181,6 +1181,29 @@ postFbMessage_live:function(){
     };
     
     $.post(url_album,params_album, function(response){
+           
+           
+           
+           var ugcProjectId=FmMobile.shareProjectID;
+           
+           $.ajax( starServerURL+"/miix/fb_userLiveContents/"+ugcProjectId, {
+                  type: "PUT",
+                  data: {
+                  fb_postId:response.id,
+                  miixToken: localStorage.miixToken
+                  },
+                  success: function(data, textStatus, jqXHR ){
+                  console.log("Successfully upload result image UGC to server.");
+                  callback("haha");
+                  },
+                  error: function(jqXHR, textStatus, errorThrown){
+                  console.log("Failed to upload image UGC to server: "+errorThrown);
+                  callback("Failed to upload image UGC to server: "+errorThrown);
+                  }
+                  
+                  
+                  });
+           
            //alert("create album！！");
            var album_id=response.id;
            var url_photo='https://graph.facebook.com/'+album_id+'/photos';
@@ -1188,13 +1211,13 @@ postFbMessage_live:function(){
            var params_photo_1={
            access_token: localStorage.fb_accessToken,
            url:FmMobile.srcForMyUgcViewer,
-           message:localStorage.fb_name+"於"+timeString+"，登上台北天幕LED，特此感謝他精采的作品！\n上大螢幕APP粉絲團：https://www.facebook.com/OnDaScreen"
+           message:localStorage.fb_name+"於"+timeString+"，登上台北天幕LED，感謝他精采的作品！\n上大螢幕APP粉絲團：https://www.facebook.com/OnDaScreen"
            
            };
            var params_photo_2={
            access_token: localStorage.fb_accessToken,
            url:FmMobile.longPhoto,
-            message:localStorage.fb_name+"於"+timeString+"，登上台北天幕LED，這是原始刊登素材，天幕尺寸：100公尺x16公尺！\n上大螢幕APP粉絲團：https://www.facebook.com/OnDaScreen"
+            message:localStorage.fb_name+"於"+timeString+"，登上台北天幕LED，這是原始刊登素材，天幕尺寸：100公尺x16公尺。\n上大螢幕APP粉絲團：https://www.facebook.com/OnDaScreen"
            
            };
            
@@ -1202,10 +1225,54 @@ postFbMessage_live:function(){
                  // alert("已打卡1！！");
                    FmMobile.showNotification("share");
                   
+                  
+                  var ugcProjectId=FmMobile.shareProjectID;
+                  
+                  $.ajax( starServerURL+"/miix/fb_userLiveContents/"+ugcProjectId, {
+                         type: "PUT",
+                         data: {
+                         fb_postId:response.id,
+                         miixToken: localStorage.miixToken
+                         },
+                         success: function(data, textStatus, jqXHR ){
+                         console.log("Successfully upload result image UGC to server.");
+                         callback("haha");
+                         },
+                         error: function(jqXHR, textStatus, errorThrown){
+                         console.log("Failed to upload image UGC to server: "+errorThrown);
+                         callback("Failed to upload image UGC to server: "+errorThrown);
+                         }
+                         
+                         
+                         });
+                  
+                  
+                  
                   });
            
            $.post(url_photo,params_photo_2, function(response){
                  // alert("已打卡2！！");
+                  
+                  
+                  var ugcProjectId=FmMobile.shareProjectID;
+                  
+                  $.ajax( starServerURL+"/miix/fb_userLiveContents/"+ugcProjectId, {
+                         type: "PUT",
+                         data: {
+                         fb_postId:response.id,
+                         miixToken: localStorage.miixToken
+                         },
+                         success: function(data, textStatus, jqXHR ){
+                         console.log("Successfully upload result image UGC to server.");
+                         callback("haha");
+                         },
+                         error: function(jqXHR, textStatus, errorThrown){
+                         console.log("Failed to upload image UGC to server: "+errorThrown);
+                         callback("Failed to upload image UGC to server: "+errorThrown);
+                         }
+                         
+                         
+                         });
                   
                   });
            
@@ -1248,7 +1315,7 @@ postFbVideoMessage_live:function(){
     access_token: localStorage.fb_accessToken,
     message: FmMobile.userContent.text,
     link:FmMobile.youtubeVideoUrl,
-    name:localStorage.fb_name+"於"+timeString+"，登上台北天幕LED，特此感謝他精采的作品！",
+    name:localStorage.fb_name+"於"+timeString+"，登上台北天幕LED，感謝他精采的作品！",
          description:"上大螢幕APP粉絲團：https://www.facebook.com/OnDaScreen"
         //picture:FmMobile.srcForMyUgcViewer,
     //privacy:{'value':'SELF'}
@@ -1260,7 +1327,7 @@ postFbVideoMessage_live:function(){
            
            var ugcProjectId=FmMobile.shareProjectID;
            
-           $.ajax( starServerURL+"/miix/fb_ugcs/"+ugcProjectId, {
+           $.ajax( starServerURL+"/miix/fb_userLiveContents/"+ugcProjectId, {
                   type: "PUT",
                   data: {
                   fb_postId:response.id,

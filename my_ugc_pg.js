@@ -152,7 +152,9 @@ FmMobile.myUgcPg = {
 
             
             var projectId = arryHighlightContents[i].ProjectId;
+            console.log("-------live projectID---------");
             console.log("projectId " + projectId);
+            console.log("----------------");
             var widget = null;
             var number = arryHighlightContents[i].No;
             var dummyDiv = $("<div>").attr({class: "movie-pic-dummy"});
@@ -202,7 +204,8 @@ FmMobile.myUgcPg = {
                                                          title:number,
                                                           "time":arryHighlightContents[i].LiveTime,
                                                          "liveType":arryHighlightContents[i].Genre,
-                                                         "youtubeLink":arryHighlightContents[i].Url.youtube
+                                                         "youtubeLink":arryHighlightContents[i].Url.youtube,
+                                                         "forPostId":arryHighlightContents[i].ProjectId
                                                           });
                             shareFbDiv.appendTo(info);
                             numberDiv.html("演出編號：" + number);
@@ -251,7 +254,8 @@ FmMobile.myUgcPg = {
                                                       title:number,
                                                       "time":arryHighlightContents[i].LiveTime,
                                                      "long":arryHighlightContents[i].Url.longPhoto,
-                                                     "liveType":arryHighlightContents[i].Genre
+                                                     "liveType":arryHighlightContents[i].Genre,
+                                                     "forPostId":arryHighlightContents[i].ProjectId
                                                       });
                         shareFbDiv.appendTo(info);
                         numberDiv.html("演出編號：" + number);
@@ -593,7 +597,13 @@ FmMobile.myUgcPg = {
                                         FmMobile.srcForMyUgcViewer=$(this).attr("youtubeLink");
                                         
                                          FmMobile.finishNumber=this.title;
-                    FmMobile.shareProjectID=this.parentElement.parentElement.id;
+                                        
+                                        if(FmMobile.myUgcPg.Type == "live"){
+                                        FmMobile.shareProjectID=$(this).attr("forPostId");
+                                        }else{
+                                        FmMobile.shareProjectID=this.parentElement.parentElement.id;
+                                        }
+                    
                     
                     FmMobile.shareFbType="video";
                     FmMobile.srcForMyUgcViewer="http://img.youtube.com/vi/" + tmpID +"/mqdefault.jpg";
@@ -615,6 +625,7 @@ FmMobile.myUgcPg = {
                     if(FmMobile.myUgcPg.Type == "content"){
                         FmMobile.srcForMyUgcViewer= s3Url + ".png";
                     }else if(FmMobile.myUgcPg.Type == "live"){
+                                        FmMobile.shareProjectID=$(this).attr("forPostId");
                                   FmMobile.liveType=$(this).attr("liveType");
                                         if(FmMobile.liveType=="miix_story"){
                                          FmMobile.liveTime=$(this).attr("time");
