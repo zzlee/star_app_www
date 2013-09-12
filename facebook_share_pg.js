@@ -58,7 +58,19 @@ init: function(){
             $('#go_preview').click(function(){
                 if(FmMobile.checkNetwork()){
                     FmMobile.userContent.text=$('#ur_text').val();
-                                       
+                                   
+                                   if(FmMobile.myUgcPg.Type == "live"){
+                                          if(FmMobile.liveType=="miix_story"){
+                                   FmMobile.analysis.trackEvent("Button", "Share", "Video", 2 );
+                                   FmMobile.authPopup.postFbVideoMessage_live();
+
+                                   }else{
+                                   FmMobile.analysis.trackEvent("Button", "Share", "Video", 2 );
+                                   FmMobile.authPopup.postFbMessage_live();
+
+                                   }
+                                                                      }else{
+                                                       
                     if(FmMobile.shareFbType=="video"){
                     	FmMobile.analysis.trackEvent("Button", "Share", "Video", 2 );
                         FmMobile.authPopup.postFbVideoMessage();
@@ -67,7 +79,9 @@ init: function(){
                         FmMobile.authPopup.postFbMessage();
                                
                     }
-                    
+
+                                   }
+                                       
                     $.mobile.changePage('my_ugc.html');
                 }
             });

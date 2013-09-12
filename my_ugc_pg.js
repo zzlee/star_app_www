@@ -50,12 +50,15 @@ FmMobile.myUgcPg = {
                     data:{ miixToken: localStorage.miixToken },
                     success: function(response){
                                     if(response){
+                    console.dir(response);
                                         $.each(response, function(i, item){
                                            var data ={
                                                ProjectId: item.projectId,
                                                No: item.no,
                                                Genre: item.genre,
                                                Url : item.url,
+                                               LiveTime:item.liveTime,
+                                               
                                            };
                                        FmMobile.myUgcPg.myLiveContents.push(data);
                                        });
@@ -136,6 +139,13 @@ FmMobile.myUgcPg = {
         
         /** Set data to List */
         for(var i = 0; i < arryLen; i++){
+            
+         //   arryHighlightContents[i].Genre;
+            
+            
+            
+            
+            
             if(i==(arryLen-1)){
                 $.mobile.silentScroll(FmMobile.myUgcScroll_y);
             }
@@ -189,7 +199,10 @@ FmMobile.myUgcPg = {
                                                           id: "shareFb_" + ytVideoID,
                                                           class: "share",
                                                           src: "images/facebook.png",
-                                                         title:number
+                                                         title:number,
+                                                          "time":arryHighlightContents[i].LiveTime,
+                                                         "liveType":arryHighlightContents[i].Genre,
+                                                         "youtubeLink":arryHighlightContents[i].Url.youtube
                                                           });
                             shareFbDiv.appendTo(info);
                             numberDiv.html("演出編號：" + number);
@@ -235,7 +248,10 @@ FmMobile.myUgcPg = {
                                                       id: "shareImgFb_" + projectId,
                                                       class: "share",
                                                       src: "images/facebook.png",
-                                                      title:number
+                                                      title:number,
+                                                      "time":arryHighlightContents[i].LiveTime,
+                                                     "long":arryHighlightContents[i].Url.longPhoto,
+                                                     "liveType":arryHighlightContents[i].Genre
                                                       });
                         shareFbDiv.appendTo(info);
                         numberDiv.html("演出編號：" + number);
@@ -570,14 +586,24 @@ FmMobile.myUgcPg = {
                     }
                     break;
                 case "shareFb":
-                    FmMobile.finishNumber=this.title;
+                                        
+                                        FmMobile.liveType=$(this).attr("liveType");
+                                        
+                                        FmMobile.liveTime=$(this).attr("time");
+                                        FmMobile.srcForMyUgcViewer=$(this).attr("youtubeLink");
+                                        
+                                         FmMobile.finishNumber=this.title;
                     FmMobile.shareProjectID=this.parentElement.parentElement.id;
                     
                     FmMobile.shareFbType="video";
                     FmMobile.srcForMyUgcViewer="http://img.youtube.com/vi/" + tmpID +"/mqdefault.jpg";
                     FmMobile.youtubeVideoUrl="http://www.youtube.com/embed/" + tmpID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1";
                                          FmMobile.myUgcScroll_y=e.pageY;
-                    $.mobile.changePage('facebook_share.html');
+
+                                        
+                                        
+                                
+                                       $.mobile.changePage('facebook_share.html');
 
                     break;
                 case "shareImgFb":
@@ -589,7 +615,18 @@ FmMobile.myUgcPg = {
                     if(FmMobile.myUgcPg.Type == "content"){
                         FmMobile.srcForMyUgcViewer= s3Url + ".png";
                     }else if(FmMobile.myUgcPg.Type == "live"){
-                        FmMobile.srcForMyUgcViewer= s3Url + ".jpg";
+                                  FmMobile.liveType=$(this).attr("liveType");
+                                        if(FmMobile.liveType=="miix_story"){
+                                         FmMobile.liveTime=$(this).attr("time");
+                                         FmMobile.srcForMyUgcViewer=$(this).attr("youtubeLink");
+                                        }else{
+                                        FmMobile.srcForMyUgcViewer= s3Url + ".jpg";
+                                        FmMobile.longPhoto=$(this).attr("long");
+                                        FmMobile.liveTime=$(this).attr("time");
+
+                                        }
+                                        
+                        
                     }
                                         FmMobile.myUgcScroll_y=e.pageY;
 
