@@ -8,9 +8,9 @@ FmMobile.customerQuestionPg = {
         
     init: function(){
 //    	FmMobile.changeBackground();
-//    	FmMobile.dummyDiv();
+    	FmMobile.dummyDiv();
     	if(device.platform == "Android"){
-    		$("div[class^='setting-content']").attr({class:"setting-content-qa",style:"padding-bottom:21%;"});
+    		$("div[class^='setting-content']").attr({class:"setting-content-qa",style:"padding-bottom:24%;"});
     	}
         $('#nav-bar').show();
         $("#userQuesiotns").html('');
