@@ -46,7 +46,11 @@ FmMobile.checkinTextForFB;
 FmMobile.finishNumber;
 
 FmMobile.myUgcScroll_y=0;
-FmMobile.rotateValue=0;
+
+
+FmMobile.rotateValue;
+
+
 FmMobile.selectAlbum;
 
 //------------------------
@@ -332,6 +336,12 @@ onBodyLoad: function(){
      "updated_time": "2013-02-19T07:38:19+0000"
      };
      $.jStorage.set("fb_profile", metadata);*/
+    
+    if(device.platform == "Android"){
+FmMobile.rotateValue=0;
+}else{
+	FmMobile.rotateValue=null;
+}
     
 },
 
