@@ -1154,8 +1154,9 @@ hr{
 	position: absolute;
 	overflow: auto;
 	font-size: 120%; 
-	background-image: url(../images/border_bg.png);
-	color: #000;
+	/** background-image: url(../images/border_bg.png);*/
+	/** color: #000; */
+	color: #dcd586;  
 	font-family: "kaiu";
 	text-shadow: none;
 	line-height: 150%;
@@ -1163,6 +1164,35 @@ hr{
 	width: 75%;
     top:11%;
     bottom:21%;
+    padding-top: 5%;
+    padding-left: 8%;
+    padding-right: 10%;
+}
+
+/** by Jean */
+.setting-content-qa{
+	/** margin-left: 2.5%;*/
+	/* margin-right: 2.5%; */ 
+	position: absolute;
+	overflow: auto; 
+	font-size: 120%;
+	/** background-image: url(../images/border_bg.png); */
+	/** color: #000; */
+	background: #000000; /* Old browsers */
+	background: -moz-linear-gradient(left,  #000000 0%, #970018 50%, #000000 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#000000), color-stop(50%,#970018), color-stop(100%,#000000)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left,  #000000 0%,#970018 50%,#000000 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left,  #000000 0%,#970018 50%,#000000 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left,  #000000 0%,#970018 50%,#000000 100%); /* IE10+ */
+	background: linear-gradient(to right,  #000000 0%,#970018 50%,#000000 100%); /* W3C */
+	color: #dcd586;  
+	font-family: "kaiu";
+	text-shadow: none;
+	line-height: 150%;
+	z-index: 0;
+	/* width: 75%; */
+    top:11%; 
+    /** bottom:21%; **/
     padding-top: 5%;
     padding-left: 8%;
     padding-right: 10%;
@@ -1200,10 +1230,11 @@ hr{
     text-shadow: none;
 	font-family:"kaiu";
     list-style-type:none;
-    color: #000;;
+    color: #000;
     text-decoration:none;
     line-height: 250%;
 }
+
 #settingList{
     background:none;
     text-shadow: none;

@@ -2,6 +2,9 @@ FmMobile.setting_MainPg = {
  
     init: function(){
     	FmMobile.changeBackground();
+    	if(device.platform == "Android"){
+    		$("a").attr({style:"color:#dcd586;"});
+    	}
         $('body').css({
                       "position":""
                       });
