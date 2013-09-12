@@ -657,7 +657,7 @@ padding:5% 5%;
 .template_instruction1{
 	margin-top: 5%;
 	margin-left:5%;
-	width: 100%;
+	/*width: 100%;*/
 	font-size: 125%;
 	font-family:"kaiu";
         text-shadow: none;
@@ -666,6 +666,9 @@ padding:5% 5%;
 	padding-bottom:2%;
         float:left;
 }
+.rotate{
+    width:100%;
+    }
 .text_input_readonly{
 	margin-left:35%;
 	width: 30%;
@@ -905,8 +908,10 @@ padding:5% 5%;
 	width:100%;
 }
 .my-video-icon-img-rotate{
-        float:left;
-	width:10%;
+    float:left;
+	width:8%;
+    margin-top:4.5%;
+    margin-left:4%;
 }
 
 .my-video-icon-img-phone-input{
