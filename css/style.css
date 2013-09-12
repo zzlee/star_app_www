@@ -685,10 +685,11 @@ padding:5% 5%;
 	padding-bottom: 2%;
 }
 .text_input_bg{
-	border:10px solid transparent;
+	/* border:10px solid transparent; */
 	height:40%;
 	margin:4% 8%;
-	border-image:url(../images/text_input_border.png) 30 30 round;
+	/* border-image:url(../images/text_input_border.png) 30 30 round; */
+	background-image:url(../images/text_input_border.png);
 	width:80%;
 	}
 .button_text{

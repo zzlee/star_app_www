@@ -13,7 +13,7 @@ FmMobile.customerQuestionPg = {
     		$("div[class^='setting-content']").attr({class:"setting-content-qa",style:"padding-bottom:24%;"});
     	}
         $('#nav-bar').show();
-        $("#userQuesiotns").html('');
+//        $("#userQuesiotns").html('');
         FmMobile.hideBack();
         $("#back_setting").click(function(){
                                  $.mobile.changePage("setting-main.html");
