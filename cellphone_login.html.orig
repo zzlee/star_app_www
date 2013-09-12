@@ -44,21 +44,25 @@
 </head>
 <body> 
 
-    <div data-role="page" id="fbLoginSuccessPg">
-        <div class="header">
-            <p class="header-text">星探發掘</p>
-        </div>
-        <div class="login_succes_container" data-role="content">
-            <div class="success_text">恭喜您完成認證，您即將
-                
-                <br>
-                <p style="font-size:200%">粉墨登場！</p>
+    <div data-role="page" id="cellphoneLoginPg">
+    <div class="header">
+        <p class="header-text" id="change_fb">登入</p>
+    </div>
+           <div class=header_bg><img class="header_bg_img" src="images/header_bg1.png"></img></div>
+        <div class="facebook_login_container" data-role="content">
+<<<<<<< HEAD
+            <div id="verify">
+                <div class="facebook_login_text">手機電話認證</div>
+                <div class="facebook_login_button" >
+                    <img class="label-img" src="images/button_long.png">
+                </div>
             </div>
-            <div id="start_template">
-                <div class="login_success_text">開始挑劇本</div>
-                <div class="login_success_button"><img class="label-img" src="images/button_long.png"></div>
-            </div>
+=======
+        <div class="facebook_login_text">手機電話認證</div>
+        <div class="facebook_login_button" ></div><img id="verify" class="label-img" src="images/button_long.png">
+>>>>>>> origin/joy_android_debug
         </div>
-	</div></div>
+	</div>
+</div>
 </body>
 </html>

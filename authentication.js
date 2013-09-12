@@ -35,9 +35,10 @@ FmMobile.authentication = {
     getCode: function(){
         // TODO - $.get('codeGeneration', data, function(res){});
         var phoneNum = $("#phoneNum_input").attr("value");
-        var phoneNum_int = parseInt(phoneNum);
-        
-        
+                console.log(phoneNum);
+
+ var phoneNum_int = parseInt(phoneNum.substring(1,phoneNum.length))
+        console.log(phoneNum_int);
         if(isNaN(phoneNum_int) || phoneNum_int < 900000000 || phoneNum_int > 999999999){
 //             navigator.notification.alert("號碼錯囉...");
             FmMobile.showNotification("wrongPhoneNumber");
