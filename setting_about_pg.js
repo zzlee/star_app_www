@@ -8,6 +8,9 @@ FmMobile.settingAboutPg = {
         
     init: function(){
     	FmMobile.changeBackground();
+    	if(device.platform == "Android"){
+    		$("a").attr({style:"color:#999;"});
+    	}
         $('#nav-bar').show();
         $("#back_setting").click(function(){
                                  $.mobile.changePage("setting-main.html");
