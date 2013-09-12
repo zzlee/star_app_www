@@ -685,11 +685,12 @@ padding:5% 5%;
 	padding-bottom: 2%;
 }
 .text_input_bg{
-	/* border:10px solid transparent; */
+	border:10px solid transparent; 
 	height:40%;
 	margin:4% 8%;
-	/* border-image:url(../images/text_input_border.png) 30 30 round; */
-	background-image:url(../images/text_input_border.png);
+	border-image:url(../images/text_input_border.png) 30 30 round; 
+	/* background-image:url(../images/text_input_border.png); */ 
+	/* background-size:100%,100%;*/
 	width:80%;
 	}
 .button_text{
@@ -853,17 +854,21 @@ padding:5% 5%;
 	color: #dcd586;
     }
 
+
 #ur_text{
     background-color:transparent;
-    border-color:transparent;
+    /* border-color:transparent; */
+    border-color:#dcd586;
     margin:0;
     color: #dcd586;
     width:100%;
     text-shadow: none;
     }
+    
 #checkin_text_1{
     background-color:transparent;
-    border-color:transparent;
+    /* border-color:transparent; */
+    border-color:#dcd586;
     margin:0;
     color: #dcd586;
     width:100%;
@@ -871,7 +876,8 @@ padding:5% 5%;
 }
 #checkin_text_2{
     background-color:transparent;
-    border-color:transparent;
+    /* border-color:transparent; */
+    border-color:#dcd586;
     margin:0;
     color: #dcd586;
     width:100%;
