@@ -7,7 +7,11 @@ FmMobile.customerQuestionPg = {
     },
         
     init: function(){
-    	FmMobile.changeBackground();
+//    	FmMobile.changeBackground();
+    	FmMobile.dummyDiv();
+    	if(device.platform == "Android"){
+    		$("div[class^='setting-content']").attr({class:"setting-content-qa"});
+    	}
         $('#nav-bar').show();
         $("#userQuesiotns").html('');
         FmMobile.hideBack();
