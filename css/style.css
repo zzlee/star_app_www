@@ -1133,8 +1133,9 @@ hr{
 	position: absolute;
 	overflow: auto;
 	font-size: 120%; 
-	background-image: url(../images/border_bg.png);
-	color: #000;  
+	/** background-image: url(../images/border_bg.png);*/
+	/** color: #000; */
+	color: #dcd586;  
 	font-family: "kaiu";
 	text-shadow: none;
 	line-height: 150%;
@@ -1154,8 +1155,9 @@ hr{
 	position: absolute;
 	overflow: auto; 
 	font-size: 120%;
-	background-image: url(../images/border_bg.png);
-	color: #000;  
+	/** background-image: url(../images/border_bg.png); */
+	/** color: #000; */
+	color: #dcd586;  
 	font-family: "kaiu";
 	text-shadow: none;
 	line-height: 150%;
@@ -1200,10 +1202,11 @@ hr{
     text-shadow: none;
 	font-family:"kaiu";
     list-style-type:none;
-    color: #000;;
+    color: #000;
     text-decoration:none;
     line-height: 250%;
 }
+
 #settingList{
     background:none;
     text-shadow: none;
