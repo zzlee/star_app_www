@@ -285,7 +285,7 @@ FmMobile.init = {
 onBodyLoad: function(){
     
     FM_LOG("[Init.onDeviceReady]");
-    document.addEventListener("deviceready", FmMobile.init.platformRotate, true);
+   // document.addEventListener("deviceready", FmMobile.init.platformRotate, true);
     document.addEventListener("deviceready", FmMobile.analysis.init, true);
     document.addEventListener("deviceready", FmMobile.gcm.init, true);
     document.addEventListener("deviceready", FmMobile.apn.init, true);
@@ -340,6 +340,7 @@ onBodyLoad: function(){
     
 },
 
+/*
 platformRotate:function(){
 	if(device.platform == "Android"){
 		FmMobile.rotateValue=null;
@@ -349,7 +350,7 @@ platformRotate:function(){
 		   // alert(FmMobile.rotateValue);
 	
 },
-    
+    */
 onResume: function(){
     FM_LOG("[Init.onResume]");
 //    FmMobile.checkNetwork();
@@ -769,17 +770,17 @@ FmMobile.gcm = {
 /** Check network status */
 FmMobile.checkNetwork = function(){
     FM_LOG("[checkNetwork]");
-    var connectionType = null;
+//    var connectionType = null;
     /*	In cordova2.2, navigator.network.connection.type replace with navigator.connection.type.
      *	It works on iOS, but Android can't. We need use <2.2 API to handle these issue.
      */
-    if(device.platform == "Android"){
-    	connectionType = navigator.network.connection.type;
-    }else{
-    	connectionType = navigator.connection.type;
-    }
+//    if(device.platform == "Android"){
+//    	connectionType = navigator.network.connection.type;
+//    }else{
+//    	connectionType = navigator.connection.type;
+//    }
 
-    FM_LOG("[checkNetwork]Network Status : " + connectionType);
+//    FM_LOG("[checkNetwork]Network Status : " + connectionType);
 //    FM_LOG("[pixelRatio] : " + localStorage.pixelRatio);
     var connectServerStatus = false;
     $.ajax({
@@ -791,7 +792,8 @@ FmMobile.checkNetwork = function(){
                
            }
     });
-    if((connectionType == "none") && (!connectServerStatus)){
+//    if((connectionType == "none") && (!connectServerStatus)){
+	if(!connectServerStatus){
         FmMobile.showNotification("enableNetwork");
         return false;
     }else{
