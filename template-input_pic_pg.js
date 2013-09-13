@@ -65,7 +65,7 @@ FmMobile.template_pic_pg = {
             
             
             var getPhotoFail = function (message) {
-                //alert('没有選到相片，請再選一次！');
+                //alert('没�到��，�選一次�');
             }
             
             
