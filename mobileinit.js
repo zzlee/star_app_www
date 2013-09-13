@@ -1164,7 +1164,7 @@ postFbMessage_live:function(){
     
    var post_live_time=new Date(parseInt(FmMobile.liveTime));
     var post_year=post_live_time.getFullYear();
-    var post_month=post_live_time.getMonth();
+    var post_month=post_live_time.getMonth()+1;
     var post_date=post_live_time.getDate();
     var post_hours=post_live_time.getHours();
     var post_pmAm;
@@ -1181,23 +1181,34 @@ postFbMessage_live:function(){
     }
     
    var post_minute= post_live_time.getMinutes();
-    
-    var timeString=post_year+"年"+post_month+"月"+post_date+"日"+post_pmAm+post_format_hour+":"+post_minute;
+   var timeString=post_year+"年"+post_month+"月"+post_date+"日"+post_pmAm+post_format_hour+":"+post_minute;
     var timeString_short=post_year+"年"+post_month+"月"+post_date+"日";
     //----- end of handle time
     
-    var url_album = 'https://graph.facebook.com/me/albums';
+    var url = 'https://graph.facebook.com/me/feed';
     
-    var params_album = {
-    access_token: localStorage.fb_accessToken,
-    name:"實況記錄："+timeString_short+"登上台北天幕LED",
-    message:FmMobile.userContent.text
-    };
     
-    $.post(url_album,params_album, function(response){
+    
+           var params_photo_1={
+                message: FmMobile.userContent.text,
+           access_token: localStorage.fb_accessToken,
+           link:FmMobile.srcForMyUgcViewer,
+           name:localStorage.fb_name+"於"+timeString+"，登上台北天幕LED，感謝他精采的作品！",
+               description:"上大螢幕APP粉絲團：https://www.facebook.com/OnDaScreen"
            
+           };
+           var params_photo_2={
+                message: FmMobile.userContent.text,
+           access_token: localStorage.fb_accessToken,
+           link:FmMobile.longPhoto,
+            name:localStorage.fb_name+"於"+timeString+"，登上台北天幕LED，這是原始刊登素材，天幕尺寸：100公尺x16公尺。",
+               description:"上大螢幕APP粉絲團：https://www.facebook.com/OnDaScreen"
            
-           
+           };
+    
+    $.post(url,params_photo_1, function(response){
+           //alert("已打卡1！！");
+           //FmMobile.showNotification("share");
            var ugcProjectId=FmMobile.shareProjectID;
            
            $.ajax( starServerURL+"/miix/fb_userLiveContents/"+ugcProjectId, {
@@ -1207,8 +1218,8 @@ postFbMessage_live:function(){
                   miixToken: localStorage.miixToken
                   },
                   success: function(data, textStatus, jqXHR ){
-                  console.log("Successfully upload result image UGC to server.");
-                  callback("haha");
+                  console.log("Successfully upload projectID and FBpost id to server.");
+                  callback(null);
                   },
                   error: function(jqXHR, textStatus, errorThrown){
                   console.log("Failed to upload image UGC to server: "+errorThrown);
@@ -1218,28 +1229,9 @@ postFbMessage_live:function(){
                   
                   });
            
-           //alert("create album！！");
-           var album_id=response.id;
-           var url_photo='https://graph.facebook.com/'+album_id+'/photos';
-           
-           var params_photo_1={
-           access_token: localStorage.fb_accessToken,
-           url:FmMobile.srcForMyUgcViewer,
-           message:localStorage.fb_name+"於"+timeString+"，登上台北天幕LED，感謝他精采的作品！\n上大螢幕APP粉絲團：https://www.facebook.com/OnDaScreen"
-           
-           };
-           var params_photo_2={
-           access_token: localStorage.fb_accessToken,
-           url:FmMobile.longPhoto,
-            message:localStorage.fb_name+"於"+timeString+"，登上台北天幕LED，這是原始刊登素材，天幕尺寸：100公尺x16公尺。\n上大螢幕APP粉絲團：https://www.facebook.com/OnDaScreen"
-           
-           };
-           
-           $.post(url_photo,params_photo_1, function(response){
-                 // alert("已打卡1！！");
-                   FmMobile.showNotification("share");
-                  
-                  
+           $.post(url,params_photo_2, function(response){
+                  //alert("已打卡！！");
+                  FmMobile.showNotification("share");
                   var ugcProjectId=FmMobile.shareProjectID;
                   
                   $.ajax( starServerURL+"/miix/fb_userLiveContents/"+ugcProjectId, {
@@ -1249,36 +1241,8 @@ postFbMessage_live:function(){
                          miixToken: localStorage.miixToken
                          },
                          success: function(data, textStatus, jqXHR ){
-                         console.log("Successfully upload result image UGC to server.");
-                         callback("haha");
-                         },
-                         error: function(jqXHR, textStatus, errorThrown){
-                         console.log("Failed to upload image UGC to server: "+errorThrown);
-                         callback("Failed to upload image UGC to server: "+errorThrown);
-                         }
-                         
-                         
-                         });
-                  
-                  
-                  
-                  });
-           
-           $.post(url_photo,params_photo_2, function(response){
-                 // alert("已打卡2！！");
-                  
-                  
-                  var ugcProjectId=FmMobile.shareProjectID;
-                  
-                  $.ajax( starServerURL+"/miix/fb_userLiveContents/"+ugcProjectId, {
-                         type: "PUT",
-                         data: {
-                         fb_postId:response.id,
-                         miixToken: localStorage.miixToken
-                         },
-                         success: function(data, textStatus, jqXHR ){
-                         console.log("Successfully upload result image UGC to server.");
-                         callback("haha");
+                         console.log("Successfully upload projectID and FBpost id to server.");
+                         callback(null);
                          },
                          error: function(jqXHR, textStatus, errorThrown){
                          console.log("Failed to upload image UGC to server: "+errorThrown);
@@ -1289,8 +1253,12 @@ postFbMessage_live:function(){
                          });
                   
                   });
+           
+           
+           
            
            });
+    
     
 },
     
@@ -1301,7 +1269,7 @@ postFbVideoMessage_live:function(){
     
     var post_live_time=new Date(parseInt(FmMobile.liveTime));
     var post_year=post_live_time.getFullYear();
-    var post_month=post_live_time.getMonth();
+    var post_month=post_live_time.getMonth()+1;
     var post_date=post_live_time.getDate();
     var post_hours=post_live_time.getHours();
     var post_pmAm;

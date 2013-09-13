@@ -231,7 +231,7 @@ FmMobile.myUgcPg = {
                             widget = $("<div>").attr({id: projectId, class: "content-movie", style: "margin-top:5%;"}); //TODO: don't use margin-top with percentage in this case
                         }
                         dummyDiv.appendTo(widget);
-                        var s3Url = "https://s3.amazonaws.com/miix_content" + arryHighlightContents[i].Url.s3;
+                        var s3Url = arryHighlightContents[i].Url.s3;
                         Thumbnail = $("<img>").attr({
                                                       id: "imgS3_" +projectId,
                                                       src: s3Url,
