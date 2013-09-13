@@ -114,9 +114,11 @@ FmMobile.template_pic_pg = {
                 navigator.camera.getPicture(gotoPhotoCropper, getPhotoFail,{
                                             quality: 50,
                                             destinationType: navigator.camera.DestinationType.FILE_URI,
-                                            sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
+                                            sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY,
                                              //targetWidth: 720,
                                             //targetHeight: 480
+                                            targetWidth: 1500,
+                                            targetHeight: 1500
                                             });
                 FmMobile.analysis.trackEvent("Button", "Click", "album", 1);
             }
@@ -124,9 +126,9 @@ FmMobile.template_pic_pg = {
                 navigator.camera.getPicture(gotoPhotoCropper, getPhotoFail,{
                                             quality: 50,
                                             destinationType: navigator.camera.DestinationType.FILE_URI,
-                                            sourceType: navigator.camera.PictureSourceType.CAMERA
-                                            //targetWidth: 1500,
-                                            //targetHeight: 1500
+                                            sourceType: navigator.camera.PictureSourceType.CAMERA,
+                                            targetWidth: 1500,
+                                            targetHeight: 1500
                                             });
                 FmMobile.analysis.trackEvent("Button", "Click", "camera", 1);
             }
