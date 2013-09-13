@@ -160,8 +160,8 @@ document.addEventListener("hidekeyboard", function() {
                                         quality: 50,
                                         destinationType: navigator.camera.DestinationType.FILE_URI,
                                         sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY,
-                                         targetWidth: 1500,
-                                            targetHeight: 1500
+                                        targetWidth: 1500,
+                                        targetHeight: 1500
                                         });
             FmMobile.analysis.trackEvent("Button", "Click", "album", 1);
         }
@@ -170,8 +170,8 @@ document.addEventListener("hidekeyboard", function() {
                                         quality: 50,
                                         destinationType: navigator.camera.DestinationType.FILE_URI,
                                         sourceType: navigator.camera.PictureSourceType.CAMERA,
-                                         targetWidth: 1500,
-                                            targetHeight: 1500
+                                        targetWidth: 1500,
+                                        targetHeight: 1500
                                         });
             FmMobile.analysis.trackEvent("Button", "Click", "camera", 1);
         }

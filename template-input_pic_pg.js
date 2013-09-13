@@ -65,7 +65,7 @@ FmMobile.template_pic_pg = {
             
             
             var getPhotoFail = function (message) {
-                //alert('没有選到相片，請再選一次！');
+                //alert('没�到��，�選一次�');
             }
             
             
@@ -116,6 +116,8 @@ FmMobile.template_pic_pg = {
                                             destinationType: navigator.camera.DestinationType.FILE_URI,
                                             sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY,
                                              targetWidth: 1500,
+                                            targetHeight: 1500
+                                            targetWidth: 1500,
                                             targetHeight: 1500
                                             });
                 FmMobile.analysis.trackEvent("Button", "Click", "album", 1);
