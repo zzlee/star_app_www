@@ -5,7 +5,7 @@ PAGE_ID: "template_pic_text_pg",
     //  Page methods.
 show: function(){
     FmMobile.analysis.trackPage("/template_pic_text_pg");
-    recordUserAction("enters template_pic_text_pg");
+//    recordUserAction("enters template_pic_text_pg");
     FmMobile.dummyDiv();
 },
     

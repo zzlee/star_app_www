@@ -285,7 +285,7 @@ FmMobile.init = {
 onBodyLoad: function(){
     
     FM_LOG("[Init.onDeviceReady]");
-   // document.addEventListener("deviceready", FmMobile.init.platformRotate, true);
+    document.addEventListener("deviceready", FmMobile.init.platformRotate, true);
     document.addEventListener("deviceready", FmMobile.analysis.init, true);
     document.addEventListener("deviceready", FmMobile.gcm.init, true);
     document.addEventListener("deviceready", FmMobile.apn.init, true);
@@ -340,7 +340,6 @@ onBodyLoad: function(){
     
 },
 
-/*
 platformRotate:function(){
 	if(device.platform == "Android"){
 		FmMobile.rotateValue=null;
@@ -350,7 +349,7 @@ platformRotate:function(){
 		   // alert(FmMobile.rotateValue);
 	
 },
-    */
+    
 onResume: function(){
     FM_LOG("[Init.onResume]");
 //    FmMobile.checkNetwork();
@@ -675,7 +674,7 @@ FmMobile.submitDooh = function(){
            navigator.notification.alert(res.message);
            $.jStorage.set("dooh_pid", null);
            }else {
-           navigator.notification.alert('���大螢幕失);
+           navigator.notification.alert('申請登上大螢幕失敗');
            console.log("[submitDooh]"+JSON.stringify(res));
            }
            });
@@ -770,17 +769,17 @@ FmMobile.gcm = {
 /** Check network status */
 FmMobile.checkNetwork = function(){
     FM_LOG("[checkNetwork]");
-//    var connectionType = null;
+    var connectionType = null;
 //    /*	In cordova2.2, navigator.network.connection.type replace with navigator.connection.type.
 //     *	It works on iOS, but Android can't. We need use <2.2 API to handle these issue.
 //     */
-//    if(device.platform == "Android"){
-//    	connectionType = navigator.network.connection.type;
-//    }else{
-//    	connectionType = navigator.connection.type;
-//    }
+    if(device.platform == "Android"){
+    	connectionType = navigator.network.connection.type;
+    }else{
+    	connectionType = navigator.connection.type;
+    }
 
-//    FM_LOG("[checkNetwork]Network Status : " + connectionType);
+    FM_LOG("[checkNetwork]Network Status : " + connectionType);
     
     
 //    var connectServerStatus = false;
@@ -856,7 +855,7 @@ FmMobile.apn = {
         FmMobile.pushNotification.getPendingNotifications(function(result) {
 //            FM_LOG("[pushNotification] " + JSON.stringify(result));
               /* result:
-                {"notifications":[{"messageFrom":"Miix.tv","applicationStateActive":"0","applicationLaunchNotification":"0","timestamp":1376554348.356165,"aps":{"alert":"��一�新影��,"sound":"ping.aiff","badge":1}}]
+                {"notifications":[{"messageFrom":"Miix.tv","applicationStateActive":"0","applicationLaunchNotification":"0","timestamp":1376554348.356165,"aps":{"alert":"您有一個新影片！","sound":"ping.aiff","badge":1}}]
                }
 
                */
@@ -1061,7 +1060,7 @@ init: function(){
                 FmMobile.userContent.thumbnail.url='https://graph.facebook.com/'+localStorage.fb_userID+'/picture/';
                
                 FmMobile.userContent.fb_name=localStorage.fb_name;
-               //localStorage.verified='true';//此��測試�話認��
+               //localStorage.verified='true';//此行為了測試電話認證！
                 FM_LOG("localStorage" + JSON.stringify(localStorage));
                
                    // Each time of Login, pull all videos.
@@ -1140,14 +1139,14 @@ postFbMessage:function(){
     access_token: localStorage.fb_accessToken,
     message: FmMobile.userContent.text,
     link:FmMobile.srcForMyUgcViewer,
-    name:"�是"+localStorage.fb_name+"�試�編+FmMobile.finishNumber+"作�，�機�台�天幕LED�出��大螢幕APP��,
-        //description:"上大��APP ��
+    name:"這是"+localStorage.fb_name+"的試鏡編號"+FmMobile.finishNumber+"作品，有機會在台北天幕LED播出。上大螢幕APP敬上。",
+        //description:"上大螢幕APP 敬上。"
    //picture:FmMobile.srcForMyUgcViewer,
     //privacy:{'value':'SELF'},
     
     };
     $.post(url,params, function(response){
-           //alert("已���);
+           //alert("已打卡！！");
            FmMobile.showNotification("share");
            var ugcProjectId=FmMobile.shareProjectID;
            
@@ -1186,9 +1185,9 @@ postFbMessage_live:function(){
     var post_hours=post_live_time.getHours();
     var post_pmAm;
     if(post_hours>12){
-        post_pmAm="下�";
+        post_pmAm="下午";
     }else{
-        post_pmAm="上�";
+        post_pmAm="上午";
     }
     var post_format_hour;
     if(post_hours>12){
@@ -1199,15 +1198,15 @@ postFbMessage_live:function(){
     
    var post_minute= post_live_time.getMinutes();
     
-    var timeString=post_year+"�+post_month+"+post_date+"+post_pmAm+post_format_hour+":"+post_minute;
-    var timeString_short=post_year+"�+post_month+"+post_date+";
+    var timeString=post_year+"年"+post_month+"月"+post_date+"日"+post_pmAm+post_format_hour+":"+post_minute;
+    var timeString_short=post_year+"年"+post_month+"月"+post_date+"日";
     //----- end of handle time
     
     var url_album = 'https://graph.facebook.com/me/albums';
     
     var params_album = {
     access_token: localStorage.fb_accessToken,
-    name:"實�記��+timeString_short+"���天�LED",
+    name:"實況記錄："+timeString_short+"登上台北天幕LED",
     message:FmMobile.userContent.text
     };
     
@@ -1235,25 +1234,25 @@ postFbMessage_live:function(){
                   
                   });
            
-           //alert("create album！�");
+           //alert("create album！！");
            var album_id=response.id;
            var url_photo='https://graph.facebook.com/'+album_id+'/photos';
            
            var params_photo_1={
            access_token: localStorage.fb_accessToken,
            url:FmMobile.srcForMyUgcViewer,
-           message:localStorage.fb_name+"+timeString+"，登上台�天幕LED，�謝�精���\n上大��APP粉絲��https://www.facebook.com/OnDaScreen"
+           message:localStorage.fb_name+"於"+timeString+"，登上台北天幕LED，感謝他精采的作品！\n上大螢幕APP粉絲團：https://www.facebook.com/OnDaScreen"
            
            };
            var params_photo_2={
            access_token: localStorage.fb_accessToken,
            url:FmMobile.longPhoto,
-            message:localStorage.fb_name+"+timeString+"，登上台�天幕LED，這是��登素�，天幕尺寸�100�尺x16�尺�\n上大��APP粉絲��https://www.facebook.com/OnDaScreen"
+            message:localStorage.fb_name+"於"+timeString+"，登上台北天幕LED，這是原始刊登素材，天幕尺寸：100公尺x16公尺。\n上大螢幕APP粉絲團：https://www.facebook.com/OnDaScreen"
            
            };
            
            $.post(url_photo,params_photo_1, function(response){
-                 // alert("已�！�");
+                 // alert("已打卡1！！");
                    FmMobile.showNotification("share");
                   
                   
@@ -1282,7 +1281,7 @@ postFbMessage_live:function(){
                   });
            
            $.post(url_photo,params_photo_2, function(response){
-                 // alert("已�！�");
+                 // alert("已打卡2！！");
                   
                   
                   var ugcProjectId=FmMobile.shareProjectID;
@@ -1323,9 +1322,9 @@ postFbVideoMessage_live:function(){
     var post_hours=post_live_time.getHours();
     var post_pmAm;
     if(post_hours>12){
-        post_pmAm="下�";
+        post_pmAm="下午";
     }else{
-        post_pmAm="上�";
+        post_pmAm="上午";
     }
     var post_format_hour;
     if(post_hours>12){
@@ -1336,8 +1335,8 @@ postFbVideoMessage_live:function(){
     
     var post_minute= post_live_time.getMinutes();
     
-    var timeString=post_year+"�+post_month+"+post_date+"+post_pmAm+post_format_hour+":"+post_minute;
-    var timeString_short=post_year+"�+post_month+"+post_date+";
+    var timeString=post_year+"年"+post_month+"月"+post_date+"日"+post_pmAm+post_format_hour+":"+post_minute;
+    var timeString_short=post_year+"年"+post_month+"月"+post_date+"日";
     //----- end of handle time
     
     var url = 'https://graph.facebook.com/me/feed';
@@ -1346,14 +1345,14 @@ postFbVideoMessage_live:function(){
     access_token: localStorage.fb_accessToken,
     message: FmMobile.userContent.text,
     link:FmMobile.youtubeVideoUrl,
-    name:localStorage.fb_name+"+timeString+"，登上台�天幕LED，�謝�精���",
-         description:"上大��APP粉絲��https://www.facebook.com/OnDaScreen"
+    name:localStorage.fb_name+"於"+timeString+"，登上台北天幕LED，感謝他精采的作品！",
+         description:"上大螢幕APP粉絲團：https://www.facebook.com/OnDaScreen"
         //picture:FmMobile.srcForMyUgcViewer,
     //privacy:{'value':'SELF'}
         
     };
     $.post(url,params, function(response){
-           //           alert("已���);
+           //           alert("已打卡！！");
            FmMobile.showNotification("share");
            
            var ugcProjectId=FmMobile.shareProjectID;
@@ -1386,14 +1385,14 @@ postFbVideoMessage:function(){
     access_token: localStorage.fb_accessToken,
     message: FmMobile.userContent.text,
     link:FmMobile.youtubeVideoUrl,
-        name:"�是"+localStorage.fb_name+"�試�編+FmMobile.finishNumber+"作�，�機�台�天幕LED�出��大螢幕APP��
-   // description:"上大��APP ��
+        name:"這是"+localStorage.fb_name+"的試鏡編號"+FmMobile.finishNumber+"作品，有機會在台北天幕LED播出。上大螢幕APP敬上。"
+   // description:"上大螢幕APP 敬上。"
         //picture:FmMobile.srcForMyUgcViewer,
         //privacy:{'value':'SELF'}
         
     };
     $.post(url,params, function(response){
-//           alert("已���);
+//           alert("已打卡！！");
            FmMobile.showNotification("share");
 
            var ugcProjectId=FmMobile.shareProjectID;
@@ -1421,7 +1420,7 @@ postFbVideoMessage:function(){
 postCheckinMessage:function(){
     var url = 'https://graph.facebook.com/me/feed';
     var params = {
-    name:"路�貴寶��"+localStorage.fb_name+"路��小巨��他�卡��在��天�LED�出，�大螢幕APP ��,
+    name:"路經貴寶地！"+localStorage.fb_name+"路過台北小巨蛋，他的打卡有機會在台北天幕LED播出，上大螢幕APP 敬上。",
     
     access_token: localStorage.fb_accessToken,
     //message: FmMobile.checkinTextForFB,
@@ -1432,7 +1431,7 @@ postCheckinMessage:function(){
         
     };
     $.post(url,params, function(response){
-//           alert("已���);
+//           alert("已打卡！！");
            FmMobile.showNotification("checkIn");
            var ugcProjectId=FmMobile.shareProjectID;
            
@@ -1500,7 +1499,7 @@ FmMobile.pushNotificationHandler = function(pushMsg){
     FM_LOG("[pushNotficationHandler] Message : " + pushMsg);
     FM_LOG("[pushNotficationHandler] isResume : " + FmMobile.isResume);
     switch(pushMsg){
-        case "��一�新影��:
+        case "您有一個新影片！":
             if(FmMobile.isResume && ($.mobile.activePage.attr('id') == "myUgcPg")){
                 if(FmMobile.myUgcPg.Type == "content"){
                     //isResume and my_ugc_pg(content)
@@ -1546,81 +1545,81 @@ FmMobile.Confirm = function(){
 
 FmMobile.showNotification = function(fun){
     FM_LOG("[showNotification] :" + fun );
-    var appName = "上大��";
+    var appName = "上大螢幕";
     
     switch(fun){
         case "uploadUgc":
-            navigator.notification.confirm("上傳完��, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("上傳完成！", FmMobile.Confirm(), appName, "確定");
             break;
         case "copyUrl":
-            navigator.notification.confirm("已�製��, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("已複製連結！", FmMobile.Confirm(), appName, "確定");
             break;
         case "error":
-            navigator.notification.confirm("�誤��，�知�們�", FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("錯誤發生，請通知我們！", FmMobile.Confirm(), appName, "確定");
             break;
         case "moreWords":
-            navigator.notification.confirm("超�每�制字數!", FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("超過每行限制字數!", FmMobile.Confirm(), appName, "確定");
             break;
         case "moreLines":
-            navigator.notification.confirm("超�3行��, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("超過3行囉！", FmMobile.Confirm(), appName, "確定");
             break;
         case "nullText":
-            navigator.notification.confirm("請輸��字�", FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("請輸入文字！", FmMobile.Confirm(), appName, "確定");
             break;
         case "newUgc":
-            navigator.notification.confirm("��一�新影��, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("您有一個新影片！", FmMobile.Confirm(), appName, "確定");
             break;
         case "informLiveTime":
-            navigator.notification.confirm("��件��上��, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("您的投件即將上映！", FmMobile.Confirm(), appName, "確定");
             break;
         case "settingQaSend":
-            navigator.notification.confirm("��已送出�, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("問題已送出！", FmMobile.Confirm(), appName, "確定");
             break;
         case "gpsDeny":
-            navigator.notification.confirm("完全沒�定�, �通�請至\n設�->��->定��\n交出你���, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("完全沒有定位, 想通時請至\n設定->隱私->定位服務\n交出你的坐標！", FmMobile.Confirm(), appName, "確定");
             break;
         case "gpsDenyAndroid":
-            navigator.notification.confirm("I can't see you...\n 麻煩��一下GPS,�到空�涼多��, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("I can't see you...\n 麻煩開啓一下GPS,或到空曠陰涼處,多謝！", FmMobile.Confirm(), appName, "確定");
             break;
         case "wrongPlace":
-            navigator.notification.confirm("�實你��巨�對吧...\n��市松山�京�路4殟\n歡�來��\n(請移�到���天幕�方)", FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("其實你不在小巨蛋對吧...\n臺北市松山區南京東路4段2號\n歡迎來打卡！\n(請移動到眼睛看得到天幕的地方)", FmMobile.Confirm(), appName, "確定");
             break;
         case "inAreaTextOver":
-            navigator.notification.confirm("超�三��第�行在天�上�不到��", FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("超過三行囉！第四行在天幕上看不到啦！", FmMobile.Confirm(), appName, "確定");
             break;
         case "enableNetwork":
-            navigator.notification.confirm("���逎�網路，�檢查��網路��, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("本服務必須連接網路，請檢查您的網路環境。", FmMobile.Confirm(), appName, "確定");
             break;
         case "uploadFailed":
-            navigator.notification.confirm("上傳失�，�新�試, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("上傳失敗，請重新再試。", FmMobile.Confirm(), appName, "確定");
             break;
         case "share":
-            navigator.notification.confirm("�享完��, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("分享完成！", FmMobile.Confirm(), appName, "確定");
             break;
         case "checkIn":
-            navigator.notification.confirm("已�在小巨���", FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("已成功在小巨蛋打卡！", FmMobile.Confirm(), appName, "確定");
             break;
         case "sendCode":
-            navigator.notification.confirm("認�碼已�出, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("認證碼已送出。", FmMobile.Confirm(), appName, "確定");
             break;
         case "reSendCode":
-            navigator.notification.confirm("請於三��發��次�證碼請�,謝��, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("請於三分鐘後再發送一次認證碼請求,謝謝！", FmMobile.Confirm(), appName, "確定");
             break;
         case "wrongPhoneNumber":
-            navigator.notification.confirm("��碼好�不是�這樣..請�輸, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("手機號碼好像不是長這樣喔...請重新輸入", FmMobile.Confirm(), appName, "確定");
             break;
         case "inputWrongCode":
-            navigator.notification.confirm("��認�碼�太�..請�輸, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("手機認證碼不太對喔...請重新輸入", FmMobile.Confirm(), appName, "確定");
             break;
         case "waitForCode":
-            navigator.notification.confirm("��碼�格！即將發��證碼4碼\n請��謝�", FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("手機號碼合格！即將發送認證碼4碼\n請稍候謝謝！", FmMobile.Confirm(), appName, "確定");
             break;
         case "codeVerifySuccess":
-            navigator.notification.confirm("��話認��！\n準�上大����, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm("恭喜電話認證成功！\n準備上大螢幕吧！！", FmMobile.Confirm(), appName, "確定");
             break;
         default:
 //            console.log("ShowNotification is not worked");
-            navigator.notification.confirm(fun, FmMobile.Confirm(), appName, "確�");
+            navigator.notification.confirm(fun, FmMobile.Confirm(), appName, "確定");
     }
     
 };
