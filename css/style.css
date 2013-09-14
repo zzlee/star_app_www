@@ -17,8 +17,9 @@ body{
 	background: -ms-linear-gradient(left,  #000000 0%,#970018 50%,#000000 100%); /* IE10+ */
 	background: linear-gradient(to right,  #000000 0%,#970018 50%,#000000 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000',GradientType=1 ); /* IE6-9 */
-	font-size:14pt;
+
 }
+
 
 @font-face {
     font-family:"kaiu";
@@ -391,19 +392,7 @@ padding:5% 5%;
 	overflow: auto;
 	background-image:url(../images/border_bg.png);
 }
-.login_content_login_toc_android{
-	padding:5% 5%;
-	margin:5%;
-	position:absolute;
-	height:65.5%;
-	font-size: 120%;
-	font-family:"kaiu";
-    text-shadow: none;
-	color: #000;
-	line-height: 120%;
-	overflow: auto;
-	background-image:url(../images/border_bg.png);
-}	
+	
 .apply_account_button{
 	top:95%;
 	position:absolute;
@@ -654,21 +643,6 @@ padding:5% 5%;
 	padding-bottom:2%;
     text-align: center;
 }
-.template_instruction1{
-	margin-top: 5%;
-	margin-left:5%;
-	/*width: 100%;*/
-	font-size: 125%;
-	font-family:"kaiu";
-        text-shadow: none;
-	color: #dcd586;
-	line-height: 125%;
-	padding-bottom:2%;
-        float:left;
-}
-.rotate{
-    width:100%;
-    }
 .text_input_readonly{
 	margin-left:35%;
 	width: 30%;
@@ -685,12 +659,10 @@ padding:5% 5%;
 	padding-bottom: 2%;
 }
 .text_input_bg{
-	border:10px solid transparent; 
+	border:10px solid transparent;
 	height:40%;
 	margin:4% 8%;
-	border-image:url(../images/text_input_border.png) 30 30 round; 
-	/* background-image:url(../images/text_input_border.png); */ 
-	/* background-size:100%,100%;*/
+	border-image:url(../images/text_input_border.png) 30 30 round;
 	width:80%;
 	}
 .button_text{
@@ -751,22 +723,6 @@ padding:5% 5%;
     top:11%;
     bottom:18%;
 	}
-.template_introduce-android{
-	padding: 5% 5%;
-    margin: 0% 2.5% 2.5% 2.5%;
-    position: fixed;
-    overflow: auto;
-    font-size: 120%;
- 	font-family:"kaiu";
-    color: #000;
-    line-height: 120%;
-    overflow: auto;
-    background-image: url(../images/border_bg.png);
-    z-index: 1;
-    text-shadow: none;
-    top:11%;
-    bottom:18%;
-}
 .close{
 	left: 82.5%;
 	top:7%;
@@ -854,21 +810,17 @@ padding:5% 5%;
 	color: #dcd586;
     }
 
-
 #ur_text{
     background-color:transparent;
-    /* border-color:transparent; */
-    border-color:#dcd586;
+    border-color:transparent;
     margin:0;
     color: #dcd586;
     width:100%;
     text-shadow: none;
     }
-    
 #checkin_text_1{
     background-color:transparent;
-    /* border-color:transparent; */
-    border-color:#dcd586;
+    border-color:transparent;
     margin:0;
     color: #dcd586;
     width:100%;
@@ -876,8 +828,7 @@ padding:5% 5%;
 }
 #checkin_text_2{
     background-color:transparent;
-    /* border-color:transparent; */
-    border-color:#dcd586;
+    border-color:transparent;
     margin:0;
     color: #dcd586;
     width:100%;
@@ -913,12 +864,6 @@ padding:5% 5%;
 }
 .my-video-icon-img{
 	width:100%;
-}
-.my-video-icon-img-rotate{
-    float:left;
-	width:8%;
-    margin-top:4.5%;
-    margin-left:4%;
 }
 
 .my-video-icon-img-phone-input{
@@ -1145,6 +1090,7 @@ hr{
 	font-family: "kaiu";
 	color: #000;
 	line-height: 150%;
+	overflow: auto;
 	background-image: url(../images/border_bg.png);
 	z-index: 0;
 	width: 75%;
@@ -1153,56 +1099,6 @@ hr{
     padding-top: 5%;
     padding-left: 8%;
     padding-right: 3.5%;
-}
-/** by Jean */
-.setting-content-android{
-	margin-left: 2.5%;
-	margin-right: 2.5%;
-	position: absolute;
-	overflow: auto;
-	font-size: 120%; 
-	/** background-image: url(../images/border_bg.png);*/
-	/** color: #000; */
-	color: #dcd586;  
-	font-family: "kaiu";
-	text-shadow: none;
-	line-height: 150%;
-	z-index: 0;
-	width: 75%;
-    top:11%;
-    bottom:21%;
-    padding-top: 5%;
-    padding-left: 8%;
-    padding-right: 10%;
-}
-
-/** by Jean */
-.setting-content-qa{
-	/** margin-left: 2.5%;*/
-	/* margin-right: 2.5%; */ 
-	position: absolute;
-	overflow: auto; 
-	font-size: 120%;
-	/** background-image: url(../images/border_bg.png); */
-	/** color: #000; */
-	background: #000000; /* Old browsers */
-	background: -moz-linear-gradient(left,  #000000 0%, #970018 50%, #000000 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#000000), color-stop(50%,#970018), color-stop(100%,#000000)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(left,  #000000 0%,#970018 50%,#000000 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(left,  #000000 0%,#970018 50%,#000000 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(left,  #000000 0%,#970018 50%,#000000 100%); /* IE10+ */
-	background: linear-gradient(to right,  #000000 0%,#970018 50%,#000000 100%); /* W3C */
-	color: #dcd586;  
-	font-family: "kaiu";
-	text-shadow: none;
-	line-height: 150%;
-	z-index: 0;
-	/* width: 75%; */
-    top:11%; 
-    /** bottom:21%; **/
-    padding-top: 5%;
-    padding-left: 8%;
-    padding-right: 10%;
 }
 .setting-headline{
 	text-shadow: none;
@@ -1237,11 +1133,10 @@ hr{
     text-shadow: none;
 	font-family:"kaiu";
     list-style-type:none;
-    color: #000;
+    color: #000;;
     text-decoration:none;
     line-height: 250%;
 }
-
 #settingList{
     background:none;
     text-shadow: none;
@@ -1261,8 +1156,7 @@ hr{
 }
     
 .setting{
-    color: #dcd586;
-}
+    color: #dcd586;}
 .form{
     padding-left:5%;
     padding-top:5%;
