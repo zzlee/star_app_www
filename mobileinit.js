@@ -1615,7 +1615,10 @@ FmMobile.openBrowser = function(url){
 //Set a dive under the Page
 FmMobile.dummyDiv = function(){
 //    FmMobile.analysis.trackPage("/dummyDiv");
+    var body_h = $('[data-role="page"]').height();
+    //alert(body_h);
     var paddingBottomDiv = $('[data-role="page"]').height() * 0.1847;
+    //alert(paddingBottomDiv);
     $('[data-role="content"]').attr({style:"padding-bottom:" + paddingBottomDiv + "px;"});
 };
 

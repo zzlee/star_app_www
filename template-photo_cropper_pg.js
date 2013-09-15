@@ -38,6 +38,8 @@ var HeightOfcustomizableImage = null;
 
 
 FmMobile.template_photoCropperPg = {
+    
+    
 
     //myPhotoCropper: null,
     stageAllowableWidth : 0,
@@ -47,6 +49,8 @@ FmMobile.template_photoCropperPg = {
     load : function(event, data) {
         FM_LOG("[template_photoCropperPg]load");
         $("#nav-bar").show();
+        
+        
         
         //get the dimension of customizable image 
         WidthOfCustomizableImage = null;
@@ -128,12 +132,19 @@ FmMobile.template_photoCropperPg = {
 
     show : function(event, data) {
         FM_LOG("[photoCropperPg]show");
+        
+        FmMobile.dummyDiv();
+        
         /*
         if ( (!WidthOfCustomizableImage) || (!HeightOfcustomizableImage) ) {
             return;
         }
 */
         //JF - image initial
+        
+
+        
+        
         canvas = document.getElementById('photoZoom');
         context = canvas.getContext('2d');
         image = new Image();
