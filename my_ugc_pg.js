@@ -333,11 +333,15 @@ FmMobile.myUgcPg = {
                 widgetPreview = $("<div>").attr({id: "preview_" + projectId, class: "content-movie-preview"});
                 dummyDivPreview.appendTo(widgetPreview);
                 var previewUrl = arryContents[i].PreviewUrl;
+                var divPreHight = 172 *0.06;
+                console.log('divPreHight ' + i + ' ' + divPreHight);
+                if(divPreHight)
                 Thumbnail = $("<img>").attr({
                                                         id: 'imgPreview_' + projectId,
                                                         src: previewUrl,
                                                         class: "content-movie-img",
-                                            title:number
+                                                        style: "margin-top:" + divPreHight + "px"
+//                                                        title:number
                                                         });
                 Thumbnail.appendTo(widgetPreview);
                 infoPreview.attr({style:"margin-bottom:26%;"});
@@ -434,12 +438,13 @@ FmMobile.myUgcPg = {
                     if(typeof(arryContents[i].Url) != "undefined"){
                         widget = $("<div>").attr({id: projectId, class: "content-movie-long"});
                         dummyDivLong.appendTo(widget);
-                        
+                        var divHight = $("#my-video-list>div").height() / 17;
                         var s3Url = arryContents[i].Url.s3;
                         Thumbnail = $("<img>").attr({
                                                               id: "imgS3_" +projectId,
                                                               src: s3Url,
-                                                              class: "content-movie-img-long"
+                                                              class: "content-movie-img-long",
+                                                    style:"margin-top:" + divHight + "px;"
                                                               });
                         
                         Thumbnail.appendTo(widget);
