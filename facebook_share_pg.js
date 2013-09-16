@@ -10,10 +10,11 @@ show: function(){
     
 init: function(){
     //test
-            $("#nav-bar").hide();
-            $('#youtubePlay').hide();
-            $('#shareFbPhoto').hide();
-            FmMobile.hideBack();
+        $("#nav-bar").hide();
+        $('#youtubePlay').hide();
+        $('#shareFbPhoto').hide();
+        FmMobile.hideBack();
+    
         if(FmMobile.shareFbType=="video"){
         	if(FmMobile.myUgcPg.Type == "live"){
         		FmMobile.analysis.trackEvent("Content", "Share", "liveVideo", 2 );	
@@ -25,13 +26,13 @@ init: function(){
         }else if(FmMobile.shareFbType=="image"){
             if(FmMobile.myUgcPg.Type == "live"){
             	FmMobile.analysis.trackEvent("Content", "Share", "liveImage", 2 );
-                $('#shareFbPhoto').attr({src:FmMobile.srcForMyUgcViewer, style: "height: 90%;"});
+                $('#shareFbPhoto').attr({src:FmMobile.srcForMyUgcViewer, style: "height: 90%;margin-top:10.32px"});
             }else{
                 var checkImgType = FmMobile.srcForMyUgcViewer.split('_');
                 if(checkImgType[checkImgType.length - 1] != "preview.png"){
                 	FmMobile.analysis.trackEvent("Content", "Share", "longImage", 2 );
                     var shareContent = $("#share_content");
-                    shareContent.attr({class: "content-movie-long",style:"margin-bottom:0;margin-top:0;"});
+                    shareContent.attr({class: "content-movie-long",style:"margin-bottom:0;margin-top:0px;"});
                     shareContent.html("");
                     var dummyDivLong = $("<div>").attr({class:"movie-pic-dummy-long"});
     //                var widget = $("<div>").attr({class: "content-movie-long"});
@@ -40,14 +41,15 @@ init: function(){
                     this.imageThumbnail = $("<img>").attr({
                                                           id: "shareFbPhoto",
                                                           src: FmMobile.srcForMyUgcViewer,
-                                                          class: "content-movie-img-long"
+                                                          class: "content-movie-img-long",
+                                                          style: "margin-top:7.41px"
                                                           });
                     
                     this.imageThumbnail.appendTo(shareContent);
                     
                 }else{
                 	FmMobile.analysis.trackEvent("Content", "Share", "previewImage", 2 );
-                    $('#shareFbPhoto').attr({src:FmMobile.srcForMyUgcViewer});
+                    $('#shareFbPhoto').attr({src:FmMobile.srcForMyUgcViewer, style: "margin-top:10.32px"});
                 }
 
 //                $('#shareFbPhoto').attr({src:FmMobile.srcForMyUgcViewer});
