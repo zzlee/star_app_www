@@ -334,8 +334,8 @@ FmMobile.myUgcPg = {
                 dummyDivPreview.appendTo(widgetPreview);
                 var previewUrl = arryContents[i].PreviewUrl;
                 var divPreHight = 172 *0.06;
-                console.log('divPreHight ' + i + ' ' + divPreHight);
-                if(divPreHight)
+//                console.log('divPreHight ' + i + ' ' + divPreHight);
+//                if(divPreHight)
                 Thumbnail = $("<img>").attr({
                                                         id: 'imgPreview_' + projectId,
                                                         src: previewUrl,
