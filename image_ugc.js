@@ -239,9 +239,11 @@ ImageUgc = (function(){
                 bgImage = new Image();
                 bgImage.src = template.backgroundImageUrl; //TODO: TemplateMgr output cleaner url
                 bgImage.onload = function(){
-                    ugcCanvas.width = bgImage.width;
-                    ugcCanvas.height = bgImage.height;
-                    context.drawImage(bgImage,0,0);
+                    //ugcCanvas.width = bgImage.width;
+                    //ugcCanvas.height = bgImage.height;
+                      ugcCanvas.width = 1743;
+                      ugcCanvas.height = 260;
+                    context.drawImage(bgImage,0,0,1743,260);
                     callback(null);
                 };
                 bgImage.onerror = function(){

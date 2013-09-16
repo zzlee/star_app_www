@@ -80,9 +80,18 @@ DoohPreview = (function(){
                 bgImage.src = doohPreviewTemplate.backgroundImageUrl;
                 bgImage.onload = function(){
                     //console.log("bgImage.width="+bgImage.width+"  bgImage.height="+bgImage.height);
-                    doohPreviewCanvas.width = bgImage.width;
-                    doohPreviewCanvas.height = bgImage.height;
-                    context.drawImage(bgImage,0,0);
+                   // doohPreviewCanvas.width = bgImage.width;
+                    //doohPreviewCanvas.height = bgImage.height;
+                      
+                      if(FmMobile.selectedTemplate=="miix_it"){
+                      doohPreviewCanvas.width = 720;
+                      doohPreviewCanvas.height = 405;
+                      context.drawImage(bgImage,0,0,720,405);
+                      }else{
+                      doohPreviewCanvas.width = 1334;
+                      doohPreviewCanvas.height = 750;
+                    context.drawImage(bgImage,0,0,1334,750);
+                      }
                     callback(null);
                 };
                 bgImage.onerror = function(){
