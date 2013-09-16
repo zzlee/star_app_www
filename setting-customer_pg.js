@@ -56,6 +56,7 @@ FmMobile.customerQuestionPg = {
                                                        $('#input_id').val("");
                                                        
                                                        $('#question_text').val("");
+                                                       $.mobile.changePage("setting-main.html");
                                                        console.log(result);
                                                        });
                                                                     }//End of CheckNetwork

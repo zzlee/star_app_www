@@ -133,19 +133,8 @@ overflow-x: visible;
 
 #imgZoomViewerPg{
 
-background: #000000; /* Old browsers */
-	background: #000000; /* FF3.6+ */
-	background: #000000; /* Chrome,Safari4+ */
-	background: #000000; /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(left,  #000000 0%,#970018 50%,#000000 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(left,  #000000 0%,#970018 50%,#000000 100%); /* IE10+ */
-	background: linear-gradient(to right,  #000000 0%,#970018 50%,#000000 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000',GradientType=1 ); /* IE6-9 */
-    background-repeat: repeat-y;
-    background-size: 100%;
-/*background-size: contain;*/
-    
-/*width:320px;*/
+background: #000000; 
+
 
 }
 
@@ -571,6 +560,17 @@ padding:5% 5%;
 	width:95%;
 		margin-left:3%;
 }
+
+.content-movie-img_youtube{
+  position:absolute;
+	top: 3.5%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+	width:95%;
+	margin-left:2.5%;
+}
+
 .content-movie-img-long{
     position:absolute;
 	top: 0;

@@ -72,17 +72,19 @@ init: function(){
 
    
     $("#ur_text").bind("blur",function(){
-    	
+    	// $("#nav-bar").show();
     	 
     	  
                        textForUgcUtility= $("#ur_text").val().replace(/\n/g,"<n>");
                        FmMobile.userContent.text=textForUgcUtility;
                        });
-                       
+
+   
+   
                        
               
-    FmMobile.hideKeyboard();
-    FmMobile.showKeyboard();
+    //FmMobile.hideKeyboard();
+    //FmMobile.showKeyboard();
        
                       
 /** Move codes to mobileinit*/
