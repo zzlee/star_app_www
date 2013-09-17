@@ -9,7 +9,6 @@ PAGE_ID: "template_mainTemplatePg",
     },
         
     init: function(){
-        
         FmMobile.myUgcScroll_y=0;
             TemplateMgr.getInstance(function(err, _templateMgr){
             if (!err) {

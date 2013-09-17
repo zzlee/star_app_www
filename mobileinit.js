@@ -85,14 +85,19 @@ $(document).bind("mobileinit", function(){
                  $("map > #mapAreaBack").live("click",FmMobile.orientationPg.swiperight);
                  $("map > #mapAreaNext").live("click",FmMobile.orientationPg.swipeleft);
                  
+                 $('#goOrientation1').live("click",function(){
+                                           $.mobile.changePage("orientation_1.html");
+                                           });
                  $('#goOrientation2').live("click",function(){
                                            $.mobile.changePage("orientation_2.html");
                                            FmMobile.analysis.trackPage("/orientation2");
 
                                            });
-                 $('#goOrientation1').live("click",function(){
-                                           $.mobile.changePage("orientation_1.html");
+                 $('#goOrientation3').live("click", function(){
+                                           $.mobile.changePage("orientation_3.html");
+                                           FmMobile.analysis.trackPage("/orientation3");
                                            });
+
                  $('#goVerifyPage').live("click",function(){
                                          if(!(localStorage.fb_userID && localStorage.verified=='true'))
                                          {
@@ -123,12 +128,12 @@ $(document).bind("mobileinit", function(){
                  $("#indexPg").live("pageinit", FmMobile.indexPg.init);
                  $("#indexPg").live("pagebeforeshow", FmMobile.indexPg.beforeshow);
                  $("#indexPg").live("pageshow", FmMobile.indexPg.show);
-                 $("#orie_0").live("pagebeforeshow", FmMobile.orientationPg.init);
-                 $("#orie_0").live("pageshow", FmMobile.orientationPg.show);
-//                 $("#orie_1").live("pagebeforeshow", FmMobile.orientationPg.init);
-//                 $("#orie_1").live("pageshow", FmMobile.orientationPg.show);
-                 $('div[id^="orie"]').live("swipeleft ", FmMobile.orientationPg.swipeleft);
-                 $('div[id^="orie"]').live("swiperight", FmMobile.orientationPg.swiperight);
+//                 $("#orie_0").live("pagebeforeshow", FmMobile.orientationPg.init);
+//                 $("#orie_0").live("pageshow", FmMobile.orientationPg.show);
+                 $("#orie_1").live("pagebeforeshow", FmMobile.orientationPg.init);
+                 $("#orie_1").live("pageshow", FmMobile.orientationPg.show);
+//                 $('div[id^="orie"]').live("swipeleft ", FmMobile.orientationPg.swipeleft);
+//                 $('div[id^="orie"]').live("swiperight", FmMobile.orientationPg.swiperight);
                  $('div[id^="orie"]').live("pageshow", function(){
                                           // alert(FmMobile.or_pic_height);
         $('#mapAreaBack').attr("coords","0,"+((FmMobile.or_pic_height)*0.5)+","+((FmMobile.or_pic_height)*0.25)+'"');
@@ -1615,11 +1620,14 @@ FmMobile.openBrowser = function(url){
 //Set a dive under the Page
 FmMobile.dummyDiv = function(){
 //    FmMobile.analysis.trackPage("/dummyDiv");
+
     var body_h = $('[data-role="page"]').height();
     //alert(body_h);
     var paddingBottomDiv = $('[data-role="page"]').height() * 0.1847;
+
     //alert(paddingBottomDiv);
     $('[data-role="content"]').attr({style:"padding-bottom:" + paddingBottomDiv + "px;"});
+    
 };
 
 //Hide keyboard for Android

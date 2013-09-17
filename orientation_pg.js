@@ -25,7 +25,7 @@ FmMobile.orientationPg = {
         
     swiperight: function(){
         if( --FmMobile.orientationPg.idx < 1){
-       		FmMobile.orientationPg.idx = 0;
+       		FmMobile.orientationPg.idx = 1;
         }else{
             $.mobile.changePage(("orientation_" + FmMobile.orientationPg.idx+".html")
                                 , { transition: "slide",
@@ -35,7 +35,7 @@ FmMobile.orientationPg = {
     
     init: function(){
         
-   		FmMobile.orientationPg.idx = 0;
+   		FmMobile.orientationPg.idx = 1;
 //   		FmMobile.orientationPg.max = 3;
         $('#nav-bar').hide();
         
