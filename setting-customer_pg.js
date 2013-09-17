@@ -9,6 +9,31 @@ FmMobile.customerQuestionPg = {
     init: function(){
 //    	FmMobile.changeBackground();
     	FmMobile.dummyDiv();
+        
+        $('#select').bind("tap",function(){
+                          $('#nav-bar').hide();
+                          });
+        $('#question_text').bind("tap",function(){
+                          $('#nav-bar').hide();
+                          });
+        $('#input_id').bind("tap",function(){
+                          $('#nav-bar').hide();
+                          });
+
+
+        $('#select').bind("blur",function(){
+                          $('#nav-bar').show();
+                          });
+        $('#question_text').bind("blur",function(){
+                                 $('#nav-bar').show();
+                                 });
+        $('#input_id').bind("blur",function(){
+                            $('#nav-bar').show();
+                            });
+        
+
+        
+        
     	if(device.platform == "Android"){
     		$("div[class^='setting-content']").attr({class:"setting-content-qa",style:"padding-bottom:24%;"});
     	}

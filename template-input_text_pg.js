@@ -72,7 +72,7 @@ init: function(){
 
    
     $("#ur_text").bind("blur",function(){
-    	// $("#nav-bar").show();
+    	 $("#nav-bar").show();
     	 
     	  
                        textForUgcUtility= $("#ur_text").val().replace(/\n/g,"<n>");
@@ -80,7 +80,11 @@ init: function(){
                        });
 
    
-   
+    $("#ur_text").bind("tap",function(e){
+                       
+                       $("#nav-bar").hide();
+                       //return false;
+                       });
                        
               
     //FmMobile.hideKeyboard();
