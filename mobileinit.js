@@ -1623,9 +1623,16 @@ FmMobile.dummyDiv = function(){
 
     var body_h = $('[data-role="page"]').height();
     //alert(body_h);
+    console.log("platfomr = " + device.platform );
+    console.log("version = " + device.version);
     var paddingBottomDiv = $('[data-role="page"]').height() * 0.1847;
+    if(device.platform != "Android"){
+        if(device.version > "6"){
+            $('[data-role="page"]').attr({style: "margin-top:20px"});
+            paddingBottomDiv = paddingBottomDiv - 20;
+        }
+    }
 
-    //alert(paddingBottomDiv);
     $('[data-role="content"]').attr({style:"padding-bottom:" + paddingBottomDiv + "px;"});
     
 };
@@ -1668,4 +1675,13 @@ FmMobile.changeIntroduceBackground = function(){
 		$("div[class^='template_introduce']").attr({class:"template_introduce-android"});
 	}
 	
+};
+
+FmMobile.statusBar = function(){
+    FM_LOG("[statusBar]");
+    if(device.platform != "Android"){
+        if(device.version > "6"){
+            
+        }
+    }
 };
