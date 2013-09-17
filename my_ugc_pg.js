@@ -527,6 +527,7 @@ FmMobile.myUgcPg = {
                                                           setTimeout(function(){
                                                                      callPlayer(ytVideoID,'playVideo');
                                                                      }, 1500);
+                                                                      FmMobile.addDivFor7=true;
                                                           });
 
                 var callPlayer = function (frame_id, func, args) {

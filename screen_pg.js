@@ -274,6 +274,7 @@ FmMobile.screenPg = {
                                                       setTimeout(function(){
                                                                  callPlayer(ytVideoID,'playVideo');
                                                                  }, 1500);
+                                                                  FmMobile.addDivFor7=true;
                                                       });
 
             $('#'+divID).prepend(videoFrame);

@@ -61,13 +61,19 @@ FmMobile.liveType;
 
 
 //--------------------------
-
+FmMobile.addDivFor7=false;
 
 FmMobile.forCropperRotateVal;
 
 var templateMgr = null;
 
+
+
 $(document).bind("mobileinit", function(){
+                 
+                 
+                
+                 
                  // Initialization Code here.
                  // $.mobile.ns = "fm";
                  $.mobile.allowCrossDomainPages = true;
@@ -124,7 +130,11 @@ $(document).bind("mobileinit", function(){
                         FmMobile.openBrowser(url);
                     }
                 });
-
+                 $('#btnUseCamera').live("click", function(){
+                                         FmMobile.addDivFor7=true;
+                });
+                 
+                 
                  $("#indexPg").live("pageinit", FmMobile.indexPg.init);
                  $("#indexPg").live("pagebeforeshow", FmMobile.indexPg.beforeshow);
                  $("#indexPg").live("pageshow", FmMobile.indexPg.show);
@@ -928,6 +938,10 @@ FmMobile.apn = {
  *  Platform : Android and iOS 
  * */
 FmMobile.analysis = {
+    
+    
+    
+    
 	    
 	    nativePluginResultHandler: function(result){
 	        FM_LOG("[analysis.resultHandler] " + result);
@@ -968,6 +982,8 @@ FmMobile.analysis = {
 	    },
 	    
 	    trackPage: function(url){
+            
+            
 	    	FM_LOG("[analysis.trackPage] url :" + url);
 	    	FmMobile.ga.trackPage(FmMobile.analysis.nativePluginResultHandler, FmMobile.analysis.nativePluginErrorHandler, url);
 	    },
@@ -1619,19 +1635,37 @@ FmMobile.openBrowser = function(url){
 
 //Set a dive under the Page
 FmMobile.dummyDiv = function(){
+    
+    //var addDiv=$("<div>").attr({id:"forStatusTest"});
+    //var test=$('[data-role="page"]');
+     //$('[data-role="page"]').prependTo(addDiv);
+   //addDiv.prependTo( $('[data-role="page"]'));
+   
+
 //    FmMobile.analysis.trackPage("/dummyDiv");
 
+    //alert(aa);
     var body_h = $('[data-role="page"]').height();
     //alert(body_h);
     console.log("platfomr = " + device.platform );
     console.log("version = " + device.version);
     var paddingBottomDiv = $('[data-role="page"]').height() * 0.1847;
+    //alert(FmMobile.addDivFor7);
+    if(FmMobile.addDivFor7){
     if(device.platform != "Android"){
         if(device.version > "6"){
-            $('[data-role="page"]').attr({style: "margin-top:20px"});
-            paddingBottomDiv = paddingBottomDiv - 20;
+            
+            var addDiv=$("<div>").attr({id:"forStatusTest",style: "margin-top:20px"});
+
+            addDiv.prependTo( $('[data-role="page"]'));
+            
+ //$('#forStatusTest').attr({style: "margin-top:20px"});
+            paddingBottomDiv = paddingBottomDiv;
         }
     }
+    }
+    //var bb=$('#forStatusTest').offset().top;
+    //alert(bb);
 
     $('[data-role="content"]').attr({style:"padding-bottom:" + paddingBottomDiv + "px;"});
     

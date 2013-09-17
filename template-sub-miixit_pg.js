@@ -2,12 +2,25 @@ FmMobile.template_miixitPg = {
 PAGE_ID: "template_miixitPg",
     
 show: function(){
+     FmMobile.dummyDiv();
     FmMobile.analysis.trackPage("/template_miixitPg");
 //    recordUserAction("enters template_miixitPg");
     //$('.content-movie-img').attr("height",$('.content-movie-img').width()/757*439);
 },
     
 init: function(){
+    $("#video_iOS").bind("durationchange", function() {
+                   // alert("Current duration is: " + this.duration);
+                         FmMobile.addDivFor7=true;
+                    });
+    
+    /*
+    $("#video_iOS").bind("tap",function(){
+                         
+                         FmMobile.addDivFor7=true;
+
+                         });
+    */
     
     $('#nav-bar').show();
     FmMobile.changeIntroduceBackground();
