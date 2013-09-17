@@ -17,13 +17,13 @@ FmMobile.indexPg = {
         
     show: function(){
         FM_LOG("[indexPg.show]");
-        console.dir(localStorage);
+//        console.dir(localStorage);
         if(localStorage.fb_userID && localStorage.verified=='true'){
             $.mobile.changePage("template-main_template.html");
             
         }
         else {
-       		$.mobile.changePage("orientation_0.html");	
+       		$.mobile.changePage("orientation_1.html");	
             
         }
 

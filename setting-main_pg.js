@@ -22,11 +22,7 @@ FmMobile.setting_MainPg = {
 			}else if(this.id=="itemFAQ"){
 				$.mobile.changePage("setting-faq.html");
 			}else if (this.id == "itemOrientation") {
-				if(device.platform == "Android"){
-					$.mobile.changePage("orientation_1.html");
-				}else{
-					$.mobile.changePage("orientation_0.html");
-				}
+                $.mobile.changePage("orientation_1.html");
 			}
                                   
             else if (this.id == "itemAboutMiixIt"){
