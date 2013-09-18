@@ -16,6 +16,7 @@ init: function(){
 },
     
 show: function(){
+    FmMobile.headerCSS();
     FmMobile.analysis.trackPage("/fbLogoutPg");
 //    recordUserAction("enters fbLogoutPg");
 }

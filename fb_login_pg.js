@@ -11,6 +11,7 @@ FmMobile.fbLoginPg = {
     },
 
     show: function(){
+        FmMobile.headerCSS();
         FmMobile.analysis.trackPage("/fbLoginPg");
 //        recordUserAction("enters fbLoginPg");
     }

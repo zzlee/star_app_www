@@ -1712,8 +1712,10 @@ FmMobile.headerCSS = function(){
             var addDiv=$("<div>").attr({id:"forStatusTest",style: "margin-top:17px"});
             addDiv.prependTo( $('[data-role="page"]'));
             $('[class="header_bg"]').attr({style: "top: -5px;"});
-            $('[class="setting-content"]').attr({style: "top: 16%; padding-top: 0%;"});
-            
+            //fbLoginPg,fbLogoutPg
+            if(($.mobile.activePage.attr('id') != "fbLoginPg") || ($.mobile.activePage.attr('id') != "fbLogoutPg")){
+                $('[class="setting-content"]').attr({style: "top: 16%; padding-top: 0%;"});
+            }
         }
         
     }
