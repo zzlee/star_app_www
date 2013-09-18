@@ -2,6 +2,7 @@ FmMobile.settingTermPg = {
 PAGE_ID: "settingTermPg",
     
 show: function(){
+    FmMobile.headerCSS();
     FmMobile.analysis.trackPage("/settingTermPg");
 //    recordUserAction("enters settingTermPg");
 },

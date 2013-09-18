@@ -2,6 +2,7 @@ FmMobile.settingAboutPg = {
     PAGE_ID: "settingAboutPg",
         
     show: function(){
+        FmMobile.headerCSS();
         FmMobile.analysis.trackPage("/settingAboutPg");
 //        recordUserAction("enters settingAboutPg");
     },

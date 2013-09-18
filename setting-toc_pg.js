@@ -2,6 +2,7 @@ FmMobile.settingTocPg = {
 PAGE_ID: "settingTocPg",
     
 show: function(){
+    FmMobile.headerCSS();
     FmMobile.analysis.trackPage("/settingTocPg");
 //    recordUserAction("enters settingTocPg");
 },

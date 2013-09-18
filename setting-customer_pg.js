@@ -2,6 +2,7 @@ FmMobile.customerQuestionPg = {
     PAGE_ID: "customerQuestionPg",
         
     show: function(){
+        FmMobile.headerCSS();
         FmMobile.analysis.trackPage("/customerQuestionPg");
 //        recordUserAction("enters customerQuestionPg");
     },
