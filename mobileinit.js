@@ -1719,3 +1719,14 @@ FmMobile.statusBar = function(){
         }
     }
 };
+
+FmMobile.headerCSS = function(){
+    FM_LOG("[headerCSS]");
+    if(FmMobile.addDivFor7){
+        if( (device.platform != "Android") && (device.version >= "7")){
+            var addDiv=$("<div>").attr({id:"forStatusTest",style: "margin-top:15px"});
+            addDiv.prependTo( $('[data-role="page"]'));
+        }
+        
+    }
+};
