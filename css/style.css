@@ -79,8 +79,7 @@ body{
 	width:100%;
     /* position:fixed; */
     position:relative;
-    /* top:6.3%; */
-    top: -12px;
+    top:-5px;
 	z-index:2;
     }
 .header_bg_img{

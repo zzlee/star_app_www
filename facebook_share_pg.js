@@ -2,6 +2,7 @@ FmMobile.facebookSharePg = {
 PAGE_ID: "facebookSharePg",
     
 show: function(){
+    FmMobile.headerCSS();
     FmMobile.analysis.trackPage("/facebookSharePg");
 //    recordUserAction("enters facebookSharePg");
     

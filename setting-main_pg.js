@@ -5,6 +5,7 @@ FmMobile.setting_MainPg = {
     	if(device.platform == "Android"){
     		$("a").attr({style:"color:#dcd586;"});
     	}
+        
         $('body').css({
                       "position":""
                       });

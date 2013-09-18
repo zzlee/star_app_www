@@ -1644,6 +1644,7 @@ FmMobile.dummyDiv = function(){
     if(FmMobile.addDivFor7){ //use native app or not
         if(device.platform != "Android"){
             if(device.version > "7"){
+                //alert("a");
                 var addDiv=$("<div>").attr({id:"forStatusTest",style: "margin-top:20px"});
                 addDiv.prependTo( $('[data-role="page"]'));
                 paddingBottomDiv = paddingBottomDiv;
@@ -1713,7 +1714,8 @@ FmMobile.headerCSS = function(){
             addDiv.prependTo( $('[data-role="page"]'));
             $('[class="header_bg"]').attr({style: "top: -5px;"});
             //fbLoginPg,fbLogoutPg
-            if(($.mobile.activePage.attr('id') != "fbLoginPg") || ($.mobile.activePage.attr('id') != "fbLogoutPg")){
+            if(($.mobile.activePage.attr('id') != "fbLoginPg") || ($.mobile.activePage.attr('id') != "fbLogoutPg")
+               || ($.mobile.activePage.attr('id') !="facebookSharePg")){
                 $('[class="setting-content"]').attr({style: "top: 16%; padding-top: 0%;"});
             }
         }
