@@ -86,6 +86,33 @@ FmMobile.template_checkinPg = {
          $('#checkin_text_2').val("各位有請了");
         
         
+        
+        $("#checkin_text_1").bind("tap",function(e){
+                           
+                           $("#nav-bar").hide();
+                           //return false;
+                           });
+        
+        $("#checkin_text_2").bind("tap",function(e){
+                           
+                           $("#nav-bar").hide();
+                           //return false;
+                           });
+        
+        $("#checkin_text_1").bind("blur",function(e){
+                                  
+                                  $("#nav-bar").show();
+                                  //return false;
+                                  });
+        $("#checkin_text_1").bind("blur",function(e){
+                                  
+                                  $("#nav-bar").show();
+                                  //return false;
+                                  });
+
+
+
+
         /*
         $('#back_main').click(function(){
                   $.mobile.changePage("template-main_template.html");

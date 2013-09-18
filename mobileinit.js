@@ -61,7 +61,7 @@ FmMobile.liveType;
 
 
 //--------------------------
-FmMobile.addDivFor7=false;
+FmMobile.addDivFor7=false; //determine use ios7 natve app or not (camera, video)
 
 FmMobile.forCropperRotateVal;
 
@@ -189,7 +189,6 @@ $('#mapAreaNext').attr("coords","'"+FmMobile.or_pic_width+","+((FmMobile.or_pic_
                  
                  //$("#fullPageViewerPg").live("pageinit", FmMobile.fullPageViewerPg.load);
                  //$("#fullPageViewerPg").live("pageshow", FmMobile.fullPageViewerPg.show);
-                 
                  $("#template_mainTemplatePg").live("pageinit", FmMobile.template_mainTemplatePg.init);
                  $("#template_mainTemplatePg").live("pageshow", FmMobile.template_mainTemplatePg.show);
                  $("#template_subTemplatePg").live("pageinit", FmMobile.template_subTemplatePg.init);
@@ -278,8 +277,8 @@ FmMobile.userContent = {
 			crop: {_x:0, _y:0, _w:0, _h:0},  // _x=x_crop/width_picture; _y=y_crop/height_picture; _w=width_crop/width_picture;  _h=height_crop/height_picture
 		},
 		thumbnail:{
-			url:'https://graph.facebook.com/'+localStorage.fb_userID+'/picture?width=200&height=200'
-    
+			url:'https://graph.facebook.com/'+localStorage.fb_userID+'/picture?width=160&height=160'
+  //  url:'https://graph.facebook.com/'+localStorage.fb_userID+'/picture?width=200&height=200'
 		}
 };
 FmMobile.imageUgc = null;
@@ -1636,37 +1635,23 @@ FmMobile.openBrowser = function(url){
 //Set a dive under the Page
 FmMobile.dummyDiv = function(){
     
-    //var addDiv=$("<div>").attr({id:"forStatusTest"});
-    //var test=$('[data-role="page"]');
-     //$('[data-role="page"]').prependTo(addDiv);
-   //addDiv.prependTo( $('[data-role="page"]'));
-   
-
-//    FmMobile.analysis.trackPage("/dummyDiv");
-
-    //alert(aa);
-    var body_h = $('[data-role="page"]').height();
-    //alert(body_h);
     console.log("platfomr = " + device.platform );
     console.log("version = " + device.version);
+    
     var paddingBottomDiv = $('[data-role="page"]').height() * 0.1847;
-    //alert(FmMobile.addDivFor7);
-    if(FmMobile.addDivFor7){
-    if(device.platform != "Android"){
-        if(device.version > "6"){
-            
-            var addDiv=$("<div>").attr({id:"forStatusTest",style: "margin-top:20px"});
-
-            addDiv.prependTo( $('[data-role="page"]'));
-            
- //$('#forStatusTest').attr({style: "margin-top:20px"});
-            paddingBottomDiv = paddingBottomDiv;
+    
+/*-------------- add dummy to fixed ios7 status bar  --------------*/
+    if(FmMobile.addDivFor7){ //use native app or not
+        if(device.platform != "Android"){
+            if(device.version > "7"){
+                var addDiv=$("<div>").attr({id:"forStatusTest",style: "margin-top:20px"});
+                addDiv.prependTo( $('[data-role="page"]'));
+                paddingBottomDiv = paddingBottomDiv;
+            }
         }
     }
-    }
-    //var bb=$('#forStatusTest').offset().top;
-    //alert(bb);
-
+/*-------------- end of add dummy to fixed ios7 status bar  --------------*/
+    
     $('[data-role="content"]').attr({style:"padding-bottom:" + paddingBottomDiv + "px;"});
     
 };

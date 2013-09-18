@@ -30,8 +30,14 @@ document.addEventListener("hidekeyboard", function() {
     var textForUgcUtility;
     
     $("#ur_text").bind("blur",function(){
+                        $("#nav-bar").show();
                        textForUgcUtility= $("#ur_text").val().replace(/\n/g,"<n>");
                        FmMobile.userContent.text=textForUgcUtility;
+                       });
+    
+    
+    $("#ur_text").bind("tap",function(){
+                      $("#nav-bar").hide();
                        });
     
     
@@ -46,7 +52,7 @@ document.addEventListener("hidekeyboard", function() {
                         }
                         });
    
-    $("#nav-bar").show();
+    //$("#nav-bar").show();
     
     
     $("#back_main").click(function(){

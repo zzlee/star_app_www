@@ -81,6 +81,7 @@ FmMobile.template_pic_pg = {
                     tempImg.onload = function() {
                         EXIF.getData( tempImg, function(){
                                      var orientation = EXIF.getTag(tempImg, "Orientation");
+                                     //alert(orientation);
                                      subsamplingResize(imageURI, { maxWidth: 960, maxHeight: 960, orientation: orientation }, function(resultURI){
                                                        fileProcessedForCropperURI = resultURI;
                                                        $.mobile.changePage("template-photo_cropper.html");
@@ -106,7 +107,7 @@ FmMobile.template_pic_pg = {
                         
                     }; 
                 }
-                console.log("version="+device.version);
+                console.log("version="+device.platform+"\n"+device.version);
                 
             };
             
