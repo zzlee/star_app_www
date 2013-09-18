@@ -42,7 +42,8 @@ FmMobile.setting_MainPg = {
     },
     
     show: function(){
-        FmMobile.dummyDiv();
+//        FmMobile.dummyDiv();
+        FmMobile.headerCSS();
         FmMobile.analysis.trackPage("/setting_MainPg");
 //        recordUserAction("enters setting_MainPg");
     },

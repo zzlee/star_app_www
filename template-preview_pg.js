@@ -5,6 +5,7 @@ FmMobile.template_previewPg = {
         FmMobile.analysis.trackPage("/template_previewPg");
 //        recordUserAction("enters template_previewPg");
         FmMobile.dummyDiv();
+        $(".container_withheader").css({"margin-top":0});
     },
 
     init : function() {

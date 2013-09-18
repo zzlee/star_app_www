@@ -189,7 +189,6 @@ $('#mapAreaNext').attr("coords","'"+FmMobile.or_pic_width+","+((FmMobile.or_pic_
                  
                  //$("#fullPageViewerPg").live("pageinit", FmMobile.fullPageViewerPg.load);
                  //$("#fullPageViewerPg").live("pageshow", FmMobile.fullPageViewerPg.show);
-                 
                  $("#template_mainTemplatePg").live("pageinit", FmMobile.template_mainTemplatePg.init);
                  $("#template_mainTemplatePg").live("pageshow", FmMobile.template_mainTemplatePg.show);
                  $("#template_subTemplatePg").live("pageinit", FmMobile.template_subTemplatePg.init);
@@ -1703,5 +1702,16 @@ FmMobile.statusBar = function(){
         if(device.version > "6"){
             
         }
+    }
+};
+
+FmMobile.headerCSS = function(){
+    FM_LOG("[headerCSS]");
+    if(FmMobile.addDivFor7){
+        if( (device.platform != "Android") && (device.version >= "7")){
+            var addDiv=$("<div>").attr({id:"forStatusTest",style: "margin-top:15px"});
+            addDiv.prependTo( $('[data-role="page"]'));
+        }
+        
     }
 };

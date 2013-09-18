@@ -1,6 +1,7 @@
 FmMobile.template_mainTemplatePg = {
 PAGE_ID: "template_mainTemplatePg",
   
+
     show: function(){
         FmMobile.dummyDiv();
 
