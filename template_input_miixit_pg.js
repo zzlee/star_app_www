@@ -125,6 +125,18 @@ load: function(event, data){
         } 
         
         if ( event.data.photoSource == "album" ) {
+            /*-----clean photo--------*/
+            navigator.camera.cleanup(onSuccess, onFail);
+            
+            function onSuccess() {
+                console.log("Camera cleanup success.")
+            }
+            
+            function onFail(message) {
+                console.log('Failed because: ' + message);
+            }
+            
+            /*-------------*/
         	if(device.platform == "Android") {
         	    FmMobile.userContent.picture.urlOfOriginalIsFromAndroidAlbum = true;
         	}
@@ -140,6 +152,21 @@ load: function(event, data){
                                         });
             FmMobile.analysis.trackEvent("Button", "Click", "Album", 21);
         }else {
+            
+            
+            /*-----clean photo--------*/
+            navigator.camera.cleanup(onSuccess, onFail);
+            
+            function onSuccess() {
+                console.log("Camera cleanup success.")
+            }
+            
+            function onFail(message) {
+                console.log('Failed because: ' + message);
+            }
+            
+            /*-------------*/
+            
             FmMobile.userContent.picture.urlOfOriginalIsFromAndroidAlbum = false;
             navigator.camera.getPicture(gotoPhotoCropper, getPhotoFail,{
                                         quality: 50,

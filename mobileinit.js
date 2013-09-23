@@ -277,8 +277,8 @@ FmMobile.userContent = {
 			crop: {_x:0, _y:0, _w:0, _h:0},  // _x=x_crop/width_picture; _y=y_crop/height_picture; _w=width_crop/width_picture;  _h=height_crop/height_picture
 		},
 		thumbnail:{
-			url:'https://graph.facebook.com/'+localStorage.fb_userID+'/picture?width=160&height=160'
-  //  url:'https://graph.facebook.com/'+localStorage.fb_userID+'/picture?width=200&height=200'
+			//url:'https://graph.facebook.com/'+localStorage.fb_userID+'/picture?width=160&height=160'
+   url:'https://graph.facebook.com/'+localStorage.fb_userID+'/picture?width=1000&height=1000'
 		}
 };
 FmMobile.imageUgc = null;
