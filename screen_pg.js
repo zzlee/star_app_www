@@ -45,7 +45,7 @@ FmMobile.screenPg = {
         
         if(FmMobile.checkNetwork()){
             //Get the the video from our server.
-            var url = starServerURL + "/miix/ugc_hightlights";
+            var url = starServerURL + "/miix/ugc_highlights";
             FmMobile.screenPg.highLightContent = new Array();
             
             //json transfer array
@@ -58,15 +58,16 @@ FmMobile.screenPg = {
                                    if(response){
                                        $.each(response, function(i, item){
                                               var data ={
-                                                  OwnerId: item.ownerId,
+                                                  Id: item.fbUserId,
                                                   Name: item.fb_userName,
                                                   Genre: item.genre,
-                                                  Url : item.url,
+                                                  LiveContentUrl : item.liveContentUrl,
+                                              LongPhotoUrl: item.longPhotoUrl,
+                                              YouTubeUrl: item.youtubeUrl
                                   
                                       }
                                   FmMobile.screenPg.highLightContent.push(data);
                                   });
-            //               FmMobile.screenPg.loadVideo(FmMobile.screenPg.highLightVideos, "highlight");
                                 FmMobile.screenPg.loadHighLightContent(FmMobile.screenPg.highLightContent);
                            }else{
                                console.log("[error] : " + response.error);
@@ -93,33 +94,41 @@ FmMobile.screenPg = {
         var arryLen = arryHighlight.length;
         
         for(var i = 0; i < arryLen; i++){
-            console.log("userId" + arryHighlight[i].OwnerId.userID);
-            var widget = $("<div>").attr({id: arryHighlight[i].OwnerId.userID + "_" + i, class: "content-movie"});
-            var dummyDiv = $("<div>").attr({class: "movie-pic-dummy"});
+//            console.log("userId" + arryHighlight[i].Id);
+            var widget = $("<div>").attr({id: arryHighlight[i].Id + "_" + i, class: "content-movie"});
+            
+            var mainDummy = $("<div>").attr({class: "movie-pic-dummy"});
             var infoDiv = $("<div>").attr({id: "ownerid-info"});
-            var ownerPhotoUrl = 'https://graph.facebook.com/' + arryHighlight[i].OwnerId.userID + '/picture/';
-            dummyDiv.appendTo(widget);
+            var ownerPhotoUrl = 'https://graph.facebook.com/' + arryHighlight[i].Id + '/picture/?width=150&height=150';
+            
+            mainDummy.appendTo(widget);
             
             var Thumbnail = null;
             var ownerPhoto = null;
             var ownerNameDiv = $("<div>").attr({class: "facebook_name"});
+            
+            var subContent = $("<div>").attr({id: arryHighlight[i].Id + "_" + i + "_longPhoto", class: "content-movie-long-highlight"});
+            
+            var dummyLong = $("<div>").attr({class: "movie-pic-dummy-long"});
+            var longPhoto = null;
+            
             switch(arryHighlight[i].Genre){
                 case "miix_story":
                 case "miix":
-                    if(typeof(arryHighlight[i].Url.youtube) != "undefined"){
-                        var ytVideoID = (arryHighlight[i].Url.youtube).split('/').pop();
-                        console.log("youtubeID " + ytVideoID);
+                    if(typeof(arryHighlight[i].YouTubeUrl) != "undefined"){
+                        var ytVideoID = (arryHighlight[i].YouTubeUrl).split('/').pop();
+//                        console.log("youtubeID " + ytVideoID);
                         //set youtube
                         Thumbnail = $("<img>").attr({
                                                     id: 'imgYouTube_'+ytVideoID,
                                                     src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
                                                     class: "content-movie-img",
-                                                    style:"height:63%;margin-top:2.5%;"
+                                                    style:"height:56%;margin-top:2.5%;"
                                                       });
                         Thumbnail.appendTo(widget);
                         //set the owner'photo
                         ownerPhoto = $("<img>").attr({
-                                                               id: "OwnerId_" + i + "_" + arryHighlight[i].OwnerId.userID,
+                                                               id: "OwnerId_" + i + "_" + arryHighlight[i].Id,
                                                                class: "facebook_pic",
                                                                src: ownerPhotoUrl
                                                                });
@@ -141,93 +150,55 @@ FmMobile.screenPg = {
 
                     widget.appendTo(parent);
                     break;
-                case "miix_image_live_photo":
-
-                        var s3Url = "https://s3.amazonaws.com/miix_content" + arryHighlight[i].Url.s3;
+                case "miix_image":
+                    if((arryHighlight[i].LiveContentUrl != "undefined") && (arryHighlight[i].LongPhotoUrl != "undefined")){
                         Thumbnail = $("<img>").attr({
-                                                              id: "imgS3_" + i + "-" + arryHighlight[i].userID,
-                                                              src: s3Url,
-                                                              class: "content-movie-img",
-                                                              style: "height: 90%;"  //fixed the image of height
-                                                              });
-                    Thumbnail.appendTo(widget);
-
-                    //set the owner'photo
-                    ownerPhoto = $("<img>").attr({
-                                                      id: "OwnerId_" + i + "_" + arryHighlight[i].OwnerId.userID,
-                                                      class: "share",
-                                                      src: ownerPhotoUrl
+                                                      id: "imgS3_" + i + "-" + arryHighlight[i].Id,
+                                                      src: arryHighlight[i].LiveContentUrl,
+                                                      class: "content-movie-img",
+                                                      style: "height: 45%;margin-top:2.5%;"  //fixed the image of height
                                                       });
-                    //set the owner's name
-                    ownerNameDiv.html(arryHighlight[i].Name);
-                    ownerPhoto.appendTo(infoDiv);
-                    ownerNameDiv.appendTo(infoDiv);
-                    infoDiv.appendTo(widget);
-            
-                    widget.appendTo(parent);
+                        Thumbnail.appendTo(widget);
+                        
+                        dummyLong.appendTo(subContent);
+                        longPhoto = $("<img>").attr({
+                                                    id: "longPhoto_" + arryHighlight[i].Id,
+                                                    src:arryHighlight[i].LongPhotoUrl,
+                                                    class: "content-movie-img-long",
+                                                    style: "margin-top: 9px;"
+                                                    
+                        
+                        });
+                        
+                        longPhoto.appendTo(subContent);
+
+                        //set the owner'photo
+                        ownerPhoto = $("<img>").attr({
+                                                          id: "OwnerId_" + i + "_" + arryHighlight[i].Id,
+                                                          class: "share",
+                                                          src: ownerPhotoUrl,
+                                                         style: "width:35%;margin-left:0%;margin-right:5%;"
+                                                          });
+                        //set the owner's name
+                        
+                        subContent.appendTo(widget);
+                        ownerNameDiv.html(arryHighlight[i].Name);
+                        ownerPhoto.appendTo(infoDiv);
+                        ownerNameDiv.appendTo(infoDiv);
+                        infoDiv.appendTo(widget);
+                
+                        widget.appendTo(parent);
+                    }//End of If
                     break;
 
                 default :
                     console.log("Eroor : no Genre");
-            }
+            }//End of switch
+            parent.append("<hr>");
             
-        }
+        }//End of Loop
         
         FmMobile.screenPg.clickEvent();
-        
-    },
-    
-    //Deprecated
-    loadVideo: function(arryVideo, type){
-        FM_LOG("[screenPg]loadVideo");
-        
-        console.log("[Type] : " + type);
-        
-        var parent = $("#my-video-list");
-        parent.html("");
-        
-        
-        for(var i = 0; i< arryVideo.length; i++){
-            var widget = $("<div>").attr({id: arryVideo[i].ProjectId, class: "content-movie"});
-            var dummyDiv = $("<div>").attr({class: "movie-pic-dummy"});
-
-            dummyDiv.appendTo(widget);
-            if(arryVideo[i].Youtube){
-                var ytVideoID = (arryVideo[i].Youtube).split('/').pop();
-                console.log(i + " ytVideoID :" + ytVideoID);
-                this.videoThumbnail = $("<img>").attr({
-                                                      id: 'img_'+ytVideoID,
-                                                      src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
-                                                      class: "content-movie-img"
-                                                      });
-                this.videoThumbnail.appendTo(widget);
-
-                
-                widget.appendTo(parent);
-
-                if(type == "highlight"){
-                    this.TitleDiv = $("<div>").attr({class: "screen_dp"});
-                    this.PosterDiv = $("<div>").attr({class: "screen_dp"});
-                    this.TitleDiv.html("影片名稱： " + arryVideo[i].Title);
-                    this.PosterDiv.html("發布者： " + arryVideo[i].PosterId);
-                    this.TitleDiv.appendTo(parent);
-                    this.PosterDiv.appendTo(parent);
-                }else if(type == "arena"){
-                    this.Sponsor = $("<div>").attr({class: "screen_dp"});
-                    this.Sponsor.html("贊助 贊助 贊助 贊助 贊助 贊助");
-                    this.Sponsor.appendTo(parent);
-                }
-                
-            }else{
-                console.log("[screenPg.init] videoList : no Youtube URL");
-            }
-            
-        }
-        
-        FmMobile.screenPg.clickEvent();
-        
-
-        
         
     },
     
@@ -239,46 +210,57 @@ FmMobile.screenPg = {
         //From fm_widget
         //if user click the img and then play the youtube
         $('#my-video-list>div>img').click(function(){
-            console.log('[click on video list: ]'+this);
-
-            var callPlayer = function (frame_id, func, args) {
-                if (window.jQuery && frame_id instanceof jQuery){
-                    frame_id = frame_id.get(0).id;
-                }
                                           
-                var iframe = document.getElementById(frame_id);
-                if (iframe && iframe.tagName.toUpperCase() != 'IFRAME') {
-                    iframe = iframe.getElementsByTagName('iframe')[0];
-                }
-                if (iframe) {
-                    // Frame exists,
-                    iframe.contentWindow.postMessage(JSON.stringify({
-                                                          "event": "command",
-                                                          "func": func,
-                                                          "args": args || [],
-                                                          "id": frame_id
-                                                          }), "*");
-                }
-            };
-                                          
-            var divID = this.parentElement.id;
-            var tempUrlArray = this.src.split('/');
-            var ytVideoID = tempUrlArray[tempUrlArray.length-2];
-            var videoFrame = $("<iframe>").attr({
-                                              id: ytVideoID,
-                                              src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
-                                              class: "content-movie-img",
-                                              frameborder: "0"
-                                              }).load(function(){
-                                                      //TODO: find a better way to have callPlayer() called after videoFrame is prepended
-                                                      setTimeout(function(){
-                                                                 callPlayer(ytVideoID,'playVideo');
-                                                                 }, 1500);
-                                                      });
+            var arryIdType = this.id.split('_');
+//            console.log('[click on video list: ]'+this);
+            switch(arryIdType[0]){
+                case "imgYouTube":
+                    var callPlayer = function (frame_id, func, args) {
+                        if (window.jQuery && frame_id instanceof jQuery){
+                            frame_id = frame_id.get(0).id;
+                        }
 
-            $('#'+divID).prepend(videoFrame);
-            $('#'+this.id).remove();
-        });
+                        var iframe = document.getElementById(frame_id);
+                        if (iframe && iframe.tagName.toUpperCase() != 'IFRAME') {
+                            iframe = iframe.getElementsByTagName('iframe')[0];
+                        }
+                        if (iframe) {
+                        // Frame exists,
+                            iframe.contentWindow.postMessage(JSON.stringify({
+                                                                  "event": "command",
+                                                                  "func": func,
+                                                                  "args": args || [],
+                                                                  "id": frame_id
+                                                                  }), "*");
+                        }
+                    };
+
+                    var divID = this.parentElement.id;
+                    var tempUrlArray = this.src.split('/');
+                    var ytVideoID = tempUrlArray[tempUrlArray.length-2];
+                    var videoFrame = $("<iframe>").attr({
+                                                      id: ytVideoID,
+                                                      src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
+                                                      class: "content-movie-img",
+                                                      style:"height:57%;margin-top:2.5%;",
+                                                      frameborder: "0"
+                                                      }).load(function(){
+                                                              //TODO: find a better way to have callPlayer() called after videoFrame is prepended
+                                                              setTimeout(function(){
+                                                                         callPlayer(ytVideoID,'playVideo');
+                                                                         }, 1500);
+                                                              });
+
+                    $('#'+divID).prepend(videoFrame);
+                    $('#'+this.id).remove();
+
+                    break;
+                case "imgS3":
+                    break;
+                default:
+                    FM_LOG("[screenPg]No Type!");
+            }//End of switch
+        });//End of Click function()
 
         
     },
