@@ -828,7 +828,8 @@ padding:5% 5%;
 .facebook_name{
 	/** padding-top:8%; **/
     padding-top: 15%; /** By Jean **/
-    padding-bottom:13%;
+    /** padding-bottom:13%; **/
+    padding-bottom: 15%; /** By Jean **/
 	font-size: 125%;
 	font-family:"kaiu";
     text-shadow: none;
