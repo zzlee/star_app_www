@@ -56,6 +56,7 @@ FmMobile.screenPg = {
                    data:{ miixToken: localStorage.miixToken },
                    success: function(response){
                                    if(response){
+                                       console.dir(response);
                                        $.each(response, function(i, item){
                                               var data ={
                                                   Id: item.fbUserId,
@@ -103,29 +104,45 @@ FmMobile.screenPg = {
             
             mainDummy.appendTo(widget);
             
+            var subDimmy = $("<div>").attr({class: "movie-pic-dummy"});
+            
             var Thumbnail = null;
+            var subThumbanil = null;
+            var subThumbnailDiv = $("<div>").attr({id: arryHighlight.Id + "_" + i + "_miix", class: "content-movie", style: "width:100%; margin-left:0;"});
+            
             var ownerPhoto = null;
             var ownerNameDiv = $("<div>").attr({class: "facebook_name"});
             
             var subContent = $("<div>").attr({id: arryHighlight[i].Id + "_" + i + "_longPhoto", class: "content-movie-long-highlight"});
-            
             var dummyLong = $("<div>").attr({class: "movie-pic-dummy-long"});
             var longPhoto = null;
+            
             
             switch(arryHighlight[i].Genre){
                 case "miix_story":
                 case "miix":
-                    if(typeof(arryHighlight[i].YouTubeUrl) != "undefined"){
+                    if((typeof(arryHighlight[i].YouTubeUrl) != "undefined") && typeof(arryHighlight[i].LiveContentUrl != "undefined")){
                         var ytVideoID = (arryHighlight[i].YouTubeUrl).split('/').pop();
+                        var ytStoryID = (arryHighlight[i].LiveContentUrl).split('/').pop();
 //                        console.log("youtubeID " + ytVideoID);
                         //set youtube
                         Thumbnail = $("<img>").attr({
-                                                    id: 'imgYouTube_'+ytVideoID,
-                                                    src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
+                                                    id: 'imgYouTube_' + ytStoryID,
+                                                    src: "http://img.youtube.com/vi/" + ytStoryID + "/mqdefault.jpg",
                                                     class: "content-movie-img",
-                                                    style:"height:56%;margin-top:2.5%;"
+                                                    style:"height:33%;margin-top:2%;"
                                                       });
                         Thumbnail.appendTo(widget);
+
+                        subDimmy.appendTo(subThumbnailDiv);
+                        subThumbnail = $("<img>").attr({
+                                                    id: 'imgYouTube_' + ytVideoID,
+                                                    src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
+                                                    class: "content-movie-img",
+                                                    style:"height:93%;margin-top:2.5%;"
+ 
+                        })
+                        subThumbnail.appendTo(subThumbnailDiv);
                         //set the owner'photo
                         ownerPhoto = $("<img>").attr({
                                                                id: "OwnerId_" + i + "_" + arryHighlight[i].Id,
@@ -133,7 +150,7 @@ FmMobile.screenPg = {
                                                                src: ownerPhotoUrl
                                                                });
                         //set the owner's name
-
+                        subThumbnailDiv.appendTo(widget);
                         ownerNameDiv.html(arryHighlight[i].Name);
                         ownerPhoto.appendTo(infoDiv);
                         ownerNameDiv.appendTo(infoDiv);
@@ -163,9 +180,9 @@ FmMobile.screenPg = {
                         dummyLong.appendTo(subContent);
                         longPhoto = $("<img>").attr({
                                                     id: "longPhoto_" + arryHighlight[i].Id,
-                                                    src:arryHighlight[i].LongPhotoUrl,
+                                                    src: arryHighlight[i].LongPhotoUrl,
                                                     class: "content-movie-img-long",
-                                                    style: "margin-top: 9px;"
+                                                    style: "margin-top: 15%;"
                                                     
                         
                         });
@@ -209,9 +226,10 @@ FmMobile.screenPg = {
         
         //From fm_widget
         //if user click the img and then play the youtube
-        $('#my-video-list>div>img').click(function(){
-                                          
+//        $('#my-video-list>div>img').click(function(){
+        $("img").click(function(){
             var arryIdType = this.id.split('_');
+                                          console.log(arryIdType);
 //            console.log('[click on video list: ]'+this);
             switch(arryIdType[0]){
                 case "imgYouTube":
@@ -242,22 +260,24 @@ FmMobile.screenPg = {
                                                       id: ytVideoID,
                                                       src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
                                                       class: "content-movie-img",
-                                                      style:"height:57%;margin-top:2.5%;",
+                                                      style:"height:33%;margin-top:2%;",
                                                       frameborder: "0"
                                                       }).load(function(){
                                                               //TODO: find a better way to have callPlayer() called after videoFrame is prepended
                                                               setTimeout(function(){
                                                                          callPlayer(ytVideoID,'playVideo');
                                                                          }, 1500);
-                                                                  FmMobile.addDivFor7=true;
                                                               });
 
                     $('#'+divID).prepend(videoFrame);
                     $('#'+this.id).remove();
 
                     break;
-                case "imgS3":
-                    break;
+                       case "imgS3":
+                       case "longPhoto":
+                       FmMobile.srcForMyUgcViewer=this.src;
+                       $.mobile.changePage('imgZoomViewer.html');
+                       break;
                 default:
                     FM_LOG("[screenPg]No Type!");
             }//End of switch
