@@ -18,7 +18,9 @@ FmMobile.screenPg = {
     
     show: function(){
         FM_LOG("[screenPg] pageshow");
+        
         FmMobile.analysis.trackPage("/screenPg");
+        FmMobile.headerCSS();
         $("#btnHighLights").click(function(){
         	FmMobile.analysis.trackPage("/screenPg/highLights");
             $("#btnHighLights > img").attr({src: "images/tab_show_active.png"});
@@ -95,24 +97,29 @@ FmMobile.screenPg = {
         var arryLen = arryHighlight.length;
         
         for(var i = 0; i < arryLen; i++){
-//            console.log("userId" + arryHighlight[i].Id);
+            if(i == (arryLen - 1)){
+                $.mobile.silentScroll(FmMobile.screenPgScroll_y);
+            }
+
             var widget = $("<div>").attr({id: arryHighlight[i].Id + "_" + i, class: "content-movie"});
             
+            //For Genre = "miix_story" (Video)
             var mainDummy = $("<div>").attr({class: "movie-pic-dummy"});
-            var infoDiv = $("<div>").attr({id: "ownerid-info"});
-            var ownerPhotoUrl = 'https://graph.facebook.com/' + arryHighlight[i].Id + '/picture/?width=150&height=150';
-            
             mainDummy.appendTo(widget);
             
             var subDimmy = $("<div>").attr({class: "movie-pic-dummy"});
             
             var Thumbnail = null;
             var subThumbanil = null;
-            var subThumbnailDiv = $("<div>").attr({id: arryHighlight.Id + "_" + i + "_miix", class: "content-movie", style: "width:100%; margin-left:0;"});
+            var subThumbnailDiv = $("<div>").attr({id: arryHighlight[i].Id + "_" + i + "-miix", class: "content-movie", style: "width:100%; margin-left:0;"});
             
+            //For FB'profile Information
+            var infoDiv = $("<div>").attr({id: "ownerid-info"});
+            var ownerPhotoUrl = 'https://graph.facebook.com/' + arryHighlight[i].Id + '/picture/?width=150&height=150';
             var ownerPhoto = null;
             var ownerNameDiv = $("<div>").attr({class: "facebook_name"});
             
+            //For Genre = "miix_image"(Long photo)
             var subContent = $("<div>").attr({id: arryHighlight[i].Id + "_" + i + "_longPhoto", class: "content-movie-long-highlight"});
             var dummyLong = $("<div>").attr({class: "movie-pic-dummy-long"});
             var longPhoto = null;
@@ -124,13 +131,15 @@ FmMobile.screenPg = {
                     if((typeof(arryHighlight[i].YouTubeUrl) != "undefined") && typeof(arryHighlight[i].LiveContentUrl != "undefined")){
                         var ytVideoID = (arryHighlight[i].YouTubeUrl).split('/').pop();
                         var ytStoryID = (arryHighlight[i].LiveContentUrl).split('/').pop();
-//                        console.log("youtubeID " + ytVideoID);
+                        
+                        console.log("youtubeID " + ytVideoID);
+                        console.log("storyID " + ytStoryID);
                         //set youtube
                         Thumbnail = $("<img>").attr({
                                                     id: 'imgYouTube_' + ytStoryID,
                                                     src: "http://img.youtube.com/vi/" + ytStoryID + "/mqdefault.jpg",
                                                     class: "content-movie-img",
-                                                    style:"height:33%;margin-top:2%;"
+                                                    style:"height:34%;margin-top:2.5%;"
                                                       });
                         Thumbnail.appendTo(widget);
 
@@ -178,14 +187,24 @@ FmMobile.screenPg = {
                         Thumbnail.appendTo(widget);
                         
                         dummyLong.appendTo(subContent);
-                        longPhoto = $("<img>").attr({
-                                                    id: "longPhoto_" + arryHighlight[i].Id,
-                                                    src: arryHighlight[i].LongPhotoUrl,
-                                                    class: "content-movie-img-long",
-                                                    style: "margin-top: 15%;"
-                                                    
-                        
-                        });
+                        if(device.platform != "Android"){
+                            longPhoto = $("<img>").attr({
+                                                        id: "longPhoto_" + arryHighlight[i].Id,
+                                                        src: arryHighlight[i].LongPhotoUrl,
+                                                        class: "content-movie-img-long",
+                                                        style: "margin-top: 9px;"
+                                                        
+                            
+                            });
+                        }else{
+                            longPhoto = $("<img>").attr({
+                                                        id: "longPhoto_" + arryHighlight[i].Id,
+                                                        src: arryHighlight[i].LongPhotoUrl,
+                                                        class: "content-movie-img-long",
+                                                        style: "margin-top: 15%;"
+                                                        
+                                                        });
+                        }
                         
                         longPhoto.appendTo(subContent);
 
@@ -227,7 +246,7 @@ FmMobile.screenPg = {
         //From fm_widget
         //if user click the img and then play the youtube
 //        $('#my-video-list>div>img').click(function(){
-        $("img").click(function(){
+        $("img").click(function(e){
             var arryIdType = this.id.split('_');
                                           console.log(arryIdType);
 //            console.log('[click on video list: ]'+this);
@@ -256,18 +275,36 @@ FmMobile.screenPg = {
                     var divID = this.parentElement.id;
                     var tempUrlArray = this.src.split('/');
                     var ytVideoID = tempUrlArray[tempUrlArray.length-2];
-                    var videoFrame = $("<iframe>").attr({
-                                                      id: ytVideoID,
-                                                      src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
-                                                      class: "content-movie-img",
-                                                      style:"height:33%;margin-top:2%;",
-                                                      frameborder: "0"
-                                                      }).load(function(){
-                                                              //TODO: find a better way to have callPlayer() called after videoFrame is prepended
-                                                              setTimeout(function(){
-                                                                         callPlayer(ytVideoID,'playVideo');
-                                                                         }, 1500);
-                                                              });
+                    var isMiix = divID.split('-').pop();
+                    if(isMiix != "miix"){//Check the video type (miix or miix_story)
+                        var videoFrame = $("<iframe>").attr({
+                                                  id: ytVideoID,
+                                                  src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
+                                                  class: "content-movie-img",
+                                                  style:"height:34%;margin-top:2%;",
+                                                  frameborder: "0"
+                                                  }).load(function(){
+                                                          //TODO: find a better way to have callPlayer() called after videoFrame is prepended
+                                                          setTimeout(function(){
+                                                                     callPlayer(ytVideoID,'playVideo');
+                                                                     }, 1500);
+                                                                      FmMobile.addDivFor7=true;
+                                                          });
+                   }else{
+                       var videoFrame = $("<iframe>").attr({
+                                                           id: ytVideoID,
+                                                           src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
+                                                           class: "content-movie-img",
+                                                           style:"height:93%;margin-top:3%;",
+                                                           frameborder: "0"
+                                                           }).load(function(){
+                                                                   //TODO: find a better way to have callPlayer() called after videoFrame is prepended
+                                                                   setTimeout(function(){
+                                                                              callPlayer(ytVideoID,'playVideo');
+                                                                              }, 1500);
+                                                                   FmMobile.addDivFor7=true;
+                                                                   });
+                   }
 
                     $('#'+divID).prepend(videoFrame);
                     $('#'+this.id).remove();
@@ -275,6 +312,7 @@ FmMobile.screenPg = {
                     break;
                        case "imgS3":
                        case "longPhoto":
+                       FmMobile.screenPgScroll_y = e.pageY;
                        FmMobile.srcForMyUgcViewer=this.src;
                        $.mobile.changePage('imgZoomViewer.html');
                        break;
