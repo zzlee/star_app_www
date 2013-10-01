@@ -211,6 +211,23 @@ FmMobile.screenPg = {
         //if user click the img and then play the youtube
         $('#my-video-list>div>img').click(function(){
                                           
+<<<<<<< HEAD
+            var divID = this.parentElement.id;
+            var tempUrlArray = this.src.split('/');
+            var ytVideoID = tempUrlArray[tempUrlArray.length-2];
+            var videoFrame = $("<iframe>").attr({
+                                              id: ytVideoID,
+                                              src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
+                                              class: "content-movie-img",
+                                              frameborder: "0"
+                                              }).load(function(){
+                                                      //TODO: find a better way to have callPlayer() called after videoFrame is prepended
+                                                      setTimeout(function(){
+                                                                 callPlayer(ytVideoID,'playVideo');
+                                                                 }, 1500);
+                                                                  FmMobile.addDivFor7=true;
+                                                      });
+=======
             var arryIdType = this.id.split('_');
 //            console.log('[click on video list: ]'+this);
             switch(arryIdType[0]){
@@ -219,6 +236,7 @@ FmMobile.screenPg = {
                         if (window.jQuery && frame_id instanceof jQuery){
                             frame_id = frame_id.get(0).id;
                         }
+>>>>>>> 99d292e6056d2b1bb50af6a2e8362022e50a396c
 
                         var iframe = document.getElementById(frame_id);
                         if (iframe && iframe.tagName.toUpperCase() != 'IFRAME') {
@@ -249,7 +267,6 @@ FmMobile.screenPg = {
                                                               setTimeout(function(){
                                                                          callPlayer(ytVideoID,'playVideo');
                                                                          }, 1500);
-                                                                  FmMobile.addDivFor7=true;
                                                               });
 
                     $('#'+divID).prepend(videoFrame);
