@@ -17,14 +17,15 @@ FmMobile.myUgcPg = {
     
     show: function(){
     	FmMobile.analysis.trackPage("/myUgcPg");
-//        recordUserAction("enters myUgcPg");
+         //recordUserAction("enters myUgcPg");
         
 
-        
+         //---------- fixed nav bar btn bug ------
         $("#btnMyUgc").children("img").attr({src:"images/m2-active.png"});
         $("#btnTemplate").children("img").attr({src:"images/m1.png"});
         $("#btnScreen").children("img").attr({src:"images/m3.png"});
         $("#btnSetting").children("img").attr({src:"images/m4.png"});
+         //----------end of fixed nav bar btn bug ------
         
         FM_LOG("[myUgcPg] pageshow");
         $("#btnMiixMovie").click(function(){
