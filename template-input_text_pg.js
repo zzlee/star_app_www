@@ -3,8 +3,14 @@ PAGE_ID: "template_input_textPg",
     
 show: function(){
     FmMobile.analysis.trackPage("/template_input_textPg");
-//    recordUserAction("enters template_input_textPg");
+//recordUserAction("enters template_input_textPg");
     FmMobile.dummyDiv();
+    /* ------  prefill user's previous text   ---- */
+    if(FmMobile.userContent.text){
+        FmMobile.userContent.text=FmMobile.userContent.text.replace(/\<n\>/ig,"\n");
+        $("#ur_text").val(FmMobile.userContent.text);
+    }
+    /* ------ end of prefill user's previous text   ---- */
 },
     
 init: function(){
