@@ -3,7 +3,6 @@ FmMobile.template_previewPg = {
 
     show : function() {
         FmMobile.analysis.trackPage("/template_previewPg");
-//        recordUserAction("enters template_previewPg");
         FmMobile.dummyDiv();
         $(".container_withheader").css({"margin-top":0});
     },
@@ -11,49 +10,21 @@ FmMobile.template_previewPg = {
     init : function() {
         $("#nav-bar").show();
         
-        
-        
-                /*  點下去跳到full screen  */
+        /*  點下去跳到full screen  */
         $(".content-movie").bind('click',function(){
                                 
             if(FmMobile.checkNetwork()){
                $.mobile.changePage("imgZoomViewer.html");
             }
         });
-        /*
-        $(".content-movie").click(function(){
-                       $.mobile.changePage("fullPageViewer.html");
-        });
-         */
         /* ends of 點下去跳到full screen */
         
         /* 判斷按上一步要回哪一頁 */
-        
         $("#cancelBtnToCropper").click(function() {
                               history.back();
                               return false;
                               });
-        
-        /*
-        if(FmMobile.selectedSubTemplate=='text_only' && FmMobile.selectedTemplate != "check_in"){
-            $('#cancelBtnToCropper').click(function(){
-                $.mobile.changePage("template-input_text.html");
-            });
-
-        }else if(FmMobile.selectedTemplate=="check_in"){
-            $('#cancelBtnToCropper').click(function(){
-                $.mobile.changePage("template-sub-checkin.html");
-            });
-
-        }else{
-            $('#cancelBtnToCropper').click(function(){
-                 $.mobile.changePage("template-photo_cropper.html");
-            });
-        }
-         */
-        
         /* ends of 判斷按上一步要回哪一頁 */
-    
         
         /* preview page title bar text 影片根其他不一樣*/
         if(FmMobile.selectedTemplate == 'miix_it'){
@@ -70,24 +41,9 @@ FmMobile.template_previewPg = {
        /* ends of preview page title bar text 影片根其他不一樣*/
         
         if(FmMobile.checkNetwork()){
-            if (FmMobile.selectedTemplate == 'miix_it') {
-
-                var videoUgc;
-                //$.mobile.showPageLoadingMsg();
-                VideoUgc.getInstance('miix_it', 'miix_one_image', FmMobile.userContent, function(err, _videoUgc) {
-                    if (!err) {
-                        videoUgc = _videoUgc;
-                                     FmMobile.viewerBackFlag='backPreview';
-                                     FmMobile.imgForFullPageViewer=videoUgc.getDoohPreviewImageUrl();
-                        $("#show").attr("src", videoUgc.getDoohPreviewImageUrl());
-                        //$.mobile.hidePageLoadingMsg();
-                    }else{
-                        console.log(err);
-                    }
-                });
-
-                $('#btnTest').click(
-                    function(){
+            if (FmMobile.selectedTemplate == 'miix_it') { // 素人拉洋片
+                $("#show").attr("src", FmMobile.imgForFullPageViewer);
+                $('#btnTest').click(function(){
                     $('#clickImgEffect').hide("normal");
                     $(".content-movie").unbind("click");
                     $('#afterClickBack').hide("normal");
@@ -98,51 +54,31 @@ FmMobile.template_previewPg = {
                         var ownerFbUserId = localStorage.fb_userID;
                         var ugcInfo = {
                                     ownerId : {
-                                        _id : ownerId,
-                                        fbUserId : ownerFbUserId
-                                    },
+                                                _id : ownerId,
+                                                fbUserId : ownerFbUserId
+                                              },
                                     title : "My Miix move!!"
-                                };
-
-                        videoUgc.askServerToGenerate(
-                                 FmMobile.userContent,ugcInfo, function(err) {
-                                                   //                                    console.log("err=" + err);
-                                                    if (!err) {
-                                                        // alert("success!");
-                                                        FM_LOG("[templatePreview]Video uploads successfully.");
-                                                        FmMobile.myUgcPg.Type = "content";
-                                                        FmMobile.showNotification("uploadUgc");
-                                                        $.mobile.hidePageLoadingMsg();
-                                                        $.mobile.changePage("my_ugc.html");
-                                                     }else{
-                                                     	 alert(err);
-                                                         FmMobile.showNotification("uploadFailed");
-                                                         $('#clickImgEffect').show("normal");
-                                                         $('#afterClickBack').show("normal");
-                                                         $('#afterClickSent').show("normal");
-                                                         $.mobile.hidePageLoadingMsg();
-                                                     }
-
-                                                   });
+                                      };
+                        videoUgc.askServerToGenerate(FmMobile.userContent,ugcInfo, function(err) {
+                                        if (!err) {
+                                            FM_LOG("[templatePreview]Video uploads successfully.");
+                                            FmMobile.myUgcPg.Type = "content";
+                                            FmMobile.showNotification("uploadUgc");
+                                            $.mobile.hidePageLoadingMsg();
+                                            $.mobile.changePage("my_ugc.html");
+                                         }else{
+                                             alert(err);
+                                             FmMobile.showNotification("uploadFailed");
+                                             $('#clickImgEffect').show("normal");
+                                             $('#afterClickBack').show("normal");
+                                             $('#afterClickSent').show("normal");
+                                             $.mobile.hidePageLoadingMsg();
+                                         }
+                                   });
                         });
-
                 });
-
-            }else if(FmMobile.selectedTemplate == 'check_in'){
-                var imageUgc;
-                ImageUgc.getInstance(FmMobile.selectedTemplate, FmMobile.selectedSubTemplate, FmMobile.userContent, function(err, _imageUgc) {
-                    if (!err) {
-                        imageUgc = _imageUgc;
-                        FmMobile.viewerBackFlag='backPreview';
-                        FmMobile.imgForFullPageViewer=imageUgc.getDoohPreviewImageUrl();
-
-                        $("#show").attr("src", imageUgc.getDoohPreviewImageUrl());
-                                     
-                    }else {
-                        console.log(err);
-                    }
-                });
-                
+            }else if(FmMobile.selectedTemplate == 'check_in'){ //路經貴寶地
+                $("#show").attr("src", FmMobile.imgForFullPageViewer);
                 $('#btnTest').click(function(){
                     $('#clickImgEffect').hide("normal");
                     $(".content-movie").unbind("click");
@@ -160,74 +96,52 @@ FmMobile.template_previewPg = {
                               contentGenre : mainTemplate,
                               title : "today's mood"
                           };
-                          
                           imageUgc.uploadToServer(ugcInfo,function(err) {
-                                                  if (!err) {
-                                                      if(FmMobile.selectedTemplate=="check_in"){
-                                                          var url = starServerURL + "/miix/members/" + localStorage._id + "/ugcs";
-                                                  
-                                                          $.ajax({
-                                                                 url: url,
-                                                                 dataType: 'json',
-                                                                 data:{ miixToken: localStorage.miixToken },
-                                                                 success: function(response){
-                                                                     if(response){
-                                                                     console.log(response[0].url.s3);
-                                                                 FmMobile.check_in_pic= response[0].doohPreviewUrl;
-                                                                     FmMobile.shareProjectID= response[0].projectId;
-                                                                     FmMobile.authPopup.postCheckinMessage();
-                                                                     
-                                                                     }else{
-                                                                     console.log("[error] : " + response.error);
-                                                                     }
-                                                                 }
-                                                                 });
-                                                  
-                                                  
-                                                        }//End of if
-                                                        FM_LOG("[templatePreview]Image uploads successfully.");
-                                                        FmMobile.myUgcPg.Type = "content";
-                                                        FmMobile.showNotification("uploadUgc");
-                                                        $.mobile.hidePageLoadingMsg();
-                                                        $.mobile.changePage("my_ugc.html");
-                                                  
-                                                  }else{
-                                                      FmMobile.showNotification("uploadFailed");
-                                                      $('#clickImgEffect').show("normal");
-                                                      $('#afterClickBack').show("normal");
-                                                      $('#afterClickSent').show("normal");
-                                                      $.mobile.hidePageLoadingMsg();
-                                                  }//End of if(!err)
-
-                            });//End of ImageUgc
-                          
+                              if (!err) {
+                                  if(FmMobile.selectedTemplate=="check_in"){
+                                      var url = starServerURL + "/miix/members/" + localStorage._id + "/ugcs";
+                                      $.ajax({
+                                             url: url,
+                                             dataType: 'json',
+                                             data:{ miixToken: localStorage.miixToken },
+                                             success: function(response){
+                                                 if(response){
+                                                     console.log(response[0].url.s3);
+                                                     FmMobile.check_in_pic= response[0].doohPreviewUrl;
+                                                     FmMobile.shareProjectID= response[0].projectId;
+                                                     FmMobile.authPopup.postCheckinMessage();
+                                                 }else{
+                                                     console.log("[error] : " + response.error);
+                                                     }
+                                                 }
+                                             });
+                                          }//End of if
+                                    FM_LOG("[templatePreview]Image uploads successfully.");
+                                    FmMobile.myUgcPg.Type = "content";
+                                    FmMobile.showNotification("uploadUgc");
+                                    $.mobile.hidePageLoadingMsg();
+                                    $.mobile.changePage("my_ugc.html");
+                              }else{
+                                  FmMobile.showNotification("uploadFailed");
+                                  $('#clickImgEffect').show("normal");
+                                  $('#afterClickBack').show("normal");
+                                  $('#afterClickSent').show("normal");
+                                  $.mobile.hidePageLoadingMsg();
+                              }//End of if(!err)
+                        });//End of ImageUgc
                       });//End of afterClickSent
                 });//End of btnTest
-            }else {
-                var imageUgc;
-                ImageUgc.getInstance(FmMobile.selectedTemplate, FmMobile.selectedSubTemplate, FmMobile.userContent, function(err, _imageUgc) {
-                    if (!err) {
-                        imageUgc = _imageUgc;
-                        FmMobile.viewerBackFlag='backPreview';
-                        FmMobile.imgForFullPageViewer=imageUgc.getDoohPreviewImageUrl();
-                        $("#show").attr("src", imageUgc.getDoohPreviewImageUrl());
-                    }else {
-                        console.log(err);
-                    }
-                });
-                
-
+            }else { //心情 or 文創
+                $("#show").attr("src", FmMobile.imgForFullPageViewer);
                 $('#btnTest').click(function(){
                     $('#clickImgEffect').hide("normal");
-                    $(".content-movie").unbind("click");
+                    $(".content-movie").unbind("click"); //prevent click full-img when updating
                     $('#afterClickBack').hide("normal");
                     $('#afterClickSent').hide("normal",function() {
-                        //$('#show').attr('disabled', 'disabled');
                         $.mobile.showPageLoadingMsg();
                         var mainTemplate = FmMobile.selectedTemplate;
                         var ownerId = localStorage._id;
                         var ownerFbUserId = localStorage.fb_userID;
-
                         var ugcInfo = {
                                 ownerId : {
                                     _id : ownerId,
@@ -236,31 +150,25 @@ FmMobile.template_previewPg = {
                                 contentGenre : mainTemplate,
                                 title : "today's mood"
                         };
-                        imageUgc.uploadToServer(ugcInfo,
-                                                function(err) {
-                //                                    console.log("err=" + err);
-                                                    if (!err) {
-                                                        FM_LOG("[templatePreview]Image uploads successfully.");
-                                                        FmMobile.myUgcPg.Type = "content";
-                                                        FmMobile.showNotification("uploadUgc");
-                                                        $.mobile.hidePageLoadingMsg();
-                                                        $.mobile.changePage("my_ugc.html");
-                                                    }else{
-                                                        FmMobile.showNotification("uploadFailed");
-                                                        $('#clickImgEffect').show("normal");
-                                                        $('#afterClickBack').show("normal");
-                                                        $('#afterClickSent').show("normal");
-                                                        $.mobile.hidePageLoadingMsg();
-                                                    }//end of if(!err)
-                                                
-                                                });//End of imageUgc
-                                    
+                       imageUgc.uploadToServer(ugcInfo,
+                        function(err) {
+                            if (!err) {
+                                FM_LOG("[templatePreview]Image uploads successfully.");
+                                FmMobile.myUgcPg.Type = "content";
+                                FmMobile.showNotification("uploadUgc");
+                                $.mobile.hidePageLoadingMsg();
+                                $.mobile.changePage("my_ugc.html");
+                            }else{
+                                FmMobile.showNotification("uploadFailed");
+                                $('#clickImgEffect').show("normal");
+                                $('#afterClickBack').show("normal");
+                                $('#afterClickSent').show("normal");
+                                $.mobile.hidePageLoadingMsg();
+                            }//end of if(!err)
+                        });//End of imageUgc
                     });//End of #afterClickSent
-                    
                 });//End of #btnTest
-
             }
         }//End of if CheckNetwork
-
     },
 };

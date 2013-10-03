@@ -17,17 +17,18 @@ FmMobile.indexPg = {
         
     show: function(){
         FM_LOG("[indexPg.show]");
-//        console.dir(localStorage);
+        
         if(localStorage.fb_userID && localStorage.verified=='true'){
             $.mobile.changePage("template-main_template.html");
-            
         }
         else {
        		$.mobile.changePage("orientation_1.html");	
-            
         }
-
         
+        
+     //test
+     //$.mobile.changePage("template-main_template.html");
+     //end of test
     },
         
     beforeshow: function(){

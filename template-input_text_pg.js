@@ -54,12 +54,22 @@ init: function(){
                            }
                            }
 
-                        
-                           $.mobile.changePage("template-preview.html");
+                           //------ processing img (avoid preview pg long time loading) ------
+                           //for text-only & checkin
+                           $.mobile.showPageLoadingMsg();
+                           var imageUgc;
+                           ImageUgc.getInstance(FmMobile.selectedTemplate, FmMobile.selectedSubTemplate, FmMobile.userContent, function(err, _imageUgc) {
+                                                if (!err) {
+                                                imageUgc = _imageUgc;
+                                                FmMobile.viewerBackFlag='backPreview';
+                                                FmMobile.imgForFullPageViewer=imageUgc.getDoohPreviewImageUrl();
+                                                $.mobile.changePage("template-preview.html");                                          }
+                                                $.mobile.hidePageLoadingMsg();
+                                                });
+                           //------- end of processing-------------------
                            FmMobile.userContent.picture.urlOfOriginal=null;
                            FmMobile.userContent.picture.crop._x=null;
                            FmMobile.userContent.picture.crop._y=null;
-
                            FmMobile.userContent.picture.crop._w=null;
                            FmMobile.userContent.picture.crop._h=null;
               

@@ -146,7 +146,21 @@ FmMobile.template_checkinPg = {
                                 //   alert(finalTextOfCheckin);
       FmMobile.selectedSubTemplate=templateMgr.getSubTemplateList("check_in")[0].id;
                                    FmMobile.userContent.text=finalTextOfCheckin;
-                             $.mobile.changePage("template-preview.html");
+                                   
+                                   
+                                   //------ processing img (avoid preview pg long time loading) ------
+                                   //for text-only & checkin
+                                   $.mobile.showPageLoadingMsg();
+                                   var imageUgc;
+                                   ImageUgc.getInstance(FmMobile.selectedTemplate, FmMobile.selectedSubTemplate, FmMobile.userContent, function(err, _imageUgc) {
+                                                        if (!err) {
+                                                        imageUgc = _imageUgc;
+                                                        FmMobile.viewerBackFlag='backPreview';
+                                                        FmMobile.imgForFullPageViewer=imageUgc.getDoohPreviewImageUrl();
+                                                        $.mobile.changePage("template-preview.html");                                          }
+                                                        $.mobile.hidePageLoadingMsg();
+                                                        });
+                                   //------- end of processing-------------------
                               
                               });
         /*

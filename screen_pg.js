@@ -56,6 +56,7 @@ FmMobile.screenPg = {
                    data:{ miixToken: localStorage.miixToken },
                    success: function(response){
                                    if(response){
+                   console.dir(response);
                                        $.each(response, function(i, item){
                                               var data ={
                                                   OwnerId: item.ownerId,
@@ -64,6 +65,7 @@ FmMobile.screenPg = {
                                                   Url : item.url,
                                   
                                       }
+                                        
                                   FmMobile.screenPg.highLightContent.push(data);
                                   });
             //               FmMobile.screenPg.loadVideo(FmMobile.screenPg.highLightVideos, "highlight");
