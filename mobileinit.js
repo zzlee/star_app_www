@@ -53,6 +53,7 @@ FmMobile.rotateValue;
 
 FmMobile.selectAlbum;
 
+
 //------------------------
 FmMobile.longPhoto;
 FmMobile.liveTime;
@@ -64,6 +65,10 @@ FmMobile.liveType;
 FmMobile.addDivFor7=false; //determine use ios7 natve app or not (camera, video)
 
 FmMobile.forCropperRotateVal;
+
+//change these 2 local var to global var for prevent load imgugc every time in preivewpg
+FmMobile.imageUgcInstance;
+FmMobile.videoImgUgcInstance;
 
 var templateMgr = null;
 
@@ -1353,7 +1358,7 @@ postFbVideoMessage_live:function(){
                   },
                   success: function(data, textStatus, jqXHR ){
                   console.log("Successfully upload result image UGC to server.");
-                  callback("haha");
+                  //callback("haha");
                   },
                   error: function(jqXHR, textStatus, errorThrown){
                   console.log("Failed to upload image UGC to server: "+errorThrown);
@@ -1393,7 +1398,7 @@ postFbVideoMessage:function(){
                   },
                   success: function(data, textStatus, jqXHR ){
                       console.log("Successfully upload result image UGC to server.");
-                      callback("haha");
+                      //callback("haha");
                   },
                   error: function(jqXHR, textStatus, errorThrown){
                       console.log("Failed to upload image UGC to server: "+errorThrown);
@@ -1431,7 +1436,7 @@ postCheckinMessage:function(){
                   },
                   success: function(data, textStatus, jqXHR ){
                       console.log("Successfully upload result image UGC to server.");
-                      callback("haha");
+                      //callback("haha");
                   },
                   error: function(jqXHR, textStatus, errorThrown){
                       console.log("Failed to upload image UGC to server: "+errorThrown);

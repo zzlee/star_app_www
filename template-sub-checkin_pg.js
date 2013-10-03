@@ -151,12 +151,11 @@ FmMobile.template_checkinPg = {
                                    //------ processing img (avoid preview pg long time loading) ------
                                    //for text-only & checkin
                                    $.mobile.showPageLoadingMsg();
-                                   var imageUgc;
-                                   ImageUgc.getInstance(FmMobile.selectedTemplate, FmMobile.selectedSubTemplate, FmMobile.userContent, function(err, _imageUgc) {
+                                    ImageUgc.getInstance(FmMobile.selectedTemplate, FmMobile.selectedSubTemplate, FmMobile.userContent, function(err, _imageUgc) {
                                                         if (!err) {
-                                                        imageUgc = _imageUgc;
+                                                        FmMobile.imageUgcInstance = _imageUgc;
                                                         FmMobile.viewerBackFlag='backPreview';
-                                                        FmMobile.imgForFullPageViewer=imageUgc.getDoohPreviewImageUrl();
+                                                        FmMobile.imgForFullPageViewer= FmMobile.imageUgcInstance.getDoohPreviewImageUrl();
                                                         $.mobile.changePage("template-preview.html");                                          }
                                                         $.mobile.hidePageLoadingMsg();
                                                         });

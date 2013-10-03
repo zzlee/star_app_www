@@ -59,7 +59,7 @@ FmMobile.template_previewPg = {
                                               },
                                     title : "My Miix move!!"
                                       };
-                        videoUgc.askServerToGenerate(FmMobile.userContent,ugcInfo, function(err) {
+                        FmMobile.videoImgUgcInstance.askServerToGenerate(FmMobile.userContent,ugcInfo, function(err) {
                                         if (!err) {
                                             FM_LOG("[templatePreview]Video uploads successfully.");
                                             FmMobile.myUgcPg.Type = "content";
@@ -96,7 +96,7 @@ FmMobile.template_previewPg = {
                               contentGenre : mainTemplate,
                               title : "today's mood"
                           };
-                          imageUgc.uploadToServer(ugcInfo,function(err) {
+                           FmMobile.imageUgcInstance.uploadToServer(ugcInfo,function(err) {
                               if (!err) {
                                   if(FmMobile.selectedTemplate=="check_in"){
                                       var url = starServerURL + "/miix/members/" + localStorage._id + "/ugcs";
@@ -150,7 +150,7 @@ FmMobile.template_previewPg = {
                                 contentGenre : mainTemplate,
                                 title : "today's mood"
                         };
-                       imageUgc.uploadToServer(ugcInfo,
+                       FmMobile.imageUgcInstance.uploadToServer(ugcInfo,
                         function(err) {
                             if (!err) {
                                 FM_LOG("[templatePreview]Image uploads successfully.");

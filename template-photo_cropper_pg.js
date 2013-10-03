@@ -129,12 +129,11 @@ FmMobile.template_photoCropperPg = {
             //------ processing img (avoid preview pg long time loading) ------
             //for 圖 / 圖+文 /video img (文 & 打卡 不能, 因為沒到cropper pg)
             if(FmMobile.selectedTemplate == "miix_it"){
-                var videoUgc;
                 VideoUgc.getInstance('miix_it', 'miix_one_image', FmMobile.userContent, function(err, _videoUgc) {
                     if (!err) {
-                        videoUgc = _videoUgc;
+                        FmMobile.videoImgUgcInstance = _videoUgc;
                         FmMobile.viewerBackFlag='backPreview';
-                        FmMobile.imgForFullPageViewer=videoUgc.getDoohPreviewImageUrl();
+                        FmMobile.imgForFullPageViewer=FmMobile.videoImgUgcInstance.getDoohPreviewImageUrl();
                         $.mobile.changePage("template-preview.html");
                         $.mobile.hidePageLoadingMsg();
                     }else{
@@ -142,12 +141,11 @@ FmMobile.template_photoCropperPg = {
                         }
                     });
             }else{
-            var imageUgc;
             ImageUgc.getInstance(FmMobile.selectedTemplate, FmMobile.selectedSubTemplate, FmMobile.userContent, function(err, _imageUgc) {
                 if (!err) {
-                    imageUgc = _imageUgc;
+                    FmMobile.imageUgcInstance = _imageUgc;
                     FmMobile.viewerBackFlag='backPreview';
-                    FmMobile.imgForFullPageViewer=imageUgc.getDoohPreviewImageUrl();
+                    FmMobile.imgForFullPageViewer=FmMobile.imageUgcInstance.getDoohPreviewImageUrl();
                     $.mobile.changePage("template-preview.html");
                     $.mobile.hidePageLoadingMsg();
                  }else{
