@@ -152,6 +152,9 @@ FmMobile.screenPg = {
  
                         })
                         subThumbnail.appendTo(subThumbnailDiv);
+                        
+                        
+                        
                         //set the owner'photo
                         ownerPhoto = $("<img>").attr({
                                                                id: "OwnerId_" + i + "_" + arryHighlight[i].Id,
@@ -177,7 +180,7 @@ FmMobile.screenPg = {
                     widget.appendTo(parent);
                     break;
                 case "miix_image":
-                    if((arryHighlight[i].LiveContentUrl != "undefined") && (arryHighlight[i].LongPhotoUrl != "undefined")){
+                    if((typeof(arryHighlight[i].LiveContentUrl) != "undefined") && (typeof(arryHighlight[i].LongPhotoUrl) != "undefined")){
                         Thumbnail = $("<img>").attr({
                                                       id: "imgS3_" + i + "-" + arryHighlight[i].Id,
                                                       src: arryHighlight[i].LiveContentUrl,
@@ -248,38 +251,36 @@ FmMobile.screenPg = {
 //        $('#my-video-list>div>img').click(function(){
         $("img").click(function(e){
             var arryIdType = this.id.split('_');
-                                          console.log(arryIdType);
-//            console.log('[click on video list: ]'+this);
             switch(arryIdType[0]){
                 case "imgYouTube":
                     var callPlayer = function (frame_id, func, args) {
                         if (window.jQuery && frame_id instanceof jQuery){
                             frame_id = frame_id.get(0).id;
                         }
-
                         var iframe = document.getElementById(frame_id);
-                        if (iframe && iframe.tagName.toUpperCase() != 'IFRAME') {
-                            iframe = iframe.getElementsByTagName('iframe')[0];
-                        }
-                        if (iframe) {
-                        // Frame exists,
-                            iframe.contentWindow.postMessage(JSON.stringify({
+                    if (iframe && iframe.tagName.toUpperCase() != 'IFRAME') {
+                        iframe = iframe.getElementsByTagName('iframe')[0];
+                    }
+                                              
+                    if (iframe) {
+                    // Frame exists,
+                    iframe.contentWindow.postMessage(JSON.stringify({
                                                                   "event": "command",
                                                                   "func": func,
                                                                   "args": args || [],
                                                                   "id": frame_id
                                                                   }), "*");
-                        }
-                    };
+                    }};
 
                     var divID = this.parentElement.id;
                     var tempUrlArray = this.src.split('/');
                     var ytVideoID = tempUrlArray[tempUrlArray.length-2];
                     var isMiix = divID.split('-').pop();
                     if(isMiix != "miix"){//Check the video type (miix or miix_story)
-                        var videoFrame = $("<iframe>").attr({
+                    	if(device.platform != "Android"){
+                    		var videoFrame = $("<iframe>").attr({
                                                   id: ytVideoID,
-                                                  src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
+                                                  src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&autoplay=1",
                                                   class: "content-movie-img",
                                                   style:"height:34%;margin-top:2%;",
                                                   frameborder: "0"
@@ -290,8 +291,16 @@ FmMobile.screenPg = {
                                                                      }, 1500);
                                                                       FmMobile.addDivFor7=true;
                                                           });
-                   }else{
-                       var videoFrame = $("<iframe>").attr({
+                        
+                        	$('#'+divID).prepend(videoFrame);
+                        	$('#'+this.id).remove();
+                        }else{
+                        	FmMobile.openBrowser.openExternal("http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0");	
+                        }
+                        
+                    }else{
+                    	if(device.platform != "Android"){
+                    		var videoFrame = $("<iframe>").attr({
                                                            id: ytVideoID,
                                                            src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
                                                            class: "content-movie-img",
@@ -304,10 +313,16 @@ FmMobile.screenPg = {
                                                                               }, 1500);
                                                                    FmMobile.addDivFor7=true;
                                                                    });
+                       
+                    	   	$('#'+divID).prepend(videoFrame);
+                       		$('#'+this.id).remove();
+                       }else{
+                    	   FmMobile.openBrowser.openExternal("http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0");
+                       }
                    }
 
-                    $('#'+divID).prepend(videoFrame);
-                    $('#'+this.id).remove();
+                    
+
 
                     break;
                        case "imgS3":
