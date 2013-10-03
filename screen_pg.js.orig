@@ -18,9 +18,7 @@ FmMobile.screenPg = {
     
     show: function(){
         FM_LOG("[screenPg] pageshow");
-        
         FmMobile.analysis.trackPage("/screenPg");
-        FmMobile.headerCSS();
         $("#btnHighLights").click(function(){
         	FmMobile.analysis.trackPage("/screenPg/highLights");
             $("#btnHighLights > img").attr({src: "images/tab_show_active.png"});
@@ -58,7 +56,6 @@ FmMobile.screenPg = {
                    data:{ miixToken: localStorage.miixToken },
                    success: function(response){
                                    if(response){
-                                       console.dir(response);
                                        $.each(response, function(i, item){
                                               var data ={
                                                   Id: item.fbUserId,
@@ -97,61 +94,38 @@ FmMobile.screenPg = {
         var arryLen = arryHighlight.length;
         
         for(var i = 0; i < arryLen; i++){
-            if(i == (arryLen - 1)){
-                $.mobile.silentScroll(FmMobile.screenPgScroll_y);
-            }
-
+//            console.log("userId" + arryHighlight[i].Id);
             var widget = $("<div>").attr({id: arryHighlight[i].Id + "_" + i, class: "content-movie"});
             
-            //For Genre = "miix_story" (Video)
             var mainDummy = $("<div>").attr({class: "movie-pic-dummy"});
-            mainDummy.appendTo(widget);
-            
-            var subDimmy = $("<div>").attr({class: "movie-pic-dummy"});
-            
-            var Thumbnail = null;
-            var subThumbanil = null;
-            var subThumbnailDiv = $("<div>").attr({id: arryHighlight[i].Id + "_" + i + "-miix", class: "content-movie", style: "width:100%; margin-left:0;"});
-            
-            //For FB'profile Information
             var infoDiv = $("<div>").attr({id: "ownerid-info"});
             var ownerPhotoUrl = 'https://graph.facebook.com/' + arryHighlight[i].Id + '/picture/?width=150&height=150';
+            
+            mainDummy.appendTo(widget);
+            
+            var Thumbnail = null;
             var ownerPhoto = null;
             var ownerNameDiv = $("<div>").attr({class: "facebook_name"});
             
-            //For Genre = "miix_image"(Long photo)
             var subContent = $("<div>").attr({id: arryHighlight[i].Id + "_" + i + "_longPhoto", class: "content-movie-long-highlight"});
+            
             var dummyLong = $("<div>").attr({class: "movie-pic-dummy-long"});
             var longPhoto = null;
-            
             
             switch(arryHighlight[i].Genre){
                 case "miix_story":
                 case "miix":
-                    if((typeof(arryHighlight[i].YouTubeUrl) != "undefined") && typeof(arryHighlight[i].LiveContentUrl != "undefined")){
+                    if(typeof(arryHighlight[i].YouTubeUrl) != "undefined"){
                         var ytVideoID = (arryHighlight[i].YouTubeUrl).split('/').pop();
-                        var ytStoryID = (arryHighlight[i].LiveContentUrl).split('/').pop();
-                        
-                        console.log("youtubeID " + ytVideoID);
-                        console.log("storyID " + ytStoryID);
+//                        console.log("youtubeID " + ytVideoID);
                         //set youtube
                         Thumbnail = $("<img>").attr({
-                                                    id: 'imgYouTube_' + ytStoryID,
-                                                    src: "http://img.youtube.com/vi/" + ytStoryID + "/mqdefault.jpg",
-                                                    class: "content-movie-img",
-                                                    style:"height:34%;margin-top:2.5%;"
-                                                      });
-                        Thumbnail.appendTo(widget);
-
-                        subDimmy.appendTo(subThumbnailDiv);
-                        subThumbnail = $("<img>").attr({
-                                                    id: 'imgYouTube_' + ytVideoID,
+                                                    id: 'imgYouTube_'+ytVideoID,
                                                     src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
                                                     class: "content-movie-img",
-                                                    style:"height:93%;margin-top:2.5%;"
- 
-                        })
-                        subThumbnail.appendTo(subThumbnailDiv);
+                                                    style:"height:56%;margin-top:2.5%;"
+                                                      });
+                        Thumbnail.appendTo(widget);
                         //set the owner'photo
                         ownerPhoto = $("<img>").attr({
                                                                id: "OwnerId_" + i + "_" + arryHighlight[i].Id,
@@ -159,7 +133,7 @@ FmMobile.screenPg = {
                                                                src: ownerPhotoUrl
                                                                });
                         //set the owner's name
-                        subThumbnailDiv.appendTo(widget);
+
                         ownerNameDiv.html(arryHighlight[i].Name);
                         ownerPhoto.appendTo(infoDiv);
                         ownerNameDiv.appendTo(infoDiv);
@@ -187,24 +161,14 @@ FmMobile.screenPg = {
                         Thumbnail.appendTo(widget);
                         
                         dummyLong.appendTo(subContent);
-                        if(device.platform != "Android"){
-                            longPhoto = $("<img>").attr({
-                                                        id: "longPhoto_" + arryHighlight[i].Id,
-                                                        src: arryHighlight[i].LongPhotoUrl,
-                                                        class: "content-movie-img-long",
-                                                        style: "margin-top: 9px;"
-                                                        
-                            
-                            });
-                        }else{
-                            longPhoto = $("<img>").attr({
-                                                        id: "longPhoto_" + arryHighlight[i].Id,
-                                                        src: arryHighlight[i].LongPhotoUrl,
-                                                        class: "content-movie-img-long",
-                                                        style: "margin-top: 15%;"
-                                                        
-                                                        });
-                        }
+                        longPhoto = $("<img>").attr({
+                                                    id: "longPhoto_" + arryHighlight[i].Id,
+                                                    src:arryHighlight[i].LongPhotoUrl,
+                                                    class: "content-movie-img-long",
+                                                    style: "margin-top: 9px;"
+                                                    
+                        
+                        });
                         
                         longPhoto.appendTo(subContent);
 
@@ -245,10 +209,26 @@ FmMobile.screenPg = {
         
         //From fm_widget
         //if user click the img and then play the youtube
-//        $('#my-video-list>div>img').click(function(){
-        $("img").click(function(e){
+        $('#my-video-list>div>img').click(function(){
+                                          
+<<<<<<< HEAD
+            var divID = this.parentElement.id;
+            var tempUrlArray = this.src.split('/');
+            var ytVideoID = tempUrlArray[tempUrlArray.length-2];
+            var videoFrame = $("<iframe>").attr({
+                                              id: ytVideoID,
+                                              src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
+                                              class: "content-movie-img",
+                                              frameborder: "0"
+                                              }).load(function(){
+                                                      //TODO: find a better way to have callPlayer() called after videoFrame is prepended
+                                                      setTimeout(function(){
+                                                                 callPlayer(ytVideoID,'playVideo');
+                                                                 }, 1500);
+                                                                  FmMobile.addDivFor7=true;
+                                                      });
+=======
             var arryIdType = this.id.split('_');
-                                          console.log(arryIdType);
 //            console.log('[click on video list: ]'+this);
             switch(arryIdType[0]){
                 case "imgYouTube":
@@ -256,6 +236,7 @@ FmMobile.screenPg = {
                         if (window.jQuery && frame_id instanceof jQuery){
                             frame_id = frame_id.get(0).id;
                         }
+>>>>>>> 99d292e6056d2b1bb50af6a2e8362022e50a396c
 
                         var iframe = document.getElementById(frame_id);
                         if (iframe && iframe.tagName.toUpperCase() != 'IFRAME') {
@@ -275,47 +256,25 @@ FmMobile.screenPg = {
                     var divID = this.parentElement.id;
                     var tempUrlArray = this.src.split('/');
                     var ytVideoID = tempUrlArray[tempUrlArray.length-2];
-                    var isMiix = divID.split('-').pop();
-                    if(isMiix != "miix"){//Check the video type (miix or miix_story)
-                        var videoFrame = $("<iframe>").attr({
-                                                  id: ytVideoID,
-                                                  src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
-                                                  class: "content-movie-img",
-                                                  style:"height:34%;margin-top:2%;",
-                                                  frameborder: "0"
-                                                  }).load(function(){
-                                                          //TODO: find a better way to have callPlayer() called after videoFrame is prepended
-                                                          setTimeout(function(){
-                                                                     callPlayer(ytVideoID,'playVideo');
-                                                                     }, 1500);
-                                                                      FmMobile.addDivFor7=true;
-                                                          });
-                   }else{
-                       var videoFrame = $("<iframe>").attr({
-                                                           id: ytVideoID,
-                                                           src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
-                                                           class: "content-movie-img",
-                                                           style:"height:93%;margin-top:3%;",
-                                                           frameborder: "0"
-                                                           }).load(function(){
-                                                                   //TODO: find a better way to have callPlayer() called after videoFrame is prepended
-                                                                   setTimeout(function(){
-                                                                              callPlayer(ytVideoID,'playVideo');
-                                                                              }, 1500);
-                                                                   FmMobile.addDivFor7=true;
-                                                                   });
-                   }
+                    var videoFrame = $("<iframe>").attr({
+                                                      id: ytVideoID,
+                                                      src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
+                                                      class: "content-movie-img",
+                                                      style:"height:57%;margin-top:2.5%;",
+                                                      frameborder: "0"
+                                                      }).load(function(){
+                                                              //TODO: find a better way to have callPlayer() called after videoFrame is prepended
+                                                              setTimeout(function(){
+                                                                         callPlayer(ytVideoID,'playVideo');
+                                                                         }, 1500);
+                                                              });
 
                     $('#'+divID).prepend(videoFrame);
                     $('#'+this.id).remove();
 
                     break;
-                       case "imgS3":
-                       case "longPhoto":
-                       FmMobile.screenPgScroll_y = e.pageY;
-                       FmMobile.srcForMyUgcViewer=this.src;
-                       $.mobile.changePage('imgZoomViewer.html');
-                       break;
+                case "imgS3":
+                    break;
                 default:
                     FM_LOG("[screenPg]No Type!");
             }//End of switch

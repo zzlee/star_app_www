@@ -46,6 +46,7 @@ FmMobile.checkinTextForFB;
 FmMobile.finishNumber;
 
 FmMobile.myUgcScroll_y=0;
+FmMobile.screenPgScroll_y = 0;
 
 
 FmMobile.rotateValue;

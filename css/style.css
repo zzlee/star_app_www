@@ -608,6 +608,17 @@ padding:5% 5%;
 	margin-left:3%;
     height:63.5%;
 }
+
+/** by Jean for HighLights **/
+.content-movie-long-highlight{
+	background-image:url(../images/big_frame_long.png);
+	background-repeat:no-repeat;
+	background-size:100%;
+	width: 100%;
+	margin-left: 0;
+    margin-top: 5%;
+	position:relative;
+}
 .create-movie-icon {
 	width:49%;
 	display:inline-block;
@@ -790,7 +801,7 @@ padding:5% 5%;
 .share{
 	margin-top: 2.5%;
 	margin-left: 7%;
-	width: 40%;
+    width: 40%;
 	font-size: 120%;
 	font-family:"kaiu";
 	color: #dcd586;
@@ -815,8 +826,10 @@ padding:5% 5%;
     margin-top:2%;
 }
 .facebook_name{
-	padding-top:8%;
-    padding-bottom:13%;
+	/** padding-top:8%; **/
+    padding-top: 15%; /** By Jean **/
+    /** padding-bottom:13%; **/
+    padding-bottom: 15%; /** By Jean **/
 	font-size: 125%;
 	font-family:"kaiu";
     text-shadow: none;
