@@ -31,14 +31,58 @@ init: function(){
         $("#show_intro").show();
     }
     
-    if(device.platform == "Android"){
-    	//replace the <video> with <iframe>
-    	$("#video_iOS").hide();
-    	$("#iframe_Android").show();
-    }else if((device.platform == "iPhone") || (device.platform == "iPad") || (device.platform == "iPod touch")){
-    	$("#video_iOS").show();
-    	$("#iframe_Android").hide();
-    }
+//    if(device.platform == "Android"){
+//    	//replace the <video> with <iframe>
+//    	$("#video_iOS").hide();
+//    	$("#iframe_Android").show();
+//    }else if((device.platform == "iPhone") || (device.platform == "iPad") || (device.platform == "iPod touch")){
+//    	$("#video_iOS").show();
+//    	$("#iframe_Android").hide();
+//    }
+    
+    $("#demoVideo").click(function(){
+                          FmMobile.addDivFor7=true;
+
+                          var videoFrame = $("<iframe>").attr({
+                                                              id: "3_mes5U5nlk",
+                                                              src: "http://www.youtube.com/embed/3_mes5U5nlk?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
+                                                              class: "content-movie-img",
+                                                              frameborder: "0"
+                                                              }).load(function(){
+                                                                      //TODO: find a better way to have callPlayer() called after videoFrame is prepended
+                                                                      setTimeout(function(){
+                                                                                 callPlayer(ytVideoID,'playVideo');
+                                                                                 }, 1500);
+                                                                      });
+                          
+                          var callPlayer = function (frame_id, func, args) {
+                          if (window.jQuery && frame_id instanceof jQuery){
+                          frame_id = frame_id.get(0).id;
+                          }
+                          var iframe = document.getElementById(frame_id);
+                          if (iframe && iframe.tagName.toUpperCase() != 'IFRAME') {
+                          iframe = iframe.getElementsByTagName('iframe')[0];
+                          }
+                          
+                          if (iframe) {
+                          //Frame exists,
+                          iframe.contentWindow.postMessage(JSON.stringify({
+                                                                          "event": "command",
+                                                                          "func": func,
+                                                                          "args": args || [],
+                                                                          "id": frame_id
+                                                                          }), "*");
+                          }};
+                          
+//                          if((device.version < "7") ){
+                          $('#videoDiv').prepend(videoFrame);
+                          $('#video').remove();
+//                          }else{
+//                          $('#video').prepend(videoFrame);
+                          //$('#'+this.id).remove();
+//                          }
+    });
+
     $("#close").click(function(){
               $("#show_intro").hide();
               $('#close').hide();

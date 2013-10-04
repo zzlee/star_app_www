@@ -556,6 +556,17 @@ padding:5% 5%;
 	margin-top:6%;
 	margin-left:3%;
 }
+.content-movie-img-demoVideo{
+    position:absolute;
+	top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+	width:95%;
+	margin-left:3%;
+    top:4.5%;
+}
+
 .content-movie-img_crossPlatform{
     position:absolute;
 	top: 5%;
