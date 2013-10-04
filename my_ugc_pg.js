@@ -550,12 +550,17 @@ FmMobile.myUgcPg = {
                                                               }), "*");
                 	}};
 
-                	$('#'+divID).prepend(videoFrame);
-                	$('#'+this.id).remove();
+                      if((device.version < "7") ){
+                          $('#'+divID).prepend(videoFrame);
+                          $('#'+this.id).remove();
+                      }else{
+                          $('#'+divID).prepend(videoFrame);
+                      //$('#'+this.id).remove();
+                      }
+
                 }else{
                 	FmMobile.openBrowser.openExternal("http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0");
                 }
-                break;
                 break;
             case "imgError":
                 console.log("you chosse the error item or the image");

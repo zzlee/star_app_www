@@ -63,7 +63,7 @@ FmMobile.template_previewPg = {
                                         if (!err) {
                                             FM_LOG("[templatePreview]Video uploads successfully.");
                                             FmMobile.myUgcPg.Type = "content";
-                                            FmMobile.showNotification("uploadUgc");
+//                                            FmMobile.showNotification("uploadUgc");
                                             $.mobile.hidePageLoadingMsg();
                                             $.mobile.changePage("my_ugc.html");
                                          }else{
@@ -118,7 +118,7 @@ FmMobile.template_previewPg = {
                                           }//End of if
                                     FM_LOG("[templatePreview]Image uploads successfully.");
                                     FmMobile.myUgcPg.Type = "content";
-                                    FmMobile.showNotification("uploadUgc");
+//                                    FmMobile.showNotification("uploadUgc");
                                     $.mobile.hidePageLoadingMsg();
                                     $.mobile.changePage("my_ugc.html");
                               }else{
@@ -155,7 +155,7 @@ FmMobile.template_previewPg = {
                             if (!err) {
                                 FM_LOG("[templatePreview]Image uploads successfully.");
                                 FmMobile.myUgcPg.Type = "content";
-                                FmMobile.showNotification("uploadUgc");
+//                                FmMobile.showNotification("uploadUgc");
                                 $.mobile.hidePageLoadingMsg();
                                 $.mobile.changePage("my_ugc.html");
                             }else{

@@ -291,9 +291,13 @@ FmMobile.screenPg = {
                                                                      }, 1500);
                                                                       FmMobile.addDivFor7=true;
                                                           });
-                        
-                        	$('#'+divID).prepend(videoFrame);
-                        	$('#'+this.id).remove();
+                           if((device.version < "7") ){
+                                $('#'+divID).prepend(videoFrame);
+                                $('#'+this.id).remove();
+                           }else{
+                               $('#'+divID).prepend(videoFrame);
+                           //$('#'+this.id).remove();
+                           }
                         }else{
                         	FmMobile.openBrowser.openExternal("http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0");	
                         }
@@ -314,8 +318,13 @@ FmMobile.screenPg = {
                                                                    FmMobile.addDivFor7=true;
                                                                    });
                        
-                    	   	$('#'+divID).prepend(videoFrame);
-                       		$('#'+this.id).remove();
+                           if((device.version < "7") ){
+                               $('#'+divID).prepend(videoFrame);
+                               $('#'+this.id).remove();
+                           }else{
+                               $('#'+divID).prepend(videoFrame);
+                               //$('#'+this.id).remove();
+                           }
                        }else{
                     	   FmMobile.openBrowser.openExternal("http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0");
                        }
