@@ -518,7 +518,8 @@ FmMobile.myUgcPg = {
 
                 var ytVideoID = tempUrlArray[tempUrlArray.length-2];
                 console.log("divId :" + divID);
-                var videoFrame = $("<iframe>").attr({
+                if(device.platform != "Android"){
+                	var videoFrame = $("<iframe>").attr({
                                                   id: ytVideoID,
                                                   src: "http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0&modestbranding=1&controls=0&autoplay=1",
                                                   class: "content-movie-img",
@@ -528,30 +529,33 @@ FmMobile.myUgcPg = {
                                                           setTimeout(function(){
                                                                      callPlayer(ytVideoID,'playVideo');
                                                                      }, 1500);
-                                                                      FmMobile.addDivFor7=true;
                                                           });
 
-                var callPlayer = function (frame_id, func, args) {
-                    if (window.jQuery && frame_id instanceof jQuery){
-                        frame_id = frame_id.get(0).id;
-                    }
-                    var iframe = document.getElementById(frame_id);
-                if (iframe && iframe.tagName.toUpperCase() != 'IFRAME') {
-                    iframe = iframe.getElementsByTagName('iframe')[0];
-                }
+                	var callPlayer = function (frame_id, func, args) {
+                		if (window.jQuery && frame_id instanceof jQuery){
+                			frame_id = frame_id.get(0).id;
+                		}
+                		var iframe = document.getElementById(frame_id);
+                		if (iframe && iframe.tagName.toUpperCase() != 'IFRAME') {
+                			iframe = iframe.getElementsByTagName('iframe')[0];
+                		}
                                           
-                if (iframe) {
-                // Frame exists,
-                iframe.contentWindow.postMessage(JSON.stringify({
+                		if (iframe) {
+                			//Frame exists,
+                			iframe.contentWindow.postMessage(JSON.stringify({
                                                               "event": "command",
                                                               "func": func,
                                                               "args": args || [],
                                                               "id": frame_id
                                                               }), "*");
-                }};
+                	}};
 
-                $('#'+divID).prepend(videoFrame);
-                $('#'+this.id).remove();
+                	$('#'+divID).prepend(videoFrame);
+                	$('#'+this.id).remove();
+                }else{
+                	FmMobile.openBrowser.openExternal("http://www.youtube.com/embed/" +ytVideoID + "?rel=0&showinfo=0");
+                }
+                break;
                 break;
             case "imgError":
                 console.log("you chosse the error item or the image");

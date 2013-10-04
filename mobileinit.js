@@ -133,7 +133,7 @@ $(document).bind("mobileinit", function(){
                     event.preventDefault();
                     var url = document.getElementsByTagName("a")[0].getAttribute("url");
                     if(url != null){
-                        FmMobile.openBrowser(url);
+                    	FmMobile.openBrowser.showPage(url);
                     }
                 });
                  $('#btnUseCamera').live("click", function(){
@@ -793,44 +793,37 @@ FmMobile.checkNetwork = function(){
 //    /*	In cordova2.2, navigator.network.connection.type replace with navigator.connection.type.
 //     *	It works on iOS, but Android can't. We need use <2.2 API to handle these issue.
 //     */
-    if(device.platform == "Android"){
-    	connectionType = navigator.network.connection.type;
-    }else{
-    	connectionType = navigator.connection.type;
-    }
-
-    FM_LOG("[checkNetwork]Network Status : " + connectionType);
+    var connectServerStatus = false;
     
-    
-//    var connectServerStatus = false;
-//    
-//    $.ajax({
-//    	   
-//           url: remotesite + "/connectStarServer",
-//           async: false,
-//           dataType: 'json',
-//           success: function(response){
-//        	   FM_LOG("response : " + JSON.stringify(response));
-//               if(response == 200){
-//                   connectServerStatus = true;
-//                   FM_LOG("[checkNetwork]Network Status : work");
-//               }
-//           },
-//           error: function(jqXHR, textStatus, errorThrown ){
-//        	   FM_LOG("[error]jqXHR : " + JSON.stringify(jqXHR));
-//        	   FM_LOG("[error]textStatus : " + JSON.stringify(textStatus));
-//        	   FM_LOG("[error]errorThrown : " + errorThrown);
-//        	   
-//           }
-//    });
+    $.ajax({
+    	   
+           url: remotesite + "/connectStarServer",
+           async: false,
+           dataType: 'json',
+           success: function(response){
+               if(response.message){
+            	   FM_LOG("response : " + JSON.stringify(response));
+                   connectServerStatus = true;
+                   FM_LOG("[checkNetwork]Network Status : Work");
+               }else{
+            	   connectServerStatus = false;
+               }
+           },
+           error: function(jqXHR, textStatus, errorThrown ){
+        	   FM_LOG("[error]jqXHR : " + JSON.stringify(jqXHR));
+        	   FM_LOG("[error]textStatus : " + JSON.stringify(textStatus));
+        	   FM_LOG("[error]errorThrown : " + errorThrown);
+        	   
+           }
+    });
 //    if((connectionType == "none") && (!connectServerStatus)){
-//    if(!connectServerStatus){
-    if(connectionType == "none"){
+    if(!connectServerStatus){
+//    if(connectionType == "none"){
         FmMobile.showNotification("enableNetwork");
-        FM_LOG("[checkNetwork]Network Status : none");
+        FM_LOG("[checkNetwork]Network Status : None");
         return false;
     }else{
-    	FM_LOG("[checkNetwork]Network work");
+//    	FM_LOG("[checkNetwork]Network work");
         return true;
     }
     
@@ -1631,11 +1624,14 @@ FmMobile.changePageToMyUgc = function(buttonIndex){
 };
 
 //Open external website
-FmMobile.openBrowser = function(url){
-    FM_LOG("[openBrowser] url: " + url);
-    if(FmMobile.checkNetwork()){
-        window.plugins.childBrowser.showWebPage(url);
-    }
+FmMobile.openBrowser = {
+	showPage: function(url){
+		window.plugins.childBrowser.showWebPage(url);
+	},
+	
+	openExternal: function(url){
+		window.plugins.childBrowser.openExternal(url);
+	}
 };
 
 //Set a dive under the Page
