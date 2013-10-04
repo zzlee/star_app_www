@@ -9,6 +9,7 @@ FmMobile.template_subTemplatePg = {
     },
         
     init: function(){
+         FmMobile.userContent.text=null;
     	FmMobile.changeIntroduceBackground();
         $('body').css({
         	"position":"fixed"
