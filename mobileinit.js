@@ -789,44 +789,44 @@ FmMobile.gcm = {
 /** Check network status */
 FmMobile.checkNetwork = function(){
     FM_LOG("[checkNetwork]");
-    var connectionType = null;
+//    var connectionType = null;
 //    /*	In cordova2.2, navigator.network.connection.type replace with navigator.connection.type.
 //     *	It works on iOS, but Android can't. We need use <2.2 API to handle these issue.
 //     */
-    var connectServerStatus = false;
-    
-    $.ajax({
-    	   
-           url: remotesite + "/connectStarServer",
-           async: false,
-           dataType: 'json',
-           success: function(response){
-               if(response.message){
-            	   FM_LOG("response : " + JSON.stringify(response));
-                   connectServerStatus = true;
-                   FM_LOG("[checkNetwork]Network Status : Work");
-               }else{
-            	   connectServerStatus = false;
-               }
-           },
-           error: function(jqXHR, textStatus, errorThrown ){
-        	   FM_LOG("[error]jqXHR : " + JSON.stringify(jqXHR));
-        	   FM_LOG("[error]textStatus : " + JSON.stringify(textStatus));
-        	   FM_LOG("[error]errorThrown : " + errorThrown);
-        	   
-           }
-    });
-//    if((connectionType == "none") && (!connectServerStatus)){
-    if(!connectServerStatus){
-//    if(connectionType == "none"){
-        FmMobile.showNotification("enableNetwork");
-        FM_LOG("[checkNetwork]Network Status : None");
-        return false;
-    }else{
-//    	FM_LOG("[checkNetwork]Network work");
-        return true;
-    }
-    
+//    var connectServerStatus = false;
+//    
+//    $.ajax({
+//    	   
+//           url: remotesite + "/connectStarServer",
+//           async: false,
+//           dataType: 'json',
+//           success: function(response){
+//               if(response.message){
+//            	   FM_LOG("response : " + JSON.stringify(response));
+//                   connectServerStatus = true;
+//                   FM_LOG("[checkNetwork]Network Status : Work");
+//               }else{
+//            	   connectServerStatus = false;
+//               }
+//           },
+//           error: function(jqXHR, textStatus, errorThrown ){
+//        	   FM_LOG("[error]jqXHR : " + JSON.stringify(jqXHR));
+//        	   FM_LOG("[error]textStatus : " + JSON.stringify(textStatus));
+//        	   FM_LOG("[error]errorThrown : " + errorThrown);
+//        	   
+//           }
+//    });
+////    if((connectionType == "none") && (!connectServerStatus)){
+//    if(!connectServerStatus){
+////    if(connectionType == "none"){
+//        FmMobile.showNotification("enableNetwork");
+//        FM_LOG("[checkNetwork]Network Status : None");
+//        return false;
+//    }else{
+////    	FM_LOG("[checkNetwork]Network work");
+//        return true;
+//    }
+    return true;
 
 
 };
