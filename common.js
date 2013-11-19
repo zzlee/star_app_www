@@ -1,4 +1,4 @@
-//var starServerURL = "http://test.ondascreen.com";
+//var starServerURL = "http://internal.ondascreen.com:3000";
 var starServerURL = "http://www.ondascreen.com";
 //var starServerURL = "http://192.168.5.188"; //jean
 //var starServerURL = "http://176.34.55.31";

@@ -253,15 +253,16 @@ TemplateMgr = (function(){
             },
             function(callback){
                 //load remote templates
-                remoteTemplateGroup = new TemplateGroup(starServerURL+'/contents/template/', true);
-                remoteTemplateGroup.load(function(err){
-                    callback(null);
-                });
+//                remoteTemplateGroup = new TemplateGroup(starServerURL+'/contents/template/', true);
+//                remoteTemplateGroup.load(function(err){
+//                    callback(null);
+//                });
+                      callback(null);
             },
             function(callback){
                 //merge all templates
-                $.extend(templates, localTemplateGroup.templates, remoteTemplateGroup.templates);
-                $.extend(doohPreviewTemplates, localTemplateGroup.doohPreviewTemplates, remoteTemplateGroup.doohPreviewTemplates);
+                $.extend(templates, localTemplateGroup.templates);
+                $.extend(doohPreviewTemplates, localTemplateGroup.doohPreviewTemplates);
                 callback(null);
             }
         ], 

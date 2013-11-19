@@ -394,7 +394,7 @@ FmMobile.myUgcPg = {
                                                         id: 'imgYouTube_'+ytVideoID,
                                                         src: "http://img.youtube.com/vi/"+ytVideoID+"/mqdefault.jpg",
                                                         class: "content-movie-img",
-                                                        style: "margin-top:4.5%;height:93%;"
+                                                        style: "margin-top:3%;height:92%;"
                                                               });
                         
                         Thumbnail.appendTo(widget);
@@ -525,8 +525,10 @@ FmMobile.myUgcPg = {
                                                   class: "content-movie-img",
                                                   frameborder: "0"
                                                   }).load(function(){
+                                                          
                                                           //TODO: find a better way to have callPlayer() called after videoFrame is prepended
                                                           setTimeout(function(){
+                                                                     FmMobile.addDivFor7=true;
                                                                      callPlayer(ytVideoID,'playVideo');
                                                                      }, 1500);
                                                           });

@@ -587,7 +587,8 @@ FmMobile.ajaxNewVideos = function(){
               for(var i=newVideos.length-1; i > -1; i--){
               //Add new video into videoWorks storage, remove it in processingWorks storage if completed video.
               //if(newVideos[i].fb_id){
-              videoWorks.unshift(newVideos[i]);
+              videoWorks.unsmy
+              hift(newVideos[i]);
               if(processingWorks[newVideos[i].projectId])
               delete processingWorks[newVideos[i].projectId];
               
